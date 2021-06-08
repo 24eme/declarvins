@@ -1,48 +1,48 @@
 <?php
-class DRMDroits extends BaseDRMDroits 
+class DRMDroits extends BaseDRMDroits
 {
 	const DROIT_CVO = 'cvo';
 	const DROIT_DOUANE = 'douane';
 
 	static $droit_entrees = array();
-	public static function getDroitEntrees($merge = array()) 
+	public static function getDroitEntrees($merge = array())
 	{
     	return array_merge(self::$droit_entrees, $merge);
   	}
-  	
+
   	static $droit_entrees_inter_rhone = array('entrees/crd');
-  	public static function getDroitEntreesInterRhone() 
+  	public static function getDroitEntreesInterRhone()
   	{
     	return self::$droit_entrees_inter_rhone;
   	}
-  	
-  	static $droit_sorties = array('sorties/vrac', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes');
-  	public static function getDroitSorties($merge = array()) 
+
+  	static $droit_sorties = array('sorties/vrac', 'sorties/vrac_export', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes');
+  	public static function getDroitSorties($merge = array())
   	{
     	return array_merge(self::$droit_sorties, $merge);
   	}
-  	
+
   	static $droit_sorties_inter_rhone = array();
-  	public static function getDroitSortiesInterRhone() 
+  	public static function getDroitSortiesInterRhone()
   	{
     	return self::$droit_sorties_inter_rhone;
   	}
-  	
+
   	static $douane_droit_sorties = array('sorties/factures', 'sorties/crd');
-  	public static function getDouaneDroitSorties() 
+  	public static function getDouaneDroitSorties()
   	{
     	return self::$douane_droit_sorties;
   	}
-  	
+
   	static $douane_droit_entrees = array('entrees/crd');
-  	public static function getDouaneDroitEntrees() 
+  	public static function getDouaneDroitEntrees()
   	{
     	return self::$douane_droit_entrees;
   	}
 
 	private $res = array();
-	
-	private function addVirtual($key, $value) 
+
+	private function addVirtual($key, $value)
 	{
     	if (!isset($this->res[$key])) {
       		$this->res[$key] = new DRMDroit($value->getDefinition(), $value->getDocument(), $value->getHash());
@@ -52,7 +52,7 @@ class DRMDroits extends BaseDRMDroits
     	$this->res[$key]->libelle = $value->libelle;
   	}
 
-	public function getDroitsWithVirtual() 
+	public function getDroitsWithVirtual()
 	{
     	$this->res = $this->toArray();
     	$nb_total = array();
@@ -67,13 +67,13 @@ class DRMDroits extends BaseDRMDroits
 	      	}*/
       		$this->addVirtual('ZZZZTotal', $value);
     	}
-    
+
     	foreach($nb_total as $code => $nb) {
 			if ($nb < 2) {
 				unset($this->res[$code]);
 			}
     	}
-    	
+
     	/*if (count($this->res) == 2) {
       		unset($this->res['ZZZZTotal']);
     	}*/
@@ -87,7 +87,7 @@ class DRMDroits extends BaseDRMDroits
     	return $this->res;
   	}
 
-	public function getCumul() 
+	public function getCumul()
 	{
     	$sum = 0;
     	foreach ($this->toArray() as $key => $value) {
@@ -96,7 +96,7 @@ class DRMDroits extends BaseDRMDroits
     	return $sum;
   	}
 
-	public function getReport() 
+	public function getReport()
 	{
     	$sum = 0;
     	foreach ($this->toArray() as $key => $value) {

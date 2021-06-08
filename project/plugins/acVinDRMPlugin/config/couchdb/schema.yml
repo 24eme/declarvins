@@ -387,6 +387,7 @@ DRM:
                                                                                                               definition:
                                                                                                                 fields:
                                                                                                                   vrac: { type: float }
+                                                                                                                  vrac_export: { type: float }
                                                                                                                   export: { type: float }
                                                                                                                   factures: { type: float }
                                                                                                                   crd: { type: float }
