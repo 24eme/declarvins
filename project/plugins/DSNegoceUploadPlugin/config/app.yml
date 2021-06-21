@@ -1,0 +1,5 @@
+all:
+  dsnegoceupload:
+    date: "2021-07-01"
+    cloture: "2021-12-15"
+    cloture_libelle: "15 Septembre"

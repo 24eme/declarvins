@@ -7,7 +7,7 @@ class EtablissementDroit
     const DROIT_VRAC = 'vrac';
     const DROIT_DAE = 'dae';
     const DROIT_DAEE = 'daee';
-    const DROIT_DSNEGOCE = 'dsnegoce';
+    const DROIT_DSNEGOCEUPLOAD = 'dsnegoceupload';
 
 
     protected $etablissement;

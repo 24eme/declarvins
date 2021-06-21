@@ -38,10 +38,10 @@ class ProjectConfiguration extends sfProjectConfiguration
     	$this->enablePlugins('acVinEdiPlugin');
     	$this->enablePlugins('acVinDAEPlugin');
     	$this->enablePlugins('acVinFichierPlugin');
-    	$this->enablePlugins('DSNegocePlugin');
+    	$this->enablePlugins('DSNegoceUploadPlugin');
     	$this->enablePlugins('acVinSubventionPlugin');
 	}
-	
+
 	public static function getAppRouting()
 	{
 		if (null !== self::$routing) {

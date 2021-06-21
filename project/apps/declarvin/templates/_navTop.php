@@ -25,9 +25,9 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
-        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCE))): ?>
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCEUPLOAD))): ?>
         <li<?php if ($active == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('dsnegoce_mon_espace', $etablissement) ?>">DS Négoce</a>
+            <a href="<?php echo url_for('dsnegoceupload_mon_espace', $etablissement) ?>">DS Négoce</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>
