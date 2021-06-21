@@ -282,6 +282,7 @@ DRM:
                                                                                                             code: {  }
                                                                                                             libelle: {  }
                                                                                                             selecteur: {  }
+                                                                                                            inao: { required: false }
                                                                                                             has_vrac: {  }
                                                                                                             observations: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
@@ -386,6 +387,7 @@ DRM:
                                                                                                               definition:
                                                                                                                 fields:
                                                                                                                   vrac: { type: float }
+                                                                                                                  vrac_export: { type: float }
                                                                                                                   export: { type: float }
                                                                                                                   factures: { type: float }
                                                                                                                   crd: { type: float }

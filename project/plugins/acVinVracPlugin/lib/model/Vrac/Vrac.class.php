@@ -4,24 +4,24 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	const MODE_DE_SAISIE_PAPIER = 'PAPIER';
     const MODE_DE_SAISIE_DTI = 'DTI';
     const MODE_DE_SAISIE_EDI = 'EDI';
-    
+
     protected static $_mode_de_saisie_libelles = array (
     									self::MODE_DE_SAISIE_PAPIER => 'par l\'interprofession (papier)',
     									self::MODE_DE_SAISIE_DTI => 'via Declarvins (DTI)',
     									self::MODE_DE_SAISIE_EDI => 'via votre logiciel (EDI)');
     protected $version_document = null;
     protected $suivante = null;
-    
+
 	public function __construct() {
         parent::__construct();
         $this->version_document = new VersionDocument($this);
     }
-    
-    public function constructId() 
+
+    public function constructId()
     {
         $this->set('_id', $this->makeId());
     }
-    
+
     public function makeId()
     {
     	$id = 'VRAC-'.$this->numero_contrat;
@@ -30,7 +30,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return $id;
     }
-    
+
     public function initClauses() {
         $this->remove('clauses');
         $this->remove('clauses_complementaires');
@@ -54,7 +54,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
         $this->clauses_complementaires = implode(',', $cc);
     }
-    
+
     public function getLibellesMentions()
     {
         $mentions = $this->getMentions();
@@ -73,7 +73,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
         return $result;
     }
-    
+
     public function getLibellesLabels()
     {
         $labels = $this->labels_arr;
@@ -87,12 +87,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         return $result;
     }
 
-    public function getProduitObject() 
+    public function getProduitObject()
     {
         $configuration = ConfigurationClient::getCurrent();
         return $configuration->getConfigurationProduit($this->produit);
     }
-    
+
     public function getCepagesProduit($withDefault = false)
     {
     	$configuration = ConfigurationClient::getCurrent();
@@ -113,7 +113,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return $cepages;
     }
-    
+
     public function getLibelleProduit($format = "%g% %a% %l% %co% %ce%", $force = false)
     {
     	if ($this->produit_libelle && !$force) {
@@ -123,21 +123,21 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return ConfigurationProduitClient::getInstance()->format($produit->getLibelles(), array(), $format);
     }
 
-    public function getVendeurObject() 
+    public function getVendeurObject()
     {
         return EtablissementClient::getInstance()->find($this->vendeur_identifiant,acCouchdbClient::HYDRATE_DOCUMENT);
     }
-    
-    public function getAcheteurObject() 
+
+    public function getAcheteurObject()
     {
         return EtablissementClient::getInstance()->find($this->acheteur_identifiant,acCouchdbClient::HYDRATE_DOCUMENT);
     }
-    
-    public function getMandataireObject() 
+
+    public function getMandataireObject()
     {
         return EtablissementClient::getInstance()->find($this->mandataire_identifiant,acCouchdbClient::HYDRATE_DOCUMENT);
     }
-    
+
     public function vendeurHasCompteActif()
     {
         $etablissement = $this->getVendeurObject();
@@ -164,8 +164,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return false;
     }
-    
-    public function getSoussigneObjectById($soussigneId) 
+
+    public function getSoussigneObjectById($soussigneId)
     {
         return EtablissementClient::getInstance()->find($soussigneId,acCouchdbClient::HYDRATE_DOCUMENT);
     }
@@ -177,7 +177,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
         return null;
     }
-    
+
     public function getCreateur($object = false)
     {
     	if ($this->vous_etes) {
@@ -187,13 +187,13 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return null;
     }
-    
-    public function getVendeurInterpro() 
+
+    public function getVendeurInterpro()
     {
         return $this->getVendeurObject()->interpro;
     }
 
-    public function getProduitInterpro() 
+    public function getProduitInterpro()
     {
     	if ($this->produit) {
     		$produit = $this->getProduitObject();
@@ -205,7 +205,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return null;
     }
-    
+
     public function isConditionneIvse()
     {
     	if ($interpro = $this->getProduitInterpro()) {
@@ -215,7 +215,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return false;
     }
-    
+
     public function isConditionneIr()
     {
     	if ($interpro = $this->getProduitInterpro()) {
@@ -224,9 +224,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		}
     	}
     	return false;
-        
+
     }
-    
+
     public function isConditionneCivp()
     {
     	if ($interpro = $this->getProduitInterpro()) {
@@ -235,7 +235,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		}
     	}
     	return false;
-        
+
     }
 
     public function storeSoussignesInformations() {
@@ -250,9 +250,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
      	}
     }
 
-    public function storeSoussigneInformations($type, $etablissement) 
-    {        
-    	   
+    public function storeSoussigneInformations($type, $etablissement)
+    {
+
     	   if (!$this->mandataire_exist && !$this->mandataire_identifiant) {
     	   	$this->remove('mandataire');
     	   	$this->add('mandataire');
@@ -260,13 +260,13 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	   $informations = $this->get($type);
 
          if(!$etablissement) {
-			
+
           return null;
          }
          if ($this->exist($type.'_type')) {
          	$this->{$type.'_type'} = $etablissement->famille;
          }
-         
+
         if ($informations->exist('nom')) $informations->nom = $etablissement->nom;
       	if ($informations->exist('raison_sociale')) $informations->raison_sociale = $etablissement->raison_sociale;
       	if ($informations->exist('siret')) $informations->siret = $etablissement->siret;
@@ -289,15 +289,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       		}
       	}
     }
-    
+
     public function getCvoUnitaire() {
     	return round($this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2);
     }
-    
+
     public function getTotalUnitaire() {
     	return ($this->type_transaction == 'vrac' && $this->isConditionneIr())? round($this->prix_unitaire + $this->getCvoUnitaire(), 2) : round($this->prix_unitaire, 2);
     }
-    
+
     public function setDetailProduit($produit)
     {
     	$this->produit_detail->appellation->code = $produit->getAppellation()->code;
@@ -336,11 +336,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	$this->prix_total = round($this->prix_unitaire * $vol, 2);
 	  }
     }
-    
+
     public function getPrixTotalCalc() {
         return round($this->getTotalUnitaire() * $this->volume_propose, 2);
     }
-    
+
     public function normalizeNumeric()
     {
     	$this->prix_unitaire = ($this->prix_unitaire)? $this->prix_unitaire * 1 : 0;
@@ -349,7 +349,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->volume_propose = ($this->volume_propose)? $this->volume_propose * 1 : 0;
     	$this->volume_enleve = ($this->volume_enleve)? $this->volume_enleve * 1 : 0;
     }
-    
+
     public function annuler($user, $etablissement = null, $force = false) {
     	$this->getOrAdd('annulation');
     	$this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION;
@@ -457,7 +457,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     }
 
-    public function validateEdi() 
+    public function validateEdi()
     {
     	$this->vous_etes = 'vendeur';
     	$this->date_signature = date('c');
@@ -471,7 +471,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->interpro = $interpro->_id;
     	}
     }
-    
+
     public function getHasCotisationCvo() {
         $interpro = $this->interpro;
         if ($i = $this->getProduitInterpro()) {
@@ -482,7 +482,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
         return $this->_get('has_cotisation_cvo');
     }
-    
+
 	public function getTypeByEtablissement($identifiant)
 	{
 		$type = null;
@@ -513,7 +513,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	    	$this->add('oioc');
     	}
     }
-    
+
     public function updateStatut() {
       $acteurs = VracClient::getInstance()->getActeurs();
       if (!$this->mandataire_exist) {
@@ -544,7 +544,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->setOioc();
       }
     }
-    
+
     public function updateReferente()
     {
     	$this->referente = 1;
@@ -556,7 +556,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$mother->save(false);
     	}
     }
-    
+
     public function hasOioc()
     {
     	$produit = $this->getProduitObject();
@@ -564,9 +564,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	    	return true;
     	}
     	return false;
-    	
+
     }
-    
+
     public function setOioc()
     {
     	$produit = $this->getProduitObject();
@@ -579,7 +579,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		}
     	}
     }
-    
+
     public function hasEnlevements()
     {
     	if ($this->exist('enlevements')) {
@@ -596,7 +596,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
         }
     }
-    
+
     public function save($updateStatutSolde = true) {
     	$this->updateVolumeEnleve();
     	if ($updateStatutSolde) {
@@ -612,9 +612,29 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if ($this->produit && $this->interpro && $this->type_transaction && $this->interpro == 'INTERPRO-CIVP' && $this->type_transaction == 'vrac') {
     	    $this->has_transaction = 1;
     	}
+			$manageAttachments = ($this->isNew() && $this->version);
     	parent::save();
+			if ($manageAttachments) {
+				if ($previous = $this->findDocumentByVersion($this->getPreviousVersion())) {
+					if ($previous->exist('_attachments')) {
+						$files = [];
+						foreach ($previous->_attachments as $filename => $fileinfos) {
+								$path = "/tmp/$filename";
+								file_put_contents($path, file_get_contents($previous->getAttachmentUri($filename)));
+								$files[$filename] = $path;
+						}
+						$this->add('_attachments');
+						foreach ($files as $filename => $file) {
+							$mime = mime_content_type($file);
+							$this->storeAttachment($file, $mime, $filename);
+							unlink($file);
+						}
+						parent::save();
+					}
+				}
+			}
     }
-    
+
     protected function updateVolumeEnleve() {
     	if (!$this->exist('enlevements')) {
     		return;
@@ -625,7 +645,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	$this->volume_enleve = $vol;
     }
-    
+
     public function updateEnlevements()
     {
     	$identifiant = $this->numero_contrat;
@@ -660,15 +680,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 			$drm->save();
 		}
     }
-    
+
     public function isSolde() {
     	return ($this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE);
     }
-    
+
     public function desolder() {
     	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     }
-    
+
     public function isEnCoursSaisie() {
 
       return $this->valide->statut == null;
@@ -688,7 +708,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function isModifiableVolume() {
         if($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
-            
+
             return false;
         }
 
@@ -703,7 +723,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     public function isVisualisable() {
       return ($this->valide->statut)? true : false;
     }
-    
+
     public function getStatutCssClass() {
     	$statuts = VracClient::getInstance()->getStatusContratCssClass();
     	if ($this->valide->statut && isset($statuts[$this->valide->statut])) {
@@ -719,19 +739,19 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$libelles = self::getModeDeSaisieLibelles();
     	return (isset($libelles[$this->mode_de_saisie]))? $libelles[$this->mode_de_saisie] : null;
     }
-    
+
     public function hasAdresseLivraison() {
     	return ($this->adresse_livraison->adresse || $this->adresse_livraison->code_postal || $this->adresse_livraison->commune);
     }
-    
+
     public function hasAdresseStockage() {
     	return ($this->adresse_stockage->adresse || $this->adresse_stockage->code_postal || $this->adresse_stockage->commune);
     }
-    
+
     public function integreVolumeEnleve($volume) {
     	$this->volume_enleve = $this->volume_enleve + $volume;
     }
-    
+
     public function soustraitVolumeEnleve($volume) {
     	$this->volume_enleve = $this->volume_enleve - $volume;
     }
@@ -740,7 +760,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     public static function getModeDeSaisieLibelles() {
 		return self::$_mode_de_saisie_libelles;
     }
-    
+
     public function setImportableVendeur($identifiant = null, $ea = null, $siretCvi = null) {
     	$referent = null;
     	if ($identifiant) {
@@ -762,7 +782,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->storeSoussigneInformations('vendeur', $referent);
     	return true;
     }
-    
+
     /*     * ** VERSION *** */
 
     public static function buildVersion($rectificative, $modificative) {
@@ -829,10 +849,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function getPreviousVersion() {
-        
+
         return $this->version_document->getPreviousVersion();
     }
-	
+
     public function getMasterVersionOfRectificative() {
         throw new sfException('inutile');
     }
@@ -928,8 +948,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     /*     * ** FIN DE VERSION *** */
-    
-    
+
+
     public function storeAnnexe($file) {
         if (!is_file($file)) {
             throw new sfException($file." n'est pas un fichier valide");

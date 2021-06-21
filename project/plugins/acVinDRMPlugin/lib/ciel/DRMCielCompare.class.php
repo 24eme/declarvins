@@ -3,18 +3,18 @@ class DRMCielCompare
 {
 	protected $xmlIn;
 	protected $xmlOut;
-	
+
 	public function __construct($xmlIn, $xmlOut)
 	{
 		$this->xmlIn = $xmlIn;
 		$this->xmlOut = $xmlOut;
 	}
-	
+
 	public function getDiff()
 	{
 		$arrIn = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn)))); // CIEL
 		$arrOut = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut)))); // INTERPRO
-		
+
 		$diff = array();
 		$stocksIn = 0;
 		$stocksOut = 0;
@@ -48,12 +48,12 @@ class DRMCielCompare
 		}
 		return $diff;
 	}
-	
+
 	public function getLitteralDiff()
 	{
 		$arrIn = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn)))); // CIEL
 		$arrOut = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut)))); // INTERPRO
-		
+
 		$diff = array();
 		$stocksIn = 0;
 		$stocksOut = 0;
@@ -87,8 +87,8 @@ class DRMCielCompare
 		}
 		return $diff;
 	}
-	
-	private function updateReplacementKeys($arr) 
+
+	private function updateReplacementKeys($arr)
 	{
 	    $updatedArr = array();
 	    foreach ($arr as $key => $value) {
@@ -111,7 +111,7 @@ class DRMCielCompare
 	    }
 	    return $updatedArr;
 	}
-	
+
 	private function cleanKey($key)
 	{
 		$cleans = array(
@@ -126,7 +126,7 @@ class DRMCielCompare
 		}
 		return $key;
 	}
-	
+
 	public function hasDiff()
 	{
 		return (count($this->getDiff()) > 0)? true : false;
@@ -136,12 +136,12 @@ class DRMCielCompare
 	{
 		return json_decode(json_encode((array)$xml), true);
 	}
-	
+
 	private function flattenArray($array)
 	{
 		return acCouchdbToolsJson::json2FlatenArray($array, null, '_');
 	}
-	
+
 	private function identifyKey($array)
 	{
 		$patternProduit = '/\/produit\/\{array\}\/([0-9]+)\/\{array\}\//i';
@@ -164,6 +164,9 @@ class DRMCielCompare
 					$newKeyProduit .= '_'.KeyInflector::slugify($value);
 					continue;
 				}
+				if (!preg_match($patternCrd, $key) && preg_match('/\/compte-crd\/\{array\}\//i', $key)) {
+					$key = str_replace('compte-crd/{array}', 'compte-crd/{array}/0/{array}', $key);
+				}
 				if (preg_match($patternCrd, $key) && preg_match('/categorie-fiscale-capsules/i', $key)) {
 					$newKeyCrd = $value;
 					continue;
@@ -178,7 +181,7 @@ class DRMCielCompare
 						continue;
 					} elseif (preg_match('/bib/i', $key)) {
 						$newKeyCentilisation .= ($value == 1 || $value == 'true')? 1 : 0;
-						continue;						
+						continue;
 					} else {
 						$newKeyCentilisation = $value;
 						continue;
@@ -191,7 +194,7 @@ class DRMCielCompare
 				} elseif (preg_match($patternCrd, $key) || preg_match($patternCentilisation, $key)) {
 					$tmp = preg_replace($patternCrd, '/compte-crd/{array}/'.$newKeyCrd.'/{array}/', $key);
 					$tmp = preg_replace($patternCentilisation, '/centilisation/{array}/'.$newKeyCentilisation.'/{array}/', $tmp);
-					$result[$tmp] = $value;		
+					$result[$tmp] = $value;
 				} else {
 					$result[$key] = $value;
 				}

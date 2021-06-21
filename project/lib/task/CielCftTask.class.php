@@ -8,7 +8,7 @@ class CielCftTask extends sfBaseTask
 	CONST RAPPORT_GENERATE_KEY = 'GENERATE';
 	CONST RAPPORT_PASS_KEY = 'PASS';
 	CONST RAPPORT_ERROR_KEY = 'ERROR';
-	
+
   protected function configure()
   {
 
@@ -32,7 +32,7 @@ class CielCftTask extends sfBaseTask
 
 EOF;
   }
-    
+
   private function initRapport()
   {
   	$rapport = array();
@@ -44,7 +44,7 @@ EOF;
   	$rapport[self::RAPPORT_ERROR_KEY] = array();
   	return $rapport;
   }
-  
+
   private function getTitle($key, $nb)
   {
   	$title = $nb;
@@ -72,11 +72,11 @@ EOF;
   	}
   	return $title;
   }
-  
+
   private function messagizeRapport($rapport)
   {
   	$message = '<h2>Monitoring du flux de DRM en provenance de Prodou@ne / CIEL</h2>';
-  	
+
   	foreach ($rapport as $rapportKey => $rapportItem) {
   		if (count($rapportItem) > 0 && $rapportKey != self::RAPPORT_PASS_KEY) {
   			$message .= '<h3>'.$this->getTitle($rapportKey, count($rapportItem)).'</h3>';
@@ -90,7 +90,7 @@ EOF;
 		  	$message .= '</ul>';
   		}
   	}
-  	
+
   	return $message;
   }
 
@@ -99,7 +99,7 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-    
+
     $checkingMode = $options['checking'];
     $dailyMode = $options['daily'];
     $interpro = $options['interpro'];
@@ -107,16 +107,16 @@ EOF;
     	$interpro = InterproClient::getInstance()->find($interpro);
     }
     $contextInstance = sfContext::createInstance($this->configuration);
-    
+
     if ($dailyMode) {
     	$date = new DateTime();
     	$date->modify('-1 day');
-    	$target = $arguments['target']."&from=".$date->format('Y-m-d');	
+    	$target = $arguments['target']."&from=".$date->format('Y-m-d');
     } else {
         $date = null;
-    	$target = $arguments['target'];	
+    	$target = $arguments['target'];
     }
-    
+
     $list = simplexml_load_file($target, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     $rapport = $this->initRapport();
     $files = array();
@@ -141,22 +141,19 @@ EOF;
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     						$compare = new DRMCielCompare($xmlIn, $xmlOut);
 
-    						$rectif = $drm->findMaster();
-    						if ($rectif && $rectif->version == 'R01') {
-    							if (!$checkingMode) {
-    								$rectif->delete();
-    							}
-    						}
-    						
     						if (!$compare->hasDiff()) {
     							if (!$checkingMode) {
+										if (!$drm->isVersionnable()) {
+											$rectif = $drm->getMaster();
+											$rectif->delete();
+										}
 	    							$drm->ciel->valide = 1;
 	    							$drm->save();
 	    							Email::getInstance()->cielValide($drm);
     							}
     							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
     						} else {
-    							
+
     							if ($drm->isVersionnable()) {
     								if (!$checkingMode) {
 	    								$drm_rectificative = $drm->generateRectificative(true);
@@ -172,7 +169,7 @@ EOF;
 	    								$diffs .= "<li>$k => $v</li>";
 	    							}
 	    							$diffs .= '</ul>';
-	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux modifications suivantes : '.$diffs;
+	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux rectifications suivantes : '.$diffs;
 	    							$files[] = $item;
     							} else {
     								$rapport[self::RAPPORT_PASS_KEY][] = 'La DRM '.$drm->_id.' à déjà été traitée';
@@ -181,14 +178,14 @@ EOF;
     					} else {
     						$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible de générer le XML de La DRM '.$drm->_id;
     					}
-    				
+
     			} else {
     			    $generate = false;
-    			    $stockEpuiseSuspendus = (bool) $xmlIn->{"declaration-recapitulative"}->{"droits-suspendus"}->{"stockEpuise"};
-    			    $stockEpuiseAcquittes = (bool) $xmlIn->{"declaration-recapitulative"}->{"droits-acquittes"}->{"stockEpuise"};
+    			    $stockEpuiseSuspendus = (string) $xmlIn->{"declaration-recapitulative"}->{"droits-suspendus"}->{"stockEpuise"};
+    			    $stockEpuiseAcquittes = (string) $xmlIn->{"declaration-recapitulative"}->{"droits-acquittes"}->{"stockEpuise"};
     			    $periodePrecedente = (((int) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"}) - 1 > 0)? sprintf("%4d-%02d", (int)$xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, ((int) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"}) - 1) : sprintf("%4d-%02d", ((int)$xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}-1), 12);
     			    if ($drmPrecedente = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periodePrecedente)) {
-    			        if($drmPrecedente->hasStocksEpuise() && $stockEpuiseSuspendus && $stockEpuiseAcquittes) {
+    			        if($drmPrecedente->hasStocksEpuise() && strtolower(trim($stockEpuiseSuspendus)) == "true" && strtolower(trim($stockEpuiseAcquittes)) == "true") {
     			            $drmGeneree = $drmPrecedente->generateSuivante();
     			            $drmGeneree->constructId();
     			            if (!DRMClient::getInstance()->find($drmGeneree->_id)) {
@@ -233,7 +230,7 @@ EOF;
 	    if (count($files) > 0) {
 	    	$target = '/tmp/cielxml/';
 	    	$zipname = date('Ymd').'_xml.zip';
-	    	
+
 	    	exec('mkdir -p '.$target);
 	    	exec('mkdir -p '.$target.date('Ymd').'/');
 	    	foreach ($files as $file) {

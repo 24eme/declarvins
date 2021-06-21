@@ -25,9 +25,9 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
-        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCE))): ?>
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCEUPLOAD))): ?>
         <li<?php if ($active == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('dsnegoce_mon_espace', $etablissement) ?>">DS Négoce</a>
+            <a href="<?php echo url_for('dsnegoceupload_mon_espace', $etablissement) ?>">DS Négoce</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>
@@ -39,13 +39,13 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
 
-        <?php if($etablissement->hasZoneIS() || $active == 'subvention'): ?>
+        <?php if(SubventionConfiguration::getInstance()->isActif($etablissement, $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
         </li>
         <?php endif; ?>
 
-        <?php if(($etablissement->hasDocuments() && 1==2) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if(($etablissement->hasDocuments()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'documents'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('fichiers_etablissement', $etablissement) ?>">Documents</a>
         </li>

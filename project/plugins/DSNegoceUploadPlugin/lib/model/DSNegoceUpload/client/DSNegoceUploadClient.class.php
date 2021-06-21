@@ -1,12 +1,12 @@
 <?php
 
-class DSNegoceClient extends acCouchdbClient {
-	
-	const TYPE_MODEL = 'DSNEGOCE';
-	
+class DSNegoceUploadClient extends acCouchdbClient {
+
+	const TYPE_MODEL = 'DSNEGOCEUPLOAD';
+
     public static function getInstance()
     {
-      return acCouchdbManager::getClient("DSNegoce");
+      return acCouchdbManager::getClient("DSNegoceUpload");
     }
 
     public function findByArgs($identifiant, $periode)
@@ -14,7 +14,7 @@ class DSNegoceClient extends acCouchdbClient {
     	$id = self::TYPE_MODEL.'-' . $identifiant . '-' . $annee;
     	return $this->find($id);
     }
-    
+
     protected function getPeriodeByDate($date = null)
     {
     	return substr($date, 0, -3);
@@ -22,11 +22,11 @@ class DSNegoceClient extends acCouchdbClient {
 
     public function createDoc($identifiant, $date, $papier = false)
     {
-        $fichier = new DSNegoce();
+        $fichier = new DSNegoceUpload();
         $fichier->initDoc($identifiant);
         $fichier->date_import = $date;
         $fichier->date_depot = date('Y-m-d');
-        $fichier->visibilite = 1;        
+        $fichier->visibilite = 1;
         $fichier->periode = $this->getPeriodeByDate($date);
         $cm = new CampagneManager('08-01');
         $fichier->campagne = $cm->getCampagneByDate($date);
@@ -36,7 +36,7 @@ class DSNegoceClient extends acCouchdbClient {
         }
         return $fichier;
     }
-    
+
     public function findByIdentifiant($identifiant,  $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
     {
     	$view = $this->startkey(sprintf(self::TYPE_MODEL."-%s-%s-%s-%s", $identifiant, "0000", "00", "000"))

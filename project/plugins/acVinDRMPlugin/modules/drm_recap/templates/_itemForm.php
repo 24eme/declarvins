@@ -22,7 +22,7 @@
             	<?php echo $form['tav']->render(array('data-val-defaut' => sprintFloat($form->getObject()->tav, "%01.05f"), 'class' => 'num num_float')) ?>
             </p>
             <p class="<?php echo isVersionnerCssClass($form->getObject(), 'premix') ?>">
-            	<?php echo $form['premix']->render(array('data-val-defaut' => $form->getObject()->premix)) ?>
+            	<?php echo $form['premix']->render(array('class' => 'num_check', 'data-val-defaut' => $form->getObject()->premix)) ?>
             </p>
             <?php if($acquittes): ?>
             <h1>&nbsp;</h1>

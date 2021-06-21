@@ -127,7 +127,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->save();
         return $transfert;
     }
-    
+
     public function restoreLibelle()
     {
     	if ($drmPrecedente = $this->getPrecedente()) {
@@ -139,7 +139,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     		}
     	}
     }
-    
+
     public function addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock = 0)
     {
     	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation, $centilitre, $bib);
@@ -309,13 +309,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	$this->remove('ciel');
         	$this->add('ciel');
         }
-        
-        
+
+
         $this->initCrds();
 
         $this->devalide();
     }
-    
+
     public function initCrds()
     {
     	foreach ($this->crds as $crd) {
@@ -354,7 +354,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	}
         }
     }
-    
+
     public function hasStocksEpuise() {
         $hasStock = false;
         foreach ($details as $detail) {
@@ -455,7 +455,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $e;
     }
-    
+
     public function getEtablissementObject() {
     	return $this->getEtablissement();
     }
@@ -491,7 +491,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $this->store('historique', array($this, 'getHistoriqueAbstract'));
     }
-    
+
     public function isFirstCiel() {
     	if (!$this->getEtablissementObject()->isTransmissionCiel()) {
     		return false;
@@ -557,14 +557,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->valide->date_signee = null;
         $this->annuleUpdateVrac();
     }
-    
+
     public function cleanCiel() {
     	if ($this->exist('ciel')) {
     		$this->remove('ciel');
     		$this->add('ciel');
     	}
     }
-    
+
     public function annuleUpdateVrac()
     {
     	$mothers = array();
@@ -597,14 +597,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return ($this->valide->date_saisie);
     }
-    
+
     public function validateAutoCiel($xml) {
         $this->ciel->transfere = 1;
         $this->ciel->valide = 1;
         $this->ciel->identifiant_declaration = "AUTOGENERE";
         $this->ciel->horodatage_depot = date('c');
         $this->ciel->xml = $xml;
-        
+
     }
 
     public function validate($options = array()) {
@@ -623,7 +623,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $next_drm->precedente = $this->_id;
             $next_drm->save();
         }
-        
+
         if (!$this->hasDroitsAcquittes()) {
         	$this->cleanVolumesAcquittes();
         }
@@ -640,17 +640,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->updateVrac();
         $this->updateCrds();
         $this->setEtablissementInformations();
-         
+
         $this->generateMouvements();
-        
+
         if ($this->getSuivante() && $this->isSuivanteCoherente()) {
             $this->getSuivante()->precedente = $this->get('_id');
             $this->getSuivante()->save();
         }
         $this->storeReferente();
-        
+
     }
-    
+
     public function isTeledeclare()
     {
     	return ($this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI);
@@ -742,13 +742,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             }
         }
     }
-    
+
     public function updateCrds() {
     	foreach ($this->crds as $crd) {
     		$crd->updateStocks();
     	}
     }
-    
+
     public function hasMouvementsCrd() {
     	$mvt = false;
     	foreach ($this->crds as $crd) {
@@ -838,7 +838,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     {
     	return false;
     }
-    
+
 	public function save($updateBilan = true) {
         parent::save();
         if ($updateBilan) {
@@ -938,7 +938,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return false;
         }
     }
-    
+
     public function hasVolumeAcquittes()
     {
     	if (!$this->hasDroitsAcquittes()) {
@@ -956,7 +956,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     {
     	$this->droits_acquittes = ($has)? 1 : 0;
     }
-    
+
     public function hasDroitsAcquittes()
     {
     	return ($this->droits_acquittes)? true : false;
@@ -1105,7 +1105,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         }
         return ($this->manquants->contrats) ? true : false;
     }
-    
+
     public function hasVolumeVracWithoutDetailVrac(){
     	$result = false;
         foreach ($this->getDetailsAvecVrac() as $detail) {
@@ -1125,18 +1125,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getLibelleBilan() {
-            return DRMClient::getLibellesForStatusBilan($this->getStatutBilan());        
+            return DRMClient::getLibellesForStatusBilan($this->getStatutBilan());
     }
-    
+
     public function getStatutBilan() {
         $drmCiel = $this->getOrAdd('ciel');
         if ($drmCiel->isValide()) {
         	return DRMClient::DRM_STATUS_BILAN_VALIDE_CIEL;
         }
-        if ($drmCiel->isTransfere() && !$this->isRectificative()) {
+        if ($drmCiel->isTransfere() && $drmCiel->getReponseCiel()) {
         	return DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL;
         }
-        if ($this->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->valide) {
+        if ($this->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->valide && !$drmCiel->getReponseCiel()) {
         	return DRMClient::DRM_STATUS_BILAN_DIFF_CIEL;
         }
         if($this->isNew()){
@@ -1164,7 +1164,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     		$produit->observations = "".$observation;
     	}
     }
-    
+
     /*     * ** VERSION *** */
 
     public static function buildVersion($rectificative, $modificative) {
@@ -1212,9 +1212,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function isRectifiable() {
-		if ($this->exist('ciel') && $this->ciel->transfere) {
-			return false;
-		}
+        if ($this->exist('ciel') && $this->ciel->transfere) {
+          return false;
+        }
         return $this->version_document->isRectifiable();
     }
 
@@ -1291,11 +1291,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
             return true;
         }
-        
+
         if ($this->declaratif->paiement->douane->frequence != $this->getMother()->declaratif->paiement->douane->frequence) {
         	return true;
         }
-        
+
         $change = false;
         foreach ($this->getDetails() as $detail) {
         	if ($old = $this->getMother()->get($detail->getHash())) {
@@ -1308,12 +1308,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         		break;
         	}
         }
-        
-        
+
+
 
         return $change;
     }
-    
+
     public function hasRectifications() {
     	if(!$this->hasVersion()) {
     		return false;
@@ -1387,7 +1387,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->replicate($document);
         $document->update();
     }
-    
+
     protected function updateReplicate($drm) {
     	$precedente = $drm->getPrecedente();
     	if ($precedente && $drm->getCampagne() == $precedente->getCampagne()) {
@@ -1439,7 +1439,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->_get('mouvements');
     }
 
-    public function getMouvementsCalcule() {  
+    public function getMouvementsCalcule() {
         return $this->declaration->getMouvements();
     }
 
@@ -1478,20 +1478,20 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     /*     * ** FIN DES MOUVEMENTS *** */
-    
-    
+
+
     /* CREATION BILAN */
-    
+
     public function updateBilan() {
        $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($this->identifiant, 'DRM');
        $bilan->updateEtablissement();
        $bilan->updateFromDRM($this);
        $bilan->save();
     }
-    
-    
+
+
     /* FIN DES MOUVEMENTS *** */
-    
+
     /* EXPORTABLE */
     public function getExportableProduits($interpro = null) {
     	return $this->getDetails($interpro);
@@ -1501,7 +1501,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $e = $this->getEtablissementObject();
         $produits = $this->getDetails();
 
-        if (!$this->isMoisOuvert()) {
+        if ($this->isMoisOuvert()) {
             return $produits;
         }
         $drm_precedente = $this->getPrecedente(true);
@@ -1545,18 +1545,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	}
     	return $result;
     }
-    
+
     public function getExportableCrds() {
     	$crds = array();
     	foreach ($this->crds as $key => $crd) {
     		$crds[$key] = array();
     		$champs = array(
-    			array('total_debut_mois', null),	
-    			array('entrees', 'achats'),	
-    			array('entrees', 'excedents'),	
-    			array('entrees', 'retours'),	
-    			array('sorties', 'utilisees'),	
-    			array('sorties', 'detruites'),	
+    			array('total_debut_mois', null),
+    			array('entrees', 'achats'),
+    			array('entrees', 'excedents'),
+    			array('entrees', 'retours'),
+    			array('sorties', 'utilisees'),
+    			array('sorties', 'detruites'),
     			array('sorties', 'manquantes'),
     			array('total_fin_mois', null)
     		);
@@ -1568,7 +1568,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	}
     	return $crds;
     }
-    
+
     protected function getExportableCrd($crd, $cat, $type) {
     	$val = ($type)? $crd->get($cat)->get($type) : $crd->get($cat);
     	if ($val) {
@@ -1584,11 +1584,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	}
     	return null;
     }
-    
+
     public function getExportableAnnexes() {
     	return array();
     }
-    
+
 	public function hasExportableProduitsAcquittes() {
 		return ($this->exist('droits_acquittes') && $this->droits_acquittes)? true : false;
 	}
@@ -1649,7 +1649,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		}
 		return $result;
 	}
-	
+
 	public function getExportableDeclarantInformations() {
 		$result = array();
 		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
@@ -1662,7 +1662,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
 		return $result;
 	}
-	
+
 	public function getExportableMvtDetails($key, $detail) {
 		if ($key == 'crd_details') {
 			$periode = sprintf('%4d-%02d', $detail->annee, $detail->mois);
@@ -1672,7 +1672,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		}
 		return array();
 	}
-	
+
 	public function setImportableMvtDetails($type, $categorie, $datas) {
 		if ($type == 'crd' && $categorie->getKey() == 'entrees') {
 			$details = $categorie->getOrAdd('crd_details');
@@ -1688,11 +1688,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		}
 		return true;
 	}
-	
+
 	public function getExportableCategoriesMouvements() {
 		return array('total_debut_mois', 'acq_total_debut_mois', 'entrees', 'sorties', 'total', 'acq_total', 'tav', 'premix', 'observations');
 	}
-	
+
 	public function getExportableCategorieByType($type) {
 		if (in_array($type, array('tav', 'premix', 'observations', 'retiraison'))) {
 			return 'complement';
@@ -1742,7 +1742,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			$stock += $produit->acq_total;
 		}
 		return $stock;
-	
+
 	}
 	public function getTotalStock() {
 		$produits = $this->getExportableProduits();
@@ -1752,26 +1752,26 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		}
 		return $stock;
 	}
-	
+
 	public function setImportableSucre($quantite) {
 		return;
 	}
-	
+
 	public function getImportableDeclaratif() {
 		return $this->declaratif;
 	}
-	
+
 	public function setImportableRna($numero, $accises, $date) {
 		$rna = $this->declaratif->rna->getOrAdd($numero);
 		$rna->numero = $numero;
 		$rna->accises = $accises;
 		$rna->date = $date;
 	}
-	
+
 	public function setImportablePeriode($periode) {
 		$this->periode = substr($periode, 0, 4).'-'.substr($periode, -2);
 	}
-	
+
 	public function setImportableIdentifiant($identifiant = null, $ea = null, $siretCvi = null) {
 
 		$referent = null;
@@ -1794,7 +1794,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$this->setEtablissementInformations();
 		return true;
 	}
-	
+
 	public function getDefaultKeyNode() {
 		return ConfigurationProduit::DEFAULT_KEY;
 	}

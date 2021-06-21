@@ -4,7 +4,7 @@
 
 	<?php if ($sf_user->hasFlash('info_stocks')): ?>
 	<div id="popup_info_stocks" class="popup_contenu popup_form" style="display:none;">
-		<p>Nous sommes en début de campagne.</p> 
+		<p>Nous sommes en début de campagne.</p>
 		<br />
 		<p>Veuillez modifier votre <strong>Stock théorique début de mois</strong> pour y indiquer votre stock réel suite à votre inventaire.</p>
 		<br />
@@ -76,7 +76,7 @@
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
 						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
 					</div>
-					<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+					<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<?php else: ?>
 					<div class="ligne_btn">
            				<a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>

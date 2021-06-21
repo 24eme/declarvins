@@ -1,5 +1,5 @@
 
-DSNegoce:
+DSNegoceUpload:
   inheritance: Fichier
   definition:
     fields:

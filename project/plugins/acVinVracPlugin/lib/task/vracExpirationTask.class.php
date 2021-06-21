@@ -29,52 +29,49 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
-    
+
     $vracs = VracHistoryView::getInstance()->findLast();
     foreach ($vracs->rows as $vrac) {
     	$values = $vrac->value;
-    	$this->sendExpiration($values);		
+    	$this->sendExpiration($values);
     }
   }
-  
+
   protected function sendExpiration($values) {
   	$routing = clone ProjectConfiguration::getAppRouting();
-	$contextInstance = sfContext::createInstance($this->configuration);
+		$contextInstance = sfContext::createInstance($this->configuration);
     $contextInstance->set('routing', $routing);
-    
+		if ($values[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'vrac') {
+			return;
+		}
+
   	$today = new DateTime();
-	$datesaisie = new DateTime($values[VracHistoryView::VRAC_VIEW_DATESAISIE]);
-	$interval = $today->diff($datesaisie);
-	$ecart = $interval->format('%a');
+		$datesaisie = new DateTime($values[VracHistoryView::VRAC_VIEW_DATESAISIE]);
+		$interval = $today->diff($datesaisie);
+		$ecart = $interval->format('%a');
   	if ($ecart >= self::NB_JOUR_EXPIRATION && $values[VracHistoryView::VRAC_VIEW_DATERELANCE]) {
   		$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
-  		
+
   		$acteurs = VracClient::getInstance()->getActeurs();
 		foreach ($acteurs as $acteur) {
 			if (!$vrac->get($acteur.'_identifiant')) {
 				continue;
 			}
-			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+				$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 				$url['contact'] = $routing->generate('contact', array(), true);
 				$url['home'] = $routing->generate('homepage', array(), true);
-				if ($etablissement->compte) {
-					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
-						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
-							if ($interpro->email_contrat_vrac) {
-								Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
-							}
-						}
-					}
-				}
-
-					try {
-						Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $email, $acteur, $url);
-					} catch (Exception $e) {
-						continue;
-					}
-				
-			}
+				if ($compte && $compte->email) {
+		  	    if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+		  	        if ($interpro->email_contrat_vrac) {
+		  	            Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+		  	        }
+		  	    } else {
+		  	        Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $compte->email, $acteur, $url);
+		  	    }
+		  	} else {
+		  	    Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+		  	}
 		}
   		$this->logSection('vrac-expiration', 'Expiration du contrat '.$vrac->_id);
   		$vrac->delete();

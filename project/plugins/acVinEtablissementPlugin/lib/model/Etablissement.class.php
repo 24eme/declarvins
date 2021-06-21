@@ -74,10 +74,14 @@ class Etablissement extends BaseEtablissement {
     public function setFax($fax, $idcompte = null) {
         if ($fax)
             $this->_set('fax', $this->cleanPhone($fax, $idcompte));
+        else
+            $this->_set('fax', null);
     }
     public function setTelephone($phone, $idcompte = null) {
         if ($phone)
             $this->_set('telephone', $this->cleanPhone($phone, $idcompte));
+        else
+            $this->_set('fax', null);
     }
 
     public function getDenomination() {

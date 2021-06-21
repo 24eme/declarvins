@@ -7,8 +7,8 @@
     <section id="principal">
         <div id="application_dr">
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
-            
-				
+
+
                 <div id="btn_etape_dr">
                 	<?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
                     <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
@@ -17,9 +17,9 @@
                     <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
-                
+
                 <?php echo $form->renderHiddenFields() ?>
-                
+
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if ($form->getObject()->isRectificative()): ?>
                 <ul class="onglets_declaratif">
@@ -48,7 +48,7 @@
                 </div>
                 <?php endif; ?>
                 <?php endif; ?>
-                
+
                 <ul class="onglets_declaratif">
                     <li><strong>Défaut d'apurement</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_defaut_apurement" title="Message aide"></a></li>
                 </ul>
@@ -62,7 +62,7 @@
 
                     </div>
                 </div>
-                
+
                 <ul class="onglets_declaratif">
                     <li><strong>Mouvements au cours du mois</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_mouvement" title="Message aide"></a></li>
                 </ul>
@@ -70,7 +70,7 @@
                 <div class="contenu_onglet_declaratif">
                 	<div id="bloc_rna" class="bloc_conditionner" data-condition-value="1">
 	                    <p class="intro">Relevé des documents d'accompagnement non apurés (RNA)</p>
-	                    
+
 	                    <div class="tableau_ajouts_liquidations">
 							<table id="rna" class="tableau_recap" style="width: auto;">
 								<thead>
@@ -95,7 +95,7 @@
 	                    </div>
 					</div>
                     <p class="intro">Références des documents d'accompagnement emis durant le mois précédent</p>
-                    
+
                     <div class="tableau_ajouts_liquidations">
 						<table class="tableau_recap" style="width: auto;">
 							<thead>
@@ -156,7 +156,7 @@
                         <?php echo $form['organisme']->render() ?>
                     </div>
                 </div>
-				
+
 				<?php if ($sf_user->getCompte()->isTiers() && !$etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
@@ -194,7 +194,7 @@
                     </div>
                 </div>
                 <?php endif; ?>
-                
+
                 <?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="help_popup_drm_stats_euro" title="Message aide"></a></li>
@@ -225,7 +225,7 @@
                     	</table>
                     </div>
                 </div>
-                
+
                 <ul class="onglets_declaratif">
                     <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
                 </ul>
@@ -246,7 +246,7 @@
                     </div>
                 </div>
                 <?php endif; ?>
-				
+
                 <div id="btn_etape_dr">
                 	<?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
                     <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
@@ -255,8 +255,8 @@
                     <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
-				
-				<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+
+				<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				<?php else: ?>
                 <div class="ligne_btn">
                     <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
@@ -275,6 +275,6 @@ $(document).ready( function()
         $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none'); $('#numero').css('display', 'block') });
         $('#drm_declaratif_frequence_Mensuelle').click(function() { $('#reports').css('display', 'none'); });
         $('#drm_declaratif_frequence_Annuelle').click(function() { $('#reports').css('display', 'block'); });
-        
+
     });
 </script>

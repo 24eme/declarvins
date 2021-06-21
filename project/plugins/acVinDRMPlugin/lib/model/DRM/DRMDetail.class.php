@@ -634,7 +634,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function getStockBilan()
     {
-    	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
+    	return $this->sorties->vrac + $this->sorties->vrac_export + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
 
     public function getLibelleFiscal()
@@ -643,13 +643,22 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function isInao() {
-        return $this->getCepage()->isInao();
+        return preg_match('/^[0-9]/', $this->getInao());
     }
 
     public function getInao()
     {
-    	return $this->getCepage()->getInao();
+      $inao = null;
+      if ($this->exist('inao')) {
+        $inao = $this->_get('inao');
+  			if (strlen($inao) == 5) {
+  				$inao = $inao.' ';
+  			}
+  			$this->setInao($inao);
+      }
+    	return ($inao)? $inao : $this->getCepage()->getInao();
     }
+
     public function getIdentifiantDouane()
     {
     	$inao = $this->getInao();
@@ -690,7 +699,10 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function setImportableObservations($observations) {
-    	$this->add('observations', "".$observations);
+      if ($this->observations) {
+        $observations = $this->observations.', '.$observations;
+      }
+    	$this->observations = $observations;
     }
 
     public function isVci() {

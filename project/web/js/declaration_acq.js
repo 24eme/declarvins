@@ -11,28 +11,28 @@
 (function($)
 {
 	var anchorIdsAcq = {"entrees" : 6, "sorties" : 7}
-	// Variables globales 
+	// Variables globales
 	var colonnesDRAcq = $('#colonnes_dr_acq');
 	var colIntitulesAcq = $('#colonne_intitules_acq');
 	var colSaisiesAcq = $('#col_saisies_acq');
 	var colSaisiesAcqCont = $('#col_saisies_cont_acq');
 	var colSaisiesAcqRecolte = colSaisiesAcqCont.find('.col_recolte');
 	var colTotalAcq = $('#colonne_total');
-	
+
 	var colActiveAcqDefaut = colSaisiesAcqRecolte.filter('.col_active');
 	var colActiveAcq;
 	var colEditeeAcq;
-	
+
 	var colFocusAcq;
 	var colFocusAcqNum = 1; // Colonne qui a le focus par défaut
-	
+
 	var btnAjouterAcq = colonnesDRAcq.find('.btn_ajouter');
-	
+
 	var btnEtapesDRAcq = $('#btn_etape_dr');
 	var btnPrecSuivProdAcq = $('#btn_suiv_prec');
 
 	var masquecolActiveAcq;
-	
+
 	$(document).ready( function()
 	{
 		if(colonnesDRAcq.exists())
@@ -45,9 +45,9 @@
 			$.initChoixRadioAcq();
 		}
 	});
-	
 
-	
+
+
 	/**
 	 * Calcul dynamique des dimmensions des colonnes
 	 * $.initColonnesAcq();
@@ -57,43 +57,43 @@
 		var colEgales = colIntitulesAcq.add(colSaisiesAcqCont).add(colTotalAcq);
 		var colSaisiesAcqActive = colSaisiesAcqRecolte.filter('.col_active');
 		var largeurCSC = 0;
-		
-		
+
+
 		// Ajout du masque
 		colSaisiesAcqRecolte.append('<div class="col_masque"></div>');
-		
+
 		// Calcul de la largeur du conteneur des colonnes de saisies
 		colSaisiesAcqRecolte.each(function()
 		{
 			largeurCSC += $(this).outerWidth(true);
 		});
-		
+
 		colSaisiesAcqCont.width(largeurCSC);
-	
+
 		// Initialisation des actions des boutons des colonnes
 		$.initColBoutonsAcq();
-		
+
 		// Initialisation des actions associées aux raccourci clavier
 		$.initRaccourcisAcq();
-		
+
 		// Initialisation le comportement des champs au focus et à la saisie
 		$.initComportementsChampsAcq();
-		
+
 		// Positionnement du focus par défaut
 		$.initcolFocusAcq();
-		
+
 		// Egalisation de la hauteur des colonnes et des titres
 		colEgales.find('.couleur, h2').hauteurEgale();
 		colEgales.find('.label').hauteurEgale();
-		
+
 		$.initMasquecolActiveAcq();
-		
+
 		// Colonne active par défaut
 		if(colActiveAcqDefaut.exists()) colActiveAcqDefaut.majcolActiveAcq();
 	};
-	
+
 	/**
-	 * Initialise le masque qui désactive les 
+	 * Initialise le masque qui désactive les
 	 * liens lorque une colonne est active
 	 * $.initMasquecolActiveAcq();
 	 ******************************************/
@@ -101,10 +101,10 @@
 	{
 		var hauteur = $('#colonnes_dr').position().top;
 		masquecolActiveAcq = $('<div id="masque_col_active_acq"></div>').height(hauteur).hide();
-		
+
 		$('#contenu').append(masquecolActiveAcq);
 	};
-	
+
 	/**
 	 * Positionne le scroll en fonction de la
 	 * colonne avec le focus / activée
@@ -116,7 +116,7 @@
 		else if(colFocusAcq.size() > 0) colSaisiesAcq.scrollTo(colFocusAcq, 200);
 		else colSaisiesAcq.scrollTo({top: 0, left: 0}, 200);
 	};
-	
+
 	/**
 	 * Initialisation des actions des boutons des colonnes
 	 * $.initColBoutonsAcq();
@@ -129,16 +129,16 @@
 			var boutons = col.find('.col_btn button');
 			var btnReinitialiser = boutons.filter('.btn_reinitialiser');
 			var btnValider = boutons.filter('.btn_valider');
-			
-		
-			
+
+
+
 			// Réinitialisation des valeurs d'une colonne
 			btnReinitialiser.click(function()
 			{
 				$.reinitialiserColAcq();
 				return false;
 			});
-			
+
 			// Validation des valeurs d'une colonne
 			btnValider.click(function()
 			{
@@ -147,10 +147,10 @@
 			});
 		});
 	};
-	
-	
+
+
 	/**
-	 * Initialisation des actions associées 
+	 * Initialisation des actions associées
 	 * aux raccourci clavier
 	 * $.initRaccourcisAcq();
 	 ******************************************/
@@ -158,20 +158,20 @@
 	{
 		// Ctrl + flèche gauche ==> Changement de focus
 		$.ctrl(37, function() { $.majcolFocusAcq('prec'); });
-		
+
 		// Ctrl + flèche droite ==> Changement de focus
 		$.ctrl(39, function() { $.majcolFocusAcq('suiv'); });
-		
+
 		// Ctrl + M ==> Commencer édition colonne avec focus
 		$.ctrl(77, function () { colFocusAcq.majcolActiveAcq(true); });
-		
+
 		// Ctrl + touche supprimer ==> Suppression colonne avec focus
 		//$.ctrl(46, function() { colFocusAcq.find('.btn_supprimer').trigger('click'); });
-		
+
 		// Ctrl + Entrée ==> Validation de la colonne active
 		$.ctrl(13, function() { colFocusAcq.find('.btn_valider').trigger('click'); });
 	};
-		
+
 	/**
 	 * Supprimer la colonne demandée
 	 * $.fn.supprimerColAcq();
@@ -182,7 +182,7 @@
 		if(!colActiveAcq)
 		{
 			var confirmSupprimer = confirm('Confirmez-vous la supression de cette colonne');
-			
+
 			if(confirmSupprimer)
 			{
 				alert('suppression...');
@@ -196,7 +196,7 @@
 			return false;
 		}
 	};
-	
+
 	/**
 	 * Réinitialise les valeurs de la colonne
 	 * $.reinitialiserColAcq();
@@ -207,12 +207,12 @@
 		if(colActiveAcq)
 		{
 			var champs = colActiveAcq.find('input:text, select');
-			
+
 			champs.each(function()
 			{
 				var champ = $(this);
 				var valDefaut = champ.attr('data-val-defaut');
-				
+
 				if(champ.is('input'))
 				{
 					champ.val(valDefaut);
@@ -223,11 +223,11 @@
 					champ.children('[value='+valDefaut+']').attr('selected', 'selected');
 				}
 			});
-			
+
 			$.enlevercolActiveAcq();
 		}
 	};
-	
+
 	/**
 	 * Valide les valeurs de la colonne en cours
 	 * et les envoie en AJAX
@@ -240,23 +240,23 @@
 		{
 			$.calculerSommesChampsAcq();
 			$.calculerChampsInterdependantsAcq();
-			
+
 			var form = colActiveAcq.find('form');
 			var donneesCol = form.serializeArray();
-			
+
 			colActiveAcq.addClass('col_envoi');
 			/*var btn = colActiveAcq.find('.col_btn button');
-			
+
 			btn.css('visibility', 'hidden');
 			*/
-		
-			
+
+
 			$.post(form.attr('action'), donneesCol, function (data)
 			{
 				if(data.success)
 				{
 					var champs = colActiveAcq.find('input:text, select');
-					
+
 					champs.each(function()
 					{
 						var champ = $(this);
@@ -272,7 +272,7 @@
 								champ.parent().addClass(colActiveAcq.attr('data-cssclass-rectif'));
 							}
 						}
-						
+
 						champ.attr('data-val-defaut', val);
 					});
 
@@ -299,31 +299,31 @@
 							$('#onglets_principal li.actif .completion').addClass('completion_validee');
 						}
 					}
-					
+
 					// Rétablissement des groupe ouverts / fermés par défaut
 					colIntitulesAcq.find('.groupe').each(function()
 					{
 						var groupe = $(this);
-						
+
 						if(groupe.hasClass('groupe_ouvert') && !groupe.hasClass('bloque')) groupe.trigger('fermer');
 
 						if(groupe.hasClass('demarrage-ouvert') && !groupe.hasClass('bloque')) groupe.trigger('ouvrir');
 					});
 				}
-				
+
 				$('#forms_errors').html(data.content);
-				
+
 				//btn.css('visibility', 'visible');
 				colActiveAcq.removeClass('col_envoi');
 				$.enlevercolActiveAcq();
 			}, "json");
-			
+
 		}
 	};
-	
-	
+
+
 	/**
-	 * Initialise le comportement des champs 
+	 * Initialise le comportement des champs
 	 * au focus et à la saisie
 	 * $.initComportementsChampsAcq();
 	 ******************************************/
@@ -333,7 +333,7 @@
 		{
 			var colonne = $(this);
 			var champs = colonne.find('input:text, select');
-			
+
 			champs.each(function(i)
 			{
 				var champ = $(this);
@@ -346,15 +346,15 @@
 				var champPremier = champ.hasClass('premier');
 				var champDernier = champ.hasClass('dernier');
 				var champDernierGroupePrec = groupeChampsPrec.find('input.dernier');
-				
+
 				// Focus sur la colonne courante s'il n'y pas de colonne active
 				// et si la colonne courante n'a pas déjà le focus
 				champ.focus(function()
 				{
 					if(!colActiveAcq && !colonne.hasClass('col_focus')) $.majcolFocusAcq(colonne, true);
 				});
-				
-				
+
+
 				// Sélectionne le texte du champ au clic
 				if(champ.is(':text') && !champ.attr('readonly'))
 				{
@@ -364,32 +364,32 @@
 						e.preventDefault();
 					});
 				}
-				
+
 				// Tabultation inverse
 				champ.keydown(function(e)
 				{
 					if(e.keyCode == 9 && e.shiftKey)
 					{
 						// Si le champ courant est le 1er d'un groupe
-						// Et s'il y a un groupe précédent 
+						// Et s'il y a un groupe précédent
 						if(groupePrec.exists() && champPremier)
 						{
 							champ.blur();
-							
+
 							// Si le groupe n'était pas ouvert ni bloqué au démarrage
 							if(!groupe.hasClass('bloque') && !groupe.hasClass('demarrage-ouvert') )
 							{
 								groupe.trigger('fermer');
 							}
-							
+
 							groupePrec.trigger('ouvrir');
 							champDernierGroupePrec.focus();
-							
+
 							e.preventDefault();
 						}
 					}
 				});
-				
+
 				if(champ.is('select'))
 				{
 					champ.blur(function()
@@ -397,7 +397,7 @@
 						var val = champ.val();
 						if(!colActiveAcq && val != valDefaut) { colEditeeAcq = colonne; colonne.majcolActiveAcq(false); }
 					});
-					
+
 					// Si la valeur du champ change alors la colonne est activée
 					champ.change(function()
 					{
@@ -407,8 +407,8 @@
 			});
 		});
 	};
-	
-	
+
+
 	/**
 	 * Initialise et gère le focus sur les colonnes
 	 * $.initcolFocusAcq();
@@ -416,17 +416,17 @@
 	$.initcolFocusAcq = function()
 	{
 		var colCurseurs = colSaisiesAcqRecolte.find('a.col_curseur');
-		
+
 		/*if(colFocusAcqDefaut) colFocusAcqNum = colFocusAcqDefaut;
 		else*/ colFocusAcqNum = colCurseurs.first().attr('data-curseur');
-		
+
 		// Colonne au focus par défaut
 		colFocusAcq = $('#col_recolte_'+colFocusAcqNum);
 		colFocusAcq.addClass('col_focus');
-		
+
 		//colCurseur = colFocusAcq.find('a.col_curseur');
 		colCurseur = colFocusAcq.find(colFocusAcq.attr('data-input-focus'));
-		
+
 		if (colCurseur.length == 0)
 		{
 			colCurseur = colFocusAcq.find('a.col_curseur');
@@ -437,11 +437,11 @@
 
 		colCurseur.focus();
 		colCurseur.select();
-		
+
 		// Positionnement du scroll
 		$.majcolSaisiesAcqScroll();
 	};
-	
+
 	/**
 	 * Change le focus sur les colonnes
 	 * $.majcolFocusAcq(objet, garderChampFocus);
@@ -450,17 +450,17 @@
 	{
 		var colCurseur;
 		var direction = false;
-		
+
 		if(!garderChampFocus) $(':focus').blur();
-		
+
 		// S'il n'y a pas de colonne active définie
 		if(!colActiveAcq && !colEditeeAcq)
 		{
 			// Si c'est une direction
 			if(typeof(objet) == "string") direction = objet;
-			
+
 			colFocusAcq.removeClass('col_focus');
-			
+
 			if(direction)
 			{
 				// Colonne précédente
@@ -477,26 +477,26 @@
 				}
 			}
 			else { colFocusAcq = objet; }
-			
+
 			colFocusAcq.addClass('col_focus');
 			colCurseur = colFocusAcq.find('a.col_curseur');
 			colFocusAcqNum = colCurseur.attr('data-curseur');
-			
+
 			if(direction) colCurseur.focus();
-			
+
 			$.majcolSaisiesAcqScroll();
 		}
 	};
-	
-	
+
+
 	/**
 	 * Initialise l'activation d'un colonne
 	 ******************************************/
 	$.initcolActiveAcq = function()
 	{
-		
+
 	};
-	
+
 	/**
 	 * Active une colonne
 	 * $(col).majcolFocusAcq();
@@ -510,19 +510,19 @@
 		colCurseur = colFocusAcq.find('a.col_curseur');
 		colFocusAcqNum = colCurseur.attr('data-curseur');
 		if(focusCurseur) colCurseur.focus();
-		
+
 		colActiveAcq.desactiverAutresColAcq();
-		
+
 		// Boutons inactifs + masque
 		btnEtapesDRAcq.addClass('inactif');
 		btnPrecSuivProdAcq.addClass('inactif');
 		masquecolActiveAcq.show();
-		
+
 		$.majcolSaisiesAcqScroll();
 		$.liaisonChampsInterdependantsAcq();
 	};
-	
-	
+
+
 	/**
 	 * Désactive toutes les colonnes sauf celle que l'on édite
 	 * $(col).desactiverAutresColAcq();
@@ -532,39 +532,39 @@
 		var colCourante = $(this);
 		var colAutres = colSaisiesAcqRecolte.not(colCourante);
 		var champsADesactiver = colAutres.find('input, select')
-		
+
 		// désactivation des champs
 		colAutres.addClass('col_inactive');
 		champsADesactiver.attr('disabled', 'disabled');
 	};
-	
-	
+
+
 	/**
 	 * Supprime le statut de la colonne active
 	 * et réactive tous les champs
 	 * $.enlevercolActiveAcq();
 	 ******************************************/
 	$.enlevercolActiveAcq = function()
-	{		
+	{
 		if(colActiveAcq)
 		{
 			colActiveAcq.removeClass('col_active');
 			colCurseur.focus();
 			colActiveAcq = false;
 			colEditeeAcq = false;
-			
+
 			// réactivation des champs
 			colSaisiesAcqRecolte.removeClass('col_inactive');
 			colSaisiesAcqRecolte.find('input, select').removeAttr('disabled');
-			
+
 			// Boutons actifs + suppression du  masque
 			btnEtapesDRAcq.removeClass('inactif');
 			btnPrecSuivProdAcq.removeClass('inactif');
 			masquecolActiveAcq.hide();
 		}
 	};
-	
-	
+
+
 	/**
 	 * Met à jour les hauteurs des masques
 	 * $.majHauteurMasqueAcq();
@@ -575,16 +575,16 @@
 		{
 			var col = $(this);
 			var colCont = col.find('.col_cont');
-			
+
 			var paddingCol = parseInt(colCont.css('padding-bottom'));
 			var btn =  parseInt(col.find('.col_btn').height());
 			var hauteur =  parseInt(col.height()) - paddingCol - btn;
-			
+
 			var hauteur =  parseInt(col.height());
 			col.find('.col_masque').height(hauteur);
 		});
 	};
-	
+
 	/**
 	 * Calcul des sommes des champs
 	 * $.verifierChampsNombreAcq();
@@ -592,13 +592,21 @@
 	$.verifierChampsNombreAcq = function()
 	{
 		var champs = colSaisiesAcqRecolte.find('input.num');
-	
+    var radios = colSaisiesRecolte.find('input.num_check');
+
+    radios.each(function()
+		{
+			var champ = $(this);
+			var colonne = champ.parents('.col_recolte');
+      champ.change(function() {  colonne.majColActive(false); });
+    });
+
 		champs.each(function()
 		{
 			var champ = $(this);
 			var colonne = champ.parents('.col_recolte');
 			var float = champ.hasClass('num_float');
-			
+
 			champ.saisieNum
 			(
 				float,
@@ -611,8 +619,8 @@
 			);
 		});
 	};
-	
-	
+
+
 	/**
 	 * Calcul des sommes des champs
 	 * $.calculerSommesChampsAcq();
@@ -627,7 +635,7 @@
 			var champSommeStockDebut = colonne.find('input.somme_stock_debut');
 			var champSommeEntrees = colonne.find('input.somme_entrees');
 			var champSommeSorties = colonne.find('input.somme_sorties');
-			
+
 			// Parcours des champs sommes
 			champsSomme.each(function()
 			{
@@ -637,7 +645,7 @@
 				var float = champSomme.hasClass('num_float');
 				var somme = 0;
 				var valeur = 0;
-				
+
 				// Récupération des champs à additionner
 				if(champSomme.hasClass('somme_groupe') || champSomme.hasClass('somme'))
 				{
@@ -650,19 +658,19 @@
 					else
 					{
 						tabChamps = champSomme.attr('data-champs-somme').split(';');
-						
+
 						for(var i = 0; i < tabChamps.length; i++)
 						{
 							champsAddition.add('#' + tabChamps[i])
 						}
 					}
-					
+
 					// Addition des champs concernés
 					champsAddition.each(function()
 					{
 						valeur = $(this).attr('value');
 						if (valeur == '') valeur = 0;
-		
+
 						if(float) somme += parseFloat(valeur);
 						else somme += parseInt(valeur);
 					});
@@ -680,7 +688,7 @@
 					// Soustraction des sorties
 					if(champSommeSorties.hasClass('num_float')) somme -= parseFloat(champSommeSorties.val());
 					else somme -= parseInt(champSommeSorties.val());
-				
+
 					if(float) somme = parseFloat(somme);
 					else somme = parseInt(somme);
 				}
@@ -700,7 +708,7 @@
 		if(colActiveAcq)
 		{
 			var champsCalcul = colActiveAcq.find('input[data-calcul]');
-			
+
 			// Parcours des champs à calcul automatique
 			champsCalcul.each(function()
 			{
@@ -712,7 +720,7 @@
 				var val = 0;
 
 				champCalcul.removeClass('positif').removeClass('negatif');
-				
+
 
 				// Parcours des champs concernés
 				for(var i = 0; i < tabChamps.length; i++)
@@ -748,7 +756,7 @@
 				champCalcul.val(resultat);
 
 				if(resultat > 0) champCalcul.addClass('positif');
-				else if(resultat < 0)  champCalcul.addClass('negatif'); 
+				else if(resultat < 0)  champCalcul.addClass('negatif');
 			});
 		}
 	};
@@ -777,7 +785,7 @@
 						} else {
 							$(tabChamps[i]).val(null);
 						}
-						
+
 					}
 					$.calculerChampsInterdependantsAcq();
 				});
@@ -818,7 +826,7 @@
 		});
 	};
 
-	
+
 	/**
 	 * Affiche/Masque les groupes de champs
 	 * $.toggleGroupesChampsAcq();
@@ -826,8 +834,8 @@
 	$.toggleGroupesChampsAcq = function()
 	{
 		var groupesIntitules = colIntitulesAcq.find('.groupe');
-		
-		
+
+
 		groupesIntitules.each(function()
 		{
 			var groupe = $(this);
@@ -835,28 +843,28 @@
 			var titre = groupe.children('p');
 			var listeIntitules = groupe.children('ul');
 			var intitules = listeIntitules.children();
-			
+
 			var gpeAssocie = colSaisiesAcq.find('.groupe[data-groupe-id='+gpeId+']');
 			var gpeAssocieIntitules = gpeAssocie.children('p');
 			var gpeChamps = gpeAssocie.children('ul');
 
 			// Egalisation des intitulés
 			titre.add(gpeAssocieIntitules).hauteurEgale();
-			
+
 			intitules.each(function(i)
 			{
 				var intitule = $(this);
 				var gpeChampsItems = gpeChamps.find('li:eq('+i+')');
-			
+
 				intitule.add(gpeChampsItems).hauteurEgale();
 			});
-			
+
 			// Masque les groupes
 			listeIntitules.hide();
 			gpeChamps.hide();
 			//$.majHauteurMasqueAcq();
-			
-			
+
+
 			// Evènement "fermer"
 			groupe.bind('fermer',function()
 			{
@@ -864,7 +872,7 @@
 				listeIntitules.slideUp();
 				gpeChamps.slideUp();
 			});
-			
+
 			// Evènement "ouvrir"
 			groupe.bind('ouvrir',function()
 			{
@@ -872,7 +880,7 @@
 				listeIntitules.slideDown();
 				gpeChamps.slideDown();
 			});
-			
+
 
 			// Affiche / Masque les groupes et les champs associés
 			if (!groupe.hasClass('bloque'))
@@ -883,15 +891,15 @@
 					else groupe.trigger('ouvrir');
 				});
 			}
-			
+
 			// Parcours de tous les champs associés aux intitulés
 			gpeAssocieIntitules.find('input').focus(function()
 			{
 				var champ = $(this);
-				
-				
+
+
 				var champSuivant = champ.parents('.groupe').find('ul input.premier');
-				
+
 				// Si le groupe est fermé ou si c'est un groupe bloqué et ouvert
 				if(!groupe.hasClass('groupe_ouvert') || (groupe.hasClass('bloque') && groupe.hasClass('demarrage-ouvert')))
 				{
@@ -900,14 +908,14 @@
 					groupesIntitules.each(function()
 					{
 						var gpeInt = $(this);
-						
+
 						if(gpeInt.hasClass('groupe_ouvert') && !gpeInt.hasClass('bloque')) gpeInt.trigger('fermer');
 					});
-					
+
 					// Ouverture du groupe courant
 					groupe.trigger('ouvrir');
-					
-					// Focus sur le champ suivant si le champ courant n'est pas éditable 
+
+					// Focus sur le champ suivant si le champ courant n'est pas éditable
 					if(champ.attr('readonly')) champSuivant.focus();
 				}
 			});
@@ -921,5 +929,5 @@
 			}
 		});
 	};
-	
+
 })(jQuery);

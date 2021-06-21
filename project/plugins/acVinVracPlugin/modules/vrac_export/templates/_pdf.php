@@ -8,10 +8,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="author" content="Actualys" />
-	<meta name="Description" content="" /> 
+	<meta name="Description" content="" />
 	<meta name="Keywords" content="" />
 	<meta name="robots" content="index,follow" />
-	<meta name="Content-Language" content="fr-FR" /> 
+	<meta name="Content-Language" content="fr-FR" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="copyright" content="Vins de Provence - 2011" />
 
@@ -146,7 +146,7 @@
 	<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
-		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->isConditionneIr()): ?>
+		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && ($vrac->isConditionneIr()||$vrac->isConditionneIvse())): ?>
 			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</p>
 		<?php endif; ?>
 	<?php endif; ?>
@@ -171,6 +171,9 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
+	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
+		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</p>
+	<?php endif; ?>
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
 	<?php if (!$vrac->isConditionneIvse()): ?><p>Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><?php if($vrac->type_retiraison): ?> : <?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?><?php endif; ?></p><?php endif; ?>
@@ -184,7 +187,7 @@
 	<?php if ($vrac->exist('observations') && $vrac->observations): ?>
 	<p>Observations : <?php echo $vrac->observations ?></p>
 	<?php endif; ?>
-	
+
 	<!-- CLAUSES -->
 	<hr />
 	<h2>Clauses</h2>

@@ -1,7 +1,7 @@
 <?php
 /**
  * BaseDSNegoce
- * 
+ *
  * Base model for DSNegoce
  *
  * @property string $_id
@@ -44,13 +44,13 @@
  * @method string setCampagne()
  * @method string getPeriode()
  * @method string setPeriode()
- 
+
  */
- 
-abstract class BaseDSNegoce extends Fichier {
+
+abstract class BaseDSNegoceUpload extends Fichier {
 
     public function getDocumentDefinitionModel() {
-        return 'DSNegoce';
+        return 'DSNegoceUpload';
     }
-    
+
 }

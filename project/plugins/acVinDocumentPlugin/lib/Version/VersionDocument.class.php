@@ -13,7 +13,7 @@ class VersionDocument
 
     public static function buildVersion($rectificative, $modificative) {
         if ($rectificative && $modificative) {
-        
+
             return sprintf('R%02dM%02d', $rectificative, $modificative);
         }
 
@@ -56,7 +56,7 @@ class VersionDocument
 
     public function getRectificative() {
         $class = get_class($this->document);
-        
+
         return $class::buildRectificative($this->document->version);
     }
 
@@ -66,13 +66,12 @@ class VersionDocument
     }
 
     public function isRectificative() {
-
         return $this->document->getRectificative() > 0;
     }
 
     public function getModificative() {
         $class = get_class($this->document);
-        
+
         return $class::buildModificative($this->document->version);
     }
 
@@ -91,10 +90,10 @@ class VersionDocument
     	} else {
         	return null;
     	}
-        if($this->document->findDocumentByVersion($modificative)) {    
+        if($this->document->findDocumentByVersion($modificative)) {
             return $modificative;
         }
-        if($this->document->findDocumentByVersion($rectificative)) {  
+        if($this->document->findDocumentByVersion($rectificative)) {
             return $rectificative;
         }
         return null;
@@ -119,7 +118,7 @@ class VersionDocument
             $this->mother = $this->document->findDocumentByVersion($this->document->getPreviousVersion());
         }
 
-        return $this->mother;    
+        return $this->mother;
     }
 
     public function getDiffWithMother() {
@@ -186,7 +185,7 @@ class VersionDocument
     public function needNextVersion() {
 
     	if ($this->document->getSuivante()) {
-    	
+
     		return true;
     	}
 
@@ -200,12 +199,12 @@ class VersionDocument
             return $this->needNextRectificative();
         }
 
-        return false;      
+        return false;
     }
 
     protected function needNextRectificative() {
         if (!$this->document->isRectificative()) {
-           
+
            return false;
         }
 
@@ -214,7 +213,7 @@ class VersionDocument
 
     protected function needNextModificative() {
         if (!$this->document->isModificative()) {
-           
+
            return false;
         }
 
@@ -228,10 +227,10 @@ class VersionDocument
 
             throw new sfException(sprintf('The document %s is not rectificable, maybe she was already rectificate', $this->document->get('_id')));
         }
-		$numero = (int)$this->getRectificative() + (int)$this->getModificative();
+		    $numero = (int)$this->getRectificative() + (int)$this->getModificative();
         $document_rectificative->version = $this->buildVersionDocument($numero + 1, null);
         $this->document->listenerGenerateVersion($document_rectificative);
-
+        $document_rectificative->remove('_attachments');
         return $document_rectificative;
     }
 
@@ -242,10 +241,10 @@ class VersionDocument
 
             throw new sfException(sprintf('The document %s is not modifiable, maybe she was already modified', $this->document->get('_id')));
         }
-		$numero = (int)$this->getRectificative() + (int)$this->getModificative();
+		    $numero = (int)$this->getRectificative() + (int)$this->getModificative();
         $document_modificative->version = $this->buildVersionDocument(null, $numero + 1);
         $this->document->listenerGenerateVersion($document_modificative);
-
+        $document_modificative->remove('_attachments');
         return $document_modificative;
     }
 
@@ -271,7 +270,7 @@ class VersionDocument
 
             return null;
         }
-        
+
         $next_document_rectificative = $next_document->generateRectificative();
         $this->document->listenerGenerateNextVersion($next_document_rectificative);
 
@@ -285,7 +284,7 @@ class VersionDocument
 
             return null;
         }
-        
+
         $next_document_modificative = $next_document->generateModificative();
         $this->document->listenerGenerateNextVersion($next_document_modificative);
 

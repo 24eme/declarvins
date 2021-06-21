@@ -183,7 +183,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	foreach ($this->getProduits() as $produit) {
     		$identifiantDouane = KeyInflector::slugify($produit->getIdentifiantDouane());
     		$libelleProduit = KeyInflector::slugify($produit->getLibelleEdi());
-    		if ($libelleDouane && $identifiantDouane == $libelleDouane && $libelle && strpos($libelle, $libelleProduit)) {
+    		if ($libelleDouane && $identifiantDouane == $libelleDouane && $libelle && strpos($libelle, $libelleProduit) !== false) {
     		    if ($produit->getInao() || !in_array($this->getDocument()->interpro, InterproClient::getInstance()->getInterpros())) {
     			     return $produit;
     		    }
