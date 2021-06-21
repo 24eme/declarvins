@@ -32,14 +32,15 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('DAIDSPlugin');
 		$this->enablePlugins('StatistiquePlugin');
 		$this->enablePlugins('acExceptionNotifierPlugin');
-        $this->enablePlugins('acElasticaPlugin');
-        $this->enablePlugins('ConfigurationProduitPlugin');
-    	$this->enablePlugins('ConfigurationZonePlugin');
-    	$this->enablePlugins('acVinEdiPlugin');
-    	$this->enablePlugins('acVinDAEPlugin');
-    	$this->enablePlugins('acVinFichierPlugin');
-    	$this->enablePlugins('DSNegoceUploadPlugin');
-    	$this->enablePlugins('acVinSubventionPlugin');
+    $this->enablePlugins('acElasticaPlugin');
+    $this->enablePlugins('ConfigurationProduitPlugin');
+    $this->enablePlugins('ConfigurationZonePlugin');
+    $this->enablePlugins('acVinEdiPlugin');
+    $this->enablePlugins('acVinDAEPlugin');
+    $this->enablePlugins('acVinFichierPlugin');
+    $this->enablePlugins('DSNegoceUploadPlugin');
+    $this->enablePlugins('acVinSubventionPlugin');
+    $this->enablePlugins('acVinDSNegocePlugin');
 	}
 
 	public static function getAppRouting()
