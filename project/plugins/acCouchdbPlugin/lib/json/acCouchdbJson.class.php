@@ -14,7 +14,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
      *
      * @param acCouchdbJsonDefinition $definition
      * @param acCouchdbDocument $document
-     * @param string $hash 
+     * @param string $hash
      */
     public function __construct(acCouchdbJsonDefinition $definition, acCouchdbDocument $document, $hash) {
         parent::__construct($definition, $document, $hash);
@@ -28,15 +28,27 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     public function get($key_or_hash) {
         $objHash = $this->getHashObject($key_or_hash);
 
-        if ($objHash["w"] === null) {
-            if (!$this->isArray() && $method = $this->getAccessor($objHash["f"])) {
+        if ($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY] === null) {
+            if (!$this->isArray() && $method = $this->getAccessor($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])) {
 
                 return $this->$method();
             }
-            return $this->_get($objHash["f"]);
-        } else {
-            return $this->get($objHash["f"])->get($objHash["w"]);
+            return $this->_get($objHash[acCouchdbHash::FIRST_KEY_OF_HASH]);
+        } elseif($this->_exist($key_or_hash)) {
+
+            return $this->_get($key_or_hash);
+        } elseif($this->_exist($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])) {
+
+            return $this->get($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])->get($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY]);
+        } elseif(!$this->isArray()) {
+            foreach($this as $key => $item) {
+                if($this->containsSubHash($key_or_hash, $key)) {
+                    return $this->get($key)->get(str_replace($key, "", $key_or_hash));
+                }
+            }
         }
+
+        throw new acCouchdbException(sprintf('field inexistant : %s:%s', $this->getDocument()->_id, $key_or_hash))  ;
     }
 
     /**
@@ -56,28 +68,39 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     public function getOrAdd($key_or_hash) {
         $objHash = $this->getHashObject($key_or_hash);
 
-        if ($objHash["w"] === null) {
+        if ($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY] === null) {
 
-            return $this->add($objHash["f"]);
+            return $this->add($objHash[acCouchdbHash::FIRST_KEY_OF_HASH]);
         }
 
-        return $this->add($objHash["f"])->getOrAdd($objHash["w"]);
+        return $this->add($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])->getOrAdd($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY]);
     }
 
     public function set($key_or_hash, $value) {
         $objHash = $this->getHashObject($key_or_hash);
 
-        if ($objHash["w"] === null) {
-            if (!$this->isArray() && $method = $this->getMutator($objHash["f"])) {
+        if ($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY] === null) {
+            if (!$this->isArray() && $method = $this->getMutator($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])) {
 
                 return $this->$method($value);
             }
 
-            return $this->_set($objHash["f"], $value);
-        } else {
+            return $this->_set($objHash[acCouchdbHash::FIRST_KEY_OF_HASH], $value);
+        } elseif($this->_exist($key_or_hash)) {
 
-            return $this->get($objHash["f"])->set($objHash["w"], $value);
+            return $this->_set($key_or_hash, $value);
+        } elseif($this->_exist($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])) {
+
+            return $this->get($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])->set($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY], $value);
+        } elseif(!$this->isArray()) {
+            foreach($this as $key => $item) {
+                if($this->containsSubHash($key_or_hash, $key)) {
+                    return $this->get($key)->set(str_replace($key, "", $key_or_hash), $value);
+                }
+            }
         }
+
+        throw new acCouchdbException(sprintf('field inexistant : %s:%s', $this->getDocument()->_id, $key_or_hash))  ;
     }
 
     public function __set($key, $value) {
@@ -97,14 +120,14 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         }
         return $object;
     }
-    
+
     public function moveAndClean($key_or_hash, $new_key_or_hash) {
     	$node = $this->get($key_or_hash)->getParent()->getHash();
         $object = $this->move($key_or_hash, $new_key_or_hash);
         $this->clean($node);
         return $object;
     }
-    
+
     public function clean($key_or_hash) {
     	$object = $this->getDocument()->get($key_or_hash);
     	if ($object->count() == 0) {
@@ -113,13 +136,33 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     	}
     	return false;
     }
-    
+
     public function delete() {
     	return $this->getParent()->remove($this->getKey());
     }
 
     public function remove($key_or_hash) {
-        return $this->_remove($key_or_hash);
+        $objHash = $this->getHashObject($key_or_hash);
+
+        if ($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY] === null) {
+
+            return $this->_remove($objHash[acCouchdbHash::FIRST_KEY_OF_HASH]);
+        } elseif($this->_exist($key_or_hash)) {
+
+            return $this->_remove($key_or_hash);
+        } elseif($this->_exist($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])) {
+
+            return $this->get($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])->remove($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY]);
+        } elseif(!$this->isArray()) {
+            foreach($this as $key => $item) {
+                if($this->containsSubHash($key_or_hash, $key)) {
+
+                    return $this->get($key)->remove(str_replace($key, "", $key_or_hash));
+                }
+            }
+        }
+
+        return false;
     }
 
     public function add($key = null, $item = null) {
@@ -127,22 +170,32 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     }
 
     public function exist($key_or_hash) {
-    	$obj_hash = new acCouchdbHash($key_or_hash);
-        if ($obj_hash->isAlone()) {
-        	return $this->_exist($obj_hash->getFirst());
-        } else {
-        	$exist = true;
-        	$object = $this;
-        	foreach ($obj_hash->toArray() as $key) {
-        		if ($object->_exist($key)) {
-        			$object = $object->get($key);
-        		} else {
-        			$exist = false;
-        			break;
-        		}
-        	}
-        	return $exist;
+        $objHash = $this->getHashObject($key_or_hash);
+
+        if ($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY] === null) {
+
+            return $this->_exist($objHash[acCouchdbHash::FIRST_KEY_OF_HASH]);
+
+        } elseif($this->_exist($key_or_hash)) {
+
+            return true;
+        } elseif($this->_exist($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])) {
+
+        	return $this->get($objHash[acCouchdbHash::FIRST_KEY_OF_HASH])->exist($objHash[acCouchdbHash::HASH_WITHOUT_FIRST_KEY]);
+        } elseif(!$this->isArray()) {
+            foreach($this as $key => $item) {
+                if($this->containsSubHash($key_or_hash, $key)) {
+
+                    return $this->get($key)->exist(str_replace($key, "", $key_or_hash));
+                }
+            }
         }
+
+        return false;
+    }
+
+    private function containsSubHash($key_or_hash, $key) {
+        return ((strpos($key_or_hash, $key.'/') !== false) || ($key == $key_or_hash));
     }
 
     public function __call($method, $arguments) {
@@ -170,7 +223,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
 	        	if ($this->fieldIsCollection($key) && !$value) {
 	        		$value = array();
 	        	}
-                        
+
 	        	if($this->fieldIsCollection($key)) {
                                 $item = $this->add($key);
                                 if($item->isArray()) {
@@ -179,7 +232,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
 	        		$item->fromArray($value);
 	        	} else {
                             $this->add($key);
-                            $this->set($key, $value);  
+                            $this->set($key, $value);
 	        	}
             }
         }
@@ -208,7 +261,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         return $array_fields;
     }
 
-    
+
 
     public function getParentHash() {
         return preg_replace('/\/[^\/]+$/', '', $this->getHash());
@@ -240,7 +293,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     public function getLastKey() {
         return $this->getIterator()->getLastKey();
     }
-    
+
     public function getNextSister() {
     	$next = null;
     	for ($item = $this->getParent()->getIterator(); $item->valid(); $item->getNextSister()) {
@@ -251,7 +304,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
 		}
 		return $next;
     }
-    
+
 	public function getPreviousSister() {
     	$previous = null;
     	for ($item = $this->getParent()->getIterator(); $item->valid(); $item->getNextSister()) {
@@ -280,13 +333,9 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
        $this->loadData();
        foreach ($this as $key => $field) {
             if ($this->fieldIsCollection($key)) {
-                if(!is_object($field)) {
-
-                    throw new sfException(sprintf("%s/%s should be a collection (string value given)", $this->getHash(), $key));
-                }
                 $field->loadAllData();
             }
-        } 
+        }
     }
 
     protected function init($params = array()) {
