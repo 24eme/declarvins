@@ -48,7 +48,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
             }
         }
 
-        throw new acCouchdbException(sprintf('field inexistant : %s:%s', $this->getDocument()->_id, $key_or_hash))  ;
+        throw new acCouchdbException(sprintf('field inexistant "%s" on %s:%s', $key_or_hash, $this->getDocument()->_id, $this->getHash()))  ;
     }
 
     /**
