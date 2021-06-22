@@ -598,14 +598,17 @@
 		colFocus = colActive;
 		colCurseur = colFocus.find('a.col_curseur');
 		colFocusNum = colCurseur.attr('data-curseur');
+    colAllActive = colFocus.attr('data-all-active');
 		if(focusCurseur) colCurseur.focus();
 
-		colActive.desactiverAutresCol();
+    if (!colAllActive) {
+		    colActive.desactiverAutresCol();
 
-		// Boutons inactifs + masque
-		btnEtapesDR.addClass('inactif');
-		btnPrecSuivProd.addClass('inactif');
-		masqueColActive.show();
+    		// Boutons inactifs + masque
+    		btnEtapesDR.addClass('inactif');
+    		btnPrecSuivProd.addClass('inactif');
+    		masqueColActive.show();
+    }
 
 		$.majColSaisiesScroll();
 		$.liaisonChampsInterdependants();
