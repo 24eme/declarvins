@@ -173,6 +173,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->declaration->getProduitsCepages();
     }
 
+    public function getProduits() {
+        return $this->declaration->getProduits();
+    }
+
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
