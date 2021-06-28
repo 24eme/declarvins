@@ -242,4 +242,31 @@ class Etablissement extends BaseEtablissement {
     {
         return $this->siege->commune;
     }
+
+    public function getMasterCompte() {
+      return $this->getCompteObject();
+    }
+
+    public function getGenerateSociete()
+    {
+      $societe = new Societe();
+      $societe->addEtablissement($this);
+      $societe->raison_sociale = $this->raison_sociale;
+      $societe->type_societe = SocieteClient::TYPE_OPERATEUR;
+      $societe->identifiant = $this->identifiant;
+      $societe->siret = $this->siret;
+      $societe->statut = $this->statut;
+      $societe->cooperative = ($this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)? true : false;
+      $societe->email = $this->email;
+      $societe->fax = $this->fax;
+      $societe->no_tva_intracommunautaire = $this->no_tva_intracommunautaire;
+      $societe->siege->adresse = $this->siege->adresse;
+      $societe->siege->code_postal = $this->siege->code_postal;
+      $societe->siege->commune = $this->siege->commune;
+      $societe->siege->pays = $this->siege->pays;
+      $societe->add("date_creation", date('Y-m-d'));
+      $societe->constructId();
+      $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
+      return $societe;
+    }
 }
