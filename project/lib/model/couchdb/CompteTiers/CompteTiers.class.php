@@ -1,19 +1,19 @@
 <?php
 
 class CompteTiers extends BaseCompteTiers {
-    
-    protected $_contrat = null;
-    
 
-    
+    protected $_contrat = null;
+
+
+
 	protected function preSave() {
         if ($this->isNew()) {
         	$this->acces->add(null, acVinCompteSecurityUser::CREDENTIAL_ACCES_PLATERFORME);
         }
 	    parent::preSave();
     }
-    
-    public function getNbEtablissementByInterproId() 
+
+    public function getNbEtablissementByInterproId()
     {
         $result = array();
         foreach ($this->getTiers() as $tier) {
@@ -26,7 +26,7 @@ class CompteTiers extends BaseCompteTiers {
         }
         return $result;
     }
-    
+
     /**
      * @return _Compte
      */
@@ -34,17 +34,17 @@ class CompteTiers extends BaseCompteTiers {
         if (is_null($this->_contrat)) {
             $this->_contrat = ContratClient::getInstance()->retrieveDocumentById($this->contrat);
         }
-        
+
         return $this->_contrat;
     }
-    
+
     /**
      * @return _Compte
      */
     public function getConventionCiel() {
         return ConventionCielClient::getInstance()->retrieveById($this->login);
     }
-    
+
     public function getTiersCollection() {
     	$result = array();
     	foreach ($this->getTiers() as $key => $values) {
@@ -68,7 +68,7 @@ class CompteTiers extends BaseCompteTiers {
     public function hasEtablissement($identifiant) {
       return $this->tiers->exist($identifiant);
     }
-    
+
     public function generateByContrat($contrat) {
     	$this->_id = 'COMPTE-'.$contrat->no_contrat;
     	$this->contrat = $contrat->_id;
@@ -86,14 +86,14 @@ class CompteTiers extends BaseCompteTiers {
         if ($this->prenom) {
             return sprintf('%s. %s', $this->prenom, strtoupper(substr($this->nom, 0, 1)));
         }
-        
+
         return sprintf('%s', $this->nom);
     }
-    
+
     public function isVirtuel() {
     	return false;
     }
-    
+
     public function isTiers() {
     	return true;
     }
@@ -108,7 +108,7 @@ class CompteTiers extends BaseCompteTiers {
 
         if (!preg_match('/^\+/', $phone) || (strlen($phone) != 12 && preg_match('/^\+33/', $phone)))
         	echo("$phone n'est pas un téléphone correct\n");
-        
+
         return $phone;
     }
 
@@ -119,5 +119,13 @@ class CompteTiers extends BaseCompteTiers {
     public function setTelephone($phone) {
         if ($phone)
             $this->_set('telephone', $this->cleanPhone($phone));
+    }
+
+    public function getNomAAfficher() {
+      return $this->__toString();
+    }
+
+    public function getIdentifiant() {
+      return $this->login;
     }
 }
