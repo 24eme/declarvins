@@ -11,3 +11,4 @@ all:
     from_email: "ne_pas_repondre@declarvins.fr"
     from_name:  "Webmaster DéclarVins"
     subject:    "DéclarVins - Redéfinition de votre mot de passe"
+  compte_synchro: false
