@@ -269,4 +269,8 @@ class Etablissement extends BaseEtablissement {
       $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
       return $societe;
     }
+
+    public function isActif() {
+        return $this->statut && ($this->statut == self::STATUT_ACTIF);
+    }
 }
