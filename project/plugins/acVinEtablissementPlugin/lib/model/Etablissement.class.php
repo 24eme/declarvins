@@ -35,7 +35,7 @@ class Etablissement extends BaseEtablissement {
 
     public function getRegion()
     {
-    	return null;
+    	return EtablissementClient::REGION_CVO;
     }
 
     public function getInterproObject() {
