@@ -190,6 +190,9 @@ class Configuration extends BaseConfiguration {
         $certifications = array();
         $configuration = $this->getConfigurationProduitsComplete();
         foreach ($configuration as $interpro => $configurationProduits) {
+            if(!$configurationProduits) {
+                continue;
+            }
             $certifications = array_merge($certifications, $configurationProduits->getCertifications());
         }
         return $certifications;
@@ -373,6 +376,11 @@ class Configuration extends BaseConfiguration {
     	return false;
     }
 
+    public function existProduit($hash) {
+
+    	return (bool) $this->getConfigurationProduit($hash);
+    }
+
     public function getProduit($hash) {
 
     	return $this->getConfigurationProduit($hash);
@@ -382,6 +390,9 @@ class Configuration extends BaseConfiguration {
     	if ($hash) {
 	        $configuration = $this->getConfigurationProduitsComplete();
 	        foreach ($configuration as $interpro => $configurationProduits) {
+                if(!$configurationProduits) {
+                    continue;
+                }
 	            if ($configurationProduits->exist($hash) && !preg_match('/^[\/]?declaration\/certifications[\/]?$/', $hash)) {
 	                return $configurationProduits->get($hash);
 	            }

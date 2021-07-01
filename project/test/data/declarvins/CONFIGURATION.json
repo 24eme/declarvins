@@ -1,0 +1,1027 @@
+{
+   "_id": "CONFIGURATION",
+   "type": "Configuration",
+   "produits": {
+       "INTERPRO-CIVP": "CONFIGURATION-PRODUITS-CIVP",
+       "INTERPRO-IR": "CONFIGURATION-PRODUITS-IR",
+       "INTERPRO-IVSE": "CONFIGURATION-PRODUITS-IVSE",
+       "INTERPRO-ANIVIN": "CONFIGURATION-PRODUITS-ANIVIN",
+       "INTERPRO-IS": "CONFIGURATION-PRODUITS-IS"
+   },
+   "zones": [
+       "CONFIGURATION-ZONE-RHONE",
+       "CONFIGURATION-ZONE-PROVENCE",
+       "CONFIGURATION-ZONE-IGP-IVSE",
+       "CONFIGURATION-ZONE-IGP-LANGUEDOC",
+       "CONFIGURATION-ZONE-ANIVIN"
+   ],
+   "ouverture": {
+       "INTERPRO-CIVP": {
+           "drm": 1,
+           "vrac": 1,
+           "daids": 0,
+           "dsnegoce": 0,
+           "dae": 0
+       },
+       "INTERPRO-IR": {
+           "drm": 1,
+           "vrac": 1,
+           "daids": 0,
+           "dsnegoce": 1,
+           "dae": 1
+       },
+       "INTERPRO-IVSE": {
+           "drm": 0,
+           "vrac": 1,
+           "daids": 0,
+           "dsnegoce": 1,
+           "dae": 0
+       }
+   },
+   "ciel": {
+       "libelles_fiscaux": {
+           "BOISSONS_FERMENTEES_AUTRES": "Boissons fermentées autres que le vin et la bière",
+           "BOISSONS_FERMENTEES_AUTRES_PREMIX": "Boissons fermentées autres que le vin et la bière - premix",
+           "CIDRES": "Cidres",
+           "POIRES": "Poirés",
+           "HYDROMELS": "Hydromels",
+           "HYDROMELS_PREMIX": "Hydromels - premix",
+           "PETILLANTS": "Pétilants",
+           "PETILLANTS_PREMIX": "Pétilants - premix",
+           "VDN_VDL_AOP_SUP_18": "VDN et VDL AOP < 18 % vol.",
+           "VDN_VDL_AOP_INF_18": "VDN et VDL AOP <= 18 % vol.",
+           "AUTRES_PI_SUP_18": "Autres produits intermédiaires que VDN et VDL AOP > 18 % vol.",
+           "AUTRES_PI_INF_18": "Autres produits intermédiaires que VDN et VDL AOP <= 18 % vol.",
+           "AUTRES_PI_INF_18_PREMIX": "Autres produits intermédiaires que VDN et VDL AOP <= 18 % vol. - premix",
+           "BIERE_INF_2_8": "Bières < 2,8 % vol.",
+           "BIERE_INF_2_8_PREMIX": "Bières < 2,8 % vol. - premix",
+           "BIERE_SUP_18_BRASSERIE_TAUX_NORMAL": "Bières > 18 % vol. (brasseries taux normal)",
+           "BIERE_SUP_2_8_BRASSERIE_TAUX_NORMAL": "Bières > 2,8 % vol. (brasseries taux normal)",
+           "BIERE_SUP_2_8_BRASSERIE_TAUX_NORMAL_PREMIX": "Bières > 2,8 % vol. (brasseries taux normal) - premix",
+           "BIERE_SUP_18_PETITE_BRASSERIE_10000": "Bières > 18 % vol. (petite brasserie <= 10000 hl)",
+           "BIERE_SUP_2_8_PETITE_BRASSERIE_10000": "Bières > 2,8 % vol. (petite brasserie <= 10000 hl)",
+           "BIERE_SUP_2_8_PETITE_BRASSERIE_10000_PREMIX": "Bières > 2,8 % vol. (petite brasserie <= 10000 hl) – prémix",
+           "BIERE_SUP_18_PETITE_BRASSERIE_50000": "Bières > 18 % vol. (10000 hl < petite brasserie <= 50000 hl)",
+           "BIERE_SUP_2_8_PETITE_BRASSERIE_50000": "Bières > 2,8 % vol. (10000 hl < petite brasserie <= 50000 hl)",
+           "BIERE_SUP_2_8_PETITE_BRASSERIE_50000_PREMIX": "Bières > 2,8 % vol. (10000 hl < petite brasserie <= 50000 hl) - premix",
+           "BIERE_SUP_18_PETITE_BRASSERIE_200000": "Bières > 18 % vol. (50000 hl < petite brasserie <= 200000 hl)",
+           "BIERE_SUP_2_8_PETITE_BRASSERIE_200000": "Bières > 2,8 % vol. (50000 hl < petite brasserie <= 200000 hl)",
+           "BIERE_SUP_2_8_PETITE_BRASSERIE_200000_PREMIX": "Bières > 2,8 % vol. (50000 hl < petite brasserie <= 200000 hl) - premix",
+           "RHUM_TRADITIONNEL_DOM_ART_1": "Rhums traditionnels des DOM commercialisés en métropole dans le cadre du contingent fiscal prévu à l’article 403-I.1° du CGI",
+           "RHUM_TRADITIONNEL_DOM_ART_2": "Rhums traditionnels des DOM commercialisés en métropole dans le cadre des dispositions de l’article 403-I.2° du CGI",
+           "RHUM_TIERS_ET_AUTRES": "Rhums tiers (hors DOM) et autres rhums",
+           "ALCOOL_AUTRE_SUP_18": "Alcools autres que rhums > 18 % vol.",
+           "ALCOOL_AUTRE_INF_18": "Alcools autres que rhums <= 18 % vol",
+           "ALCOOL_AUTRE_INF_18_PREMIX": "Alcools autres que rhums <= 18 % vol - premix",
+           "RHUM_GUADELOUPE": "Rhums DOM et tafias Guadeloupe",
+           "RHUM_MARTINIQUE": "Rhums DOM et tafias Martinique",
+           "RHUM_GUYANE": "Rhums DOM et tafias Guynae",
+           "RHUM_REUNION": "Rhums DOM et tafias Réunion",
+           "SPIRITUEUX_GUADELOUPE_SUP_18": "Spiritueux à base d’alcools de cru Guadeloupe > 18 % vol.",
+           "SPIRITUEUX_GUADELOUPE_INF_18": "Spiritueux à base d’alcools de cru Guadeloupe <= 18 % vol.",
+           "SPIRITUEUX_GUADELOUPE_INF_18_PREMIX": "Spiritueux à base d’alcools de cru Guadeloupe <= 18 % vol. - premix",
+           "SPIRITUEUX_MARTINIQUE_SUP_18": "Spiritueux à base d’alcools de cru Martinique > 18 % vol.",
+           "SPIRITUEUX_MARTINIQUE_INF_18": "Spiritueux à base d’alcools de cru Martinique <= 18 % vol.",
+           "SPIRITUEUX_MARTINIQUE_INF_18_PREMIX": "Spiritueux à base d’alcools de cru Martinique <= 18 % vol. - premix",
+           "SPIRITUEUX_GUYANE_SUP_18": "Spiritueux à base d’alcools de cru Guyane > 18 % vol.",
+           "SPIRITUEUX_GUYANE_INF_18": "Spiritueux à base d’alcools de cru Guyane <= 18 % vol.",
+           "SPIRITUEUX_GUYANE_INF_18_PREMIX": "Spiritueux à base d’alcools de cru Guyane <= 18 % vol. - premix",
+           "SPIRITUEUX_REUNION_SUP_18": "Spiritueux à base d’alcools de cru Réunion >18 % vol.",
+           "SPIRITUEUX_REUNION_INF_18": "Spiritueux à base d’alcools de cru Réunion <= 18 % vol.",
+           "SPIRITUEUX_REUNION_INF_18_PREMIX": "Spiritueux à base d’alcools de cru Réunion <= 18 % vol. - premix",
+           "AUTRES_ALCOOLS_SUP_18": "Autres alcools – alcools autres que rhums traditionnels des DOM > 18 % vol. ou spiritueux importés d’un autre DOM",
+           "AUTRES_ALCOOLS_INF_18": "Autres alcools – alcools autres que rhums traditionnels des DOM <= 18 % vol. ou spiritueux importés d’un autre DOM",
+           "AUTRES_ALCOOLS_INF_18_PREMIX": "Autres alcools – alcools autres que rhums traditionnels des DOM <= 18 % vol. ou spiritueux importés d’un autre DOM - premix",
+           "MATIERES_PREMIERES_SPIRITUEUX": "Matières premières spiritueux",
+           "MATIERES_PREMIERES_ALCOOLS": "Matières premières alcools"
+       },
+       "balance-stocks": {
+           "lot1": {
+               "droits-suspendus": {
+                   "stock-debut-periode": [
+                       "total_debut_mois"
+                   ],
+                   "entrees-periode": {
+                       "volume-produit": [
+                           "entrees/recolte",
+                           "entrees/distillation",
+                           "entrees/manipulation"
+                       ],
+                       "entree-droits-suspendus": [
+                           "entrees/achat"
+                       ],
+                       "travail-a-facon": [
+                           "entrees/embouteillage",
+                           "entrees/travail"
+                       ],
+                       "autres-entrees": [
+                           "entrees/mouvement",
+                           "entrees/repli",
+                           "entrees/declassement",
+                           "entrees/excedent"
+                       ],
+                       "replacements": {
+                           "replacement-suspension": {
+                               "mois": [
+                                   "entrees/crd_details/DEFAUT/mois"
+                               ],
+                               "annee": [
+                                   "entrees/crd_details/DEFAUT/annee"
+                               ],
+                               "volume": [
+                                   "entrees/crd"
+                               ]
+                           }
+                       }
+                   },
+                   "sorties-periode": {
+                       "sorties-avec-paiement-droits": {
+                           "sorties-avec-paiement-annee-courante": [
+                               "sorties/factures",
+                               "sorties/crd"
+                           ]
+                       },
+                       "sorties-sans-paiement-droits": {
+                           "sorties-definitives": [
+                               "sorties/vrac",
+                               "sorties/export"
+                           ],
+                           "sorties-exoneration-droits": [
+                               "sorties/consommation"
+                           ],
+                           "travail-a-facon": [
+                               "sorties/embouteillage",
+                               "sorties/travail"
+                           ],
+                           "fabrication-autre-produit": [
+                               "sorties/distillation",
+                               "sorties/mutage"
+                           ],
+                           "lies-vins-distilles": [
+                               "sorties/lies"
+                           ],
+                           "autres-sorties": [
+                               "sorties/crd_acquittes",
+                               "sorties/mouvement",
+                               "sorties/repli",
+                               "sorties/declassement",
+                               "sorties/autres_interne",
+                               "sorties/autres",
+                               "sorties/pertes"
+                           ]
+                       }
+                   },
+                   "stock-fin-periode": [
+                       "total"
+                   ]
+               },
+               "droits-acquittes": {
+                   "stock-debut-periode": [
+                       "acq_total_debut_mois"
+                   ],
+                   "entrees-periode": {
+                       "achats": [
+                           "entrees/acq_achat"
+                       ],
+                       "autres-entrees": [
+                           "entrees/acq_autres"
+                       ]
+                   },
+                   "sorties-periode": {
+                       "ventes": [
+                           "sorties/acq_crd"
+                       ],
+                       "replacement-suspension": [
+                           "sorties/acq_replacement"
+                       ],
+                       "autres-sorties": [
+                           "sorties/acq_autres"
+                       ]
+                   },
+                   "stock-fin-periode": [
+                       "acq_total"
+                   ]
+               }
+           },
+           "lot2": {
+               "droits-suspendus": {
+                   "stock-debut-periode": [
+                       "total_debut_mois"
+                   ],
+                   "entrees-periode": {
+                       "volume-produit": [
+                           "entrees/recolte"
+                       ],
+                       "achats-reintegrations": [
+                           "entrees/achat"
+                       ],
+                       "mouvements-temporaires": {
+                           "embouteillage": [
+                               "entrees/embouteillage"
+                           ],
+                           "relogement": [
+                               "entrees/mouvement"
+                           ],
+                           "travail-a-facon": [
+                               "entrees/travail"
+                           ],
+                           "distillation-a-facon": [
+                               "entrees/distillation"
+                           ]
+                       },
+                       "mouvements-internes": {
+                           "replis-declassement-transfert-changement-appellation": [
+                               "entrees/repli",
+                               "entrees/declassement"
+                           ],
+                           "manipulations": [
+                               "entrees/manipulation"
+                           ],
+                           "integration-vci-agree": [
+                               "entrees/vci"
+                           ]
+                       },
+                       "autres-entrees": [
+                           "entrees/excedent"
+                       ],
+                       "replacements": {
+                           "replacement-suspension": {
+                               "mois": [
+                                   "entrees/crd_details/DEFAUT/mois"
+                               ],
+                               "annee": [
+                                   "entrees/crd_details/DEFAUT/annee"
+                               ],
+                               "volume": [
+                                   "entrees/crd"
+                               ]
+                           }
+                       }
+                   },
+                   "sorties-periode": {
+                       "ventes-france-crd-suspendus": {
+                           "annee-precedente": [
+                           ],
+                           "annee-courante": [
+                               "sorties/factures",
+                               "sorties/crd"
+                           ]
+                       },
+                       "ventes-france-crd-acquittes": [
+                           "sorties/crd_acquittes"
+                       ],
+                       "sorties-sans-paiement-droits": {
+                           "sorties-definitives": [
+                               "sorties/vrac",
+                               "sorties/export"
+                           ],
+                           "consommation-familiale-degustation": [
+                               "sorties/consommation"
+                           ],
+                           "mouvements-temporaires": {
+                               "embouteillage": [
+                                   "sorties/embouteillage"
+                               ],
+                               "relogement": [
+                                   "sorties/mouvement"
+                               ],
+                               "travail-a-facon": [
+                                   "sorties/travail"
+                               ],
+                               "distillation-a-facon": [
+                                   "sorties/distillation"
+                               ]
+                           },
+                           "mouvements-internes": {
+                               "replis-declassement-transfert-changement-appellation": [
+                                   "sorties/repli",
+                                   "sorties/declassement"
+                               ],
+                               "fabrication-autre-produit": [
+                                   "sorties/mutage"
+                               ],
+                               "revendication-vci": [
+                                   "sorties/vci"
+                               ],
+                               "autres-mouvements-internes": [
+                                   "sorties/autres_interne",
+                                   "sorties/lies"
+                               ]
+                           },
+                           "autres-sorties": [
+                               "sorties/autres",
+                               "sorties/pertes"
+                           ]
+                       }
+                   },
+                   "stock-fin-periode": [
+                       "total"
+                   ]
+               },
+               "droits-acquittes": {
+                   "stock-debut-periode": [
+                       "acq_total_debut_mois"
+                   ],
+                   "entrees-periode": {
+                       "achats": [
+                           "entrees/acq_achat"
+                       ],
+                       "autres-entrees": [
+                           "entrees/acq_autres"
+                       ]
+                   },
+                   "sorties-periode": {
+                       "ventes": [
+                           "sorties/acq_crd"
+                       ],
+                       "replacement-suspension": [
+                           "sorties/acq_replacement"
+                       ],
+                       "autres-sorties": [
+                           "sorties/acq_autres"
+                       ]
+                   },
+                   "stock-fin-periode": [
+                       "acq_total"
+                   ]
+               }
+           }
+       }
+   },
+   "crds": {
+       "categorie": {
+           "M": "Vin Mousseux",
+           "T": "Vin Tranquille",
+           "PI": "Produit intermédaire"
+       },
+       "type": {
+           "PERSONNALISEES": "Personnalisées",
+           "COLLECTIVES_DROITS_SUSPENDUS": "Collectives en droits suspendus",
+           "COLLECTIVES_DROITS_ACQUITTES": "Collectives en droits acquittés"
+       },
+       "centilisation": {
+           "CL_10": "10 cL",
+           "CL_12_5": "12.5 cL",
+           "CL_18_7": "18.7 cL",
+           "CL_20": "20 cL",
+           "CL_25": "25 cL",
+           "CL_35": "35 cL",
+           "CL_37_5": "37.5 cL",
+           "CL_50": "50 cL",
+           "CL_62": "62 cL",
+           "CL_70": "70 cL",
+           "CL_75": "75 cL",
+           "CL_100": "1 L",
+           "CL_150": "1.5 L",
+           "CL_175": "1.75 L",
+           "CL_200": "2 L",
+           "BIB_225": "BIB 2.25 L",
+           "BIB_300": "BIB 3 L",
+           "BIB_400": "BIB 4 L",
+           "BIB_500": "BIB 5 L",
+           "BIB_800": "BIB 8 L",
+           "BIB_1000": "BIB 10 L",
+           "AUTRE": "Autre"
+       }
+   },
+   "vrac": {
+       "interpro": {
+           "INTERPRO-IR": {
+               "transaction_has_acheteur": "0",
+               "clauses_complementaires": {
+                   "emission_facture": {
+                       "nom": "Émission facture",
+                       "description": "L'émission de la facture s'effectue au plus tard à la date de retiraison prévue au contrat même si le produit n'a pas été retiré"
+                   },
+                   "agreage_vins": {
+                       "nom": "Agréage des vins",
+                       "description": "Clause relative à l'agréage des vins « Pour faire application des dispositions de l'article 1587 du code civil, il est convenu d'un accord commun entre les parties que l'agréage du vin, tel qu'il résulte dudit article, s'effectue en deux temps :<br>\n<ul><li>à la commande, un agréage du vin destiné à vérifier que celui-ci correspond à la qualité et/ou aux critères analytiques recherchés par l'acheteur dont une copie est communiquée au vendeur et,</li><li>à la retiraison, une confirmation d'agréage de ce même vin destinée à vérifier que celui-ci est loyal et marchand. Cette confirmation d'agréage ne permet en aucun cas à l'acheteur de refuser l'achet de façon discrétionnaire. Il ne pourra le faire que sur des faits objectifs, en raison du non-respect des normes réglementaires et/ou en raison des variations importantes des critères analytiques au jour de la commande.</li></ul>\nUne fois cette double formalité effectuée, la vente du vin est considérée comme parfaite en vertu des dispositions des articles 1583, 1585, 1587 du code civil."
+                   },
+                   "transfert_propriete": {
+                       "nom": "Transfert de propriété",
+                       "description": "En vertu de l'article 2367 du code civil et par dérogation à l'article 1583 du code civil, les parties conviennent que le transfert de propriété des produits objets du présent contrat interviendra au moment de leur livraison matérielle. Toutefois, si à cette date, le prix n'est pas complètement payé par l'acheteur, les produits resteront de convention expresse entre les parties la propriété du vendeur jusqu'à complet paiement du prix, dans les conditions de la clause de réserve de propriété de la loi du 12 mai 1980. Le transfert des risques à l'acheteur intervient dès l'enlèvement des vins vendus objet du présent contrat."
+                   }
+               },
+               "clauses": {
+                   "force_majeure": {
+                       "nom": "FORCE MAJEURE",
+                       "description": "Les parties ne sauraient être tenues responsables de l'inexécution de leurs obligations respectives si cette inexécution est due à un cas de force majeure, conformément aux dispositions de l'article 1218 du Code Civil. L'exécution des obligations est suspendues pendant la durée de la force majeure, et est reprise si les effets de la cause de non-exécution prennent fin."
+                   },
+                   "resiliation": {
+                       "nom": "RÉSILIATION",
+                       "description": "Conformément à l'article L. 631-24 du Code rural, les parties peuvent s'accorder sur des cas de résiliation du contrat en y attachant éventuellement des délais de préavis et indemnités. Si la résiliation se justifie par la modification du mode de production, le délai de préavis ainsi que l'indémnité éventuellement attachés sont minorés."
+                   },
+                   "duree_contrat": {
+                       "nom": "DURÉE DU CONTRAT",
+                       "description": "Le contrat entre en vigueur à compter de sa signature par toutes les parties et prend fin dès lors que son objet est réalisé, soit après la retiraison ou la livraison des marchandises et le complet paiement du prix."
+                   },
+                   "prix": {
+                       "nom": "PRIX",
+                       "description": "Le prix s'entend Net : Hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler en sus."
+                   },
+                   "reserve_interprofessionnelle": {
+                       "nom": "RÉSERVE INTERPROFESSIONNELLE",
+                       "description": "Les volumes mis en réserve interprofessionnelle ne peuvent pas sortir des chais des opérateurs habilités et être commercialisés sous l'appellation d'origine contrôlée concernée avant la date de levée desdites mesures, fixée par l'organisation interprofessionnelle."
+                   },
+                   "information_interprofession": {
+                       "nom": "INFORMATION DE L'INTERPROFESSION",
+                       "description": "Les contrats de vente écrits en version papier doivent être renvoyés à Inter Rhône dans les 3 jours suivant la signature."
+                   },
+                   "cotisation_interprofessionnelle": {
+                       "nom": "COTISATION INTERPROFESSIONNELLE",
+                       "description": "La cotisation interprofessionnelle est due pour les deux parties contractantes. Elle est payée en totalité par le producteur sur la base de la Déclaration Récapitulative Mensuelle de sortie de chais (DRM). Celui-ci en facture la moitié à l'acheteur et l'indique sur le contrat de vente."
+                   },
+                   "report_numero_contrat": {
+                       "nom": "REPORT DU NUMERO DE CONTRAT",
+                       "description": "Le numéro du contrat de vente interprofessionnel est à reporter sur la DRM, sur la déclaration de transaction vrac de l'OI/OC concernée, ainsi que dans le registre de cave."
+                   },
+                   "liberte_contractuelle": {
+                       "nom": "RESPECT DE L'INITIATIVE CONTRACTUELLE DU PRODUCTEUR",
+                       "description": "Le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur. S'il n'a pas fait valoir ses positions initialement, il a néanmoins été mis en mesure de le faire et n'a pas souhaité effectuer une proposition de contrat préalablement à la signature du contrat."
+                   }
+               },
+               "informations_complementaires": null,
+               "has_transaction": null,
+               "etapes": {
+                   "soussigne": "Soussignés",
+                   "produit": "Produit",
+                   "condition": "Type contrat",
+                   "marche": "Marché",
+                   "transaction": "Transactions / Lots",
+                   "clause": "Clauses",
+                   "validation": "Validation"
+               },
+               "vendeur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "acheteur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "types_transaction": {
+                   "vrac": "Vin",
+                   "raisin": "Raisin"
+               },
+               "labels": {
+                   "conv": "Conventionnel",
+                   "biol": "Bio",
+                   "bioc": "Bio en conversion",
+                   "hve": "HVE 3",
+                   "autre": "Autre"
+               },
+               "mentions": {
+                   "chdo": "Domaine, autre terme règlementé",
+                   "prim": "Primeur",
+                   "marque": "Marque",
+                   "autre": "Autre"
+               },
+               "types_prix": {
+                   "definitif": "Définitif",
+                   "objectif": "D'objectif",
+                   "acompte": "D'acompte"
+               },
+               "conditions_paiement": {
+                   "cadre_reglementaire": "Cadre règlementaire général",
+                   "echeancier_paiement": "Echéancier dérogatoire selon accords interprofessionnels"
+               },
+               "types_contrat": {
+               },
+               "cvo_natures": {
+               },
+               "cvo_repartitions": {
+               },
+               "natures_document": {
+                   "dti": "DTI",
+                   "papier": "Papier",
+                   "autre": "Autre"
+               },
+               "types_domaine": {
+               },
+               "delais_paiement": {
+                   "60_jours": "paiement max à 60j fin de mois à compter de la date d'émission de la facture",
+                   "45_jours": "paiement max à 45j fin de mois à compter de la date d'émission de la facture",
+                   "autre": "délai inférieur à préciser"
+               },
+               "contenances": {
+               },
+               "commentaires_lot": {
+                   "observation_1": "Observation 1",
+                   "observation_2": "Observation 2"
+               },
+               "cas_particulier": {
+                   "aucune": "Aucune",
+                   "union": "Apport contractuel à une union",
+                   "interne": "Contrat interne entre deux entreprises liées"
+               },
+               "types_retiraison": {
+                   "vrac": "Retiraison/Livraison en Vrac",
+                   "tire_bouche": "Retiraison/Livraison en Tiré Bouché",
+                   "lattes": "Retiraison/Livraison sur Lattes"
+               }
+           },
+           "INTERPRO-IS": {
+               "transaction_has_acheteur": "0",
+               "clauses_complementaires": {
+                   "emission_facture": {
+                       "nom": "Émission facture",
+                       "description": "L'émission de la facture s'effectue au plus tard à la date de retiraison prévue au contrat même si le produit n'a pas été retiré"
+                   },
+                   "agreage_vins": {
+                       "nom": "Agréage des vins",
+                       "description": "Clause relative à l'agréage des vins « Pour faire application des dispositions de l'article 1587 du code civil, il est convenu d'un accord commun entre les parties que l'agréage du vin, tel qu'il résulte dudit article, s'effectue en deux temps :<br>\n<ul><li>à la commande, un agréage du vin destiné à vérifier que celui-ci correspond à la qualité et/ou aux critères analytiques recherchés par l'acheteur dont une copie est communiquée au vendeur et,</li><li>à la retiraison, une confirmation d'agréage de ce même vin destinée à vérifier que celui-ci est loyal et marchand. Cette confirmation d'agréage ne permet en aucun cas à l'acheteur de refuser l'achet de façon discrétionnaire. Il ne pourra le faire que sur des faits objectifs, en raison du non-respect des normes réglementaires et/ou en raison des variations importantes des critères analytiques au jour de la commande.</li></ul>\nUne fois cette double formalité effectuée, la vente du vin est considérée comme parfaite en vertu des dispositions des articles 1583, 1585, 1587 du code civil."
+                   },
+                   "transfert_propriete": {
+                       "nom": "Transfert de propriété",
+                       "description": "En vertu de l'article 2367 du code civil et par dérogation à l'article 1583 du code civil, les parties conviennent que le transfert de propriété des produits objets du présent contrat interviendra au moment de leur livraison matérielle. Toutefois, si à cette date, le prix n'est pas complètement payé par l'acheteur, les produits resteront de convention expresse entre les parties la propriété du vendeur jusqu'à complet paiement du prix, dans les conditions de la clause de réserve de propriété de la loi du 12 mai 1980. Le transfert des risques à l'acheteur intervient dès l'enlèvement des vins vendus objet du présent contrat."
+                   }
+               },
+               "clauses": {
+                   "force_majeure": {
+                       "nom": "FORCE MAJEURE",
+                       "description": "Les parties ne sauraient être tenues responsables de l'inexécution de leurs obligations respectives si cette inexécution est due à un cas de force majeure, conformément aux dispositions de l'article 1218 du Code Civil. L'exécution des obligations est suspendues pendant la durée de la force majeure, et est reprise si les effets de la cause de non-exécution prennent fin."
+                   },
+                   "resiliation": {
+                       "nom": "RÉSILIATION",
+                       "description": "Conformément à l'article L. 631-24 du Code rural, les parties peuvent s'accorder sur des cas de résiliation du contrat en y attachant éventuellement des délais de préavis et indemnités. Si la résiliation se justifie par la modification du mode de production, le délai de préavis ainsi que l'indémnité éventuellement attachés sont minorés."
+                   },
+                   "duree_contrat": {
+                       "nom": "DURÉE DU CONTRAT",
+                       "description": "Le contrat entre en vigueur à compter de sa signature par toutes les parties et prend fin dès lors que son objet est réalisé, soit après la retiraison ou la livraison des marchandises et le complet paiement du prix."
+                   },
+                   "prix": {
+                       "nom": "PRIX",
+                       "description": "Le prix s'entend Net : Hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler en sus."
+                   },
+                   "reserve_interprofessionnelle": {
+                       "nom": "RÉSERVE INTERPROFESSIONNELLE",
+                       "description": "Les volumes mis en réserve interprofessionnelle ne peuvent pas sortir des chais des opérateurs habilités et être commercialisés sous l'appellation d'origine contrôlée concernée avant la date de levée desdites mesures, fixée par l'organisation interprofessionnelle."
+                   },
+                   "information_interprofession": {
+                       "nom": "INFORMATION DE L'INTERPROFESSION",
+                       "description": "Les contrats de vente écrits en version papier doivent être renvoyés à Inter Rhône dans les 3 jours suivant la signature."
+                   },
+                   "cotisation_interprofessionnelle": {
+                       "nom": "COTISATION INTERPROFESSIONNELLE",
+                       "description": "La cotisation interprofessionnelle est due pour les deux parties contractantes. Elle est payée en totalité par le producteur sur la base de la Déclaration Récapitulative Mensuelle de sortie de chais (DRM). Celui-ci en facture la moitié à l'acheteur et l'indique sur le contrat de vente."
+                   },
+                   "report_numero_contrat": {
+                       "nom": "REPORT DU NUMERO DE CONTRAT",
+                       "description": "Le numéro du contrat de vente interprofessionnel est à reporter sur la DRM, sur la déclaration de transaction vrac de l'OI/OC concernée, ainsi que dans le registre de cave."
+                   },
+                   "liberte_contractuelle": {
+                       "nom": "RESPECT DE L'INITIATIVE CONTRACTUELLE DU PRODUCTEUR",
+                       "description": "Le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur. S'il n'a pas fait valoir ses positions initialement, il a néanmoins été mis en mesure de le faire et n'a pas souhaité effectuer une proposition de contrat préalablement à la signature du contrat."
+                   }
+               },
+               "informations_complementaires": null,
+               "has_transaction": null,
+               "etapes": {
+                   "soussigne": "Soussignés",
+                   "produit": "Produit",
+                   "condition": "Type contrat",
+                   "marche": "Marché",
+                   "transaction": "Transactions / Lots",
+                   "validation": "Validation"
+               },
+               "vendeur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "acheteur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "types_transaction": {
+                   "vrac": "Vin",
+                   "raisin": "Raisin"
+               },
+               "labels": {
+                   "conv": "Conventionnel",
+                   "biol": "Bio",
+                   "bioc": "Bio en conversion",
+                   "hve": "HVE 3",
+                   "autre": "Autre"
+               },
+               "mentions": {
+                   "chdo": "Domaine, autre terme règlementé",
+                   "prim": "Primeur",
+                   "marque": "Marque",
+                   "autre": "Autre"
+               },
+               "types_prix": {
+                   "definitif": "Définitif",
+                   "objectif": "D'objectif",
+                   "acompte": "D'acompte"
+               },
+               "conditions_paiement": {
+                   "echeancier_paiement": "Echéancier",
+                   "cadre_reglementaire": "Cadre règlementaire général (facture 45 ou 60 jours)"
+               },
+               "types_contrat": {
+               },
+               "cvo_natures": {
+               },
+               "cvo_repartitions": {
+               },
+               "natures_document": {
+                   "dti": "DTI",
+                   "papier": "Papier",
+                   "autre": "Autre"
+               },
+               "types_domaine": {
+               },
+               "delais_paiement": {
+                   "60_jours": "60 jours édition facture",
+                   "45_jours": "45 jours fin de mois"
+               },
+               "contenances": {
+               },
+               "commentaires_lot": {
+                   "observation_1": "Observation 1",
+                   "observation_2": "Observation 2"
+               },
+               "cas_particulier": {
+                   "aucune": "Aucune",
+                   "union": "Apport contractuel à une union",
+                   "interne": "Contrat interne entre deux entreprises liées"
+               },
+               "types_retiraison": {
+                   "vrac": "Retiraison/Livraison en Vrac",
+                   "tire_bouche": "Retiraison/Livraison en Tiré Bouché",
+                   "lattes": "Retiraison/Livraison sur Lattes"
+               }
+           },
+           "INTERPRO-IVSE": {
+               "transaction_has_acheteur": "1",
+               "clauses_complementaires": {
+               },
+               "clauses": {
+                   "1": {
+                       "nom": "1. ",
+                       "description": "Le contrat est soumis aux présentes conditions générales sauf conditions particulières venant les modifier ou les compléter."
+                   },
+                   "2": {
+                       "nom": "2. ",
+                       "description": "Toute signature de l'une des deux parties ne l'engage que dans la mesure où l'autre partie a présenté son acceptation écrite dans un délai de cinq jours francs."
+                   },
+                   "3": {
+                       "nom": "3. ",
+                       "description": "Les produits achetés sont logés dans des récipients pleins sauf stipulation contraire indiquée aux conditions particulières. Le vendeur ne peut procéder à des prélèvements sur le produit vendu sauf autorisation écrite de la part de l'acheteur. Tout changement de récipients doit recevoir l'accord préalable écrit de l'acheteur."
+                   },
+                   "4": {
+                       "nom": "4. ",
+                       "description": "La date contractuelle de livraison de la marchandise figure au recto. Elle est celle à laquelle le fournisseur s'est engagé à mettre ladite marchandise (en qualité et en quantité) à disposition de l'acheteur à l'adresse spécifié lors de la commande. Sauf stipulation particulière si la marchandise est retardée pour une raison indépendante de la volonté de l'acheteur ou du vendeur, elle sera réputée avoir été effectuée à la date convenue. Les conditions de transport font l'objet en tant que de besoin de dispositions particulières."
+                   },
+                   "5": {
+                       "nom": "5. Clause relative au transfert de propriété",
+                       "description": "Le transfert de propriété des vins objet du présent contrat d'achat interviendra au moment de la livraison matérielle des vins. Toutefois, si à cette date le prix n'est pas complètement payé par l'acheteur, les vins resteront de convention expresse entre les parties la propriété du vendeur jusqu'à complet paiement du prix, dans les conditions de la clause de réserve de propriété de la loi du 12 mai 1980. Le transfert des risques à l'acheteur intervient dès l'enlèvement des vins vendus objet du présent contrat."
+                   },
+                   "6": {
+                       "nom": "6. Clause relative à l'agréage des vins",
+                       "description": "«Pour faire application des dispositions de l'article 1587 du code civil, il a convenu d'un accord commun entre les parties que l'agréage du vin, tel qu'il résulte dudit article, s'effectue en deux temps :<br />à la commande, un agréage du vin destiné à vérifier que celui-ci corresponde à la qualité et/ ou aux critères analytiques recherchés par l'acheteur dont une copie est communiqué au vendeur et,<br />à la retiraison, une confirmation d'agréage de ce même vin destinée à vérifier que celui-ci est loyal et marchand. Cette confirmation d'agréage ne permet en aucun cas à l'acheteur de refuser l'achat de façon discrétionnaire, il ne pourra le faire que sur des faits objectif, en raison du non respect des normes règlementaires et/ ou en raison de variation importantes des critères analytiques définis au jour de la commande.Une fois cette double formalité d'agréages effectuée, la vente de vin est considérée comme parfaite en vertu des dispositions des articles 1583, 1585 et 1587 du code civil."
+                   },
+                   "7": {
+                       "nom": "7. ",
+                       "description": "A défaut d'accord interprofessionnel conclu en application des dispositions de l'article L632-1 du code rural relatives à l'organisation interprofessionnelle agricole et rendu obligatoire par voie règlementaire à tous les opérateurs sur l'ensemble du territoire métropolitain, le délai de paiement ne peut être supérieur au délai légal prévu par le code du commerce et la conclusion de ce contrat donne lieu au versement d'un acompte obligatoire tel que prévu par les dispositions du code rural en vigueur."
+                   },
+                   "8": {
+                       "nom": "8. ",
+                       "description": "En cas de retard de paiement, l'acheteur sera de plein droit redevable d'une pénalité calculée par application à l'intégralité des sommes restant dues d'un taux d'intérêt égal à trois fois le taux d'intérêt légal."
+                   },
+                   "9": {
+                       "nom": "9. ",
+                       "description": "Dans le cas où l'acheteur ne respecterait pas la date(s) de retiraison contractuellement prévue(s), le vendeur émettrait à cette date sa facture qui serait exigible au terme des délais initialement prévus."
+                   },
+                   "10": {
+                       "nom": "10. ",
+                       "description": "Sauf stipulation contraire aux clauses particulières, le vendeur garantit que le produit vendu est libre de toutes prestations, de blocage, d'échelonnement, de réquisition, de warrant et de toute obligation à l'égard de quiconque."
+                   },
+                   "11": {
+                       "nom": "11. ",
+                       "description": "En cas d'inexactitude de ses obligations par une partie, le présent contrat sera résolu de plein droit au profit de l'autre partie sans préjudice des dommages-intérêts qui pourraient être réclamés à la partie défaillante. La résolution prendra effet dix jours après l'envoi d'une mise en demeure restée infructueuse."
+                   },
+                   "12": {
+                       "nom": "12. ",
+                       "description": "En cas de litige et avant toute saisie du tribunal compétent, les différends seront soumis à la Commission paritaire de l'interprofession aux fins de conciliation des parties. En cas d'échec de la conciliation, tous les Litiges auxquels le présent contrat pourrait donner lieu concernant tant sa validité, son interprétation, son exécution, sa résiliation, leurs conséquence et leurs suites seront de la compétence exclusive du tribunal de commerce dont le ressort duquel se trouve le siège social du vendeur et ce même en cas de recours en garantie ou de pluralité de défenseurs.Toutefois , en cas de contestation portant sur le degré du produit livré, avant tout recours aux tribunaux, un échantillon, prélevé contradictoirement dans la cuve au moment de la retiraison, sera soumis à l'analyse d'un laboratoire agrée par le D.G.C.C.R.F."
+                   },
+                   "13": {
+                       "nom": "13. ",
+                       "description": "Les contrats d'achats papier doivent être retournés à InterVins Sud-Est dans les 10 jours suivants la transaction pour toute vente en vrac par l'entreprise de production et de transformation."
+                   },
+                   "14": {
+                       "nom": "14. ",
+                       "description": "La cotisation interprofessionnelle est due pour les deux parties contractantes. Elle est payée en totalité par le producteur sur la Déclaration Récapitulative Mensuelle de sortie de chais. A charge pour lui de refacturer la moitié à l'autre partie. Le paiement est effectué sur facture émise par InterVins Sud-Est."
+                   },
+                   "15": {
+                       "nom": "15. ",
+                       "description": "L'exemplaire revenant à InterVins Sud-Est conservera un caractère confidentiel pour son exploitation, InterVins Sud-Est est soumis au secret professionnel."
+                   },
+                   "16": {
+                       "nom": "16. ",
+                       "description": "Acheteurs et vendeurs déclarent avoir pris connaissance des modalités d'organisation économique du marché telles qu'elles résultent des accords interprofessionnels d'InterVins Sud-Est."
+                   },
+                   "force_majeure": {
+                       "nom": "17. Force majeure",
+                       "description": "Les parties ne sauraient être tenues responsables de l'inexécution de leurs obligations respectives si cette inexécution est due à un cas de force majeure, conformément aux dispositions de l'article 1218 du Code Civil. L'exécution des obligations est suspendues pendant la durée de la force majeure, et est reprise si les effets de la cause de non-exécution prennent fin."
+                   },
+                   "resiliation": {
+                       "nom": "18. Résilitation",
+                       "description": "Conformément à l'article L. 631-24 du Code rural, les parties peuvent s'accorder sur des cas de résiliation du contrat en y attachant éventuellement des délais de préavis et indemnités. Si la résiliation se justifie par la modification du mode de production, le délai de préavis ainsi que l'indémnité éventuellement attachés sont minorés."
+                   },
+                   "liberte_contractuelle": {
+                       "nom": "RESPECT DE L'INITIATIVE CONTRACTUELLE DU PRODUCTEUR",
+                       "description": "Le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur. S'il n'a pas fait valoir ses positions initialement, il a néanmoins été mis en mesure de le faire et n'a pas souhaité effectuer une proposition de contrat préalablement à la signature du contrat."
+                   }
+               },
+               "informations_complementaires": null,
+               "has_transaction": null,
+               "etapes": {
+                   "soussigne": "Soussignés",
+                   "produit": "Produit",
+                   "condition": "Type contrat",
+                   "marche": "Marché",
+                   "transaction": "Transactions / Lots",
+                   "clause": "Clauses",
+                   "validation": "Validation"
+               },
+               "vendeur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "acheteur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "types_transaction": {
+                   "vrac": "Vin",
+                   "raisin": "Raisin"
+               },
+               "labels": {
+                   "conv": "Conventionnel",
+                   "biol": "Bio",
+                   "bioc": "Bio en conversion",
+                   "hve": "HVE 3",
+                   "autre": "Autre"
+               },
+               "mentions": {
+                   "chdo": "Domaine, autre terme règlementé",
+                   "prim": "Primeur",
+                   "marque": "Marque",
+                   "autre": "Autre"
+               },
+               "types_prix": {
+                   "definitif": "Définitif",
+                   "objectif": "D'objectif",
+                   "acompte": "D'acompte"
+               },
+               "conditions_paiement": {
+                   "echeancier_paiement": "Cocher si échéancier (le délai devra respecter le cadre légal)"
+               },
+               "types_contrat": {
+               },
+               "cvo_natures": {
+               },
+               "cvo_repartitions": {
+               },
+               "natures_document": {
+                   "dti": "DTI",
+                   "papier": "Papier",
+                   "autre": "Autre"
+               },
+               "types_domaine": {
+               },
+               "delais_paiement": {
+                   "60_jours": "60 jours édition facture",
+                   "45_jours": "45 jours fin de mois"
+               },
+               "contenances": {
+               },
+               "commentaires_lot": {
+                   "observation_1": "Observation 1",
+                   "observation_2": "Observation 2"
+               },
+               "cas_particulier": {
+                   "aucune": "Aucune",
+                   "union": "Apport contractuel à une union",
+                   "interne": "Contrat interne entre deux entreprises liées"
+               },
+               "types_retiraison": {
+                   "vrac": "Retiraison/Livraison en Vrac",
+                   "tire_bouche": "Retiraison/Livraison en Tiré Bouché"
+               }
+           },
+           "INTERPRO-CIVP": {
+               "transaction_has_acheteur": "1",
+               "clauses_complementaires": {
+               },
+               "clauses": {
+                   "prix_net": {
+                       "nom": "PRIX NET",
+                       "description": "Le prix s'entend Net, hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler séparément. Si prix d'acompte ou d'objectif : Le prix définitif devra être communiqué au CIVP en fin de campagne"
+                   },
+                   "renegociation_contrat": {
+                       "nom": "RENÉGOCIATION CONTRAT",
+                       "description": "Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15% à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer)."
+                   },
+                   "risques": {
+                       "nom": "RISQUES",
+                       "description": "Transfert des risques avec la propriété, sinon au plus tard au 31 août de l'année suivant la récolte, si contrat signé avant cette date, 15 jours après signature si contrat signé après cette date."
+                   },
+                   "cvo": {
+                       "nom": null,
+                       "description": "La cotisation interprofessionnelle (CVO) est due pour les deux parties \ncontractantes. Elle est payée en totalité par le producteur sur la base de la Déclaration Récapitulative Mensuelle de sortie de chais (DRM), charge au vendeur de récupérer les 50% de cotisation dus par l'acheteur."
+                   },
+                   "force_majeure": {
+                       "nom": "Cas de force majeure",
+                       "description": "Les CGV du contrat préciseront le mention suivante : Les parties ne sautaient être tenues responsables de l’inexécution de leurs obligations respectives si cette inexécution est due à un cas de force majeure, conformément aux dispositions de l’article 1218 du Code civil.\nL’exécution des obligations es suspendue pendant la durée de la force majeure, et est reprise si les effets de la cause de non-exécution prennent fin."
+                   },
+                   "resiliation": {
+                       "nom": "Cas de résiliation",
+                       "description": "Les mentions du contrat permettront si besoin de prévoir des cas de résiliation.\nLes CGV du contrat préciseront la mention suivante :\nConformément à l’article L. 631-24 du Code rural, les parties peuvent s’accorder sur des cas de résiliation du contrat supplémentaires, en y attachant éventuellement des délais de préavis et indemnités.\nSi la résiliation se justifie par la modification du mode de production, le délai de préavis ainsi que l’indemnité éventuellement attachés sont minorés."
+                   },
+                   "liberte_contractuelle": {
+                       "nom": "RESPECT DE L'INITIATIVE CONTRACTUELLE DU PRODUCTEUR",
+                       "description": "Le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses positions préalablement à la signature du contrat et n’ayant pas souhaité effectuer une proposition de contrat."
+                   }
+               },
+               "informations_complementaires": "<table width=\"100%\" border=\"1\">\r\n\t<tr>\r\n\t\t<th width=\"20%\" align=\"left\">Risques</th>\r\n\t\t<td colspan=\"4\">Transfert des risques avec la propriété, sinon au plus tard au 31 août de l'année suivant la récolte, si contrat signé avant cette date, 15 jours après signature si contrat signé après cette date.</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<th width=\"20%\" align=\"left\">Re-négociation du contrat</th>\r\n\t\t<td colspan=\"4\">Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15 % à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer).</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<th width=\"20%\" align=\"left\">Proposition écrite</th>\r\n\t\t<td colspan=\"4\">Le vendeur confirme avoir reçu une proposition écrite de l'acheteur dans les mêmes termes avant la signature de ce contrat.</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<th width=\"20%\" align=\"left\">CVO 2020 (ht)</th>\r\n\t\t<td align=\"center\">CPL<br />7,31 €/hl</td>\r\n\t\t<td align=\"center\">CPSV<br />5,31 €/hl</td>\r\n\t\t<td align=\"center\">CP et CPF<br />4,31 €/hl</td>\r\n\t\t<td align=\"center\">CAP<br />4,00 €/hl</td>\r\n\t\t<td align=\"center\">CVP<br />4,05 €/hl</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td colspan=\"5\" align=\"right\">La CVO est payée en totalité par le producteur, facturée à partir des DRM par le CIVP (Hors Taxe, TVA applicable). Le producteur en refacture la moitié au négociant, conformément aux accords interprofessionnels.</td>\r\n\t</tr>\r\n</table>\r\n<br /><br />\r\n<table width=\"100%\" border=\"1\">\r\n\t<tr>\r\n\t\t<th align=\"left\">Produit</th>\r\n\t\t<th align=\"left\">Code</th>\r\n\t\t<th align=\"left\">Délai d'information à l'OI de la transaction</th>\r\n\t\t<th align=\"left\">Délais minimum  après réception OI avant délivrance France</th>\r\n\t\t<th align=\"left\">Délais minimum  après réception OI avant délivrance Export</th>\r\n\t\t<th align=\"left\">Délai déclaration de mouvement supplémentaire avant délivrance de vin ROSE (les 3 couleurs pour les CAP) si elle intervient après un délai</th>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td>Côtes de Provence</td>\r\n\t\t<td>CP</td>\r\n\t\t<td rowspan=\"4\">Non demandé</td>\r\n\t\t<td rowspan=\"4\">8 jours ouvrés</td>\r\n\t\t<td rowspan=\"4\">8 jours ouvrés</td>\r\n\t\t<td rowspan=\"4\">8 jours ouvrés si délivrance plus de 12 mois après première déclaration à OI</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td>Côtes de Provence Fréjus</td>\r\n\t\t<td>CPF</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td>Côtes de Provence La Londe</td>\r\n\t\t<td>CPL</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td>Côtes de Provence Sainte Victoire</td>\r\n\t\t<td>CPS</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td>Coteaux Varois en Provence</td>\r\n\t\t<td>CVP</td>\r\n\t\t<td>Non demandé</td>\r\n\t\t<td>8 jours ouvrés</td>\r\n\t\t<td>8 jours ouvrés</td>\r\n\t\t<td>8 jours ouvrés pour vins non conditionnés si délivrance après le 30/06 de la deuxième année suivant la récolte</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td>Coteaux d'Aix-en-Provence</td>\r\n\t\t<td>CAP</td>\r\n\t\t<td>2 jours ouvrés</td>\r\n\t\t<td>2 jours ouvrés</td>\r\n\t\t<td>15 jours ouvrés</td>\r\n\t\t<td>7 jours ouvrés si délivrance plus de 6 mois après première déclaration à OI</td>\r\n\t</tr>\r\n\t<tr>\r\n\t\t<td colspan=\"6\" align=\"right\">Un modèle de certificat d'enregistrement de contrat est à transmettre dans les 2 jours ouvrés au CIVP (article 7.2 des Accords Interporfessionnels)</td>\r\n\t</tr>\r\nContacts : CP et CVP : Association Viticole Provençale d'Inspection, Maison des Vins, RN 7, 83460 LES ARCS SUR ARGENS, Tel : 04 98 10 72 50,  Fax : 04 98 10 72 59, e-mail : accueil@avpi.fr\r\n(AVPI)\tQUALISUD, Maison des Agriculteurs – Les Alpilles – 22, Avenue Henri Pontier – 13626 Aix-en-Provence Cedex 1, Tel : 04.42.63.36.30, Fax : 04 42 63 31 95, e-mail : cedric.lapalombara@qualisud.fr\r\n\t<tr>\r\n</table>",
+               "has_transaction": null,
+               "etapes": {
+                   "soussigne": "Soussignés",
+                   "produit": "Produit",
+                   "condition": "Type contrat",
+                   "marche": "Marché",
+                   "transaction": "Transactions / Lots",
+                   "clause": "Clauses",
+                   "validation": "Validation"
+               },
+               "vendeur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "acheteur_types": {
+                   "producteur": "Producteur",
+                   "negociant": "Négoce / Union"
+               },
+               "types_transaction": {
+                   "vrac": "Vin",
+                   "raisin": "Raisin",
+                   "mout": "Moût"
+               },
+               "labels": {
+                   "conv": "Conventionnel",
+                   "biol": "Bio",
+                   "bioc": "Bio en conversion",
+                   "hve": "HVE 3",
+                   "autre": "Autre"
+               },
+               "mentions": {
+                   "chdo": "Domaine, autre terme règlementé",
+                   "prim": "Primeur",
+                   "marque": "Marque",
+                   "autre": "Autre"
+               },
+               "types_prix": {
+                   "definitif": "Définitif",
+                   "objectif": "D'objectif",
+                   "acompte": "D'acompte"
+               },
+               "conditions_paiement": {
+                   "echeancier_paiement": "Cocher si échéancier (le délai devra respecter le cadre légal)"
+               },
+               "types_contrat": {
+               },
+               "cvo_natures": {
+               },
+               "cvo_repartitions": {
+               },
+               "natures_document": {
+                   "dti": "DTI",
+                   "papier": "Papier",
+                   "autre": "Autre"
+               },
+               "types_domaine": {
+               },
+               "delais_paiement": {
+                   "60_jours": "60 jours édition facture",
+                   "45_jours": "45 jours fin de mois"
+               },
+               "contenances": {
+               },
+               "commentaires_lot": {
+                   "observation_1": "Observation 1",
+                   "observation_2": "Observation 2"
+               },
+               "cas_particulier": {
+                   "aucune": "Aucune",
+                   "union": "Apport contractuel à une union",
+                   "interne": "Contrat interne entre deux entreprises liées"
+               },
+               "types_retiraison": {
+                   "vrac": "Retiraison/Livraison en Vrac",
+                   "tire_bouche": "Retiraison/Livraison en Tiré Bouché"
+               }
+           }
+       },
+       "exception_produit": "AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/RAS|AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/BDV|AOP/genres/VCI|IGP/genres/TRANQ/appellations/IGP"
+   },
+   "daids": {
+       "interpro": {
+           "INTERPRO-IR": {
+               "volume_conditionne": "1",
+               "stocks_moyen": {
+                   "vinifie": {
+                       "forfaitaire_general": {
+                           "libelle": "Taux forfaitaire général",
+                           "taux": "2.5"
+                       },
+                       "forfaitaire_optionnel": {
+                           "libelle": "Taux forfaitaire optionnel (bois, VDN, petit volume)",
+                           "taux": "6"
+                       },
+                       "forfaitaire_effervescent": {
+                           "libelle": "Taux forfaitaire effervescent",
+                           "taux": "4"
+                       }
+                   },
+                   "non_vinifie": {
+                       "forfaitaire": {
+                           "libelle": "Volume CGI",
+                           "taux": "100"
+                       }
+                   },
+                   "conditionne": {
+                       "forfaitaire": {
+                           "libelle": "Pertes autorisées conditionné",
+                           "taux": "1"
+                       }
+                   }
+               }
+           },
+           "INTERPRO-IVSE": {
+               "volume_conditionne": "1",
+               "stocks_moyen": {
+                   "vinifie": {
+                       "forfaitaire_general": {
+                           "libelle": "Taux forfaitaire général",
+                           "taux": "2.5"
+                       },
+                       "forfaitaire_optionnel": {
+                           "libelle": "Taux forfaitaire optionnel (bois, VDN, petit volume)",
+                           "taux": "6"
+                       },
+                       "forfaitaire_effervescent": {
+                           "libelle": "Taux forfaitaire effervescent",
+                           "taux": "4"
+                       }
+                   },
+                   "non_vinifie": {
+                       "forfaitaire": {
+                           "libelle": "Volume CGI",
+                           "taux": "100"
+                       }
+                   },
+                   "conditionne": {
+                       "forfaitaire": {
+                           "libelle": "Pertes autorisées conditionné",
+                           "taux": "1"
+                       }
+                   }
+               }
+           },
+           "INTERPRO-CIVP": {
+               "volume_conditionne": "0",
+               "stocks_moyen": {
+                   "vinifie": {
+                       "forfaitaire_general": {
+                           "libelle": "Taux général",
+                           "taux": "5"
+                       },
+                       "forfaitaire_optionnel": {
+                           "libelle": "Taux optionnel si bois",
+                           "taux": "7"
+                       }
+                   },
+                   "non_vinifie": {
+                       "forfaitaire": {
+                           "libelle": "Volume CGI",
+                           "taux": "100"
+                       }
+                   },
+                   "conditionne": {
+                       "forfaitaire": {
+                           "libelle": "Pertes autorisées conditionné",
+                           "taux": "1"
+                       }
+                   }
+               }
+           }
+       }
+   },
+   "edi_default_produit_hash": {
+       "TRANQ": "/declaration/certifications/AUTRE/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT",
+       "MOU": "/declaration/certifications/AUTRE/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT",
+       "AUTRE": "/declaration/certifications/ALCOOLS/genres/DEFAUT/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT"
+   }
+}
