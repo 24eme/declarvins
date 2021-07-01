@@ -5,10 +5,15 @@ abstract class Mouvement extends acCouchdbDocumentTree
     const TYPE_HASH_CONTRAT_VRAC = 'vrac_details';
     const TYPE_HASH_CONTRAT_RAISIN = VracClient::TYPE_TRANSACTION_RAISINS;
     const TYPE_HASH_CONTRAT_MOUT = VracClient::TYPE_TRANSACTION_MOUTS;
+    const DEFAULT_COEFFICIENT_FACTURATION = -1;
 
     public function setProduitHash($value) {
         $this->_set('produit_hash',  $value);
         $this->produit_libelle = $this->getProduitConfig()->getLibelleFormat(array(), "%format_libelle%");
+    }
+
+    public function setProduitLibelle($s) {
+        $this->_set('produit_libelle', preg_replace('/ *, */', ' - ', $s));
     }
 
     public function facturer() {
@@ -21,14 +26,19 @@ abstract class Mouvement extends acCouchdbDocumentTree
         $this->facture = 0;
     }
 
+    public function getEtablissementIdentifiant() {
+
+        return $this->getParent()->getKey();
+    }
+
     public function getMD5Key() {
         $key = $this->getDocument()->identifiant . $this->produit_hash . $this->type_hash . $this->detail_identifiant;
         $key.= uniqid();
-        
+
         return md5($key);
     }
 
-    public function isFacturable() {        
+    public function isFacturable() {
         return $this->facturable;
     }
 
@@ -79,9 +89,13 @@ abstract class Mouvement extends acCouchdbDocumentTree
         if (!$this->isVrac()) {
             return null;
         }
+        $vrac = null;
+        try {
+            $vrac = VracClient::getInstance()->findByNumContrat($this->vrac_numero);
+        } catch(Exception $e) {
 
-        $vrac = VracClient::getInstance()->findByNumContrat($this->vrac_numero);
-
+            return null;
+        }
         if (!$vrac) {
 
             throw new sfException(sprintf("Le contrat '%s' n'a pas été trouvé", $this->vrac_numero));
@@ -91,20 +105,19 @@ abstract class Mouvement extends acCouchdbDocumentTree
     }
 
     public function getProduitConfig() {
-        
-        $config_client = ConfigurationClient::getCurrent();        
-        if (method_exists($config_client,'getConfigurationProduit')){
-            return $config_client->getConfigurationProduit($this->produit_hash);
-        }       
-        return ConfigurationClient::getCurrent()->get($this->produit_hash);
-        
+
+       return ConfigurationClient::getCurrent()->getConfigurationProduit($this->produit_hash);
     }
-    
+
     public function getDocId() {
 
         return $this->getDocument()->_id;
     }
-   
+
+    public function getIdDoc() {
+
+        return $this->getDocId();
+    }
 
     public function getId() {
 
@@ -122,5 +135,37 @@ abstract class Mouvement extends acCouchdbDocumentTree
         }
 
         return $this->detail_libelle;
+    }
+
+    public function getCoefficientFacturation() {
+        if($this->exist('coefficient_facturation') && $this->_get('coefficient_facturation')) {
+
+            return $this->_get('coefficient_facturation');
+        }
+
+        return self::DEFAULT_COEFFICIENT_FACTURATION;
+    }
+
+    public function getPrixUnitaire() {
+        if($this->exist('prix_unitaire')) {
+
+            return $this->_get('prix_unitaire');
+        }
+
+        return $this->cvo;
+    }
+
+    public function getQuantite() {
+        if($this->exist('quantite')) {
+
+            return $this->_get('quantite');
+        }
+
+        return $this->volume * $this->getCoefficientFacturation();
+    }
+
+    public function getPrixHt() {
+
+        return $this->getQuantite() * $this->getPrixUnitaire();
     }
 }

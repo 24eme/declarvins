@@ -518,35 +518,27 @@ class DRMDetail extends BaseDRMDetail {
         $mouvements = array();
         foreach ($this->get($hash) as $key => $volume) {
             if ($volume instanceof acCouchdbJson) {
-
                 continue;
             }
-
+            $type = (strpos($key, 'acq_') === false)? 'SUSPENDU' : 'ACQUITTE';
             $facturableArray = $this->getIsFacturableArray();
-            if (!$this->getCepage()->getConfig()) {
-            	continue;
-            }
-
             $mouvement = DRMMouvement::freeInstance($this->getDocument());
-            $mouvement->produit_hash = $this->getCepage()->getConfig()->getHash();
+            $mouvement->produit_libelle = $this->getLibelle();
+            $mouvement->produit_hash = $this->getCepage()->getHash();
+            $mouvement->type_drm = $type;
+            $mouvement->type_drm_libelle = ucfirst(strtolower($type));
             $mouvement->facture = 0;
             $mouvement->interpro = $this->interpro;
+            $mouvement->region = $this->interpro;
             $mouvement->cvo = $this->getCVOTaux();
             $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
             $mouvement->version = $this->getDocument()->getVersion();
             $mouvement->date_version = ($this->getDocument()->valide->date_saisie) ? ($this->getDocument()->valide->date_saisie) : date('Y-m-d');
-
-
-//            if ($this->exist($hash . "/" . $key . "_details")) {
-//                $mouvements = array_replace_recursive($mouvements, $this->get($hash . "/" . $key . "_details")->createMouvements($mouvement));
-//                continue;
-//            }
-
+            $mouvement->categorie = FactureClient::FACTURE_LIGNE_MOUVEMENT_TYPE_PROPRIETE;
             $mouvement = $this->createMouvement(clone $mouvement, $hash . '/' . $key, $volume);
             if (!$mouvement) {
                 continue;
             }
-
             if (is_array($mouvement)) {
                 foreach ($mouvement as $mouvement_vrac) {
                     $mouvements[$this->getDocument()->getIdentifiant()][$mouvement_vrac->getMD5Key()] = $mouvement_vrac;

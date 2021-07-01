@@ -128,4 +128,15 @@ class CompteTiers extends BaseCompteTiers {
     public function getIdentifiant() {
       return $this->login;
     }
+
+    public function getCompteType() {
+      return CompteClient::TYPE_COMPTE_SOCIETE;
+    }
+
+    public function getIdSociete() {
+      foreach($this->tiers as $k => $v) {
+        return str_replace('ETABLISSEMENT', 'SOCIETE', $k);
+      }
+      return null;
+    }
 }
