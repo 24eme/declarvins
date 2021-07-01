@@ -32,26 +32,17 @@ class MouvementfactureFacturationView extends acCouchdbView
     }
 
     protected function getMouvementsBySociete($societe, $facturee, $facturable, $facturationBySoc = false) {
-        $identifiantFirstEntity = ($facturationBySoc) ? $societe->identifiant : $societe->identifiant;
-        $identifiantLastEntity = ($facturationBySoc) ? $societe->identifiant : $societe->identifiant;
-        try {
-            $paramRegion = ($societe->type_societe != SocieteClient::TYPE_OPERATEUR) ? SocieteClient::TYPE_AUTRE : $societe->getRegionViticole();
-        } catch (Exception $e) {
-            $paramRegion = null;
-        }
-
         return $this->client
-                        ->startkey(array($facturee, $facturable, $region, $identifiantFirstEntity))
-                        ->endkey(array($facturee, $facturable, $region, $identifiantLastEntity, array()))
+                        ->startkey(array($facturee, $facturable, $societe->getRegionViticole(), $societe->identifiant))
+                        ->endkey(array($facturee, $facturable, $societe->getRegionViticole(), $societe->identifiant, array()))
                         ->reduce(false)
                         ->getView($this->design, $this->view)->rows;
     }
 
     public function getMouvementsBySocieteWithReduce($societe, $facturee, $facturable, $level) {
-        $paramRegion = ($societe->type_societe != SocieteClient::TYPE_OPERATEUR)? SocieteClient::TYPE_AUTRE : $societe->getRegionViticole();
         return $this->buildMouvements($this->consolidationMouvements($this->client
-                                ->startkey(array($facturee, $facturable, $paramRegion, $societe->identifiant))
-                                ->endkey(array($facturee, $facturable, $paramRegion, $societe->identifiant, array()))
+                                ->startkey(array($facturee, $facturable, $societe->getRegionViticole(), $societe->identifiant))
+                                ->endkey(array($facturee, $facturable, $societe->getRegionViticole(), $societe->identifiant, array()))
                                 ->reduce(true)->group_level($level)
                                 ->getView($this->design, $this->view)->rows));
     }
