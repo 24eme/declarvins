@@ -274,6 +274,10 @@ class Etablissement extends BaseEtablissement {
       $societe->add("date_creation", date('Y-m-d'));
       $societe->constructId();
       $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
+      $societe->compte_societe = $this->compte;
+      $societe->remove('contacts');
+      $societe->add('contacts');
+      $societe->contacts->getOrAdd($this->compte);
       return $societe;
     }
 
