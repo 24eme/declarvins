@@ -29,7 +29,16 @@ class ConfigurationProduitCertification extends BaseConfigurationProduitCertific
     {
 		return array($this->code);
     }
-    
+
+    public function getCodeComptable() {
+        if(!$this->exist('code_comptable')) {
+
+            return null;
+        }
+
+        return $this->_get('code_comptable');
+    }
+
     public function callbackCurrentDroit($typeDroit, $atDate = null, $onlyValue = false) { return null; }
     
     public function callbackHistoryDroit($typeDroit, $onlyValue = false) { return array(); }
