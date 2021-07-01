@@ -38,6 +38,11 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
+        <?php if ($configuration->isApplicationOuverte($sf_user->getCompte()->getGerantInterpro()->_id, 'factures')): ?>
+        <li<?php if ($active == 'factures'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('facture_societe', $etablissement) ?>">Factures</a>
+        </li>
+        <?php endif; ?>
 
         <?php if(SubventionConfiguration::getInstance()->isActif($etablissement, $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
