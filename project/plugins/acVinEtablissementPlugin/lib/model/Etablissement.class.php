@@ -35,7 +35,14 @@ class Etablissement extends BaseEtablissement {
 
     public function getRegion()
     {
-    	return null;
+      $user = sfContext::getInstance()->getUser();
+      $region = null;
+      if ($user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+        if ($compte = $user->getCompte()) {
+          $region = $compte->getGerantInterpro()->_id;
+        }
+      }
+    	return $region;
     }
 
     public function getInterproObject() {

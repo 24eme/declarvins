@@ -2,7 +2,7 @@
 
 class MouvementfactureFacturationView extends acCouchdbView
 {
-    
+
     const KEYS_FACTURE = 0;
     const KEYS_FACTURABLE = 1;
     const KEYS_REGION = 2;
@@ -37,12 +37,12 @@ class MouvementfactureFacturationView extends acCouchdbView
         try {
             $paramRegion = ($societe->type_societe != SocieteClient::TYPE_OPERATEUR) ? SocieteClient::TYPE_AUTRE : $societe->getRegionViticole();
         } catch (Exception $e) {
-            $paramRegion = array();
+            $paramRegion = null;
         }
 
         return $this->client
-                        ->startkey(array($facturee, $facturable, $paramRegion, $identifiantFirstEntity))
-                        ->endkey(array($facturee, $facturable, $paramRegion, $identifiantLastEntity, array()))
+                        ->startkey(array($facturee, $facturable, $region, $identifiantFirstEntity))
+                        ->endkey(array($facturee, $facturable, $region, $identifiantLastEntity, array()))
                         ->reduce(false)
                         ->getView($this->design, $this->view)->rows;
     }
@@ -50,8 +50,8 @@ class MouvementfactureFacturationView extends acCouchdbView
     public function getMouvementsBySocieteWithReduce($societe, $facturee, $facturable, $level) {
         $paramRegion = ($societe->type_societe != SocieteClient::TYPE_OPERATEUR)? SocieteClient::TYPE_AUTRE : $societe->getRegionViticole();
         return $this->buildMouvements($this->consolidationMouvements($this->client
-                                ->startkey(array($facturee, $facturable, $paramRegion, $societe->identifiant . '00'))
-                                ->endkey(array($facturee, $facturable, $paramRegion, $societe->identifiant . '99', array()))
+                                ->startkey(array($facturee, $facturable, $paramRegion, $societe->identifiant))
+                                ->endkey(array($facturee, $facturable, $paramRegion, $societe->identifiant, array()))
                                 ->reduce(true)->group_level($level)
                                 ->getView($this->design, $this->view)->rows));
     }
