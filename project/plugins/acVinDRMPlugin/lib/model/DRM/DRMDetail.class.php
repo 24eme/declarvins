@@ -183,7 +183,7 @@ class DRMDetail extends BaseDRMDetail {
 
     private function getIsFacturableSortiesArray() {
         $mergeSorties = array();
-        if ($this->interpro == Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID) {
+        if (in_array($this->interpro, [Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID, Interpro::INTERPRO_KEY . Interpro::INTERVINS_SUD_EST_ID])) {
             $mergeSorties = DRMDroits::getDroitSortiesInterRhone();
         }
         return $mergeSorties;
@@ -191,7 +191,7 @@ class DRMDetail extends BaseDRMDetail {
 
     private function getIsFacturableEntreeArray() {
         $mergeEntrees = array();
-        if ($this->interpro == Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID) {
+        if (in_array($this->interpro, [Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID, Interpro::INTERPRO_KEY . Interpro::INTERVINS_SUD_EST_ID])) {
             $mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
         }
         return $mergeEntrees;
@@ -200,7 +200,7 @@ class DRMDetail extends BaseDRMDetail {
     private function getIsFacturableArray() {
         $mergeSorties = $this->getIsFacturableSortiesArray();
         $mergeEntrees = $this->getIsFacturableEntreeArray();
-        return array_unique(array_merge(DRMDroits::getDroitSorties($mergeSorties), DRMDroits::getDroitSorties($mergeEntrees)));
+        return array_unique(array_merge(DRMDroits::getDroitSorties($mergeSorties), DRMDroits::getDroitEntrees($mergeEntrees)));
     }
 
     public function getVolumeTaxable() {

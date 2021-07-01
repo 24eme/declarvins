@@ -82,20 +82,24 @@ class Configuration extends BaseConfiguration {
         'recolte' => 1,
         'repli' => 1,
         'declassement' => 1,
-    	'manipulation' => 1,
-    	'vci' => 1,
+    	  'manipulation' => 1,
+    	  'vci' => 1,
         'mouvement' => 1,
         'embouteillage' => 1,
         'travail' => 1,
         'distillation' => 1,
         'crd' => 1,
-    	'excedent' => 1
+    	  'excedent' => 1,
+        'acq_achat' => 1,
+        'acq_autres' => 1
     );
     protected static $mouvement_coefficient_sortie = array(
         'vrac' => -1,
+        'vrac_export' => -1,
         'export' => -1,
         'factures' => -1,
         'crd' => -1,
+        'crd_acquittes' => -1,
         'consommation' => -1,
         'pertes' => -1,
         'declassement' => -1,
@@ -109,7 +113,10 @@ class Configuration extends BaseConfiguration {
         'distillation' => -1,
         'lies' => -1,
         'autres' => -1,
-        'vrac_contrat' => -1
+        'vrac_contrat' => -1,
+        'acq_crd' => -1,
+        'acq_replacement' => -1,
+        'acq_autres' => -1
     );
 
 
