@@ -24,13 +24,15 @@ loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/CONFIGURATION-PRODUITS-IV
 $viti = loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/ETABLISSEMENT.json");
 $societeViti = loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/SOCIETE.json");
 
-$t = new lime_test(1);
+var_dump($societeViti->getRegionViticole());
+
+$t = new lime_test(2);
 
 $t->comment("Chargement de la DRM");
 
 $drm = loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/DRM.json", acCouchdbClient::HYDRATE_JSON);
 
-$t->comment("Création d'une facture à partir des DRM pour une société");
+$t->comment("Création d'une facture à partir d'une DRM d'une société");
 
 $paramFacturation =  array(
     "modele" => "DRM",
@@ -41,10 +43,11 @@ $paramFacturation =  array(
     "seuil" => null,
 );
 
-$t->comment("Recherche des mouvements (non facturable)");
-
 $mouvementsFacture = array($societeViti->identifiant => FactureClient::getInstance()->getFacturationForSociete($societeViti));
+
 $mouvementsFacture = FactureClient::getInstance()->filterWithParameters($mouvementsFacture, $paramFacturation);
+
+$t->is(count($mouvementsFacture[$societeViti->identifiant]), 1, "La société à un mouvement facturable");
 
 $facture = FactureClient::getInstance()->createAndSaveFacturesBySociete($societeViti, $paramFacturation);
 
