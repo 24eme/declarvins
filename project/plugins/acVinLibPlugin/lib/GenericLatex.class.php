@@ -4,7 +4,7 @@ class GenericLatex {
 
   const OUTPUT_TYPE_PDF = 'pdf';
   const OUTPUT_TYPE_LATEX = 'latex';
-  
+
   public function getLatexFile() {
     $fn = $this->getLatexFileName();
     $leFichier = fopen($fn, "w");
@@ -17,34 +17,20 @@ class GenericLatex {
     return $fn;
   }
 
-  private function getLatexDestinationDir() {
+  public function getLatexDestinationDir() {
     return sfConfig::get('sf_root_dir')."/data/latex/";
   }
-  
+
   protected function getTEXWorkingDir() {
     return "/tmp/";
   }
 
   public function generatePDF() {
-    $cmdCompileLatex = '/usr/bin/pdflatex -output-directory="'.$this->getTEXWorkingDir().'" -synctex=1 -interaction=nonstopmode "'.$this->getLatexFile().'" 2>&1';
-    $output = array();
-    exec($cmdCompileLatex, $output, $ret);
-    $output = implode(' ', $output);
-    if (!preg_match('/Transcript written/', $output) || preg_match('/Fatal error/', $output)) {
-      throw new sfException($output);
-    }
-    if ($ret) {
-      $log = $this->getLatexFileNameWithoutExtention().'.log';
-      $grep = preg_grep('/^!/', file_get_contents($log));
-      array_unshift($grep, "/!\ Latex error\n");
-      array_unshift($grep, "Latex log $log:\n");
-      if ($grep){
-              throw new sfException(implode(' ', $grep));
-      }
-    }
+    $cmdCompileLatex = 'latexmk -pdf -output-directory="'.$this->getTEXWorkingDir().'" -interaction=nonstopmode "'.$this->getLatexFile().'" 2>&1';
+    exec($cmdCompileLatex, $output);
     $pdfpath = $this->getLatexFileNameWithoutExtention().'.pdf';
     if (!file_exists($pdfpath)) {
-      throw new sfException("pdf not created ($pdfpath): ".$output);
+      throw new sfException("pdf not created ($pdfpath): ".implode(',', $output));
     }
     return $pdfpath;
   }
@@ -56,6 +42,8 @@ class GenericLatex {
     @unlink($file.'.pdf');
     @unlink($file.'.tex');
     @unlink($file.'.synctex.gz');
+    @unlink($file.'.fls');
+    @unlink($file.'.fdb_latexmk');
   }
 
   public function getPDFFile() {
@@ -79,9 +67,12 @@ class GenericLatex {
 
   public function echoPDFWithHTTPHeader() {
     $attachement = 'attachment; filename='.$this->getPublicFileName();
-    header("content-type: application/pdf\n");
+    header("Content-Type: application/pdf\n");
     header("content-length: ".filesize($this->getPDFFile())."\n");
-    header("content-disposition: $attachement\n\n");
+    header("Content-Transfer-Encoding: binary\n");
+    header("Cache-Control: public\n");
+    header("Expires: 0\n");
+    header("Content-disposition: $attachement\n\n");
     echo $this->getPDFFileContents();
   }
 
@@ -98,15 +89,19 @@ class GenericLatex {
       return $this->echoLatexWithHTTPHeader();
     return $this->echoPDFWithHTTPHeader();
   }
- 
+
   public function getLatexFileName() {
     return $this->getLatexFileNameWithoutExtention().'.tex';
   }
 
   public function getNbPages() {
-    throw new sfException("need to be implemented upstream");
+    exec("pdfinfo ".$this->getPDFFile(), $output);
+    if (preg_match('/Pages:\D*(\d+)\D/', implode($output), $m)) {
+      return $m[1];
+    }
+    throw new sfException("pdfinfo failed");
   }
-  
+
   public function getLatexFileNameWithoutExtention() {
     throw new sfException("need to be implemented upstream");
   }
