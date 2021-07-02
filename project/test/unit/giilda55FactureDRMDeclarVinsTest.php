@@ -26,11 +26,11 @@ $societeViti = loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/SOCIETE.js
 
 var_dump($societeViti->getRegionViticole());
 
-$t = new lime_test(2);
+$t = new lime_test(5);
 
 $t->comment("Chargement de la DRM");
 
-$drm = loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/DRM.json", acCouchdbClient::HYDRATE_JSON);
+$drm = loadDoc(sfConfig::get('sf_test_dir')."/data/declarvins/DRM.json");
 
 $t->comment("Création d'une facture à partir d'une DRM d'une société");
 
@@ -44,12 +44,26 @@ $paramFacturation =  array(
 );
 
 $mouvementsFacture = array($societeViti->identifiant => FactureClient::getInstance()->getFacturationForSociete($societeViti));
-
 $mouvementsFacture = FactureClient::getInstance()->filterWithParameters($mouvementsFacture, $paramFacturation);
 
 $t->is(count($mouvementsFacture[$societeViti->identifiant]), 1, "La société à un mouvement facturable");
 
 $facture = FactureClient::getInstance()->createAndSaveFacturesBySociete($societeViti, $paramFacturation);
-
 $facture->save();
 $t->ok($facture, "La facture est créée");
+
+$mouvementsFacture = array($societeViti->identifiant => FactureClient::getInstance()->getFacturationForSociete($societeViti));
+$mouvementsFacture = FactureClient::getInstance()->filterWithParameters($mouvementsFacture, $paramFacturation);
+
+$t->is(count($mouvementsFacture[$societeViti->identifiant]), 0, "La société n'a plus de mouvement facturable");
+
+$t->comment("Création d'un avoir");
+
+$avoir = FactureClient::getInstance()->defactureCreateAvoirAndSaveThem($facture);
+
+$t->ok($avoir, "L'avoir a été créée");
+
+$mouvementsFacture = array($societeViti->identifiant => FactureClient::getInstance()->getFacturationForSociete($societeViti));
+$mouvementsFacture = FactureClient::getInstance()->filterWithParameters($mouvementsFacture, $paramFacturation);
+
+$t->is(count($mouvementsFacture[$societeViti->identifiant]), 1, "La société a de nouveau un mouvement facturable");
