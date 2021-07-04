@@ -591,7 +591,7 @@ class DRMDetail extends BaseDRMDetail {
                 $mouvement_vrac->volume = $volume_vrac;
                 $mouvement_vrac->date = $this->getDocument()->getDate();
                 $mouvement_vrac->vrac_numero = $vrac_numero;
-
+                $mouvement_vrac->facturable = 0;
                 $mouvements_vrac[] = $mouvement_vrac;
 
                 $mouvement->volume -= $volume_vrac;
