@@ -36,7 +36,7 @@ class Etablissement extends BaseEtablissement {
     public function getRegion()
     {
 
-    	return 'INTERPRO-IVSE';
+    	return sfConfig::get('app_facturation_region');
     }
 
     public function getInterproObject() {
