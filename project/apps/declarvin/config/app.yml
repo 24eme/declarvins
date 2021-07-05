@@ -12,3 +12,4 @@ all:
     from_name:  "Webmaster DéclarVins"
     subject:    "DéclarVins - Redéfinition de votre mot de passe"
   compte_synchro: false
+  facturation_region: INTERPRO-IVSE
