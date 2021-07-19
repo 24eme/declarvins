@@ -1,2 +1,0 @@
-all:
-  stylesheets:    [bootstrap_ir.css, bootstrap_declarvins.css, select2.css, select2-bootstrap.min.css, bootstrap_declarvins_adapter.css]
