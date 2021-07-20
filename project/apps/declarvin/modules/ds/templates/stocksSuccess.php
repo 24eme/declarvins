@@ -1,5 +1,6 @@
 <?php use_helper('Date'); ?>
 <?php use_helper('Float'); ?>
+<?php use_helper('Version'); ?>
 <?php include_partial('ds/preTemplate'); ?>
 <?php include_partial('ds/breadcrum', array('etablissement' => $etablissement)); ?>
 
@@ -52,15 +53,15 @@
                           <p class="groupe" style="height: 23px;">&nbsp;</p>
                           <div class="groupe" data-groupe-id="1">
                               <ul style="display: block;padding-top:0px;">
-                                <li class="" style="height: 21px;"><?php echo $form[$hash][$detail]['stock_declare_millesime_courant']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
-                                <li class="" style="height: 21px;"><?php echo $form[$hash][$detail]['dont_vraclibre_millesime_courant']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
+                                <li class="<?php echo isVersionnerCssClass($stocks, 'stock_declare_millesime_courant') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['stock_declare_millesime_courant']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
+                                <li class="<?php echo isVersionnerCssClass($stocks, 'dont_vraclibre_millesime_courant') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['dont_vraclibre_millesime_courant']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
                               </ul>
                           </div>
                           <p class="groupe" style="height: 23px;">&nbsp;</p>
                           <div class="groupe" data-groupe-id="2">
                               <ul style="display: block;padding-top:0px;">
-                                <li class="" style="height: 21px;"><?php echo $form[$hash][$detail]['stock_declare_millesime_anterieur']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
-                                <li class="" style="height: 21px;"><?php echo $form[$hash][$detail]['dont_vraclibre_millesime_anterieur']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
+                                <li class="<?php echo isVersionnerCssClass($stocks, 'stock_declare_millesime_anterieur') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['stock_declare_millesime_anterieur']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
+                                <li class="<?php echo isVersionnerCssClass($stocks, 'dont_vraclibre_millesime_anterieur') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['dont_vraclibre_millesime_anterieur']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
                               </ul>
                           </div>
                       </div>
