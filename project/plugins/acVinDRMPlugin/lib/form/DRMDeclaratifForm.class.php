@@ -128,7 +128,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'adhesion_emcs_gamma' => new sfValidatorBoolean(array('required' => false)),
             'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
             'organisme' => new sfValidatorString(array('required' => false)),
-            'numero' => new sfValidatorString(array('required' => false)),
+            'numero' => new sfValidatorString(array('required' => false, 'max_length' => 21)),
             'moyen_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
             'frequence' => new sfValidatorChoice(array('required' => false, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE))),
             'statistiques_jus' => new sfValidatorNumber(array('required' => false)),
@@ -153,7 +153,8 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->validatorSchema['dsa_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['dsa_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['dsa_nb']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
-        
+        $this->validatorSchema['numero']->setMessage('invalid', 'La longueur maximum du numéro est de 21');
+
 
         $rna = new DRMDeclaratifRnaCollectionForm($this->_drm->declaratif->rna);
         $this->embedForm('rna', $rna);

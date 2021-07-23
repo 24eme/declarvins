@@ -97,7 +97,7 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          'replacement-suspension': 
+                                          'replacement-suspension':
                                             type: collection
                                             definition:
                                               fields:
@@ -196,7 +196,7 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*': 
+                                          '*':
                                             type: array_collection
                                             definition:
                                               fields:
@@ -205,7 +205,7 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*': 
+                                          '*':
                                             type: array_collection
                                             definition:
                                               fields:
@@ -219,7 +219,7 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          'replacement-suspension': 
+                                          'replacement-suspension':
                                             type: collection
                                             definition:
                                               fields:
@@ -236,7 +236,7 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*': 
+                                          '*':
                                             type: array_collection
                                             definition:
                                               fields:
@@ -250,12 +250,12 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          'sorties-definitives': 
+                                          'sorties-definitives':
                                             type: array_collection
                                             definition:
                                               fields:
                                                 '*': {  }
-                                          'consommation-familiale-degustation': 
+                                          'consommation-familiale-degustation':
                                             type: array_collection
                                             definition:
                                               fields:
@@ -264,7 +264,7 @@ Configuration:
                                             type: collection
                                             definition:
                                               fields:
-                                                '*': 
+                                                '*':
                                                   type: array_collection
                                                   definition:
                                                     fields:
@@ -273,12 +273,12 @@ Configuration:
                                             type: collection
                                             definition:
                                               fields:
-                                                '*': 
+                                                '*':
                                                   type: array_collection
                                                   definition:
                                                     fields:
                                                       '*': {  }
-                                          'autres-sorties': 
+                                          'autres-sorties':
                                             type: array_collection
                                             definition:
                                               fields:
