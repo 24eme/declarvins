@@ -26,5 +26,5 @@ all:
       taux_tva:
           19700101: 19.6
           20140101: 20.0
-      export_shell: false
+      export_shell: "%sf_root_dir%/bin/exportSage.sh"
       teledeclaration: false
