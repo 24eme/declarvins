@@ -31,12 +31,10 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
-        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'ds')): ?>
-        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DS))): ?>
+        <?php if ($configuration->isApplicationOuverte('INTERPRO-CIVP', 'ds') && $etablissement->hasZone(ConfigurationZoneClient::ZONE_PROVENCE) && $etablissement->hasDroit(EtablissementDroit::DROIT_DS)): ?>
         <li<?php if ($active == 'ds'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('ds_etablissement', $etablissement) ?>"><?php echo DSConfiguration::getInstance()->getName() ?></a>
         </li>
-        <?php endif; ?>
         <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_DAE)): ?>
