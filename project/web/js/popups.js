@@ -1,6 +1,6 @@
 /**
  * Fichier : popups.js
- * Description : fonctions JS spécifiques au popups 
+ * Description : fonctions JS spécifiques au popups
  * Auteur : Hamza Iqbal - hiqbal[at]actualys.com
  * Copyright: Actualys
  ******************************************/
@@ -11,7 +11,7 @@
 (function($)
 {
 	var objPopups = {}
-	
+
 	$.extend(objPopups,
 	{
 		infosPopups: [],
@@ -76,35 +76,35 @@
 		var formBtn = form.find('button');
 		var btnFermer = popup.find('.btn_fermer');
 		var formBtnSubmit = formBtn.filter(':submit');
-		
+
 		formBtnSubmit.click(function()
 		{
 			form.submit();
 			return false;
 		});
-		
+
 		form.find('input:visible', 'select').eq(0).focus();
 
 		// Soumission
 		form.live('submit', function()
 		{
 			//console.log('ok');
-			
+
 			popup.addClass('popup_chargement');
 			formBtn.attr('disabled', 'disabled');
-			
+
 			// Soumission AJAX
 			$.post(form.attr('action'), form.serializeArray(), function (data)
 			{
-				
+
 				// S'il n'y a pas d'erreur -> Redirection
 				if(data.success)
 				{
 					if (form.attr('data-popup-success') == 'popup') {
-						$.openPopup(form.attr('data-popup'), 
-									form.attr('data-popup-config'), 
-									form.attr('data-popup-titre'), 
-									data.url, 
+						$.openPopup(form.attr('data-popup'),
+									form.attr('data-popup-config'),
+									form.attr('data-popup-titre'),
+									data.url,
 									true,
 									function() {},
 									function() {
@@ -127,7 +127,7 @@
 					formBtn.removeAttr('disabled');
 					formBtnSubmit = formBtn.filter(':submit');
 					popup.removeClass('popup_chargement');
-					
+
 					formBtnSubmit.click(function()
 					{
 						form.submit();
@@ -145,7 +145,7 @@
 			return false;
 		});
 
-		// Reinitialisation des champs et 
+		// Reinitialisation des champs et
 		// suppression des messages d'erreur à la fermeture
 		popup.bind('fermer', function()
 		{
@@ -164,51 +164,66 @@
 		form.die('submit');
 		btnFermer.die('click');
 	}
-	
+
 
 	$(document).ready(function()
 	{
 		if($('#popup_info_stocks').exists())
 		{
-			$.openPopup("#popup_info_stocks", 
-					null, 
-					"Nouvelle campagne", 
-					null, 
-					null, 
+			$.openPopup("#popup_info_stocks",
+					null,
+					"Nouvelle campagne",
+					null,
+					null,
 					function() {
 						btnPopup.addClass('btn_chargement');
-					}, 
+					},
 					function() {
 						btnPopup.removeClass('btn_chargement');
 					}
 			);
 		}
+  		if($('#popup_ds').exists())
+  		{
+  			$.openPopup("#popup_ds",
+  					null,
+  					"Stock Rosé",
+  					null,
+  					null,
+  					function() {
+  						btnPopup.addClass('btn_chargement');
+  					},
+  					function() {
+  						btnPopup.removeClass('btn_chargement');
+  					}
+  			);
+  		}
 		$('.btn_popup').each(function()
 		{
 			var btnPopup = $(this);
 			btnPopup.click(function()
 			{
-				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";	
+				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";
 				var rechargement = btnPopup.attr('data-popup-enregistrement') && btnPopup.attr('data-popup-enregistrement') == "true";
 				var rechargementCrd = btnPopup.attr('data-popup-enregistrement-crd') && btnPopup.attr('data-popup-enregistrement-crd') == "true";
 				if (rechargement) {
 					var form = btnPopup.parents('form');
 					var donneesCol = form.serializeArray();
-					
+
 					$.post(form.attr('action'), donneesCol, function (data)
 					{
-						$.openPopup(btnPopup.attr('data-popup'), 
-								btnPopup.attr('data-popup-config'), 
-								(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
-								btnPopup.attr('href'), 
-								reload, 
+						$.openPopup(btnPopup.attr('data-popup'),
+								btnPopup.attr('data-popup-config'),
+								(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(),
+								btnPopup.attr('href'),
+								reload,
 								function() {
 									btnPopup.addClass('btn_chargement');
-								}, 
+								},
 								function() {
 									btnPopup.removeClass('btn_chargement');
 								});
-						
+
 					});
 				}
 				else if (rechargementCrd) {
@@ -216,28 +231,28 @@
 					var donneesCol = form.serializeArray();
 					$.post(form.attr('action'), function (data)
 					{
-						$.openPopup(btnPopup.attr('data-popup'), 
-								btnPopup.attr('data-popup-config'), 
-								(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
-								btnPopup.attr('href'), 
-								reload, 
+						$.openPopup(btnPopup.attr('data-popup'),
+								btnPopup.attr('data-popup-config'),
+								(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(),
+								btnPopup.attr('href'),
+								reload,
 								function() {
 									btnPopup.addClass('btn_chargement');
-								}, 
+								},
 								function() {
 									btnPopup.removeClass('btn_chargement');
 								});
 					});
 				}
 				else {
-				$.openPopup(btnPopup.attr('data-popup'), 
-							btnPopup.attr('data-popup-config'), 
-							(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
-							btnPopup.attr('href'), 
-							reload, 
+				$.openPopup(btnPopup.attr('data-popup'),
+							btnPopup.attr('data-popup-config'),
+							(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(),
+							btnPopup.attr('href'),
+							reload,
 							function() {
 								btnPopup.addClass('btn_chargement');
-							}, 
+							},
 							function() {
 								btnPopup.removeClass('btn_chargement');
 							});
@@ -249,7 +264,7 @@
 		$.initPopupsMsgAide();
 	});
 
-	$.openPopup = function(id_popup, config, titre, href, reload, onload, onloaded) 
+	$.openPopup = function(id_popup, config, titre, href, reload, onload, onloaded)
 	{
 		if (reload && $(id_popup).length > 0) {
 			$(id_popup).dialog('close');
@@ -277,7 +292,7 @@
 				$(id_popup).dialog('open');
 			}
 		}
-		
+
 		$.callbackOpenPopup();
 	};
 
@@ -289,7 +304,7 @@
 		var ajax = true;
 		var href = href;
 		var popup = $(popupId);
-		
+
 		var infosPopup =
 		{
 			btnPopupTexte: popupTitre,
@@ -304,7 +319,7 @@
 		infosPopup = $.initActionsPopup(infosPopup);
 		objPopups.infosPopups.push(infosPopup);
 	};
-	
+
 	/**
 	 * Initialisation des actions d'une popup
 	 * $.initActionsPopup(infosPopup);
@@ -312,41 +327,41 @@
 	$.initActionsPopup = function(infos)
 	{
 		var btnFermer = infos.popup.find('.btn_fermer');
-			
+
 		if(!infos.popupTitre) infos.popupTitre = infos.btnPopupTexte;
-		
+
 		// Ajout du titre dynamique
 		$.extend(infos.config,
 		{
 			title: infos.popupTitre
 		});
-		
+
 		// Fusion avec la configuration spécifique
 		if(infos.popupConfigSpec)
 		{
 			$.extend(infos.config, objPopups[infos.popupConfigSpec]);
 		}
-		
+
 		// Initialisation
 		infos.popup.dialog(infos.config);
 
 		// Création
 		infos.config.create(infos.popup);
-		
+
 		// Ouverture
 		/*infos.btnPopup.click(function()
 		{
 			infos.popup.dialog('open');
 			return false;
 		});*/
-		
+
 		// Fermeture
 		btnFermer.live('click', function()
 		{
 			infos.popup.dialog('close');
 			return false;
 		});
-			
+
 		return infos;
 	};
 
@@ -387,7 +402,7 @@
 	                var titre = json.titre;
 	                var message = json.message;
 	                var url = json.url_doc;
-	                
+
 	                // Remplace le texte et le bouton de la popup
 	                textePopup.html(message);
 	               	btnPopup.html('');
@@ -400,7 +415,7 @@
 
 	                popup.dialog('option' , 'title' , titre);
 	                popup.dialog('open');
-	                
+
 					$.callbackOpenPopup();
 	            }
             );

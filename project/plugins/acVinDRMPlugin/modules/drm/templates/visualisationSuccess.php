@@ -26,11 +26,11 @@
     <?php endif; ?>
     <!-- #principal -->
     <section id="principal">
-    
+
     	<?php $drmCiel = $drm->getOrAdd('ciel');  ?>
 
         <?php if ($drm->isValidee()): ?>
-        
+
             <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
             <?php endif; ?>
@@ -146,7 +146,7 @@
                 </table>
             </div>
         <?php endif; ?>
-        
+
         <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">
                 <strong>Commentaires BO</strong>
@@ -172,7 +172,7 @@
                 <?php endif; ?>
             </div>
 
-        </div> 
+        </div>
 
     </section>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
@@ -183,4 +183,19 @@
 			<?php endif; ?>
         </form>
     <?php endif; ?>
+
+
+    <?php if ($sf_user->hasFlash('incitation_stock_rose')): ?>
+  	<div id="popup_ds" class="popup_contenu popup_form" style="display:none;">
+  		<p>Nous sommes en fin de campagne.</p>
+  		<br />
+  		<p>Suite aux difficultés de commercialisation de 2020, notamment au sein de la restauration, le Conseil Interprofessionnel des Vins de Provence (CIVP) recueille des indicateurs sur le stock restant, notamment l’ancien millésime libre à la vente. Nous espérons pouvoir compter sur votre réponse à ce rapide questionnaire.</p>
+  		<br />
+  		<p>Pour ce faire, nous vous invitons à saisir l'état de vos stocks d'AOP Provence Rosé en cliquant sur le lien ci-dessous.</p>
+  		<br />
+      <p style="text-align: right;">
+  		    <a href="<?php echo url_for('ds_etablissement', $etablissement) ?>" style="color: #86005b;">Saisir mes stocks d'AOP Provence Rosé</a>
+      </p>
+  	</div>
+  	<?php endif; ?>
 </section>
