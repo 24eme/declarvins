@@ -18,7 +18,7 @@
 
       		<div class="groupe demarrage-ouvert" data-groupe-id="1">
         		<ul style="display: block; padding-top:0px;">
-              <li style="height: 21px;">Stock <?php echo $ds->millesime ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_stock_courant" title="Message aide"></a></li>
+              <li style="height: 21px;">Stock <?php echo $ds->millesime ?> (vrac et conditionné)&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_stock_courant" title="Message aide"></a></li>
         			<li style="height: 21px;"><strong>Dont</strong> Vrac libre à la vente&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_dontvrac_courant" title="Message aide"></a></li>
         		</ul>
       	  </div>
@@ -27,7 +27,7 @@
 
         	<div class="groupe demarrage-ouvert" data-groupe-id="2">
         		<ul style="display: block; padding-top:0px;">
-              <li style="height: 21px;">Stock autre millésime&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_stock_anterieur" title="Message aide"></a></li>
+              <li style="height: 21px;">Stock autre millésime (vrac et conditionné)&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_stock_anterieur" title="Message aide"></a></li>
         			<li style="height: 21px;"><strong>Dont</strong> Vrac libre à la vente&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_dontvrac_anterieur" title="Message aide"></a></li>
         		</ul>
         	</div>
