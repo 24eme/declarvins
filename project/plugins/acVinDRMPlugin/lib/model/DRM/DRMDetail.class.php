@@ -634,7 +634,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function getStockBilan()
     {
-    	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
+    	return $this->sorties->vrac + $this->sorties->vrac_export + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
 
     public function getLibelleFiscal()

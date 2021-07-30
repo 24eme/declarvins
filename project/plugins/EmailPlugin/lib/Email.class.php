@@ -1,14 +1,14 @@
 <?php
 
 class Email {
-	
+
 	private static $_instance = null;
 	protected $_context;
-	
-	public function __construct($context = null) { 
+
+	public function __construct($context = null) {
 		$this->_context = ($context)? $context : sfContext::getInstance();
 	}
-	
+
 	public static function getInstance($context = null)
     {
        	if(is_null(self::$_instance)) {
@@ -16,8 +16,8 @@ class Email {
 		}
 		return self::$_instance;
     }
-    
-    public function vracSaisieTerminee($vrac, $etablissement, $destinataire) 
+
+    public function vracSaisieTerminee($vrac, $etablissement, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -31,8 +31,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracDemandeValidation($vrac, $etablissement, $destinataire, $acteur) 
+
+    public function vracDemandeValidation($vrac, $etablissement, $destinataire, $acteur)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -46,8 +46,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracDemandeValidationInterpro($vrac, $destinataire, $acteur) 
+
+    public function vracDemandeValidationInterpro($vrac, $destinataire, $acteur)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -61,14 +61,14 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function dsnegoceSend($ds, $etablissement, $destinataire) 
+
+    public function dsnegoceuploadSend($ds, $etablissement, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($etablissement->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'DS Négoce du '.$etablissement->identifiant;
-        $body = $this->getBodyFromPartial('dsnegoce_send', array('ds' => $ds, 'etablissement' => $etablissement));
+        $body = $this->getBodyFromPartial('dsnegoceupload_send', array('ds' => $ds, 'etablissement' => $etablissement));
 		$message = Swift_Message::newInstance()
   					->setFrom($from)
   					->setTo($to)
@@ -76,11 +76,11 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath($ds->getAttachmentUri(current($ds->getFichiers()))));
-		
+
         return $this->getMailer()->send($message);
     }
-    
-    public function daeErrorFileSend($path, $etablissement) 
+
+    public function daeErrorFileSend($path, $etablissement)
     {
         $interpro = InterproClient::getInstance()->getById($etablissement->interpro);
         $from = $this->getFromEmailInterpros(array($interpro));
@@ -94,11 +94,11 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath($path));
-		
+
         return $this->getMailer()->send($message);
     }
-    
-    public function vracContratValide($vrac, $etablissement, $destinataire) 
+
+    public function vracContratValide($vrac, $etablissement, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -112,11 +112,11 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
-		
+
         return $this->getMailer()->send($message);
     }
-    
-    public function vracTransaction($vrac, $etablissement, $oioc, $cc) 
+
+    public function vracTransaction($vrac, $etablissement, $oioc, $cc)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -132,11 +132,11 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'-TRANSACTION.pdf'));
-		
+
         return $this->getMailer()->send($message);
     }
-    
-    public function vracContratModifie($vrac, $etablissement, $destinataire) 
+
+    public function vracContratModifie($vrac, $etablissement, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -150,11 +150,11 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
-		
+
         return $this->getMailer()->send($message);
     }
-    
-    public function vracContratValideInterpro($vrac, $destinataire) 
+
+    public function vracContratValideInterpro($vrac, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -168,11 +168,11 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
-		
+
         return $this->getMailer()->send($message);
     }
-    
-    public function vracContratValidation($vrac, $etablissement, $destinataire) 
+
+    public function vracContratValidation($vrac, $etablissement, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -183,8 +183,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracContratAnnulation($vrac, $etablissement, $acteur, $destinataire) 
+
+    public function vracContratAnnulation($vrac, $etablissement, $acteur, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -205,12 +205,12 @@ class Email {
     	$subject = 'Annulation d\'une DECLARATION DE TRANSACTION à votre OIOC';
     	$body = $this->getBodyFromPartial('vrac_transaction_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'oioc' => $oioc));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-    
+
     	return $this->getMailer()->send($message);
     }
 
-    
-    public function vracDemandeAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur) 
+
+    public function vracDemandeAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -224,10 +224,10 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
 
-    
-    public function vracRefusAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur) 
+
+
+    public function vracRefusAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -241,8 +241,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracDemandeAnnulationInterpro($vrac, $etab, $etablissement, $destinataire, $acteur) 
+
+    public function vracDemandeAnnulationInterpro($vrac, $etab, $etablissement, $destinataire, $acteur)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -256,8 +256,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracRelanceContrat($vrac, $etablissement, $destinataire, $acteur, $url) 
+
+    public function vracRelanceContrat($vrac, $etablissement, $destinataire, $acteur, $url)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -268,8 +268,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracExpirationContrat($vrac, $etablissement, $destinataire, $acteur, $url) 
+
+    public function vracExpirationContrat($vrac, $etablissement, $destinataire, $acteur, $url)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -280,8 +280,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function vracExpirationAnnulationContrat($vrac, $etablissement, $destinataire, $acteur, $url) 
+
+    public function vracExpirationAnnulationContrat($vrac, $etablissement, $destinataire, $acteur, $url)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
@@ -291,7 +291,7 @@ class Email {
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return $this->getMailer()->send($message);
-    }    
+    }
 
     public function vracDeterminationPrix($vrac, $etablissement, $destinataire, $acteur, $url)
     {
@@ -307,11 +307,11 @@ class Email {
         ->setSubject($subject)
         ->setBody($body)
         ->setContentType('text/html');
-    
+
         return $this->getMailer()->send($message);
     }
-    
-    public function vracRelanceFromDRM($drm, $details, $destinataire) 
+
+    public function vracRelanceFromDRM($drm, $details, $destinataire)
     {
         $interpros = array();
         foreach ($details as $detail) {
@@ -325,8 +325,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function sendContratMandat($contrat, $destinataire, $interpros = null) 
+
+    public function sendContratMandat($contrat, $destinataire, $interpros = null)
     {
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
@@ -360,8 +360,8 @@ class Email {
     	->attach(Swift_Attachment::fromPath(sfConfig::get('sf_data_dir').'/convention-ciel/pdf/'.$convention->get('_id').'.pdf'));
     	return $this->getMailer()->send($message);
     }
-    
-    public function sendCompteRegistration($compte, $destinataire) 
+
+    public function sendCompteRegistration($compte, $destinataire)
     {
     	$interpros = array();
     	foreach ($compte->interpro as $id => $values) {
@@ -377,8 +377,8 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
-    public function sendRedefinitionMotDePasse($compte, $destinataire, $logins) 
+
+    public function sendRedefinitionMotDePasse($compte, $destinataire, $logins)
     {
     	$interpros = array();
     	foreach ($compte->interpro as $id => $values) {
@@ -392,7 +392,7 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
-    
+
     public function sendCielAssistance($datas, $etablissement, $interpro = null)
     {
     	$from = $this->getFromEmailInterpros(array($interpro),true);
@@ -404,11 +404,11 @@ class Email {
     	$subject = $etablissement->identifiant.' | '.$datas['sujet'];
     	$body = $this->getBodyFromPartial('send_assistance_ciel', array('datas' => $datas));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-    	
+
     	return $this->getMailer()->send($message);
-    	
+
     }
-    
+
     public function cielSended($drm)
     {
     	$etablissement = $drm->getEtablissement();
@@ -423,7 +423,7 @@ class Email {
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
     	return $this->getMailer()->send($message);
     }
-    
+
     public function cielRappel($drm)
     {
     	$etablissement = $drm->getEtablissement();
@@ -440,7 +440,7 @@ class Email {
     	$message->addBcc(sfConfig::get('app_email_to_notification'));
     	return $this->getMailer()->send($message);
     }
-    
+
     public function cielRectificative($drm, $diffs, $interpro)
     {
     	$etablissement = $drm->getEtablissement();
@@ -462,7 +462,7 @@ class Email {
     	}
     	return $this->getMailer()->send($message);
     }
-    
+
     public function cielValide($drm)
     {
     	$etablissement = $drm->getEtablissement();
@@ -478,12 +478,12 @@ class Email {
     	return $this->getMailer()->send($message);
     }
 
-    protected function getMailer() 
+    protected function getMailer()
     {
         return $this->_context->getMailer();
     }
 
-    protected function getBodyFromPartial($partial, $vars = null) 
+    protected function getBodyFromPartial($partial, $vars = null)
     {
         return $this->_context->getController()->getAction('Email', 'main')->getPartial('Email/' . $partial, $vars);
     }

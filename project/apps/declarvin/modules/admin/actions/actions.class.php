@@ -35,7 +35,7 @@ class adminActions extends sfActions
     	} else {
       	$this->form->bind($request->getParameter($this->form->getName()));
     	}
-      
+
       if ($this->form->isValid()) {
         	return $this->redirect("drm_mon_espace", $this->form->getEtablissement());
       }
@@ -52,7 +52,7 @@ class adminActions extends sfActions
     	} else {
       	$this->form->bind($request->getParameter($this->form->getName()));
     	}
-      
+
       if ($this->form->isValid()) {
         	return $this->redirect("subvention_etablissement", $this->form->getEtablissement());
       }
@@ -74,9 +74,9 @@ class adminActions extends sfActions
     	} else {
       	$this->form->bind($request->getParameter($this->form->getName()));
     	}
-      
+
       if ($this->form->isValid()) {
-        	return $this->redirect("dsnegoce_mon_espace", $this->form->getEtablissement());
+        	return $this->redirect("dsnegoceupload_mon_espace", $this->form->getEtablissement());
       }
     }
   }
@@ -95,7 +95,7 @@ class adminActions extends sfActions
     	} else {
       	$this->form->bind($request->getParameter($this->form->getName()));
     	}
-      
+
       if ($this->form->isValid()) {
         	return $this->redirect("daids_mon_espace", $this->form->getEtablissement());
       }
@@ -117,9 +117,9 @@ class adminActions extends sfActions
     	} else {
       	$this->form->bind($request->getParameter($this->form->getName()));
     	}
-      
+
       if ($this->form->isValid()) {
-        
+
         	return $this->redirect("profil", $this->form->getEtablissement());
       }
     }
@@ -132,7 +132,7 @@ class adminActions extends sfActions
   */
   public function executeLibelles(sfWebRequest $request)
   {
-	$this->messages = MessagesClient::getInstance()->findAll(); 
+	$this->messages = MessagesClient::getInstance()->findAll();
     //$this->droits = ConfigurationClient::getCurrent()->droits;
     $this->labels = ConfigurationClient::getCurrent()->labels;
     $this->controles = ControlesClient::getInstance()->findAll();

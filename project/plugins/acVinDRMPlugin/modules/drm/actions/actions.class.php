@@ -637,6 +637,8 @@ class drmActions extends sfActions {
     public function executeVisualisation(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
 
+				$this->getUser()->setFlash('incitation_stock_rose', $this->drm->hasIncitationDS());
+
         $this->historique = new DRMHistorique($this->drm->identifiant);
         if ($this->drm->type == DRMFictive::TYPE) {
         	$this->drm->update();

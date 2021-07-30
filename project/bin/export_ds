@@ -1,0 +1,6 @@
+#!/bin/bash
+. bin/config.inc
+
+php symfony ds:export-all $SYMFONYTASKOPTIONS > $EXPORTDIR/ds.csv.part
+iconv -f UTF8 -t ISO88591//TRANSLIT $EXPORTDIR/ds.csv.part > $EXPORTDIR/ds.csv
+rm $EXPORTDIR/ds.csv.part

@@ -66,3 +66,7 @@ tr.filters {
 .page-header {
 	margin-top: 0px;
 }
+
+.breadcrumb, .formEtablissement {
+	display: none;
+}

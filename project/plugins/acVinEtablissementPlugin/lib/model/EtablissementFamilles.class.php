@@ -1,5 +1,5 @@
 <?php
-class EtablissementFamilles 
+class EtablissementFamilles
 {
 
     const FAMILLE_PRODUCTEUR = "producteur";
@@ -21,48 +21,48 @@ class EtablissementFamilles
     	self::FAMILLE_COURTIER => "Courtier"
     );
     protected static $sous_familles = array (
-    	self::FAMILLE_PRODUCTEUR => array(self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
-                                          self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative", 
+    	self::FAMILLE_PRODUCTEUR => array(self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière",
+                                          self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative",
                                           self::SOUS_FAMILLE_VENDEUR_RAISIN => "Vendeur de raisin"),
     	self::FAMILLE_NEGOCIANT => array(null => null,
-    									 self::SOUS_FAMILLE_REGIONAL => "Régional", 
-                                         self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
-                                         self::SOUS_FAMILLE_ETRANGER => "Etranger", 
-                                         self::SOUS_FAMILLE_UNION => "Union", 
+    									 self::SOUS_FAMILLE_REGIONAL => "Régional",
+                                         self::SOUS_FAMILLE_EXTERIEUR => "Extérieur",
+                                         self::SOUS_FAMILLE_ETRANGER => "Etranger",
+                                         self::SOUS_FAMILLE_UNION => "Union",
                                          self::SOUS_FAMILLE_VINIFICATEUR => "Vinificateur"),
     	self::FAMILLE_COURTIER => array(null => null)
     );
-    
+
     protected static $sous_familles_all = array (
-    	self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
+    	self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière",
         self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative",
         self::SOUS_FAMILLE_VENDEUR_RAISIN => "Vendeur de raisin",
-    	self::SOUS_FAMILLE_REGIONAL => "Régional", 
-        self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
-        self::SOUS_FAMILLE_ETRANGER => "Etranger", 
-        self::SOUS_FAMILLE_UNION => "Union", 
+    	self::SOUS_FAMILLE_REGIONAL => "Régional",
+        self::SOUS_FAMILLE_EXTERIEUR => "Extérieur",
+        self::SOUS_FAMILLE_ETRANGER => "Etranger",
+        self::SOUS_FAMILLE_UNION => "Union",
         self::SOUS_FAMILLE_VINIFICATEUR => "Vinificateur"
     );
-    
+
     protected static $droits = array (
-    	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DS),
+    	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DS),
         "producteur_vendeur_raisin" => array(EtablissementDroit::DROIT_VRAC),
-    	"negociant" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
-    	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
-    	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
-    	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
-    	"negociant_union" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
-    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
+    	"negociant" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
+    	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
+    	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
+    	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
+    	"negociant_union" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
+    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD, EtablissementDroit::DROIT_DS),
     	"courtier" => array(EtablissementDroit::DROIT_VRAC)
     );
 
-    public static function getFamilles() 
+    public static function getFamilles()
     {
     	return self::$familles;
     }
 
-    public static function getFamillesForJs() 
+    public static function getFamillesForJs()
     {
     	$sousFamilles =  self::getSousFamilles();
     	$result = array();
@@ -72,7 +72,7 @@ class EtablissementFamilles
     	return $result;
     }
 
-    public static function getFamilleBySousFamille($sf) 
+    public static function getFamilleBySousFamille($sf)
     {
     	$items = self::$sous_familles;
     	if (!$sf) {
@@ -88,17 +88,17 @@ class EtablissementFamilles
     	return null;
     }
 
-    public static function getSousFamilles() 
+    public static function getSousFamilles()
     {
     	return self::$sous_familles;
     }
-    
+
     public static function getSousFamillesAll()
     {
     	return self::$sous_familles_all;
     }
 
-    public static function getSousFamillesByFamille($famille) 
+    public static function getSousFamillesByFamille($famille)
     {
     	$famille = self::getKey($famille);
     	if (!in_array($famille, array_keys(self::getFamilles()))) {
@@ -108,12 +108,12 @@ class EtablissementFamilles
     	return $sousFamilles[$famille];
     }
 
-    public static function getDroits() 
+    public static function getDroits()
     {
     	return self::$droits;
     }
 
-    public static function getDroitsByFamilleAndSousFamille($famille, $sousFamille = null) 
+    public static function getDroitsByFamilleAndSousFamille($famille, $sousFamille = null)
     {
     	$famille = self::getKey($famille);
     	$sousFamille = self::getKey($sousFamille);
@@ -133,7 +133,7 @@ class EtablissementFamilles
     	}
     	return $droits[$index];
     }
-    
+
     public static function getFamilleLibelle($famille = null)
     {
     	$famille = self::getKey($famille);
@@ -144,7 +144,7 @@ class EtablissementFamilles
     	return $familles[$famille];
     }
 
-    
+
     public static function getSousFamilleLibelle($famille = null, $sousFamille = null)
     {
     	$famille = self::getKey($famille);
@@ -158,7 +158,7 @@ class EtablissementFamilles
     	}
     	return $sousFamilles[$sousFamille];
     }
-    
+
     public static function getKey($libelle)
     {
     	return str_replace('-', '_', strtolower(KeyInflector::slugify($libelle)));

@@ -197,7 +197,12 @@ class Etablissement extends BaseEtablissement {
 
     public function hasZoneIS()
     {
-        return $this->zones->exist(ConfigurationZoneClient::ZONE_LANGUEDOC);
+        return $this->hasZone(ConfigurationZoneClient::ZONE_LANGUEDOC);
+    }
+
+    public function hasZone($zone)
+    {
+        return $this->zones->exist($zone);
     }
 
     public function hasDocuments()

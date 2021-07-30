@@ -15,6 +15,7 @@ class acCouchdbDocumentSetValueTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('delete', null, sfCommandOption::PARAMETER_OPTIONAL, 'Option for deleting one field', false),
+      new sfCommandOption('hydrate', null, sfCommandOption::PARAMETER_OPTIONAL, "Hydratation d'un doc : 'model' ou 'json'", 'model'),
       // add your own options here
     ));
 
@@ -35,66 +36,96 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    $output = array();
-    $doc = acCouchdbManager::getClient()->find($arguments['doc_id']);
-    if(isset($options["delete"]) && $options["delete"]){
-      $hash = array_shift($arguments['hash_values']);
-      $doc->remove($hash);
-      $output[] = $hash.":supprimé";
-    }else{
+    $values = array();
+    $hash = null;
+    $value = null;
+    foreach($arguments['hash_values'] as $i => $arg) {
+        if($i % 2 == 0) {
+            $hash = $arg;
+        } else {
+            $value = $arg;
+        }
 
-      $values = array();
-      $hash = null;
-      $value = null;
-      foreach($arguments['hash_values'] as $i => $arg) {
-          if($i % 2 == 0) {
-              $hash = $arg;
-          } else {
-              $value = $arg;
-          }
-
-
-          if($hash && $value) {
-              $values[$hash] = $value;
-              $hash = null;
-              $value = null;
-          }
-      }
-
-
-
-      if(!$doc) {
-
-          return;
-      }
-
-      foreach($values as $hash => $value) {
-          if(!$doc->exist($hash)) {
-
-              return;
-          }
-          if($doc->get($hash) instanceof acCouchdbJson) {
-
-              return;
-          }
-          if($doc->get($hash) === $value) {
-
-              continue;
-          }
-
-          $output[] = $hash.":\"".$value."\" (".$doc->get($hash).")";
-          $doc->set($hash, $value);
-      }
+        if($hash && $value) {
+            $values[$hash] = $value;
+            $hash = null;
+            $value = null;
+        }
+    }
+    $doc = null;
+    if($options['hydrate'] == 'model') {
+        $doc = acCouchdbManager::getClient()->find($arguments['doc_id']);
     }
 
-      $oldrev = $doc->_rev;
+    if($options['hydrate'] == 'json') {
+        $doc = acCouchdbManager::getClient()->find($arguments['doc_id'], acCouchdbClient::HYDRATE_JSON);
+    }
 
-      $doc->save();
+    if(!$doc) {
+        error_log("doc ".$arguments['doc_id']." non trouvé");
+        return;
+    }
 
-      if($oldrev == $doc->_rev) {
-          return;
-      }
-      echo "Le document ".$doc->_id."@".$oldrev." a été sauvé @".$doc->_rev.", les valeurs suivantes ont été changés : ".implode(",", $output)."\n";
+    $output = array();
+    foreach($values as $hash => $value) {
+        try {
+            $docadd = $doc;
+            $hashadd = $hash;
+            if (preg_match('/(.*)\/([^\/]*)$/', $hash, $match)) {
+                $parenthash = $match[1];
+                $docadd = $doc->get($parenthash);
+                $hashadd = $match[2];
+            }
+            if($options['hydrate'] == 'model') {
+                $docadd->add($hashadd);
+            }
+        }catch(sfException $e) {
+            error_log("$hash ne peut exister pour ".$doc->_id);
+            return;
+        }
 
+        if($options['hydrate'] == 'model' && !$doc->exist($hash)) {
+            error_log("$hash n'existe pas");
+            return;
+        }
+        if($options['hydrate'] == 'model' && $doc->get($hash) instanceof acCouchdbJson) {
+            error_log("$hash n'est pas un couchedbJson pour ".$doc->_id);
+            return;
+        }
+        if($options['hydrate'] == 'model' && $doc->get($hash) === $value) {
+
+            continue;
+        }
+        if($options['hydrate'] == 'json' && $doc->$hash === $value) {
+
+            continue;
+        }
+        if($options['hydrate'] == 'model') {
+            $output[] = $hash.":\"".$value."\" (".$doc->get($hash).")";
+            $doc->set($hash, $value);
+        }
+        if($options['hydrate'] == 'json') {
+            $output[] = $hash.":\"".$value."\" (".$doc->{$hash}.")";
+            $doc->{$hash} = $value;
+        }
+    }
+
+    $oldrev = $doc->_rev;
+    $newrev = null;
+
+    if($options['hydrate'] == 'model') {
+        $doc->save();
+        $newrev = $doc->_rev;
+    }
+
+    if($options['hydrate'] == 'json') {
+        $newrev = acCouchdbManager::getClient()->storeDoc($doc)->rev;
+    }
+
+    if($oldrev == $newrev) {
+        return;
+    }
+
+    error_log("Le document ".$doc->_id."@".$oldrev." a été sauvé @".$newrev.", les valeurs suivantes ont été changés : ".implode(",", $output));
   }
 }

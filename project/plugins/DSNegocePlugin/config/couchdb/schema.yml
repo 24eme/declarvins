@@ -1,7 +1,0 @@
-
-DSNegoce:
-  inheritance: Fichier
-  definition:
-    fields:
-      campagne: { }
-      periode: { }

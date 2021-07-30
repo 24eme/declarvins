@@ -1,0 +1,7 @@
+all:
+  configuration:
+    ds:
+      name: "Enquête Stock"
+      title: "Enquête Stock de Rosé millésime %millesime% ou précédent"
+      product_hash_regex_filter: "/certifications\/AOP\/.+\/couleurs\/rose/"
+      product_detail_interpro: "INTERPRO-CIVP"
