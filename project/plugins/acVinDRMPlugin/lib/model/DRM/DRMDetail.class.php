@@ -584,7 +584,7 @@ class DRMDetail extends BaseDRMDetail {
 
         $mouvement->type_libelle = $stocksLibelles[$hash];
 
-        if ($hash == "sorties/vrac" && $this->hasVracs()) {
+        if (in_array($hash, array("sorties/vrac", "sorties/vrac_export")) && $this->hasVracs()) {
             $mouvements_vrac = array();
             foreach ( $this->vrac as $vrac_numero => $vrac) {
                 $mouvement_vrac = clone $mouvement;
@@ -629,12 +629,16 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function hasSortieVrac() {
-        return ($this->sorties->vrac > 0) ? true : false;
+        return ($this->getTotalVrac() > 0) ? true : false;
+    }
+
+    public function getTotalVrac() {
+      return $this->sorties->vrac + $this->sorties->vrac_export;
     }
 
     public function getStockBilan()
     {
-    	return $this->sorties->vrac + $this->sorties->vrac_export + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
+    	return $this->getTotalVrac() + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
 
     public function getLibelleFiscal()

@@ -244,6 +244,7 @@ class DRMImport
   		$detail->entrees->mouvement = $datas[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT];
   		$detail->entrees->crd = $datas[DRMDateView::VALUE_DETAIL_ENTREES_CRD];
   		$detail->sorties->vrac = $datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC];
+  		$detail->sorties->vrac_export = $datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT];
   		$detail->sorties->export = $datas[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT];
   		$detail->sorties->factures = $datas[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES];
   		$detail->sorties->crd = $datas[DRMDateView::VALUE_DETAIL_SORTIES_CRD];
