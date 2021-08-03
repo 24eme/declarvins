@@ -174,9 +174,9 @@ class DRMValidation
 			  foreach ($detail->vrac as $contrat) {
 			    $totalVolume += $contrat->volume;
 			  }
-			  if (($detail->canHaveVrac() && $detail->sorties->vrac) || count($detail->vrac->toArray()) > 0) {
-			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC,5);
-				  if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart) || round($totalVolume,5) > (round($detail->sorties->vrac,5) + $ecart)) {
+			  if (($detail->canHaveVrac() && $detail->getTotalVrac()) || count($detail->vrac->toArray()) > 0) {
+			  	  $ecart = round($detail->getTotalVrac() * self::ECART_VRAC,5);
+				  if (round($totalVolume,5) < (round($detail->getTotalVrac(),5) - $ecart) || round($totalVolume,5) > (round($detail->getTotalVrac(),5) + $ecart)) {
 				  	if ($detail->getCertification()->getKey() == self::IGP_KEY || $detail->interpro == 'INTERPRO-CIVP' || $this->etablissement->famille != 'producteur') {
 				  		$this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
 				    } else {
@@ -283,9 +283,9 @@ class DRMValidation
 			  foreach ($detail->vrac as $contrat) {
 			    $totalVolume += $contrat->volume;
 			  }
-			  if (($detail->canHaveVrac() && $detail->sorties->vrac) || count($detail->vrac->toArray()) > 0) {
-			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC,5);
-				  if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart) || round($totalVolume,5) > (round($detail->sorties->vrac,5) + $ecart)) {
+			  if (($detail->canHaveVrac() && $detail->getTotalVrac()) || count($detail->vrac->toArray()) > 0) {
+			  	  $ecart = round($detail->getTotalVrac() * self::ECART_VRAC,5);
+				  if (round($totalVolume,5) < (round($detail->getTotalVrac(),5) - $ecart) || round($totalVolume,5) > (round($detail->getTotalVrac(),5) + $ecart)) {
 				    $this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
 				  }
 			  }
