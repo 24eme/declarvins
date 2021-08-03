@@ -637,8 +637,6 @@ class drmActions extends sfActions {
     public function executeVisualisation(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
 
-				$this->getUser()->setFlash('incitation_stock_rose', $this->drm->hasIncitationDS());
-
         $this->historique = new DRMHistorique($this->drm->identifiant);
         if ($this->drm->type == DRMFictive::TYPE) {
         	$this->drm->update();
@@ -663,6 +661,10 @@ class drmActions extends sfActions {
         $this->drm_precedente_version = DRMClient::getInstance()->find($this->drm_precedente_version_id);
         $this->masterVersion = $this->drm->getMaster();
         $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
+
+        if ($this->etablissement->famille != EtablissementFamilles::FAMILLE_NEGOCIANT || $this->etablissement->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+            $this->getUser()->setFlash('incitation_stock_rose', $this->drm->hasIncitationDS());
+        }
     }
 
     public function executeDevalide(sfWebRequest $request) {
