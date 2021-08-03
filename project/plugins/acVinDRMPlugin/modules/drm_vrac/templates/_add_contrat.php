@@ -4,7 +4,7 @@
         <strong><?php echo $detail->getFormattedLibelle(ESC_RAW); ?></strong>
     </td>
     <td style="text-align: left;">
-    	Sortie vrac&nbsp;&nbsp;: <span style="width: 60%; text-align: right; display: inline-block;"><strong><?php echo echoLongFloat($detail->sorties->vrac) ?></strong>hl</span><br />
+    	Sortie vrac&nbsp;&nbsp;: <span style="width: 60%; text-align: right; display: inline-block;"><strong><?php echo echoLongFloat($detail->getTotalVrac()) ?></strong>hl</span><br />
     	Total saisie&nbsp;: <span style="width: 60%; text-align: right; display: inline-block;"><span id="total_saisie_<?php echo $detail->getIdentifiantHTML() ?>" class="total_saisie_contrats" style="font-weight: bold;">0</span>hl</span>
     </td>
     <td width="35px">
@@ -13,4 +13,3 @@
         <?php endif; ?>
     </td>
 </tr>
-
