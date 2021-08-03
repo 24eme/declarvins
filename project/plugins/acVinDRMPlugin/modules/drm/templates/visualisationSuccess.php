@@ -185,7 +185,7 @@
     <?php endif; ?>
 
 
-    <?php if ($sf_user->hasFlash('incitation_stock_rose') && ($etablissement->famille != EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR)): ?>
+    <?php if ($sf_user->hasFlash('incitation_stock_rose') && ($etablissement->famille != EtablissementFamilles::FAMILLE_NEGOCIANT || $etablissement->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR)): ?>
   	<div id="popup_ds" class="popup_contenu popup_form" style="display:none;">
   		<p>Nous sommes en fin de campagne.</p>
   		<br />
