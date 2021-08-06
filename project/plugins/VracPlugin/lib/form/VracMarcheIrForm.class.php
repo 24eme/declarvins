@@ -1,6 +1,6 @@
 <?php
-class VracMarcheIrForm extends VracMarcheForm 
-{	
+class VracMarcheIrForm extends VracMarcheForm
+{
     public function configure() {
         parent::configure();
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
@@ -41,7 +41,11 @@ class VracMarcheIrForm extends VracMarcheForm
     public function getConditionsPaiement()
     {
       $conditions = $this->getConfiguration()->getConditionsPaiement()->toArray();
-      if ($this->getObject()->type_transaction == 'raisin' && !$this->getObject()->contrat_pluriannuel && isset($conditions['echeancier_paiement'])) {
+      $hasEcheancier = false;
+      if ($this->getObject()->type_transaction == 'raisin' && $this->getObject()->contrat_pluriannuel) {
+        $hasEcheancier = true;
+      }
+      if (!$hasEcheancier && isset($conditions['echeancier_paiement'])) {
         unset($conditions['echeancier_paiement']);
       }
     	return $conditions;
