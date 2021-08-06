@@ -192,4 +192,8 @@ class VracMarcheForm extends VracForm
     public function conditionneIVSE() {
       return false;
     }
+
+    public function hasAcompteInfo() {
+      return true;
+    }
 }
