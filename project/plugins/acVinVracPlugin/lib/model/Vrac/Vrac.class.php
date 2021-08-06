@@ -31,6 +31,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return $id;
     }
 
+		public function hasAcompteInfo() {
+			return ($this->isConditionneIr() && $this->type_transaction == 'raisin')? true : false;
+		}
+
     public function initClauses() {
         $this->remove('clauses');
         $this->remove('clauses_complementaires');
