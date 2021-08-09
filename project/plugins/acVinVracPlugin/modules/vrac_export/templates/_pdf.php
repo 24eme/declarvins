@@ -192,14 +192,76 @@
 	<hr />
 	<h2>Clauses</h2>
 	<div class="clauses">
+		<?php if ($vrac->isConditionneIvse()): ?>
+		<table class="tableau_simple">
+				<tbody>
+				<?php if ($vrac->clauses->exist('force_majeure')): ?>
+				<tr>
+					<td colspan="3">
+						<strong><?php echo $vrac->clauses->force_majeure->nom ?></strong><br />
+						<?php echo $vrac->clauses->force_majeure->description ?>
+					</td>
+				</tr>
+				<?php endif; ?>
+				<?php if ($vrac->clauses->exist('resiliation')): ?>
+					<tr>
+						<td colspan="3">
+							<strong><?php echo $vrac->clauses->resiliation->nom ?></strong><br />
+							<?php echo $vrac->clauses->resiliation->description ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Cas de résiliation
+						</td>
+							<td>
+								Délai de préavis
+							</td>
+								<td>
+									Indemnité
+								</td>
+					</tr>
+					<tr>
+						<td>
+							<br />
+							<?php echo $vrac->clause_resiliation_cas ?>
+							<br />
+						</td>
+							<td>
+								<br />
+								<?php echo $vrac->clause_resiliation_preavis ?>
+								<br />
+							</td>
+								<td>
+									<br />
+									<?php echo $vrac->clause_resiliation_indemnite ?>
+									<br />
+								</td>
+					</tr>
+				<?php endif; ?>
+			</tr>
+				</tbody>
+		</table>
+			<?php endif; ?>
 	<?php foreach ($vrac->clauses as $k => $clause): ?>
+		<?php if ($vrac->isConditionneIvse() && ($k=='resiliation'||$k=='force_majeure')): continue; endif; ?>
     <h3><?= $clause['nom'] ?></h3>
     <p><?= $clause['description'] ?></p>
     <?php if ($k == 'resiliation'): ?>
-    <?php if($vrac->clause_resiliation_cas): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
-    <?php if($vrac->clause_resiliation_preavis): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
-    <?php if($vrac->clause_resiliation_indemnite): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_preavis||$vrac->isConditionneIvse()): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_indemnite||$vrac->isConditionneIvse()): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
     <?php endif ?>
+    <?php if ($k == '5' && $vrac->isConditionneIvse()): ?>
+			<?php $complements = explode(',', $vrac->clauses_complementaires) ?>
+			<p>En cochant la case ci-contre, les Parties renoncent expressément au bénéfice de cette clause&nbsp;
+			<?php if (!in_array('transfert_propriete', $complements)): ?>
+			<input type="checkbox" checked="checked" />
+			<?php else: ?>
+			<input type="checkbox" />
+			<?php endif ?>
+			</p>
+		<?php endif ?>
 	<?php endforeach; ?>
 	</div>
 	<?php if($vrac->clauses_complementaires): ?>
