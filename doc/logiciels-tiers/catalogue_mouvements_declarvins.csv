@@ -11,7 +11,8 @@ suspendu,entrees,travail,Mvt. temporaire : Retour de travail à façon
 suspendu,entrees,distillation,Mvt. temporaire : Retour de distillation à façon
 suspendu,entrees,crd,Replacement en suspension CRD
 suspendu,entrees,excedent,Excédent suite à inventaire ou contrôle douanes
-suspendu,sorties,vrac,Vrac DAA / DAE
+suspendu,sorties,vrac,Vrac DAA / DAE National
+suspendu,sorties,vrac_export,Vrac export
 suspendu,sorties,export,Conditionné export
 suspendu,sorties,factures,DSA / Tickets / Factures
 suspendu,sorties,crd,CRD France
