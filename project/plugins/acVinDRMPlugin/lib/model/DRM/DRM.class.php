@@ -1812,7 +1812,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
   public function hasIncitationDS() {
     $droit = ConfigurationClient::getCurrent()->isApplicationOuverte('INTERPRO-CIVP', 'ds') && $this->getEtablissement()->hasZone(ConfigurationZoneClient::ZONE_PROVENCE) && $this->getEtablissement()->hasDroit(EtablissementDroit::DROIT_DS) && preg_match('/^([0-9]{4})-07$/', $this->periode);
     $produits = false;
-    $hasDS = DSClient::getInstance()->find(DSClient::makeId($this->identifiant, $this->periode.'-31'));
     foreach ($this->getDetails('INTERPRO-CIVP') as $detail) {
       if ($detail->getCouleur()->getKey() == 'rose' && $detail->cvo->taux) {
         $produits = true;
