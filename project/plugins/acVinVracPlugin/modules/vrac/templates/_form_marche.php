@@ -118,7 +118,9 @@
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
+                <?php if ($form->hasAcompteInfo()): ?>
                 <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
             <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre">

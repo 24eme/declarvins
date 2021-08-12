@@ -180,7 +180,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
-            if (($d->sorties->vrac && $d->canHaveVrac()) || count($d->vrac->toArray()) > 0) {
+            if (($d->getTotalVrac() && $d->canHaveVrac()) || count($d->vrac->toArray()) > 0) {
                 $details[] = $d;
             }
         }
@@ -227,9 +227,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	foreach ($detail->vrac as $contrat) {
         		$totalVolume += $contrat->volume;
         	}
-        	if ($detail->canHaveVrac() && $detail->sorties->vrac) {
-        		$ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC,5);
-        		if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart)) {
+        	if ($detail->canHaveVrac() && $detail->getTotalVrac()) {
+        		$ecart = round($detail->getTotalVrac() * DRMValidation::ECART_VRAC,5);
+        		if (round($totalVolume,5) < (round($detail->getTotalVrac(),5) - $ecart)) {
         			$details[] = $detail;
         		}
         	}
@@ -1123,9 +1123,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			 foreach ($detail->vrac as $contrat) {
 			 	$totalVolume += $contrat->volume;
 			 }
-			 if ($detail->canHaveVrac() && $detail->sorties->vrac) {
-			  	  $ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC,5);
-				  if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart)) {
+			 if ($detail->canHaveVrac() && $detail->getTotalVrac()) {
+			  	  $ecart = round($detail->getTotalVrac() * DRMValidation::ECART_VRAC,5);
+				  if (round($totalVolume,5) < (round($detail->getTotalVrac(),5) - $ecart)) {
 				    $result = true;
 				    break;
 				  }
@@ -1818,6 +1818,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         break;
       }
     }
-    return ($droit && $produits);
+    return ($droit && $produits && !$hasDS);
   }
 }

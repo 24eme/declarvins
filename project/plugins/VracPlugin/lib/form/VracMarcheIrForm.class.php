@@ -1,6 +1,6 @@
 <?php
-class VracMarcheIrForm extends VracMarcheForm 
-{	
+class VracMarcheIrForm extends VracMarcheForm
+{
     public function configure() {
         parent::configure();
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
@@ -32,9 +32,43 @@ class VracMarcheIrForm extends VracMarcheForm
       $this->setDefault('has_cotisation_cvo', 1);
 
     }
-    
+
     public function isConditionneDelaiPaiement()
     {
         return true;
+    }
+
+    public function getConditionsPaiement()
+    {
+      $conditions = $this->getConfiguration()->getConditionsPaiement()->toArray();
+      $hasEcheancier = false;
+      if ($this->getObject()->type_transaction == 'raisin' && $this->getObject()->contrat_pluriannuel) {
+        $hasEcheancier = true;
+      }
+      if (!$hasEcheancier && isset($conditions['echeancier_paiement'])) {
+        unset($conditions['echeancier_paiement']);
+      }
+    	return $conditions;
+    }
+
+    public function getDelaisPaiement()
+    {
+      $delais = $this->getConfiguration()->getDelaisPaiement()->toArray();
+      if ($this->getObject()->type_transaction == 'raisin') {
+        if (isset($delais['45_jours']))
+          unset($delais['45_jours']);
+        if (isset($delais['60_jours']))
+          unset($delais['60_jours']);
+
+      } elseif (isset($delais['30_jours'])) {
+        unset($delais['30_jours']);
+      }
+
+    	return $delais;
+    }
+
+
+    public function hasAcompteInfo() {
+      return ($this->getObject()->type_transaction == 'raisin')? false : true;
     }
 }

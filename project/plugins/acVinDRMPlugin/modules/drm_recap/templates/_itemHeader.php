@@ -18,7 +18,7 @@
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	
+
 	<div class="groupe" data-groupe-id="2">
 		<p>Entrées&nbsp;(<span class="unite"><?php echoHl($config_lieu) ?></span>)</p>
 		<ul>
@@ -27,20 +27,24 @@
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	
+
 	<div class="groupe demarrage-ouvert" data-groupe-id="3">
 		<p>Sorties&nbsp;(<span class="unite"><?php echoHl($config_lieu) ?></span>)</p>
 		<ul>
-			<?php 
-				$stockSorties = Configuration::getStocksSortie(false); 
+			<?php
+				$stockSorties = Configuration::getStocksSortie(false);
     			unset($stockSorties['vrac_contrat']);
-				foreach ($stockSorties as $key => $item): 
+				foreach ($stockSorties as $key => $item):
 			?>
-                        <li><?php echo $item ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
+				<?php if ($key=='vrac_export'): ?>
+					<li style="border:1px dashed blue;"><span style="float:left;color: blue;padding-left: 5px;">Nouveau !</span><?php echo $item ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
+				<?php else: ?>
+      		<li><?php echo $item ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
+				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	
+
 	<!-- <p class="stock_th_fin">Stock théorique fin de mois</p>  -->
 	<div class="groupe demarrage-ouvert bloque" data-groupe-id="4">
 		<p>Stock théorique fin de mois&nbsp;(<span class="unite"><?php echoHl($config_lieu) ?></span>)</p>
@@ -61,7 +65,7 @@
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	
+
 	<div class="groupe" data-groupe-id="6">
 		<p>Entrées&nbsp;(<span class="unite"><?php echoHl($config_lieu) ?></span>)</p>
 		<ul>
@@ -70,19 +74,19 @@
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	
+
 	<div class="groupe" data-groupe-id="7">
 		<p>Sorties&nbsp;(<span class="unite"><?php echoHl($config_lieu) ?></span>)</p>
 		<ul>
-			<?php 
-				$stockSorties = Configuration::getStocksSortie(true); 
-				foreach ($stockSorties as $key => $item): 
+			<?php
+				$stockSorties = Configuration::getStocksSortie(true);
+				foreach ($stockSorties as $key => $item):
 			?>
                         <li><?php echo $item ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	
+
 	<!-- <p class="stock_th_fin">Stock théorique fin de mois</p>  -->
 	<div class="groupe demarrage-ouvert bloque" data-groupe-id="8">
 		<p>Stock théorique fin de mois&nbsp;(<span class="unite"><?php echoHl($config_lieu) ?></span>)</p>

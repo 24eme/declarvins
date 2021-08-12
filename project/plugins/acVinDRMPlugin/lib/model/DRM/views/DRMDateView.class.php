@@ -83,6 +83,8 @@ class DRMDateView extends acCouchdbView
 	const VALUE_DETAIL_DECLARANT_FAMILLE = 73;
 	const VALUE_DETAIL_DECLARANT_SOUSFAMILLE = 74;
 
+	const VALUE_DETAIL_SORTIES_VRAC_EXPORT = 98;
+
 	public static function numberValues()
 	{
 		return [

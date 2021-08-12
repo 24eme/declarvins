@@ -662,8 +662,8 @@ class drmActions extends sfActions {
         $this->masterVersion = $this->drm->getMaster();
         $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
 
-        if ($this->etablissement->famille != EtablissementFamilles::FAMILLE_NEGOCIANT || $this->etablissement->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
-            $this->getUser()->setFlash('incitation_stock_rose', $this->drm->hasIncitationDS());
+        if ($this->drm->hasIncitationDS() && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            $this->getUser()->setFlash('incitation_stock_rose', 1);
         }
     }
 

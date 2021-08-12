@@ -46,7 +46,7 @@ class Configuration extends BaseConfiguration {
     );
     protected static $stocks_sortie = array(
         'vrac' => 'Vrac DAA / DAE National',
-        'vrac_export' => 'Vrac Export',
+        'vrac_export' => 'Vrac export',
         'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
         'crd' => 'CRD France',
