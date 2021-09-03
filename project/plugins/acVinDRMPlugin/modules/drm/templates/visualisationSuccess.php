@@ -26,13 +26,19 @@
     <?php endif; ?>
     <!-- #principal -->
     <section id="principal">
-    
+
     	<?php $drmCiel = $drm->getOrAdd('ciel');  ?>
 
-        <?php if ($drm->isValidee()): ?>
-        
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php
+          if ($drm->isValidee()):
+            $isFacture = $drm->isFactures();
+        ?>
+
+            <?php if(!$isFacture && !$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
+            <?php endif; ?>
+            <?php if($isFacture): ?>
+            <p style="text-align: right; margin-bottom: 10px;"><strong>DRM facturée</strong></p>
             <?php endif; ?>
             <div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>

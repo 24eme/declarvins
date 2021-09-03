@@ -421,6 +421,7 @@ class drmActions extends sfActions {
 
     public function executeReouvrir(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+				$this->forward404Unless($this->drm->isNonFactures());
         if ($this->drm->isFictive()) {
         	$this->drm = $this->drm->getDRM();
         }
