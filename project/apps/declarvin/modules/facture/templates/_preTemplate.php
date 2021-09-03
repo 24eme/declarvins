@@ -6,3 +6,11 @@ else:
 endif;
 ?>
 <section id="contenu">
+  <?php if (!($sf_request->getAttribute('sf_route')->getRawValue() instanceof InterfaceEtablissementRoute)): ?>
+    <div class="clearfix" id="application_dr">
+        <div id="mon_compte">
+            <?php include_partial('admin/etablissement_login_form', array('form' => new EtablissementSelectionForm($sf_user->getCompte()->getGerantInterpro()->get('_id'), array(), array('admin' => $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN))), 'route' => '@etablissement_login_factures')) ?>
+        </div>
+    </div>
+
+  <?php endif; ?>
