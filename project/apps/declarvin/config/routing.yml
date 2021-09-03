@@ -259,6 +259,9 @@ etablissement_profil_login:
 etablissement_login_dsnegoce:
   url: /admin/etablissements/dsnegoce
   param: {module: admin, action: etablissementDSNegoceLogin}
+etablissement_login_factures:
+  url: /admin/etablissements/factures
+  param: {module: admin, action: etablissementFacturesLogin}
 
 ## Administration des Comptes
 admin_comptes:
