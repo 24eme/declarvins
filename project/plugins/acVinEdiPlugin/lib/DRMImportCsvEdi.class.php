@@ -181,7 +181,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
             $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
-            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
         }
         //on prépare les vérifications
         $check = array();
