@@ -4,7 +4,7 @@ class ValidatorImportSpreadsheet extends sfValidatorFile
 {
     public static $csvMimes = array ('text/plain', 'text/csv','text/comma-separated-values');
     public static $excelMimes = array ('application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    
+
   protected function configure($options = array(), $messages = array())
   {
     $this->addRequiredOption('file_path');
@@ -16,20 +16,20 @@ class ValidatorImportSpreadsheet extends sfValidatorFile
   }
 
   protected function doClean($value)
-  { 
+  {
 	parent::doClean($value);
-	
-	if (in_array($value['type'], self::$excelMimes)) {
+  
+	if (in_array(finfo_file(finfo_open(FILEINFO_MIME_TYPE),$value['tmp_name']), self::$excelMimes)) {
 	    $csvFilename = tempnam(sys_get_temp_dir(), uniqid());
 	    exec('xlsx2csv -d ";" '.$value['tmp_name'].' > '.$csvFilename);
 	} else {
 	    $csvFilename = $value['tmp_name'];
 	}
-	
+
     $csvValidated = new CsvValidatedFile($value['name'], 'text/csv', $csvFilename, $value['size'], $this->getOption('file_path'));
-    
+
     $errorSchema = new sfValidatorErrorSchema($this);
-    
+
     $csvValidated->save();
 
     try {
