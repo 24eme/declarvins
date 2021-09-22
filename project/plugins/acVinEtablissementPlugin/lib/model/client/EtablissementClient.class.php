@@ -115,4 +115,23 @@ class EtablissementClient extends acCouchdbClient {
     	return $etablissements;
     }
 
+    public function getFormatIdentifiant() {
+
+        return "%societe_identifiant%");
+    }
+
+    public function getSocieteIdentifiant($etablissementIdentifiant) {
+
+        return $etablissementIdentifiant;
+    }
+
+    public function getFirstIdentifiant($societeIdentifiant) {
+
+        return $societeIdentifiant;
+    }
+
+    public function getLastIdentifiant($societeIdentifiant) {
+
+        return $societeIdentifiant;
+    }
 }
