@@ -134,4 +134,9 @@ class EtablissementClient extends acCouchdbClient {
 
         return $societeIdentifiant;
     }
+
+    public function getBaseIdentifiant($societeIdentifiant) {
+
+        return $societeIdentifiant;
+    }
 }
