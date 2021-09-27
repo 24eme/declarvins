@@ -29,11 +29,6 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    if ($s = SocieteClient::getInstance()->find($arguments['identifiant'])) {
-      $s->delete();
-    }
-    exit;
-
   	$etablissement = EtablissementClient::getInstance()->find($arguments['identifiant']);
     $cc = null;
     if (isset($options['code-comptable']) && $options['code-comptable'] && !in_array($options['code-comptable'], ['4110000C0', '4110000C'])) {
@@ -46,8 +41,15 @@ EOF;
     }
 
     if ($s = SocieteClient::getInstance()->find($etablissement->identifiant)) {
+      if ($s->code_comptable_client) {
         $this->logSection("generate:societe-by-etablissement", "Société ".$arguments['identifiant']." ($cc) existante avec le code comptable : ".$s->code_comptable_client, null, 'WARNING');
         return;
+      } else {
+        $s->code_comptable_client = $cc;
+        $s->save();
+        $this->logSection("debug", "Affectation du code comptable $cc pour la societe déjà existante ".$s->_id, null, 'SUCCESS');
+        return;
+      }
     }
 
     try {
