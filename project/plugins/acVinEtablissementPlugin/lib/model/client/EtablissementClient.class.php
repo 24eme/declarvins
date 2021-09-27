@@ -117,7 +117,7 @@ class EtablissementClient extends acCouchdbClient {
 
     public function getFormatIdentifiant() {
 
-        return "%societe_identifiant%");
+        return "%societe_identifiant%";
     }
 
     public function getSocieteIdentifiant($etablissementIdentifiant) {
