@@ -278,4 +278,8 @@ class Etablissement extends BaseEtablissement {
     public function isActif() {
         return $this->statut && ($this->statut == self::STATUT_ACTIF);
     }
+
+    public function getSociete() {
+      return SocieteClient::getInstance()->find($this->identifiant);
+    }
 }
