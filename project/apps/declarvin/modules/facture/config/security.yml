@@ -1,0 +1,13 @@
+all:
+  is_secure: false
+  credentials: facture
+
+monEspace:
+  credentials: []
+
+latex:
+  credentials: []
+
+getFactureWithAuth:
+  is_secure: false
+  credentials: []

@@ -1,0 +1,44 @@
+{
+   "_id": "SOCIETE-T0001-01",
+   "type": "Societe",
+   "identifiant": "T0001-01",
+   "type_societe": "RESSORTISSANT",
+   "raison_sociale": "Chateau DEMO",
+   "raison_sociale_abregee": null,
+   "statut": "ACTIF",
+   "code_comptable_client": "0",
+   "code_comptable_fournisseur": null,
+   "code_naf": null,
+   "siret": "11111111111111",
+   "interpro": "INTERPRO-IR",
+   "no_tva_intracommunautaire": "1111",
+   "email": "test@test.com",
+   "telephone": null,
+   "fax": "",
+   "commentaire": "Généré automatiquement a partir de l'établissement ETABLISSEMENT-T0001-01",
+   "siege": {
+       "adresse": "6 rue des trois faucons",
+       "adresse_complementaire": null,
+       "code_postal": "84000",
+       "commune": "Avignon",
+       "pays": "FRANCE"
+   },
+   "cooperative": false,
+   "enseignes": [
+   ],
+   "compte_societe": "COMPTE-T0001-01",
+   "contacts": {
+       "COMPTE-T0001-01": {
+           "nom": "",
+           "ordre": 0
+       }
+   },
+   "etablissements": {
+       "ETABLISSEMENT-T0001-01": {
+           "nom": "Chateau DEMO",
+           "ordre": null
+       }
+   },
+   "date_creation": "",
+   "date_modification": ""
+}

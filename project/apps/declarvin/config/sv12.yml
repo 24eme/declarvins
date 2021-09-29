@@ -1,0 +1,5 @@
+all:
+  configuration:
+    sv12:
+      actif: false
+      raisinetmout: false

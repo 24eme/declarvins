@@ -1,6 +1,8 @@
 <?php
 
 class EtablissementClient extends acCouchdbClient {
+    const REGION_HORS_CVO = 'REGION_HORS_CVO';
+    const REGION_CVO = 'REGION_CVO';
 
     /**
      *
@@ -113,4 +115,28 @@ class EtablissementClient extends acCouchdbClient {
     	return $etablissements;
     }
 
+    public function getFormatIdentifiant() {
+
+        return "%societe_identifiant%";
+    }
+
+    public function getSocieteIdentifiant($etablissementIdentifiant) {
+
+        return $etablissementIdentifiant;
+    }
+
+    public function getFirstIdentifiant($societeIdentifiant) {
+
+        return $societeIdentifiant;
+    }
+
+    public function getLastIdentifiant($societeIdentifiant) {
+
+        return $societeIdentifiant;
+    }
+
+    public function getBaseIdentifiant($societeIdentifiant) {
+
+        return $societeIdentifiant;
+    }
 }

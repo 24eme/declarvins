@@ -41,6 +41,10 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('DSNegoceUploadPlugin');
     $this->enablePlugins('acVinSubventionPlugin');
     $this->enablePlugins('acVinDSPlugin');
+    $this->enablePlugins('acVinSocietePlugin');
+    $this->enablePlugins('acVinSV12Plugin');
+    $this->enablePlugins('acVinGenerationPlugin');
+    $this->enablePlugins('acVinFacturePlugin');
 	}
 
 	public static function getAppRouting()

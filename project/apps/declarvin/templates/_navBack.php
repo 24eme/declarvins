@@ -9,7 +9,7 @@
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
-		<!-- 
+		<!--
         <li<?php if ($active == 'alertes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@alertes?reset_filters=true') ?>">Alertes</a>
 		</li>
@@ -34,6 +34,11 @@
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('vrac_admin') ?>">Contrat interprofessionnel</a>
 			</li>
+			<?php if ($configuration->isApplicationOuverte($interpro->_id, 'factures')): ?>
+			<li<?php if ($subactive == 'factures'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('facture') ?>">Factures</a>
+			</li>
+			<?php endif; ?>
 			<li<?php if ($subactive == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@etablissement_login_dsnegoce') ?>">DS Négoce</a>
 			</li>
@@ -52,40 +57,40 @@
 			</li>
 	        <li<?php if ($subactive == 'libelles'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
-			</li>		
+			</li>
 	        <li<?php if ($subactive == 'volumes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@interpro_upload_csv_volumes_bloques') ?>">Volumes bloqués</a>
-			</li>	
+			</li>
 		<?php elseif ($active == 'comptes'): ?>
 			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 			<li<?php if ($subactive == 'comptes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_comptes') ?>">Opérateurs</a>
-			</li>	
+			</li>
 			<?php endif; ?>
 			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@validation_login') ?>">Déclarants / Contrats d'inscription</a>
-			</li>		
+			</li>
 			<li<?php if ($subactive == 'partenaires'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@partenaire_comptes') ?>">Partenaires</a>
-			</li>			
+			</li>
 			<li<?php if ($subactive == 'oioc'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@oioc_comptes') ?>">OIOC</a>
-			</li>	
+			</li>
 		<?php elseif ($active == 'statistiques'): ?>
 			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 			<li<?php if ($subactive == 'bilan_drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Bilan DRM</a>
-			</li>	
+			</li>
 			<li<?php if ($subactive == 'demat_drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_demat_drm') ?>">Démat. DRM</a>
-			</li>	
-			<!-- 
+			</li>
+			<!--
 			<li<?php if ($subactive == 'drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_drm') ?>">DRM</a>
-			</li>	
+			</li>
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_vrac') ?>">Contrat interprofessionnel</a>
-			</li>		
+			</li>
 			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_drm') ?>">DAI/DS</a>
 			</li>

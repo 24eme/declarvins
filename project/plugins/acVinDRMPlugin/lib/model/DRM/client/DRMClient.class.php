@@ -414,8 +414,13 @@ class DRMClient extends acCouchdbClient {
         sfContext::getInstance()->getConfiguration()->loadHelpers(array('Orthographe', 'Date'));
         $origineLibelle = 'DRM de';
         $drmSplited = explode('-', $id);
-        $annee = $drmSplited[2];
-        $mois = $drmSplited[3];
+        if (is_int($drmSplited[2]*1) && strlen($drmSplited[2]) == 4) {
+          $ind = 0;
+        } else {
+          $ind = 1;
+        }
+        $annee = $drmSplited[(2+$ind)];
+        $mois = $drmSplited[(3+$ind)];
         $date = $annee . '-' . $mois . '-01';
         $df = format_date($date, 'MMMM yyyy', 'fr_FR');
         return elision($origineLibelle, $df);
