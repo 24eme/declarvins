@@ -8,7 +8,8 @@ class globalComponents extends sfComponents {
 
     public function executeNavBack() {
     	$this->recherche = false;
-        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+      $this->configuration = ConfigurationClient::getCurrent();
+      $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
     	$this->recherche = true;
     	$this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
     	$this->form->setName('etablissement_selection_nav');

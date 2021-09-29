@@ -34,4 +34,6 @@ abstract class _Compte extends acVinCompte {
 
         return $this->gerant_interpro;
     }
+
+		public function getCommentaire() { return null; }
 }

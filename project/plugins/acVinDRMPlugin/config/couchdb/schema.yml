@@ -588,9 +588,12 @@ DRM:
                     type: collection
                     definition:
                       fields:
+                        categorie: {  }
                         produit_hash: {  }
                         produit_libelle: {  }
                         type_hash: {  }
+                        type_drm: {  }
+                        type_drm_libelle: {  }
                         type_libelle: {  }
                         vrac_numero: {  }
                         vrac_destinataire: {  }
@@ -600,7 +603,9 @@ DRM:
                         cvo: { type: float }
                         facture: { type: integer }
                         facturable: { type: integer }
+                        region: { }
                         interpro: { }
+                        region: { }
                         date: {  }
                         date_version: {  }
                         version: {  }

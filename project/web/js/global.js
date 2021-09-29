@@ -5,7 +5,7 @@
  * Copyright: Actualys
  ******************************************/
 
-var dpConfig = 
+var dpConfig =
 {
 	dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
 	monthNames: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Décembre"],
@@ -25,7 +25,7 @@ var fbConfig =
 	},
 	helpers :
 	{
-		title : null            
+		title : null
 	}
 };
 
@@ -39,17 +39,17 @@ var fbConfig =
 		//$.metadata.setType('html5');
 		$.detectTerminal();
 		$.remplaceJSON();
-		
+
 		$.inputPlaceholder();
 		$('img.rollover').survolImg();
-                
+
 		$('.flash_notice').delay(2500).fadeOut(1000);
-				
+
 		$('.form_delay').submit(function(e)
 		{
 			var form = this;
 			var $form = $(form);
-			
+
 			e.preventDefault();
 			window.setTimeout( function()
 			{
@@ -57,33 +57,87 @@ var fbConfig =
 			}, 500);
 		});
 
-		$(".datepicker").datepicker(dpConfig); 
+		$(".datepicker").datepicker(dpConfig);
 
 		$('.num_float').saisieNum(true);
-		
+
 		$(".select2").select2({
             allowClear: true
         });
-		
+
+    $(this).find(".select2autocomplete").each(function () {
+        var urlAjax = $(this).data('ajax');
+        var defaultValue = $(this).val();
+        var defaultValueSplitted = defaultValue.split(',');
+        var select2 = $(this);
+        $(this).select2({
+            onselected: function () {
+            },
+            initSelection: function (element, callback) {
+                if (defaultValue != '') {
+                    element.val(defaultValueSplitted[0]);
+                    element.siblings('div.select2-container').find('a.select2-choice span').text(defaultValueSplitted[1]);
+                    return [{id: defaultValueSplitted[0], text: defaultValueSplitted[1]}];
+                }
+            },
+            placeholder: 'Entrer un nom',
+            minimumInputLength: 3,
+            formatInputTooShort: function (input, min) {
+                var n = min - input.length;
+                return  min + " caractère" + (n == 1 ? "" : "s") + " min";
+            },
+            formatNoMatches: function () {
+                return "Aucun résultat";
+            },
+            formatSearching: function () {
+                return "Recherche…";
+            },
+            allowClear: true,
+            ajax: {
+                quietMillis: 150,
+                url: urlAjax,
+                dataType: 'json',
+                type: "GET",
+                data: function (term, page) {
+                    return {
+                        q: term
+                    };
+                },
+                results: function (data) {
+                    var results = [];
+                    $.each(data, function (index, item) {
+                        results.push({
+                            id: index,
+                            text: item
+                        });
+                    });
+                    return {
+                        results: results
+                    }
+
+                }}
+        });
+    });
+
 		$('.collapsed').click(function(){
 		    $('#clientDetails').slideToggle('fast');
 		});
-		
+
 		$('.dropdown-toggle').click(function(){
 			$(this).parent().find('.dropdown-menu').slideToggle('fast');
 		});
-		
+
 		$('.dropdown-menu a').click(function(){
 			$('.dropdown-menu').css('display', 'none');
 		});
-		
 
-               
+
+
 	});
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Transforme une chaîne de caractères en objet JS
 	 * $.detectTerminal();
@@ -94,7 +148,7 @@ var fbConfig =
 		var agentID = terminalAgent.match(/(iphone|ipod|ipad|android)/);
 		var terminal = '';
 		var version;
-		
+
 		if(agentID)
 		{
 			if(agentID.indexOf('iphone') >= 0) terminal = 'iphone';
@@ -105,7 +159,7 @@ var fbConfig =
 		else
 		{
 			version = parseInt($.browser.version);
-			
+
 			if($.browser.webkit) terminal = 'webkit';
 			else if($.browser.mozilla) terminal = 'mozilla';
 			else if($.browser.opera) terminal = 'opera';
@@ -117,18 +171,18 @@ var fbConfig =
 				else if(version == 9) terminal = 'msie9';
 			}
 		}
-		
+
 		$('body').addClass(terminal);
 		return terminal;
 	};
-	
+
 	/**
 	 * Support de l'objet JSON pour les vieux navigateurs
 	 * $.remplaceJSON();
 	 ******************************************/
 	$.remplaceJSON = function()
 	{
-		if(!window.JSON) 
+		if(!window.JSON)
 		{
 		  window.JSON = {
 			parse: function (sJSON) { return eval("(" + sJSON + ")"); },
@@ -148,7 +202,7 @@ var fbConfig =
 		  };
 		}
 	};
-	
+
 	/**
 	 * Gère les raccourcis clavier du type Ctrl+Touche
 	 * $.ctrl(key, callback, args);
@@ -158,7 +212,7 @@ var fbConfig =
 		$(document).keydown(function(e)
 		{
 			if(!args) args = [];
-			
+
 			if(e.keyCode == key && e.ctrlKey)
 			{
 				callback.apply(this, args);
@@ -175,7 +229,7 @@ var fbConfig =
 		$(document).keydown(function(e)
 		{
 			if(!args) args = [];
-			
+
 			if(e.keyCode == 27)
 			{
 				callback.apply(this, args);
@@ -183,7 +237,7 @@ var fbConfig =
 			}
 		});
 	};
-	
+
 	/**
 	 * Gère les raccourcis clavier du type Shift+Touche
 	 * $.shift(key, callback, args);
@@ -192,8 +246,8 @@ var fbConfig =
 	{
     	$(document).keydown(function(e)
 		{
-        	if(!args) args = []; 
-			
+        	if(!args) args = [];
+
             if(e.keyCode == key && e.shiftKey)
 			{
 				callback.apply(this, args);
@@ -201,9 +255,9 @@ var fbConfig =
 			}
 		});
     };
-	
-	
-	
+
+
+
 	/**
 	 * Contrôle la bonne saisie de nombres dans
 	 * un champ
@@ -212,27 +266,27 @@ var fbConfig =
 	$.fn.saisieNum = function(float, callbackKeypress, callbackBlur)
 	{
 		var champ = $(this);
-		
+
     	// A chaque touche pressée
 		champ.keypress(function(e)
-		{	
+		{
 			var val = $(this).val();
 			var touche = e.which;
 			var ponctuationPresente = (val.indexOf('.') != -1 || val.indexOf(',') != -1);
 			var chiffre = (touche >= 48 && touche <= 57); // Si chiffre
-			
+
 			// touche "entrer"
 			if(touche == 13) return e;
-					
+
 			// Champ nombre décimal
 			if(float)
-			{ 
+			{
 				// !backspace && !null && !point && !virgule && !chiffre
-				if(touche != 8 && touche != 0 && touche != 46 && touche != 44 && !chiffre) return false;  	
+				if(touche != 8 && touche != 0 && touche != 46 && touche != 44 && !chiffre) return false;
 				// point déjà présent
-				if(touche == 46 && ponctuationPresente) e.preventDefault(); 
+				if(touche == 46 && ponctuationPresente) e.preventDefault();
 				// virgule déjà présente
-				if(touche == 44 && ponctuationPresente) e.preventDefault(); 
+				if(touche == 44 && ponctuationPresente) e.preventDefault();
 				// 2 décimales
 				if(val.match(/[\.\,][0-9][0-9][0-9][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) e.preventDefault();
 			}
@@ -241,25 +295,25 @@ var fbConfig =
 			{
 				if(touche != 8 && touche != 0 && !chiffre) e.preventDefault();
 			}
-			
+
 			if(callbackKeypress) callbackKeypress();
 			return e;
 		});
-		
+
 		// A chaque touche pressée
 		champ.keyup(function(e)
 		{
 			var touche = e.which;
-			
+
 			// touche "retour"
 			if(touche == 8)
 			{
-				if(callbackKeypress) callbackKeypress(); 
+				if(callbackKeypress) callbackKeypress();
 				return e;
 			}
 		});
-		
-		
+
+
 		// A chaque fois que l'on quitte le champ
 		champ.blur(function()
 		{
@@ -267,8 +321,8 @@ var fbConfig =
 			if(callbackBlur) callbackBlur();
 		});
     };
-	
-	
+
+
 	/**
 	 * Nettoie les champs après la saisie
 	 * $(champ).nettoyageChamps();
@@ -278,31 +332,31 @@ var fbConfig =
 		var champ = $(this);
 		var val = champ.attr('value');
 		var float = champ.hasClass('num_float');
-		
+
 		// Si quelque chose a été saisi
 		if(val)
 		{
 			// Remplacement de toutes les virgules par des points
 			if(val.indexOf(',') != -1) val = val.replace(',', '.');
-			
+
 			// Si un point a été saisi sans chiffre
 			if(val.indexOf('.') != -1 && val.length == 1) val = ''; //val = '0';
-			
+
 			// Un nombre commençant par 0 peut être interprété comme étant en octal
 			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
-			
+
 			// Comparaison nombre entier / flottant
-			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val);		
+			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val);
 			else val = parseInt(val);
 		}
 		// Si rien n'a été saisi
 		//else val = 0;
 		else val = '';
-		
+
 		// Si ce n'est pas un nombre (ex : copier/coller d'un texte)
 		if(isNaN(val)) val = ''; //val = 0;
 
 		champ.attr('value', val);
 	};
-	
+
 })(jQuery);

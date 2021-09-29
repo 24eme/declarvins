@@ -81,3 +81,16 @@ tr.filters {
 #formEtablissementChoice {
     display: none;
 }
+#sub_nav {
+	margin-bottom: 0;
+}
+#sub_nav a, #sub_nav a:link, #sub_nav a:visited, .link {
+    color: #494949;
+}
+#sub_nav a:hover {
+    color: #494949;
+    text-decoration: underline;
+}
+#header p {
+	margin: 0;
+}
