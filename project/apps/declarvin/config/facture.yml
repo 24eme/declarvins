@@ -8,8 +8,8 @@ all:
       paiements_actif: true
       prefix_sage: "VEN"
       prefix_sage_divers: null
-      tva_compte: "44570100"
-      defaut_compte: null
+      tva_compte: "44571200"
+      defaut_compte: "70800000"
       type_cvo:
         identifiant_prefix: ""
       type_libre:
@@ -18,7 +18,7 @@ all:
       stockage_code_produit: "code_compte"
       prefix_code_comptable: ""
       pdf_produit: false
-      pdf_nom_ref_client: "nom de reference"
+      pdf_nom_ref_client: "N° INTERPRO"
       pdf_nom_taux: "Taux"
       pdf_display_code_comptable: true
       echeance: "+30 days"
