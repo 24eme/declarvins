@@ -143,7 +143,13 @@ EOF;
   	if ($checkingMode) {
   		echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $message))))));
   	} else {
-  		$mail = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport import DRM InterSud", $message)->setContentType('text/html');
+      $to = sfConfig::get('app_email_to_notification');
+      $interpro = InterproClient::getInstance()->getInterproReferente();
+      if (!is_array($to)) {
+        $to = array($to);
+      }
+      $to[] = $interpro->email_contrat_inscription;
+  		$mail = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Rapport import DRM InterSud", $message)->setContentType('text/html');
   		$this->getMailer()->sendNextImmediately()->send($mail);
   	}
 
