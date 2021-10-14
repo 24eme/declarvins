@@ -135,7 +135,13 @@ EOF;
     			$ea = (string) $xmlIn->{"declaration-recapitulative"}->{"identification-declarant"}->{"numero-agrement"};
     			$periode = sprintf("%4d-%02d", (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"});
     			if ($drm = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periode)) {
-    				$drmCiel = $drm->getOrAdd('ciel');
+							if (!$drm->isVersionnable()) {
+								$master = $drm->getMaster();
+								if ($master->isValidee()) {
+									$drm = $master;
+								}
+							}
+    					$drmCiel = $drm->getOrAdd('ciel');
     					$export = new DRMExportCsvEdi($drm);
     					if ($xml = $export->exportEDI('xml', $contextInstance)) {
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
