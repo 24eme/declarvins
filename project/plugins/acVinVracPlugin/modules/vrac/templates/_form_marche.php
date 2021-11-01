@@ -42,22 +42,22 @@
             <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                 <?php echo $form['type_prix_1']->renderError() ?>
                 <?php echo $form['type_prix_1']->renderLabel() ?>
-                <?php echo $form['type_prix_1']->render() ?> 
+                <?php echo $form['type_prix_1']->render() ?>
             </div>
             <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['type_prix_2']->renderError() ?>
                 <?php echo $form['type_prix_2']->renderLabel() ?>
-                <?php echo $form['type_prix_2']->render() ?> 
+                <?php echo $form['type_prix_2']->render() ?>
             </div>
             <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix_date']->renderError() ?>
                 <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
-                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?> 
+                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
             </div>
             <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix']->renderError() ?>
                 <?php echo $form['determination_prix']->renderLabel() ?>
-                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?> 
+                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
             </div>
             <h1>Paiement</h1>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
@@ -67,8 +67,8 @@
             </div>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
             	<p>Nombre d'échéances prévues : <input type="text" name="echeances" id="echeances" /> <input id="generateur" type="button" value="générer" /></p>
-                
-                <?php 
+
+                <?php
                 $today = date('Y-m-d');
                 $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
                 $date1 = new DateTime();
@@ -119,7 +119,7 @@
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
                 <?php if ($form->hasAcompteInfo()): ?>
-                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
+                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
                 <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
@@ -168,7 +168,7 @@
                 <?php endif; ?>
             	<?php if ($form->conditionneIVSE()): ?>
             	<p>En cas de calendrier de retiraison, indiquez les échéances dans la case &laquo;commentaires&raquo; de l'étape validation</p>
-            	
+
             	<?php endif; ?>
         </div>
 
@@ -178,7 +178,7 @@
         </div>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
-        </div> 
+        </div>
     </form>
 <?php include_partial('form_collection_template', array('partial' => 'form_paiements_item',
     'form' => $form->getFormTemplatePaiements()));
@@ -225,7 +225,7 @@ $( document ).ready(function() {
 	{
         var vol = parseFloat(volume.val());
         var prix = parseFloat(prix_total_unitaire.val());
-        
+
         if(isNaN(prix)) {
         	prix = parseFloat(prix_unitaire.val());
         }
