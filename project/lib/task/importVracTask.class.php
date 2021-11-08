@@ -101,7 +101,9 @@ EOF;
 			    		}*/
 			    		if (!$errors) {
 			    			if (!$checkingMode) {
-			    				$vrac->validateEdi();
+                                if(!$vrac->date_signature) {
+			    				    $vrac->validateEdi();
+                                }
 			    				$vrac->save();
 			    			}
 			    			$nbSuccess++;
