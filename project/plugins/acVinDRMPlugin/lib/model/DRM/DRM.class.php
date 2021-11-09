@@ -365,7 +365,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function hasStocksEpuise() {
         $hasStock = false;
-        foreach ($details as $detail) {
+        foreach ($this->getDetails() as $detail) {
             if ($detail->total > 0 || $detail->acq_total > 0) {
                 $hasStock = true;
                 break;
