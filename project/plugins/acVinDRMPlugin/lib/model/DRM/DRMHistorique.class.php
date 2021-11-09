@@ -132,16 +132,22 @@ class DRMHistorique {
         return $this->drms;
     }
 
-    public function getDRMsByCampagne($campagne) {
+    public function getDRMsByCampagne($campagne, $indexPeriode = false) {
         $drms = array();
         foreach($this->getDRMs() as $drm) {
             if ($drm->campagne == $campagne) {
-                $drms[$drm->_id] = $drm;
+                if ($indexPeriode) {
+                    if (!isset($drms[$drm->periode])) {
+                        $drms[$drm->periode] = $drm;
+                    }
+                } else {
+                    $drms[$drm->_id] = $drm;
+                }
             }
         }
         return $drms;
     }
-    
+
     public function getFirstDTIByCampagne($campagne) {
     	$drms = $this->getDRMsByCampagne($campagne);
     	$first = null;
