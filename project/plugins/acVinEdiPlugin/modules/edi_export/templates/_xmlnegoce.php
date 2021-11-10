@@ -20,7 +20,7 @@
 	  <observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 	  <balance-stock>
-<?php 
+<?php
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/lot1/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
@@ -42,8 +42,8 @@
 	  <observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 	  <balance-stock>
-<?php 
-    
+<?php
+
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/lot1/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
@@ -119,7 +119,9 @@
   <releve-non-apurement>
 	<numero-daa-dac-dae><?php echo $rna[DRMCsvEdi::CSV_ANNEXE_NUMERODOCUMENT] ?></numero-daa-dac-dae>
 	<date-expedition><?php echo $rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION] ?></date-expedition>
+    <?php if($rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST]): ?>
 	<numero-accise-destinataire><?php echo $rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST] ?></numero-accise-destinataire>
+    <?php endif; ?>
   </releve-non-apurement>
 <?php endforeach; endif; ?>
 <?php if ($drm->declaratif->exist('statistiques') && ($drm->declaratif->statistiques->jus || $drm->declaratif->statistiques->mcr || $drm->declaratif->statistiques->vinaigre)): ?>

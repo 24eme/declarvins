@@ -152,7 +152,9 @@
     	<releve-non-apurement>
       		<numero-daa-dac-dae><?php echo $rna[DRMCsvEdi::CSV_ANNEXE_NUMERODOCUMENT] ?></numero-daa-dac-dae>
       		<date-expedition><?php echo $rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION] ?></date-expedition>
+            <?php if($rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST]): ?>
       		<numero-accise-destinataire><?php echo $rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST] ?></numero-accise-destinataire>
+            <?php endif; ?>
     	</releve-non-apurement>
 <?php endforeach; endif; ?>
 <?php if ($drm->declaratif->exist('statistiques') && ($drm->declaratif->statistiques->jus || $drm->declaratif->statistiques->mcr || $drm->declaratif->statistiques->vinaigre)): ?>
