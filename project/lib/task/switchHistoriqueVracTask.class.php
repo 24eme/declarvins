@@ -15,6 +15,7 @@ class switchHistoriqueVracTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      new sfCommandOption('force', null, sfCommandOption::PARAMETER_REQUIRED, 'force le switch pour les contrat en attente de signature', false),
       // add your own options here
     ));
 
@@ -31,7 +32,7 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-    
+
     $from = EtablissementClient::getInstance()->find($arguments['from']);
     $hasFrom = true;
     $to = EtablissementClient::getInstance()->find($arguments['to']);
@@ -44,13 +45,16 @@ EOF;
 	    	$from->identifiant = str_replace('ETABLISSEMENT-', '', $arguments['from']);
 	    	$from->famille = $to->famille;
 	    }
-	    
 
+        if ($options['force']) {
+            $rows = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($from->identifiant)->rows;
+        } else {
 	  		$rows = acCouchdbManager::getClient()
 	              ->startkey(array($from->identifiant))
 	              ->endkey(array($from->identifiant, array()))
 	              ->getView("vrac", "etablissement")
 	              ->rows;
+        }
 	      	$i = 0;
 	      	foreach($rows as $row) {
 		      		if ($vrac = VracClient::getInstance()->find($row->id)) {
@@ -68,7 +72,7 @@ EOF;
 	      		$this->logSection("vrac", "etablissement ".$from->identifiant." archivé avec succès", null, 'SUCCESS');
 	      	}
 	      	$this->logSection("vrac", $i." contrat(s) switché(s) avec succès", null, 'SUCCESS');
-	    
+
     }
 
   }
