@@ -13,13 +13,19 @@
  */
 class generateBilanDrmTask extends sfBaseTask {
 
+    const ENTETES_ETABLISSEMENT = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;';
+
     protected function configure() {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+            new sfCommandOption('campagne', null, sfCommandOption::PARAMETER_OPTIONAL, 'Campagne pour le bilan'),
         ));
-
+        $this->addArguments(array(
+            new sfCommandArgument('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'The interprofession name'),
+            new sfCommandArgument('depot_dir', null, sfCommandOption::PARAMETER_REQUIRED, 'Emplacement des fichiers de sorties'),
+        ));
         $this->namespace = 'generate';
         $this->name = 'bilanDRM';
         $this->briefDescription = '';
@@ -34,26 +40,42 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-        $campagne = (new CampagneManager('08'))->getCurrent();
+        $campagne = (isset($options['campagne']) && preg_match('/^[0-9]{4}-[0-9]{4}$', $options['campagne']))? $options['campagne'] : (new CampagneManager('08'))->getCurrent();
         $periodes = $this->getPeriodes($campagne);
 
-        $interpro = InterproClient::getInstance()->retrieveById('CIVP');
-        $zoneId = $interpro->zone;
+        $interpro = InterproClient::getInstance()->retrieveById(str_replace('INTERPRO-', '', $arguments['interpro']));
+        if (!$interpro) {
+            echo "Interprofession requise\n";exit;
+        }
+        $depot = $arguments['depot_dir'];
+        if (!is_dir($depot)||!is_writable($depot)) {
+            echo "$depot doit être un dossier writable\n";exit;
+        }
 
-        $etablissements = array_merge(
-            EtablissementAllView::getInstance()->findByZoneAndFamille($zoneId, EtablissementFamilles::FAMILLE_PRODUCTEUR)->rows,
-            EtablissementAllView::getInstance()->findByZoneAndSousFamille($zoneId, EtablissementFamilles::FAMILLE_PRODUCTEUR, EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR)->rows
-        );
+        array_map('unlink', glob("$depot/*"));
+        mkdir("$depot/$campagne", 0755);
+        $depot = "$depot/$campagne";
 
+        $etablissements = $interpro->getEtablissementsArrayFromGrcFile();
+        $libellesStatuts = DRMClient::getAllLibellesStatusBilan();
+        ksort($etablissements);
+
+        // Initialisation des fichiers avec entetes
+        $bilanCsv = $this->getEnteteBilanCsv($periodes);
+        $bilanPeriodesCsv = [];
+        foreach($periodes as $periode) {
+            $bilanPeriodesCsv[$periode] = $this->getEnteteBilanPeriodeCsv($this->getPeriodeLastYear($periode));
+        }
+
+        // On peuple des données les fichiers
         foreach($etablissements as $etablissement) {
-            $historique = new DRMHistorique($etablissement->key[EtablissementAllView::KEY_IDENTIFIANT]);
-
-            echo $etablissement->id;
-            echo "\n";
-
+            if (!$this->isEligibleDRM($etablissement)) {
+                continue;
+            }
+            $historique = new DRMHistorique($etablissement[EtablissementCsv::COL_ID]);
             $drms = $historique->getDRMsByCampagne($campagne, true);
             $lastDrm = $historique->getLastDRM();
-
+            $statuts = [];
             foreach($periodes as $periode) {
                 if ($lastDrm && $lastDrm->periode < $periode && $lastDrm->hasStocksEpuise()) {
                     $statut = DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE;
@@ -62,12 +84,92 @@ EOF;
                 } else {
                     $statut = DRMClient::DRM_STATUS_BILAN_A_SAISIR;
                 }
-                echo "\t$periode : $statut\n";
+                $statuts[] = $libellesStatuts[$statut];
+                // On peuple les données periodique N-1
+                if ($statut == DRMClient::DRM_STATUS_BILAN_A_SAISIR) {
+                    if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissement[EtablissementCsv::COL_ID], $this->getPeriodeLastYear($periode))) {
+            			foreach ($drm->getDetails() as $detail) {
+            				if ($detail->interpro != $interpro->_id) {
+            					continue;
+            				}
+                            $str = $this->getEtablissementInfosCsv($etablissement);
+            				$str .=  $detail->getCertification()->getKey().";";
+            				$str .=  $detail->getGenre()->getCode().";";
+            				$str .=  $detail->getAppellation()->getKey().";";
+            				$str .=  $detail->getLieu()->getKey().";";
+            				$str .=  $detail->getCouleur()->getKey().";";
+            				$str .=  $detail->getCepage()->getKey().";";
+            				$str .=  $detail->getStockBilan().";";
+            				$str .=  $detail->total_debut_mois.";";
+            				$str .=  $detail->sorties->vrac.";";
+            				$str .=  $detail->sorties->export.";";
+            				$str .=  $detail->sorties->factures.";";
+            				$str .=  $detail->sorties->crd."\n";
+                            $bilanPeriodesCsv[$periode] .= str_replace(DRM::DEFAULT_KEY, '', $str);
+            			}
+            		}
+                }
+            }
+            $bilanCsv .= $this->getEtablissementInfosCsv($etablissement).implode(';', $statuts)."\n";
+        }
+
+        if (file_put_contents("$depot/bilan.csv", $bilanCsv) === false) {
+            echo "l'ecriture dans $depot/bilan.csv à echoué\n";exit;
+        }
+
+        foreach($bilanPeriodesCsv as $periode => $bilanPeriodeCsv) {
+            if (file_put_contents("$depot/".str_replace('-', '', $periode)."_bilan.csv", $bilanPeriodeCsv) === false) {
+                echo "l'ecriture dans $depot/".str_replace('-', '', $periode)."_bilan.csv à echoué\n";exit;
             }
         }
+
+        echo "Génération des bilans pour la campagne $campagne réalisée avec succès\n";exit;
     }
 
-    public function getPeriodes($campagne) {
+    private function getPeriodeLastYear($periode) {
+        return (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
+    }
+
+    private function getEnteteBilanCsv($periodes) {
+        return self::ENTETES_ETABLISSEMENT.implode(';', $periodes)."\n";
+    }
+
+    private function getEnteteBilanPeriodeCsv($periode) {
+        return self::ENTETES_ETABLISSEMENT."Categorie;Genre;Denomination;Lieu;Couleur;Cepage;$periode;Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France\n";
+    }
+
+    private function getEtablissementInfosCsv($etablissement) {
+            return $etablissement[EtablissementCsv::COL_ID] . ';'
+                    . $etablissement[EtablissementCsv::COL_RAISON_SOCIALE] . ';'
+                    . $etablissement[EtablissementCsv::COL_NOM] . ';'
+                    . $etablissement[EtablissementCsv::COL_SIRET] . ';'
+                    . $etablissement[EtablissementCsv::COL_CVI] . ';'
+                    . $etablissement[EtablissementCsv::COL_NO_ASSICES] . ';'
+                    . $etablissement[EtablissementCsv::COL_ADRESSE] . ';'
+                    . $etablissement[EtablissementCsv::COL_CODE_POSTAL] . ';'
+                    . $etablissement[EtablissementCsv::COL_COMMUNE] . ';'
+                    . $etablissement[EtablissementCsv::COL_PAYS] . ';'
+                    . $etablissement[EtablissementCsv::COL_EMAIL] . ';'
+                    . $etablissement[EtablissementCsv::COL_TELEPHONE] . ';'
+                    . $etablissement[EtablissementCsv::COL_FAX] . ';'
+                    . $etablissement[EtablissementCsv::COL_SERVICE_DOUANE] . ';'
+                    . $etablissement[EtablissementCsv::COL_CHAMPS_STATUT] . ';'
+                    . $etablissement[EtablissementCsv::COL_FAMILLE] . ';'
+                    . $etablissement[EtablissementCsv::COL_SOUS_FAMILLE] . ';';
+    }
+
+    private function isEligibleDRM($etablissement) {
+        try {
+            $famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_FAMILLE])));
+            $sousFamille = EtablissementClient::getInstance()->matchSousFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_SOUS_FAMILLE])));
+        } catch (Exception $e) {
+            return false;
+        }
+        $isActif = (trim($etablissement[EtablissementCsv::COL_CHAMPS_STATUT]) == Etablissement::STATUT_ACTIF);
+        return ($isActif && ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$sousFamille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR));
+    }
+
+    private function getPeriodes($campagne) {
         $periodes = array();
         $stopPeriode = date('Y-m');
         $months = array('08', '09', '10', '11', '12', '01', '02', '03', '04', '05', '06', '07');
