@@ -8,7 +8,7 @@ all:
       paiements_actif: true
       prefix_sage: "VEN"
       prefix_sage_divers: null
-      tva_compte: "44571200"
+      tva_compte: "44571500"
       defaut_compte: "70800000"
       type_cvo:
         identifiant_prefix: ""
