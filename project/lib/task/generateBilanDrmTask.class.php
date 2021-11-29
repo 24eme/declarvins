@@ -53,9 +53,13 @@ EOF;
             echo "$depot doit être un dossier writable\n";exit;
         }
 
-        array_map('unlink', glob("$depot/$campagne/*.csv"));
-        mkdir("$depot/$campagne", 0755);
         $depot = "$depot/$campagne";
+
+        if (file_exists($depot)) {
+            array_map('unlink', glob("$depot/*.csv"));
+        } else {
+            mkdir("$depot", 0755);
+        }
 
         $etablissements = $interpro->getEtablissementsArrayFromGrcFile();
         $libellesStatuts = DRMClient::getAllLibellesStatusBilan();
