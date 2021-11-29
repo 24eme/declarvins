@@ -20,7 +20,7 @@ class generateBilanDrmTask extends sfBaseTask {
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-            new sfCommandOption('campagne', null, sfCommandOption::PARAMETER_OPTIONAL, 'Campagne pour le bilan'),
+            new sfCommandOption('lastcampagne', null, sfCommandOption::PARAMETER_OPTIONAL, 'Campagne -1 pour le bilan', false),
         ));
         $this->addArguments(array(
             new sfCommandArgument('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'The interprofession name'),
@@ -40,7 +40,8 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-        $campagne = (isset($options['campagne']) && preg_match('/^[0-9]{4}-[0-9]{4}$', $options['campagne']))? $options['campagne'] : (new CampagneManager('08'))->getCurrent();
+        $campagne = ($options['lastcampagne'])? (new CampagneManager('08'))->getCampagneByDate(date('Y-m-d', mktime(0, 0, 0, date("m"),   date("d"),   date("Y")-1))) : (new CampagneManager('08'))->getCurrent();
+
         $periodes = $this->getPeriodes($campagne);
 
         $interpro = InterproClient::getInstance()->retrieveById(str_replace('INTERPRO-', '', $arguments['interpro']));
