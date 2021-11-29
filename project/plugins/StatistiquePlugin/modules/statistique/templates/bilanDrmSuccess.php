@@ -13,6 +13,11 @@
             </p>
             <br />
             <div class="contenu clearfix">
+                <p>
+                    <a href="/exports/BILANDRM/<?php echo $interpro->identifiant ?>/">&raquo; Accéder aux fichiers de Bilan</a>
+                </p>
+            </div>
+            <div class="contenu clearfix">
                 <?php include_partial('formCampagne', array('form' => $formCampagne)) ?>
             </div>
             <br />
@@ -80,7 +85,7 @@
                                         ?>
                                         <td style="padding: 0;">
                                             <strong>
-                                            <?php 
+                                            <?php
                                             	if ($firstSaisie && $periode >= $firstSaisie) {
                                             		if ($lastSaisie && $periode > $lastSaisie && !$lastStock && $lastStatut != DRMClient::DRM_STATUS_BILAN_NON_VALIDE) {
                                             			echo $statusArray[DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE];
