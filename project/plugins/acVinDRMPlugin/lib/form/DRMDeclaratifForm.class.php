@@ -29,14 +29,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_debut' => ($this->_drm->declaratif->dsa->debut)? $this->_drm->declaratif->dsa->debut : null,
             'dsa_fin' => ($this->_drm->declaratif->dsa->fin)? $this->_drm->declaratif->dsa->fin : null,
             'dsa_nb' => ($this->_drm->declaratif->dsa->nb)? $this->_drm->declaratif->dsa->nb : null,
-            'caution' => $this->_drm->declaratif->caution->dispense,
             'frequence' => $this->_drm->declaratif->paiement->douane->frequence,
-            'organisme' => $this->_drm->declaratif->caution->organisme,
             'moyen_paiement' => $this->_drm->declaratif->paiement->douane->moyen,
             'statistiques_jus' => $this->_drm->declaratif->statistiques->jus,
             'statistiques_mcr' => $this->_drm->declaratif->statistiques->mcr,
             'statistiques_vinaigre' => $this->_drm->declaratif->statistiques->vinaigre,
-            'numero' => $this->_drm->declaratif->caution->numero,
         );
 
         return $default;
@@ -66,14 +63,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         		'statistiques_jus' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         		'statistiques_mcr' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         		'statistiques_vinaigre' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
-            'caution' => new sfWidgetFormChoice(array(
-                'expanded' => true,
-                'choices' => array(
-                    1 => "Dispense",
-                    0 => "Oui",
-                ),
-                    //'renderer_options' => array('formatter' => array($this, 'formatter'))
-            )),
             'frequence' => new sfWidgetFormChoice(array(
                 'expanded' => true,
                 'choices' => array(
@@ -81,8 +70,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
                     DRMPaiement::FREQUENCE_MENSUELLE => DRMPaiement::FREQUENCE_MENSUELLE
                 )
             )),
-            'organisme' => new sfWidgetFormInput(),
-            'numero' => new sfWidgetFormInput(),
             'moyen_paiement' => new sfWidgetFormChoice(array(
                 'expanded' => true,
                 'choices' => array(
@@ -122,9 +109,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_debut' => new sfValidatorString(array('required' => false)),
             'dsa_fin' => new sfValidatorString(array('required' => false)),
             'dsa_nb' => new sfValidatorInteger(array('required' => false)),
-            'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
-            'organisme' => new sfValidatorString(array('required' => false)),
-            'numero' => new sfValidatorString(array('required' => false, 'max_length' => 21)),
             'moyen_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
             'frequence' => new sfValidatorChoice(array('required' => false, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE))),
             'statistiques_jus' => new sfValidatorNumber(array('required' => false)),
@@ -133,9 +117,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         ));
 
         $this->validatorSchema['apurement']->setMessage('required', 'Vous n\'avez pas selectionné de défaut d\'apurement.');
-        $this->validatorSchema['caution']->setMessage('required', 'Vous n\'avez pas précisé si vous bénéficier d\'une caution.');
-        $this->validatorSchema['organisme']->setMessage('required', 'Veuillez préciser l\'organisme.');
-        $this->validatorSchema['numero']->setMessage('required', 'Veuillez préciser le numéro.');
         $this->validatorSchema['moyen_paiement']->setMessage('required', 'Vous n\'avez pas selectionné de moyen de paiement.');
         $this->validatorSchema['frequence']->setMessage('required', 'Vous n\'avez pas selectionné de type d\'échéance.');
 
@@ -149,7 +130,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->validatorSchema['dsa_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['dsa_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['dsa_nb']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
-        $this->validatorSchema['numero']->setMessage('invalid', 'La longueur maximum du numéro est de 21');
 
 
         $rna = new DRMDeclaratifRnaCollectionForm($this->_drm->declaratif->rna);
@@ -211,13 +191,9 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->_drm->declaratif->dsa->debut = (int) $values['dsa_debut'];
         $this->_drm->declaratif->dsa->fin = (int) $values['dsa_fin'];
         $this->_drm->declaratif->dsa->nb = (int) $values['dsa_nb'];
-        $this->_drm->declaratif->caution->dispense = (int) $values['caution'];
-        $this->_drm->declaratif->caution->organisme = $values['organisme'];
         $this->_drm->declaratif->statistiques->jus = $values['statistiques_jus'];
         $this->_drm->declaratif->statistiques->mcr = $values['statistiques_mcr'];
         $this->_drm->declaratif->statistiques->vinaigre = $values['statistiques_vinaigre'];
-        $this->_drm->declaratif->caution->numero = $values['numero'];
-
         if ($this->hasWidgetFrequence()) {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
             $reports = $this->_drm->declaratif->getOrAdd('reports');

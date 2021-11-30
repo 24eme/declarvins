@@ -130,30 +130,6 @@
                     </div>
                 </div>
 
-                <ul class="onglets_declaratif">
-                    <li><strong>Caution</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_caution" title="Message aide"></a></li>
-                </ul>
-
-                <div class="contenu_onglet_declaratif">
-                    <p class="intro">Veuillez indiquer si vous disposez d'une caution, si oui merci de préciser l'organisme :</p>
-                    <div class="ligne_form alignes" id="caution_accepte">
-                        <?php echo $form['caution']->renderError() ?>
-                        <?php echo $form['caution']->render() ?>
-                    </div>
-
-                    <div class="ligne_form alignes" id="numero" style="display:<?php echo ($form['caution']->getValue() === 1 || $form['numero']->hasError()) ? 'block' : 'none' ?>;">
-                        <?php echo $form['numero']->renderError() ?>
-                        <?php echo $form['numero']->renderLabel() ?>
-                        <?php echo $form['numero']->render() ?>
-                    </div>
-
-                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue() === 0 || $form['organisme']->hasError()) ? 'block' : 'none' ?>;">
-                        <?php echo $form['organisme']->renderError() ?>
-                        <?php echo $form['organisme']->renderLabel() ?>
-                        <?php echo $form['organisme']->render() ?>
-                    </div>
-                </div>
-
 				<?php if ($sf_user->getCompte()->isTiers() && !$etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
@@ -268,8 +244,6 @@
 
 $(document).ready( function()
 	{
-        $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block'); $('#numero').css('display', 'none') });
-        $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none'); $('#numero').css('display', 'block') });
         $('#drm_declaratif_frequence_Mensuelle').click(function() { $('#reports').css('display', 'none'); });
         $('#drm_declaratif_frequence_Annuelle').click(function() { $('#reports').css('display', 'block'); });
 
