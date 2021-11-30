@@ -156,6 +156,9 @@
                 </ul>
                 <div class="contenu_onglet_declaratif">
                     <div class="tableau_ajouts_liquidations">
+                        <p style="text-align: right; padding-right: 20px;">
+                            250 caractères max.
+                        </p>
                 		<table class="tableau_recap">
                 		<?php $i=0; foreach ($form['observationsProduits'] as $formObservations): ?>
                 			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
@@ -167,7 +170,6 @@
                     		</tr>
                     	<?php $i++; endforeach; ?>
                     	</table>
-                    	250 caractères max.
                     </div>
                 </div>
 
