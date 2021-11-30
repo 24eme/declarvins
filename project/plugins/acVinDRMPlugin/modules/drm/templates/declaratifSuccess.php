@@ -128,9 +128,6 @@
                     		</tbody>
                     	</table>
                     </div>
-                    <div class="ligne_form ligne_entiere ecart_check">
-                        <?php echo $form['adhesion_emcs_gamma']->render() ?><?php echo $form['adhesion_emcs_gamma']->renderLabel() ?><?php echo $form['adhesion_emcs_gamma']->renderError() ?>
-                    </div>
                 </div>
 
                 <ul class="onglets_declaratif">

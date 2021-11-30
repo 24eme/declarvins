@@ -942,8 +942,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->declaratif->daa->debut ||
                 $this->declaratif->daa->fin ||
                 $this->declaratif->dsa->debut ||
-                $this->declaratif->dsa->debut ||
-                $this->declaratif->adhesion_emcs_gamma
+                $this->declaratif->dsa->debut
         ) {
 
             return true;

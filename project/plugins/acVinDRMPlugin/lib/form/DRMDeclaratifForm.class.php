@@ -8,7 +8,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
      *
      * @param DRM $drm
      * @param array $options
-     * @param string $CSRFSecret 
+     * @param string $CSRFSecret
      */
     public function __construct(DRM $drm, $options = array(), $CSRFSecret = null) {
         $this->_drm = $drm;
@@ -29,7 +29,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_debut' => ($this->_drm->declaratif->dsa->debut)? $this->_drm->declaratif->dsa->debut : null,
             'dsa_fin' => ($this->_drm->declaratif->dsa->fin)? $this->_drm->declaratif->dsa->fin : null,
             'dsa_nb' => ($this->_drm->declaratif->dsa->nb)? $this->_drm->declaratif->dsa->nb : null,
-            'adhesion_emcs_gamma' => $this->_drm->declaratif->adhesion_emcs_gamma,
             'caution' => $this->_drm->declaratif->caution->dispense,
             'frequence' => $this->_drm->declaratif->paiement->douane->frequence,
             'organisme' => $this->_drm->declaratif->caution->organisme,
@@ -67,7 +66,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         		'statistiques_jus' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         		'statistiques_mcr' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         		'statistiques_vinaigre' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
-            'adhesion_emcs_gamma' => new sfWidgetFormInputCheckbox(),
             'caution' => new sfWidgetFormChoice(array(
                 'expanded' => true,
                 'choices' => array(
@@ -105,7 +103,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'daa_fin' => 'au',
             'dsa_debut' => 'du ',
             'dsa_fin' => 'au',
-            'adhesion_emcs_gamma' => 'Adhésion à EMCS/GAMMA (n° non nécessaires)',
             'moyen_paiement' => 'Veuillez sélectionner le moyen de paiement des droits de circulation :',
             'frequence' => 'Veuillez sélectionner votre type d\'échéance :',
             'statistiques_jus' => 'Quantités de moûts de raisin transformées en jus de raisin',
@@ -125,7 +122,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_debut' => new sfValidatorString(array('required' => false)),
             'dsa_fin' => new sfValidatorString(array('required' => false)),
             'dsa_nb' => new sfValidatorInteger(array('required' => false)),
-            'adhesion_emcs_gamma' => new sfValidatorBoolean(array('required' => false)),
             'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
             'organisme' => new sfValidatorString(array('required' => false)),
             'numero' => new sfValidatorString(array('required' => false, 'max_length' => 21)),
@@ -142,7 +138,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->validatorSchema['numero']->setMessage('required', 'Veuillez préciser le numéro.');
         $this->validatorSchema['moyen_paiement']->setMessage('required', 'Vous n\'avez pas selectionné de moyen de paiement.');
         $this->validatorSchema['frequence']->setMessage('required', 'Vous n\'avez pas selectionné de type d\'échéance.');
-        
+
 
         $this->validatorSchema['empreinte_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['empreinte_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
@@ -158,14 +154,14 @@ class DRMDeclaratifForm extends acCouchdbForm {
 
         $rna = new DRMDeclaratifRnaCollectionForm($this->_drm->declaratif->rna);
         $this->embedForm('rna', $rna);
-        
+
 
 
         $observations = new DRMValidationObservationsCollectionForm($this->_drm);
         $this->embedForm('observationsProduits', $observations);
-        
+
         $this->embedForm('reports', new DRMDeclaratifReportForm($this->_drm));
-        
+
         if (!$this->hasWidgetFrequence()) {
             unset($this['frequence']);
             unset($this['reports']);
@@ -189,7 +185,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
         }
         parent::bind($taintedValues, $taintedFiles);
     }
-    
+
 
 
     public function updateEmbedForm($name, $form) {
@@ -198,12 +194,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
     }
 
     /**
-     * 
+     *
      * @return DRM
      */
     public function save() {
         $values = $this->getValues();
-        $adhesion_emcs_gamma = ($values['adhesion_emcs_gamma']) ? 1 : null;
         $this->_drm->valide->date_signee = $values['date_signee'];
         $this->_drm->raison_rectificative = $values['raison_rectificative'];
         $this->_drm->declaratif->defaut_apurement = (int) $values['apurement'];
@@ -216,14 +211,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->_drm->declaratif->dsa->debut = (int) $values['dsa_debut'];
         $this->_drm->declaratif->dsa->fin = (int) $values['dsa_fin'];
         $this->_drm->declaratif->dsa->nb = (int) $values['dsa_nb'];
-        $this->_drm->declaratif->adhesion_emcs_gamma = $adhesion_emcs_gamma;
         $this->_drm->declaratif->caution->dispense = (int) $values['caution'];
         $this->_drm->declaratif->caution->organisme = $values['organisme'];
         $this->_drm->declaratif->statistiques->jus = $values['statistiques_jus'];
         $this->_drm->declaratif->statistiques->mcr = $values['statistiques_mcr'];
         $this->_drm->declaratif->statistiques->vinaigre = $values['statistiques_vinaigre'];
         $this->_drm->declaratif->caution->numero = $values['numero'];
-        		
+
         if ($this->hasWidgetFrequence()) {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
             $reports = $this->_drm->declaratif->getOrAdd('reports');
@@ -236,7 +230,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             }
         }
         $this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
-        
+
         if (!$this->_drm->declaratif->defaut_apurement) {
         	$this->_drm->declaratif->remove('rna');
         	$this->_drm->declaratif->add('rna');
@@ -271,11 +265,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
     	}
         return false;
     }
-    
+
     public function getObject() {
     	return $this->_drm;
     }
-    
+
 
 
     public function getFormTemplateRna()
@@ -283,7 +277,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
     	$object = $this->_drm->declaratif->rna->add();
     	$form_embed = new DRMDeclaratifRnaForm($object);
     	$form = new DRMRnaCollectionTemplateForm($this, $form_embed, 'var---nbItem---');
-    
+
     	return $form->getFormTemplate();
     }
 
