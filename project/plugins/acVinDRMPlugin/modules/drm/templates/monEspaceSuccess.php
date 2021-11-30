@@ -32,10 +32,12 @@
     			        <div class="flash_error">/!\ Vous devez saisir votre DRM de <?php echo strftime('%B %Y', strtotime('next month',strtotime($lastDrmInfos['periode'].'-01'))); ?> /!\</div>
     				<?php endif; ?>
     			<?php endif; ?>
-    			</div>	
+    			</div>
     		<?php endif; ?>
     <?php endif; ?>
-    
+    <p style="padding-bottom: 10px;">
+        Vous pouvez saisir vos stocks en <strong><?php $dateFormat = new sfDateFormat('fr_FR'); echo ucfirst($dateFormat->format(date('Y').'-'.$etablissement->getMoisToSetStock().'-01', 'MMMM')); ?>
+    </p>
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >
