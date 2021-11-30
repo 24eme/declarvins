@@ -156,6 +156,9 @@
                 </ul>
                 <div class="contenu_onglet_declaratif">
                     <div class="tableau_ajouts_liquidations">
+                        <p>
+                            Merci de préciser le volume de vin correspondant à l'observation
+                        </p>
                         <p style="text-align: right; padding-right: 20px;">
                             250 caractères max.
                         </p>
