@@ -1,6 +1,12 @@
 <form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_es_detail', $detail) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
+    <p style="padding-bottom: 5px;">
+        /!\ Ne concerne que les vins ayant déjà payé les droits
+    </p>
+    <p style="padding-bottom: 5px;">
+        NB : Le champ observation de l'onglet annexes devra être obligatoirement renseigné.
+    </p>
 	<table id="table_es_detail_crd">
     	<thead>
         	<tr class="detail">
