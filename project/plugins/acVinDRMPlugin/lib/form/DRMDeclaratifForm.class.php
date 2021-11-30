@@ -30,7 +30,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_fin' => ($this->_drm->declaratif->dsa->fin)? $this->_drm->declaratif->dsa->fin : null,
             'dsa_nb' => ($this->_drm->declaratif->dsa->nb)? $this->_drm->declaratif->dsa->nb : null,
             'frequence' => $this->_drm->declaratif->paiement->douane->frequence,
-            'moyen_paiement' => $this->_drm->declaratif->paiement->douane->moyen,
             'statistiques_jus' => $this->_drm->declaratif->statistiques->jus,
             'statistiques_mcr' => $this->_drm->declaratif->statistiques->mcr,
             'statistiques_vinaigre' => $this->_drm->declaratif->statistiques->vinaigre,
@@ -70,15 +69,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
                     DRMPaiement::FREQUENCE_MENSUELLE => DRMPaiement::FREQUENCE_MENSUELLE
                 )
             )),
-            'moyen_paiement' => new sfWidgetFormChoice(array(
-                'expanded' => true,
-                'choices' => array(
-                    'Numéraire' => "Numéraire",
-                    'Chèque' => "Chèque",
-                    'Virement' => "Virement"
-                ),
-                    //'renderer_options' => array('formatter' => array($this, 'formatter'))
-            )),
         ));
 
         $this->widgetSchema->setLabels(array(
@@ -90,7 +80,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'daa_fin' => 'au',
             'dsa_debut' => 'du ',
             'dsa_fin' => 'au',
-            'moyen_paiement' => 'Veuillez sélectionner le moyen de paiement des droits de circulation :',
             'frequence' => 'Veuillez sélectionner votre type d\'échéance :',
             'statistiques_jus' => 'Quantités de moûts de raisin transformées en jus de raisin',
             'statistiques_mcr' => 'Quantités de moûts de raisin transformées en MCR',
@@ -109,7 +98,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_debut' => new sfValidatorString(array('required' => false)),
             'dsa_fin' => new sfValidatorString(array('required' => false)),
             'dsa_nb' => new sfValidatorInteger(array('required' => false)),
-            'moyen_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
             'frequence' => new sfValidatorChoice(array('required' => false, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE))),
             'statistiques_jus' => new sfValidatorNumber(array('required' => false)),
             'statistiques_mcr' => new sfValidatorNumber(array('required' => false)),
@@ -117,7 +105,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         ));
 
         $this->validatorSchema['apurement']->setMessage('required', 'Vous n\'avez pas selectionné de défaut d\'apurement.');
-        $this->validatorSchema['moyen_paiement']->setMessage('required', 'Vous n\'avez pas selectionné de moyen de paiement.');
         $this->validatorSchema['frequence']->setMessage('required', 'Vous n\'avez pas selectionné de type d\'échéance.');
 
 
@@ -205,7 +192,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
 		        }
             }
         }
-        $this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
 
         if (!$this->_drm->declaratif->defaut_apurement) {
         	$this->_drm->declaratif->remove('rna');

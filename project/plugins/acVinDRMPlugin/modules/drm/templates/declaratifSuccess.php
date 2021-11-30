@@ -160,11 +160,6 @@
                     		<?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-                    <p class="intro"><?php echo $form['moyen_paiement']->renderLabel() ?><p>
-                    <div class="ligne_form alignes">
-                        <?php echo $form['moyen_paiement']->renderError() ?>
-                        <?php echo $form['moyen_paiement']->render() ?>
-                    </div>
                 </div>
                 <?php endif; ?>
 
