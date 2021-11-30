@@ -23,8 +23,8 @@ class DRMProduitEditForm extends acCouchdbForm
             'labels' => new sfWidgetFormChoice(array('expanded' => true,'choices' => $labels)),
         ));
         $this->widgetSchema->setLabels(array(
-            'libelle' => 'Libelle CIEL: ',
-            'labels' => 'Label: ',
+            'libelle' => 'Libelle CIEL* : ',
+            'labels' => 'Label : ',
         ));
 
         $this->setValidators(array(

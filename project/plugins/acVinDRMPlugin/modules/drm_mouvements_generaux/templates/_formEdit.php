@@ -6,6 +6,9 @@
 		<?php echo $form['libelle']->renderLabel() ?>
 		<?php echo $form['libelle']->render() ?>
 	</div>
+    <p style="font-size: 90%;">
+        (*) A compléter uniquement si vous avez un libellé personnalisé différent dans CIEL pour ce produit
+    </p>
 	<div class="ligne_form_btn">
 		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>

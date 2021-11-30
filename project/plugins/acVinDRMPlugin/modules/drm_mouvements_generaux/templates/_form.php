@@ -12,12 +12,15 @@
 		<?php echo $form['libelle']->renderLabel() ?>
 		<?php echo $form['libelle']->render() ?>
 	</div>
+    <p style="font-size: 90%;">
+        (*) A compléter uniquement si vous avez un libellé personnalisé différent dans CIEL pour ce produit
+    </p>
     <?php if ($form->hasLabel()):?>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['label']->renderError() ?></span>
 		<?php echo $form['label']->renderLabel() ?>
 		<?php echo $form['label']->render() ?>
-		
+
 	</div>
     <?php endif; ?>
 	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock disponible</a>
