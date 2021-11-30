@@ -63,7 +63,7 @@ class Configuration extends BaseConfiguration {
         'embouteillage' => 'Mvt. temporaire : Embouteillage',
         'travail' => 'Mvt. temporaire : Travail à façon',
         'distillation' => 'Mvt. temporaire : Distillation à façon',
-        'lies' => 'Lies',
+        'lies' => 'Mvt. interne : Lies',
         'vrac_contrat' => 'Contrat Vrac'
     );
     protected static $stocks_sortie_acq = array(
