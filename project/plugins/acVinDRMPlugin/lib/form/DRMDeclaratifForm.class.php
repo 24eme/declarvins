@@ -17,7 +17,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
 
     public function getDefaultValues() {
         $default = array(
-            'raison_rectificative' => $this->_drm->raison_rectificative,
         	'date_signee' => $this->_drm->valide->date_signee,
             'apurement' => $this->_drm->declaratif->defaut_apurement,
             'empreinte_debut' => ($this->_drm->declaratif->empreinte->debut)? $this->_drm->declaratif->empreinte->debut : null,
@@ -41,7 +40,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
     public function configure() {
         $this->setWidgets(array(
         	'date_signee' => new sfWidgetFormDateTime(),
-        	'raison_rectificative' => new sfWidgetFormTextarea(),
             'apurement' => new sfWidgetFormChoice(array(
                 'expanded' => true,
                 'choices' => array(
@@ -73,7 +71,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
 
         $this->widgetSchema->setLabels(array(
         	'date_signee' => 'Date de signature :',
-        	'raison_rectificative' => 'Raison de la rectificative :',
             'empreinte_debut' => 'du',
             'empreinte_fin' => 'au',
             'daa_debut' => 'du',
@@ -87,7 +84,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         ));
         $this->setValidators(array(
         	'date_signee' => new sfValidatorDateTime(array('required' => false)),
-        	'raison_rectificative' => new sfValidatorString(array('required' => false)),
             'apurement' => new sfValidatorChoice(array('required' => true, 'choices' => array(0, 1))),
             'empreinte_debut' => new sfValidatorString(array('required' => false)),
             'empreinte_fin' => new sfValidatorString(array('required' => false)),
@@ -167,7 +163,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
     public function save() {
         $values = $this->getValues();
         $this->_drm->valide->date_signee = $values['date_signee'];
-        $this->_drm->raison_rectificative = $values['raison_rectificative'];
         $this->_drm->declaratif->defaut_apurement = (int) $values['apurement'];
         $this->_drm->declaratif->empreinte->debut = (int) $values['empreinte_debut'];
         $this->_drm->declaratif->empreinte->fin = (int) $values['empreinte_fin'];

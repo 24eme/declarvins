@@ -21,19 +21,6 @@
                 <?php echo $form->renderHiddenFields() ?>
 
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if ($form->getObject()->isRectificative()): ?>
-                <ul class="onglets_declaratif">
-                    <li><strong>Administrateur</strong></li>
-                </ul>
-
-                <div class="contenu_onglet_declaratif ">
-                    <p class="intro"><?php echo $form['raison_rectificative']->renderLabel() ?><a href="" class="msg_aide" data-msg="help_popup_declaratif_raison_rectificative" title="Message aide"></a></p>
-                    <div class="ligne_form alignes">
-                        <?php echo $form['raison_rectificative']->renderError() ?>
-                        <?php echo $form['raison_rectificative']->render() ?>
-                    </div>
-                </div>
-                <?php endif; ?>
                 <?php if ($form->getObject()->isValidee()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signee" title="Message aide"></a></li>
