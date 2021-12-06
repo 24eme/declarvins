@@ -234,6 +234,7 @@
 		<?php $pagers_vrac[$certification_key]->gotoNextPage(); ?>
 		<?php endwhile; ?>
 	<?php endforeach; ?>
+
 	<?php if ($drm->exist('crds') && count($drm->crds) > 0): ?>
 	<h2>Comptabilité capsules CRD</h2>
 
@@ -274,6 +275,15 @@
 	</tbody>
 	</table>
 	<?php endif; ?>
+
+    <?php $observations = $drm->getObservationsProduit(); if (count($observations) > 0): ?>
+	<h2>Observations</h2>
+    <?php foreach ($observations as $produitObservation): ?>
+    <p>
+        <strong><?php echo $produitObservation->getCode() ?></strong> <?php echo $produitObservation->getLibelle() ?> : <?php echo $produitObservation->observations ?>
+    </p>
+    <?php endforeach; ?>
+    <?php endif; ?>
 
 	<?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	<?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
