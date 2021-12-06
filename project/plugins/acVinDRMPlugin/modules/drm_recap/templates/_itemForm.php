@@ -70,7 +70,7 @@
                     	}
                     	</style>
                     	<li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
-                    		<?php if ($form->getObject()->getGenre()->getKey() != 'VCI'): ?>
+                    		<?php if ($form->getObject()->getGenre()->getKey() != 'VCI' && $form->getObject()->getCertification()->getKey() != 'LIE'): ?>
 	                    		<?php if (($sf_user->getCompte()->isTiers() && $form->getObject()->getDocument()->getEtablissementObject()->isTransmissionCiel()) || $form->getObject()->getDocument()->isNegoce()): ?>
 	                    		<a href="<?php echo url_for('drm_recap_es_detail', $form->getObject()) ?>" class="btn_popup btn_es_details" data-popup-enregistrement="true" data-popup-reload="true" data-popup="#popup_details_entree_crd<?php echo str_replace('/', '_', $form->getObject()->getHash()) ?>" data-popup-config="configForm" data-popup-title="Indiquez le volume et période de sorties concernés par cette réintégration"><?php echo sprintFloat($form['entrees'][$key]->getValue(), "%01.05f") ?></a>
 	                    		<input type="hidden" id="drm_detail_entrees_crd" autocomplete="off" class="num num_float num_light num_float" data-val-defaut="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.05f") ?>" value="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.05f") ?>" name="">

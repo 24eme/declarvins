@@ -20,6 +20,13 @@ class Configuration extends BaseConfiguration {
         	'sorties/autres'
     );
 
+    protected static $contraintes_lies = array(
+    		'entrees/recolte',
+            'entrees/declassement',
+            'entrees/excedent',
+        	'sorties/autres'
+    );
+
     protected static $stocks_debut = array(
         'bloque' => 'Dont Vin bloqué / Reserve',
         'warrante' => 'Dont Vin warranté',
@@ -121,9 +128,12 @@ class Configuration extends BaseConfiguration {
 
 
 
-    public static function getContraintes($genre) {
-    	if ($genre == 'VCI') {
+    public static function getContraintes($detail) {
+    	if ($detail->getGenre()->getKey() == 'VCI') {
     		return self::$contraintes_vci;
+    	}
+    	if ($detail->getCertification()->getKey() == 'LIE') {
+    		return self::$contraintes_lies;
     	}
     	return array();
     }

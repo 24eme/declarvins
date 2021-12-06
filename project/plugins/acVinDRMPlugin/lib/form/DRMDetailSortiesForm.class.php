@@ -9,7 +9,7 @@ class DRMDetailSortiesForm  extends acCouchdbObjectForm {
     	if (isset($stockSorties['vrac_contrat'])) {
     		unset($stockSorties['vrac_contrat']);
     	}
-    	$contraintes = Configuration::getContraintes($this->getObject()->getParent()->getGenre()->code);
+    	$contraintes = Configuration::getContraintes($this->getObject()->getParent());
     	foreach ($stockSorties as $key => $item) {
     		if ($contraintes && !in_array('sorties/'.$key, $contraintes)) {
     			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.05f"), array('readonly' => 'readonly')));
