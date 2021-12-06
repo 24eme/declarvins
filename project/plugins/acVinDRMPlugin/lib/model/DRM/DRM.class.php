@@ -1170,6 +1170,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
     }
 
+    public function getObservationsProduit() {
+        $obs = array();
+        foreach ($this->getDetails() as $detail) {
+            if ($detail->observations) {
+                $obs[] = $detail;
+            }
+        }
+        return $obs;
+    }
+
     public function addObservationProduit($hash, $observation)
     {
     	if ($this->exist($hash)) {

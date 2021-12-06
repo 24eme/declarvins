@@ -139,24 +139,6 @@
             <?php include_partial('drm/mouvements', array('interpro' => $interpro, 'configurationProduits' => $configurationProduits, 'mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <?php endif; ?>
 
-        <?php if ($drm->exist('observations') && $drm->observations): ?>
-            <div style="padding: 0 0 30px 0" class="tableau_ajouts_liquidations">
-                <h2>
-					<strong>Observations</strong>
-				</h2>
-                <table class="tableau_recap">
-                	<?php $i=0; foreach ($drm->getDetails() as $detail): if (!$detail->observations) {continue;} ?>
-                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
-                				<td style="width: 332px;"><?php echo $detail->getLibelle() ?></td>
-                				<td style="text-align: left;">
-                        			<pre><?php echo $detail->observations ?></pre>
-                        		</td>
-                    		</tr>
-                    	<?php $i++; endforeach; ?>
-                </table>
-            </div>
-        <?php endif; ?>
-
         <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">
                 <strong>Commentaires BO</strong>

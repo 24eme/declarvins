@@ -1,8 +1,8 @@
 <?php use_helper('Version'); ?>
 <?php use_helper('Float'); ?>
 <?php use_helper('Unit'); ?>
-<?php 
-	foreach($drm->declaration->certifications as $certification): 
+<?php
+	foreach($drm->declaration->certifications as $certification):
 	$details = $certification->getProduits();
 	$i = 1;
 	if (!(count($details) > 0)) {
@@ -22,7 +22,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($details as $detail): 
+				<?php foreach($details as $detail):
                         $i++; ?>
 						<tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
 							<td>
@@ -51,7 +51,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach($details as $detail): 
+			<?php foreach($details as $detail):
                         $i++; ?>
 					<tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
 						<td>
@@ -83,7 +83,7 @@
 			</thead>
 			<tbody>
 
-				<?php $i = 1; foreach($drm->crds as $crd): 
+				<?php $i = 1; foreach($drm->crds as $crd):
                         $i++; ?>
 						<tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
 							<td>
@@ -97,5 +97,22 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+</div>
+<?php endif; ?>
+<?php $observations = $drm->getObservationsProduit(); if (count($observations) > 0): ?>
+<div style="padding: 0 0 30px 0" class="tableau_ajouts_liquidations">
+    <h2>
+        <strong>Observations</strong>
+    </h2>
+    <table class="tableau_recap">
+        <?php $i=0; foreach ($observations as $produitObservation): ?>
+                <tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
+                    <td style="width: 332px;"><?php echo $produitObservation->getLibelle() ?></td>
+                    <td style="text-align: left;">
+                        <pre><?php echo $produitObservation->observations ?></pre>
+                    </td>
+                </tr>
+            <?php $i++; endforeach; ?>
+    </table>
 </div>
 <?php endif; ?>
