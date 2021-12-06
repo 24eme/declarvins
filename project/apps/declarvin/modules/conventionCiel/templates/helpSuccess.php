@@ -23,7 +23,7 @@
 </style>
 <section id="contenu">
     <div id="creation_compte">
-        <h1>Assistance CIEL</h1>
+        <h1>Assistance DeclarVins</h1>
         <?php if($sf_user->hasFlash('assistance')) : ?>
         <div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
 			<ul><li><?php echo $sf_user->getFlash('assistance'); ?></li></ul>
