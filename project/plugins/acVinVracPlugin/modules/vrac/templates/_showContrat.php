@@ -391,7 +391,7 @@
 	</li>
 	<?php endif; ?>
 	<?php endif; ?>
-    <?php if ($vrac->hasEnlevements() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+    <?php if ($vrac->hasEnlevements()): ?>
     <li id="recap_enlevements" style="margin-top: 15px;">
 		<h3>Enlevements</h3>
 		<ul>
