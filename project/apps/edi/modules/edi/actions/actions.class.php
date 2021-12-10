@@ -30,7 +30,7 @@ class ediActions extends sfActions
   	}
   	return $interpro;
   }
-	
+
   protected function securizeEtablissement($etablissement)
   {
     if (!preg_match('/^ETABLISSEMENT-/', $etablissement)) {
@@ -49,7 +49,7 @@ class ediActions extends sfActions
     	}
     }
   }
-	
+
   protected function securizeOioc($oioc)
   {
     if (!preg_match('/^OIOC-/', $oioc)) {
@@ -64,7 +64,7 @@ class ediActions extends sfActions
     }
   }
 
-  public function executeStreamDAIDS(sfWebRequest $request) 
+  public function executeStreamDAIDS(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -82,13 +82,14 @@ class ediActions extends sfActions
     $daids = DAIDSDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'));
     return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, "DAIDS", $dateTime->format('c'), $interpro, array(DAIDSDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
-  
-  public function executeStreamVrac(sfWebRequest $request) 
+
+  public function executeStreamVrac(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
+    $output = $request->getParameter('output');
     $this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
@@ -99,10 +100,13 @@ class ediActions extends sfActions
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
     $vracs = $this->vracCallback($interpro, VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
+	if ($output == 'txt') {
+		return $this->renderTxt($vracs, "VRAC", $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
+	}
+	return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
   }
-  
-  public function executeStreamTransaction(sfWebRequest $request) 
+
+  public function executeStreamTransaction(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -138,14 +142,15 @@ class ediActions extends sfActions
   	$daes = $this->daeCallback($interpro, EdiDAEView::getInstance()->findByDate($dateForView->modify('-1 second')->format('c'))->rows);
   	return $this->renderCsv($daes, EdiDAEView::VALUE_DATE, "DAE", $dateTime->format('c'), $interpro, array(), $entetes);
   }
-  
-  public function executeStreamDRM(sfWebRequest $request) 
+
+  public function executeStreamDRM(sfWebRequest $request)
   {
   	ini_set('memory_limit', '4096M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
     $famille = $request->getParameter('famille');
+    $output = $request->getParameter('output');
   	$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
@@ -252,16 +257,19 @@ class ediActions extends sfActions
 "sorties crd acquitté",
 "sorties replacement acquitté",
 "sorties autres acquitté",
-"total acquitté"); 
+"total acquitté");
     $drms = $this->drmCallback($interpro, DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows, $famille);
+	if ($output == 'txt') {
+		return $this->renderTxt($drms, "DRM", $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
+	}
     return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));//, $entetes);
   }
-  
-  public function executeStreamDRMInterpro(sfWebRequest $request) 
+
+  public function executeStreamDRMInterpro(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
-  	
+
   	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
     $date = str_replace(array('h', 'H', 'm', 'M'), ':', $request->getParameter('datedebut'));
     if (!$date) {
@@ -278,7 +286,7 @@ class ediActions extends sfActions
     		$lastDate = $item->key[EdiDrmpartenaireView::KEY_DATE];
     	}
     }
-    
+
     $lastDate = new DateTime($lastDate);
     $filename = 'DRM_'.strtolower($interpro->identifiant).'_'.$dateForView->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
     $this->response->setContentType('text/csv');
@@ -286,29 +294,29 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
     return $this->renderText($csv);
   }
-  
-  public function executeStreamVracInterpro(sfWebRequest $request) 
+
+  public function executeStreamVracInterpro(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
-  	
+
   	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
   	$items = EdiVracpartenaireView::getInstance()->findByZoneStatut($interpro->zone, VracClient::STATUS_CONTRAT_NONSOLDE)->rows;
-  	
+
   	$csv = '';
 	foreach ($items as $item) {
 		$csv .= implode(';', $item->value);
 		$csv .= "\n";
 	}
-	
+
   	$filename = 'contrats_achat_non_soldes_'.strtolower($interpro->identifiant).'.csv';
   	$this->response->setContentType('text/csv');
   	$this->response->setHttpHeader('md5', md5($csv));
   	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
   	return $this->renderText($csv);
   }
-  
-  public function executeStreamCampagneDRM(sfWebRequest $request) 
+
+  public function executeStreamCampagneDRM(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -329,8 +337,8 @@ class ediActions extends sfActions
     $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $dateForViewDebut->modify('-1 second')->format('c'), 'end' => $dateForViewfin->modify('+1 day')->modify('-1 second')->format('c')), true);
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
-  
-  public function executeStreamAnneeDRM(sfWebRequest $request) 
+
+  public function executeStreamAnneeDRM(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -352,8 +360,8 @@ class ediActions extends sfActions
     $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $dateForViewDebut->modify('-1 second')->format('c'), 'end' => $dateForViewfin->modify('+1 second')->format('c')), true);
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
-  
-  public function executeStreamDRMEtablissement(sfWebRequest $request) 
+
+  public function executeStreamDRMEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -371,7 +379,7 @@ class ediActions extends sfActions
     $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView->modify('-1 second')->format('c'));
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
   }
-  
+
   public function executeEdiV2(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
@@ -386,7 +394,7 @@ class ediActions extends sfActions
     	$this->response->setStatusCode(204);
     	return $this->renderText(null);
     }
-    
+
     switch ($format) {
     	case 'csv':
     		return $this->renderTextCsv($csv_file); break;
@@ -397,7 +405,7 @@ class ediActions extends sfActions
     		return $this->renderText($csv_file); break;
     }
   }
-  
+
   public function renderTextCsv($csv_file) {
   	$this->response->setHttpHeader('md5', md5($csv_file));
   	$this->response->setHttpHeader('LastDocDate', date('r'));
@@ -406,7 +414,7 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
     return $this->renderText($csv_file);
   }
-  
+
   public function renderTextXml($csv_file) {
   	$this->response->setHttpHeader('md5', md5($csv_file));
   	$this->response->setHttpHeader('LastDocDate', date('r'));
@@ -445,7 +453,7 @@ class ediActions extends sfActions
 					$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
 				}
 			}
-  			
+
   		} else {
   			$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
   		}
@@ -454,11 +462,11 @@ class ediActions extends sfActions
   	}
   	return $this->renderSimpleCsv($result, "transaction");
   }
-  
+
   public function executePushDRMEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);  	
+  	set_time_limit(0);
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
     $etab = EtablissementClient::getInstance()->find($etablissement);
@@ -482,13 +490,13 @@ class ediActions extends sfActions
 		    $result[] = array('SUCCESS', 'DRM', null, 'La DRM '.$drm->_id.' a été importée avec succès');
       	} else {
       		$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
-      	}      	
+      	}
     } else {
     	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
     }
     return $this->renderSimpleCsv($result, "drm");
   }
-  
+
   public function executeGetBilanDrmEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
@@ -507,7 +515,7 @@ class ediActions extends sfActions
   	}
   	return $this->renderSimpleCsv($result, "bilan");
   }
-  
+
   public function executePushDRMEtablissementV2(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
@@ -566,11 +574,11 @@ class ediActions extends sfActions
 	  						$result[] = array('ERREUR', 'ACCES', null, 'error_access_drmexist', "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
 	  						$errors++;
 	  					}
-	  				} 
+	  				}
 	  				if (!$errors) {
 		  				$drm->update();
 		  				$validation = new DRMValidation($drm);
-		  				
+
 		  				if (!$validation->isValide()) {
 		  					foreach ($validation->getErrors() as $error) {
 		  						$result[] = array('ERREUR', 'CSV', null, $error->getIdentifiant(), str_replace('Erreur, ', '', $error));
@@ -590,7 +598,7 @@ class ediActions extends sfActions
 		  				}
 	  				}
   				}
-  			
+
   			} catch(Exception $e) {
   				$result[] = array('ERREUR', 'CSV', null, 'error_500', $e->getMessage());
   			}
@@ -600,14 +608,14 @@ class ediActions extends sfActions
         } else {
         	$result[] = array('ERREUR', 'ACCES ', null, 'error_access_drmencours', 'Une DRM est en cours de saisie');
         }
-  			
+
   	} else {
   		$result[] = array('ERREUR', 'ACCES ', null, 'error_access_rest', 'Seules les requêtes de type POST sont acceptées');
   	}
   	return $this->renderSimpleCsv($result, "drm");
   }
-  
-  public function executeStreamVracEtablissement(sfWebRequest $request) 
+
+  public function executeStreamVracEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -625,11 +633,11 @@ class ediActions extends sfActions
     $vracs = $this->vracCallback($etablissementObject->interpro, VracEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView)->rows);
     return $this->renderCsv($vracs, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $date, $etablissementObject->interpro);
   }
-  
+
   public function executePushVracEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);  	
+  	set_time_limit(0);
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
     $etablissementObject = EtablissementClient::getInstance()->find($etablissement);
@@ -658,14 +666,14 @@ class ediActions extends sfActions
       	} else {
       		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
       	}
-      	
+
     } else {
     	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
     }
     return $this->renderSimpleCsv($result, "vrac");
   }
-  
-  public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
+
+  public function executeStreamStatistiquesBilanDrm(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -699,8 +707,8 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne.".csv");
     return $this->renderText($csv_file);
   }
-  
-  public function executeStreamStatistiquesBilanDrmManquantes(sfWebRequest $request) 
+
+  public function executeStreamStatistiquesBilanDrmManquantes(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
@@ -759,13 +767,13 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne."_".$periode.".csv");
     return $this->renderText($csv_file);
   }
-  
-  public function executeViewDRM(sfWebRequest $request) 
+
+  public function executeViewDRM(sfWebRequest $request)
   {
     $this->securizeEtablissement($request->getParameter('identifiant'));
     $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriodeAndRectificative(
-    		$request->getParameter('identifiant'), 
-        	DRMClient::getInstance()->buildPeriode($request->getParameter('annee'), $request->getParameter('mois')), 
+    		$request->getParameter('identifiant'),
+        	DRMClient::getInstance()->buildPeriode($request->getParameter('annee'), $request->getParameter('mois')),
         	$request->getParameter('rectificative')
     );
     $this->forward404Unless($drm);
@@ -783,7 +791,7 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$drm->_id.".csv");
     return $this->renderText($csv_file);
   }
-  
+
 	public function executePushGrc(sfWebRequest $request)
 	{
         ini_set('memory_limit', '2048M');
@@ -792,7 +800,7 @@ class ediActions extends sfActions
     	$this->securizeInterpro($interpro);
     	if (!preg_match('/^INTERPRO-/', $interpro)) {
         	$interpro = 'INTERPRO-'.$interpro;
-    	}   
+    	}
         $interpro = InterproClient::getInstance()->getById($interpro);
         $formUploadCsv = new UploadCSVForm();
     	$result = array();
@@ -821,7 +829,7 @@ class ediActions extends sfActions
     	}
     	return $this->renderSimpleCsv($result, "grc");
 	}
-	
+
 	public function executeStreamGrc(sfWebRequest $request)
 	{
 		ini_set('memory_limit', '2048M');
@@ -957,8 +965,8 @@ class ediActions extends sfActions
 	    $this->response->setHttpHeader('Last-Modified', $date);
 	    return $this->renderText($result);
 	}
-  
-  
+
+
   protected function vracCallback($interpro, $items)
   {
   		$vracs = array();
@@ -974,8 +982,8 @@ class ediActions extends sfActions
   		}
   		return $vracs;
   }
-  
-  
+
+
   protected function transactionCallback($interpro, $items)
   {
   		$vracs = array();
@@ -991,7 +999,7 @@ class ediActions extends sfActions
   		}
   		return $vracs;
   }
-  
+
   protected function daeCallback($interpro, $items)
   {
   		$daes = array();
@@ -1033,16 +1041,11 @@ class ediActions extends sfActions
   		return $drms;
   }
 
-  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array(), $entetes = null) 
+  protected function getCsvItems($items, $type, $correspondances= array(), $tableCorrespondances = array())
   {
-    $this->setLayout(false);
     $csv_file = '';
-    $startDate = ($date)? $date."_" : '';
-    $lastDate = $date;
-    $beginDate = '9999-99-99';
     $rc1 = chr(10);
     $rc2 = chr(13);
-    $tableCorrespondances = $this->getTableCorrespondance($interpro);
     foreach ($items as $item) {
     	if ($tableCorrespondances && $correspondances) {
     		foreach ($correspondances as $correspondance) {
@@ -1056,13 +1059,17 @@ class ediActions extends sfActions
     	}
         $csv_file .= str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)));
       	$csv_file .= "\n";
-      	if ($lastDate < $item->value[$dateSaisieIndice]) {
-      		$lastDate = $item->value[$dateSaisieIndice];
-      	}
-      	if ($beginDate > $item->value[$dateSaisieIndice]) {
-      		$beginDate = $item->value[$dateSaisieIndice];
-      	}
-    }
+	}
+	return $csv_file;
+  }
+
+  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array(), $entetes = null)
+  {
+    $this->setLayout(false);
+    $csv_file = $this->getCsvItems($items, $type, $correspondances, $this->getTableCorrespondance($interpro));
+    $startDate = ($date)? $date."_" : '';
+    $lastDate = $date;
+    $beginDate = '9999-99-99';
     if (!$startDate) {
     	$startDate = $beginDate."_";
     }
@@ -1071,7 +1078,7 @@ class ediActions extends sfActions
 		return $this->renderText(null);
     }
     if ($entetes && is_array($entetes)) {
-    	$csv_file = str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $entetes)))."\n".$csv_file;
+    	$csv_file = implode(';', str_replace(';', '-', $entetes))."\n".$csv_file;
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
@@ -1080,14 +1087,24 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
     return $this->renderText($csv_file);
   }
-  
+
+  protected function renderTxt($items, $type, $interpro, $correspondances = array(), $entetes = null)
+  {
+    $this->setLayout(false);
+    $csv_file = $this->getCsvItems($items, $type, $correspondances, $this->getTableCorrespondance($interpro));
+    if ($entetes && is_array($entetes)) {
+    	$csv_file = implode(';', str_replace(';', '-', $entetes))."\n".$csv_file;
+    }
+    return $this->renderText($csv_file);
+  }
+
   protected function getTableCorrespondance($interproId)
   {
   	$interpro = InterproClient::getInstance()->find($interproId);
   	return $interpro->correspondances->toArray();
   }
-	
-  protected function renderSimpleCsv($items, $type, $date = null) 
+
+  protected function renderSimpleCsv($items, $type, $date = null)
   {
     $this->setLayout(false);
     $csv_file = '';
@@ -1108,8 +1125,8 @@ class ediActions extends sfActions
   }
 
   // A TESTER
-  public function executeUploadEtablissements(sfWebRequest $request) 
-  {  
+  public function executeUploadEtablissements(sfWebRequest $request)
+  {
   	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));
     $this->securizeInterpro($this->interpro);
   	$this->formUploadCsv = new UploadCSVForm();
