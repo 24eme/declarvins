@@ -181,10 +181,14 @@ class KeyInflector
      * @param  string $text  Text to urlize
      * @return string $text  Urlized text
      */
-    public static function slugify($text)
+    public static function slugify($text, $unaccent = true)
     {
         // Remove all non url friendly characters with the unaccent function
-        $text = self::unaccent($text);
+        if ($unaccent) {
+            $text = self::unaccent($text);
+        } else {
+            $text = htmlentities($text);
+        }
 
         if (function_exists('mb_strtolower'))
         {
