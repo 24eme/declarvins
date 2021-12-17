@@ -299,7 +299,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function getTotalUnitaire() {
-    	return ($this->type_transaction == 'vrac' && $this->isConditionneIr())? round($this->prix_unitaire + $this->getCvoUnitaire(), 2) : round($this->prix_unitaire, 2);
+    	return ($this->type_transaction == 'vrac' && $this->premiere_mise_en_marche && $this->isConditionneIr())? round($this->prix_unitaire + $this->getCvoUnitaire(), 2) : round($this->prix_unitaire, 2);
     }
 
     public function setDetailProduit($produit)
@@ -331,7 +331,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       parent::update($params);
       $vol = ($this->poids)? $this->poids : $this->volume_propose;
       $this->prix_total_net = round($this->prix_unitaire * $vol, 2);
-      if ($this->type_transaction != 'vrac') {
+      if ($this->type_transaction != 'vrac'||!$this->premiere_mise_en_marche) {
           $this->has_cotisation_cvo = 0;
       }
 	  if ($this->has_cotisation_cvo && $this->part_cvo > 0) {
