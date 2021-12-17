@@ -170,12 +170,11 @@ EOF;
     private function isEligibleDRM($etablissement) {
         try {
             $famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_FAMILLE])));
-            $sousFamille = EtablissementClient::getInstance()->matchSousFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_SOUS_FAMILLE])));
         } catch (Exception $e) {
             return false;
         }
         $isActif = (trim($etablissement[EtablissementCsv::COL_CHAMPS_STATUT]) == Etablissement::STATUT_ACTIF);
-        return ($isActif && ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$sousFamille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR));
+        return ($isActif && ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$famille == EtablissementFamilles::FAMILLE_NEGOCIANT));
     }
 
     private function inZone($zone, $zones) {
