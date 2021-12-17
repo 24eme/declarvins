@@ -61,7 +61,8 @@ EOF;
             mkdir("$depot", 0755);
         }
 
-        $etablissements = $interpro->getEtablissementsArrayFromGrcFile();
+        $etablissements = array_merge(InterproClient::getInstance()->find('INTERPRO-IR')->getEtablissementsArrayFromGrcFile(), InterproClient::getInstance()->find('INTERPRO-CIVP')->getEtablissementsArrayFromGrcFile());
+
         $libellesStatuts = DRMClient::getAllLibellesStatusBilan();
         ksort($etablissements);
 
@@ -74,6 +75,9 @@ EOF;
 
         // On peuple des données les fichiers
         foreach($etablissements as $etablissement) {
+            if (!$this->inZone($interpro->zone, explode('|', $etablissement[EtablissementCsv::COL_ZONES]))) {
+                continue;
+            }
             if (!$this->isEligibleDRM($etablissement)) {
                 continue;
             }
@@ -172,6 +176,21 @@ EOF;
         }
         $isActif = (trim($etablissement[EtablissementCsv::COL_CHAMPS_STATUT]) == Etablissement::STATUT_ACTIF);
         return ($isActif && ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$sousFamille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR));
+    }
+
+    private function inZone($zone, $zones) {
+        $client = ConfigurationZoneClient::getInstance();
+        foreach ($zones as $z) {
+            try {
+                $zn = $client->matchZone(trim($z));
+            } catch (Exception $e) {
+                continue;
+            }
+            if ($zn == $zone) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private function getPeriodes($campagne) {
