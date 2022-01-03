@@ -268,6 +268,10 @@ class VracClient extends acCouchdbClient {
     	}
     	
     	return ($ma[3] < $mb[3])? 1 : -1;
-    	
+
+    }
+
+    public function retrieveAllVracs($interpro, $startDate) {
+        return VracDateView::getInstance()->findByInterproAndDate($interpro, $startDate);
     }
  }
