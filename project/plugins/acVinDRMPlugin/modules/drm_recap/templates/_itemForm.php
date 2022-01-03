@@ -8,7 +8,7 @@
         <h2><?php echo $form->getObject()->getCouleur()->getConfig()->libelle ?></h2>
         <div class="col_cont">
             <?php if($config_lieu->hasCepage()): ?>
-            <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
+            <p class="cepage" style="font-size: 90%;overflow: visible;line-height: 1;"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
             <?php endif; ?>
             <p class="label" style="font-size: 12px; text-align: center;">
             	<?php if ($form->getObject()->getKey() != ConfigurationProduit::DEFAULT_KEY && !in_array($form->getObject()->getKey(), $form->getObject()->getLabels()->toArray())): ?>
