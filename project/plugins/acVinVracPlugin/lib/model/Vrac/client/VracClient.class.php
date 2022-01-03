@@ -47,10 +47,15 @@ class VracClient extends acCouchdbClient {
     const VRAC_TYPE_VENDEUR = 'vendeur';
     const VRAC_TYPE_ACHETEUR = 'acheteur';
     const VRAC_TYPE_COURTIER = 'mandataire';
-    
-    protected $_statuts_vin = array(VracClient::STATUS_VIN_RETIRE => 'Retiré', 
+
+    const VERSEMENT_FA_NOUVEAU = 'NC';
+    const VERSEMENT_FA_MODIFICATION = 'MC';
+    const VERSEMENT_FA_ANNULATION = 'SC';
+    const VERSEMENT_FA_TRANSMIS = 'TRANSMIS';
+
+    protected $_statuts_vin = array(VracClient::STATUS_VIN_RETIRE => 'Retiré',
                      VracClient::STATUS_VIN_LIVRE => 'Livré');
-    
+
 
     /**
      *

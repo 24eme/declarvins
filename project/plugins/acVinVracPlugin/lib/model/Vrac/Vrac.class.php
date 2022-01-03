@@ -377,6 +377,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
+            $this->versement_fa = VracClient::VERSEMENT_FA_ANNULATION;
     	} else {
     		if ($etablissement) {
     			$type = $this->getTypeByEtablissement($etablissement->identifiant);
@@ -401,6 +402,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	      	if ($statut_annule) {
 	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
 	    		$this->annulation->date_annulation = date('c');
+                $this->versement_fa = VracClient::VERSEMENT_FA_ANNULATION;
     			//$this->date_stats = $this->annulation->date_annulation;
     			//$this->valide->date_validation = $this->annulation->date_annulation;
 	      	}
@@ -417,6 +419,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	if (!$this->mandataire_exist) {
       		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
       	}
+        $this->updateVersementFa();
     	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->isRectificative()) {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
     		if (!$this->date_signature) {
@@ -998,6 +1001,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
             $this->add('_attachments');
         } elseif ($this->_attachments->exist($filename)) {
             $this->_attachments->remove($filename);
+        }
+    }
+
+    public function updateVersementFa(){
+        if (!$this->exist('versement_fa') || !$this->versement_fa) {
+            $this->versement_fa = VracClient::VERSEMENT_FA_NOUVEAU;
+        }
+        if ($this->exist('versement_fa') && $this->versement_fa == VracClient::VERSEMENT_FA_TRANSMIS) {
+            $this->versement_fa = VracClient::VERSEMENT_FA_MODIFICATION;
         }
     }
 }
