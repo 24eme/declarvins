@@ -1004,6 +1004,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
     }
 
+    public function isPrimeur() {
+        return in_array('prim', $this->mentions);
+    }
+
     public function updateVersementFa(){
         if (!$this->exist('versement_fa') || !$this->versement_fa) {
             $this->versement_fa = VracClient::VERSEMENT_FA_NOUVEAU;
