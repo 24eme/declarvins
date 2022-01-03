@@ -1008,6 +1008,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         return in_array('prim', $this->mentions);
     }
 
+    public function isBio() {
+        return in_array('biol', $this->labels_arr);
+    }
+
     public function updateVersementFa(){
         if (!$this->exist('versement_fa') || !$this->versement_fa) {
             $this->versement_fa = VracClient::VERSEMENT_FA_NOUVEAU;
