@@ -287,4 +287,14 @@ class Etablissement extends BaseEtablissement {
     public function getSociete() {
       return SocieteClient::getInstance()->find($this->identifiant);
     }
+
+    public function getCodeInsee() {
+        if (!$this->siege->exist('code_insee') && $this->cvi) {
+            $this->siege->add('code_insee',  substr($this->cvi, 0, 5));
+        }
+        if ($this->siege->exist('code_insee')) {
+            return $this->siege->code_insee;
+        }
+        return null;
+    }
 }

@@ -60,6 +60,7 @@ Etablissement:
               code_postal: {  }
               commune: {  }
               pays: {  }
+              code_insee: { required: false }
       comptabilite:
           type: collection
           definition:
