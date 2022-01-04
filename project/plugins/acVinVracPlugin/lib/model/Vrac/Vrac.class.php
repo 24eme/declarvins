@@ -1014,7 +1014,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function updateVersementFa(){
         if (!$this->exist('versement_fa') || !$this->versement_fa) {
-            $this->versement_fa = VracClient::VERSEMENT_FA_NOUVEAU;
+            $this->add('versement_fa', VracClient::VERSEMENT_FA_NOUVEAU);
         }
         if ($this->exist('versement_fa') && $this->versement_fa == VracClient::VERSEMENT_FA_TRANSMIS) {
             $this->versement_fa = VracClient::VERSEMENT_FA_MODIFICATION;
