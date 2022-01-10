@@ -959,7 +959,7 @@ class ediActions extends sfActions
 	    }
 	    $date = date('r');
 	    $now = date('c');
-		if ($output == 'text') {
+		if ($output == 'txt') {
 			return $this->renderText($result);
 		}
 		$this->response->setContentType('text/csv');
