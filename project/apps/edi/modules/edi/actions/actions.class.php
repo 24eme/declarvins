@@ -835,6 +835,7 @@ class ediActions extends sfActions
 		ini_set('memory_limit', '2048M');
 	  	set_time_limit(0);
 	    $interproId = $request->getParameter('interpro');
+		$output = $request->getParameter('output');
 	    $this->securizeInterpro($interproId);
 	    if (!preg_match('/^INTERPRO-/', $interproId)) {
 			$interproId = 'INTERPRO-'.$interproId;
@@ -958,6 +959,9 @@ class ediActions extends sfActions
 	    }
 	    $date = date('r');
 	    $now = date('c');
+		if ($output == 'text') {
+			return $this->renderText($result);
+		}
 		$this->response->setContentType('text/csv');
 	    $this->response->setHttpHeader('md5', md5($result));
 	    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$interproId."_GRC_".$now.".csv");
