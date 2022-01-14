@@ -1,5 +1,6 @@
+<?php use_helper('Display') ?>
 <div id="application_dr" class="clearfix">
-	
+
 	<h1>Votre établissement<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> (archivé)<?php endif; ?></h1>
 	<div id="compteModification">
 		<div class="societe">
@@ -24,8 +25,8 @@
 				<li>CP : <strong><?php echo $etablissement->siege->code_postal ?></strong></li>
 				<li>ville : <strong><?php echo $etablissement->siege->commune ?></strong></li>
 				<li>Pays : <strong><?php echo $etablissement->siege->pays ?></strong></li>
-				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
-				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
+				<li>tel : <strong><?php echo display_numero_tel($etablissement->telephone) ?></strong></li>
+				<li>fax : <strong><?php echo display_numero_tel($etablissement->fax) ?></strong></li>
 			</ul>
 			<ul>
 				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>
