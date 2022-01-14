@@ -41,7 +41,7 @@
 					}
 					if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
 						$acteur = VracClient::VRAC_TYPE_ACHETEUR;
-						$const = VracHistoryView::VRAC_VIEW_ACHETEURVA20220110033L;
+						$const = VracHistoryView::VRAC_VIEW_ACHETEURVAL;
 						if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
 							$isProprietaire = true;
 						}
