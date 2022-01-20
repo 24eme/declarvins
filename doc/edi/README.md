@@ -123,7 +123,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 58. Mode de saisie : PAPIER si saisie par l'interprofession, DTI si saisie par le déclarant, EDI si échange informatique avec logiciel déclarant
 59. CVO Code
 60. CVO Taux
-61. CVO Volume
+61. CVO Volume (Volume sortie Vrac DAA/DAE + Volume sortie Vrac Export + Volume sortie Conditionné export +  Volume sortie DSA / tickets / factures + Volume sortie CRD France + Volume acquitté sortie Replacement en suspension)
 62. CVO Montant
 63. Campagne DRM
 64. ID de cette DRM : concaténation de DRM-IDDeclarant-AnnéeDRM-MoisDRM-RevisionDRM
