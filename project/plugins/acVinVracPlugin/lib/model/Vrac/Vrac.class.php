@@ -249,7 +249,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	$this->storeSoussigneInformations('acheteur', $acheteur);
       	$this->storeSoussigneInformations('vendeur', $vendeur);
      	$this->storeSoussigneInformations('mandataire', $mandataire);
-     	if ($acheteur->compte == $vendeur->compte) {
+     	if ($acheteur->compte == $vendeur->compte && !$this->hasVersion()) {
      		$this->cas_particulier = 'interne';
      	}
     }
