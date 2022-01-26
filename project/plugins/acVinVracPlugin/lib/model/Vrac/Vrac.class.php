@@ -402,7 +402,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	      	if ($statut_annule) {
 	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
 	    		$this->annulation->date_annulation = date('c');
-                $this->versement_fa = VracClient::VERSEMENT_FA_ANNULATION;
+	            $this->add('versement_fa', VracClient::VERSEMENT_FA_ANNULATION);
     			//$this->date_stats = $this->annulation->date_annulation;
     			//$this->valide->date_validation = $this->annulation->date_annulation;
 	      	}
