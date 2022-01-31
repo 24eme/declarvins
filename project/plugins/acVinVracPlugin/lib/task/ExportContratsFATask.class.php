@@ -52,9 +52,15 @@ class ExportContratsFATask extends sfBaseTask {
     const CSV_FA_CODE_DEST = 32; // Z
 
     protected $produitsConfiguration = null;
+    protected static $regions = ['IVSE' => ['04', '05', '06', '13', '83', '84'], 'AURA' => ['07', '26', '38', '42', '43', '63', '69', '73', '74']];
+    protected static $codeRegions = ['IVSE' => '030', 'AURA' => '060'];
+    const DEFAULT_REGION = 'IVSE';
 
     protected function configure() {
 
+        $this->addArguments(array(
+            new sfCommandArgument('region', sfCommandArgument::REQUIRED, "Region"),
+        ));
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod'),
@@ -81,8 +87,12 @@ EOF;
 
         $this->produitsConfiguration = ConfigurationProduitClient::getInstance()->getByInterpro(self::INTERPRO);
         $interpro = self::INTERPRO;
+        $region = strtoupper($arguments['region']);
+        if (!in_array($region, array_keys(self::$regions))) {
+            echo "Region '$region' inconnue";exit;
+        }
         $contrats = $this->getContrats($interpro, self::STARTDATE);
-        $this->printCSV($contrats->rows, $options['dryrun']);
+        $this->printCSV($contrats->rows, $region, $options['dryrun']);
     }
 
     protected function getContrats($interpro, $startDate) {
@@ -90,11 +100,13 @@ EOF;
         return VracClient::getInstance()->retrieveAllVracs($interpro, $startDate);
     }
 
-    protected function printCSV($contratsView, $dryrun = false) {
+    protected function printCSV($contratsView, $region, $dryrun = false) {
         if (!count($contratsView)) {
             fwrite(STDERR, "Aucun contrats\n");
         }
         $cpt = 0;
+        $departements = self::$regions[$region];
+        $code = self::$codeRegions[$region];
         fwrite(STDERR, "#NUM_LIGNE;TYPE_CONTRAT;CAMPAGNE;NUM_ARCHIVAGE;CODE_LIEU_VISA;CODE_ACTION;DATE_CONTRAT;DATE_VISA;CODE_COMMUNE_LIEU_VINIFICATION;INDICATION_DOUBLE_FIN;CODE_INSEE_DEPT_COMMUNE_ACHETEUR;NATURE_ACHETEUR;SIRET_ACHETEUR;CVI_VENDEUR;NATURE_VENDEUR;SIRET_VENDEUR;COURTIER;DELAI_RETIRAISON;POURCENTAGE_ACCOMPTE;DELAI_PAIEMENT;CODE_TYPE_PRODUIT;CODE_DENOMINATION_VIN_IGP;PRIMEUR;BIO;COULEUR;ANNEE_RECOLTE;CODE_ELABORATION;VOLUME;DEGRE;PRIX;UNITE_PRIX;CODE_CEPAGE;CODE_DEST;ID_DOC;\n");
         fwrite(STDERR, "#num_ligne;type_contrat;campagne;num_archive;code_lieu_visa;code_action;date_contrat;date_visa;code_commune_lieu_vinification;indicateur_double_fin;code_insee_dept_commune_acheteur;nature_acheteur;siret_acheteur;cvi_vendeur;nature_vendeur;siret_vendeur;courtier (O/N);delai_retiraison;pourcentage_accompte;delai_paiement;code_type_produit;code_denomination_vin_IGP;primeur;bio;couleur;annee_recolte;code_elaboration (O/N);volume;degre (Degré vin si type de contrat = V (vins) Degré en puissance si type de contrat = M (moût));prix;unité_prix (H);code_cepage;code_dest (Z)\n");
         foreach ($contratsView as $contratView) {
@@ -107,13 +119,27 @@ EOF;
                 continue;
             }
 
+            $vendeur = $contrat->getVendeurObject();
+
+            $cp = $contrat->vendeur->code_postal;
+            if (!$cp) {
+                $cp = $vendeur->getCodeInsee();
+            }
+
+            if ($cp && !in_array(substr($cp, 0, 2), $departements)) {
+                continue;
+            }
+
+            if (!$cp) {
+                $code = self::$codeRegions[self::DEFAULT_REGION];
+            }
+
             $cpt++;
             $ligne = array();
 
             $produit = $this->produitsConfiguration->get($contratView->key[VracDateView::KEY_PRODUIT_HASH]);
 
             $acheteur = $contrat->getAcheteurObject();
-            $vendeur = $contrat->getVendeurObject();
 
             $ligne[self::CSV_FA_NUM_LIGNE] = "01";
             $type_contrat = "";
