@@ -149,9 +149,9 @@ EOF;
                 $type_contrat = "M";
             }
             $ligne[self::CSV_FA_TYPE_CONTRAT] = $type_contrat; // V pour vrac, M pour Mout
-            $ligne[self::CSV_FA_CAMPAGNE] = (substr($contrat->millesime, 0, 4) && substr($contrat->valide->date_saisie, 0, 4) > substr($contrat->millesime, 0, 4)) ? substr($contrat->millesime, 0, 4) : substr($contrat->valide->date_saisie, 0, 4);
-            $ligne[self::CSV_FA_NUM_ARCHIVAGE] = $contrat->numero_contrat; // Est-ce notre numéro d'archivage?
-            $ligne[self::CSV_FA_CODE_LIEU_VISA] = "030"; //IVSE
+            $ligne[self::CSV_FA_CAMPAGNE] = substr($contrat->valide->date_validation, 0, 4);
+            $ligne[self::CSV_FA_NUM_ARCHIVAGE] = substr($contrat->numero_contrat, 5); // Est-ce notre numéro d'archivage?
+            $ligne[self::CSV_FA_CODE_LIEU_VISA] = $code;
             $ligne[self::CSV_FA_CODE_ACTION] = ($contrat->exist("versement_fa")) ? $contrat->versement_fa : 'NC'; // NC = Nouveau Contrat, SC = Supprimé Contrat, MC = Modifié Contrat
             $ligne[self::CSV_FA_DATE_CONTRAT] = Date::francizeDate($contrat->valide->date_saisie);
             $ligne[self::CSV_FA_DATE_VISA] = Date::francizeDate($contrat->valide->date_validation);
@@ -162,13 +162,13 @@ EOF;
              * ACHETEUR
              */
             $ligne[self::CSV_FA_CODE_INSEE_DEPT_COMMUNE_ACHETEUR] = $acheteur->getCodeInsee(); // Code Insee Acheteur
-            $ligne[self::CSV_FA_NATURE_ACHETEUR] = ($acheteur->exist('nature_inao'))? $acheteur->nature_inao : '08';
+            $ligne[self::CSV_FA_NATURE_ACHETEUR] = ($acheteur->exist('nature_inao'))? $acheteur->nature_inao : '09';
             $ligne[self::CSV_FA_SIRET_ACHETEUR] = preg_replace('/ /', '', $acheteur->siret);
             /**
              * VENDEUR
              */
             $ligne[self::CSV_FA_CVI_VENDEUR] = $vendeur->cvi;
-            $ligne[self::CSV_FA_NATURE_VENDEUR] = ($vendeur->exist('nature_inao'))? $vendeur->nature_inao : '01';
+            $ligne[self::CSV_FA_NATURE_VENDEUR] = ($vendeur->exist('nature_inao'))? $vendeur->nature_inao : '09';
             $ligne[self::CSV_FA_SIRET_VENDEUR] = preg_replace('/ /', '', $vendeur->siret);
             /**
              * COURTIER
@@ -187,9 +187,9 @@ EOF;
             $ligne[self::CSV_FA_BIO] = ($contrat->isBio()) ? "O" : "N";
             $ligne[self::CSV_FA_COULEUR] = $this->getCouleurIGP($type_contrat, $produit);
             $ligne[self::CSV_FA_ANNEE_RECOLTE] = (substr($contrat->millesime, 0, 4))? substr($contrat->millesime, 0, 4) : substr($contrat->valide->date_saisie, 0, 4); //??
-            $ligne[self::CSV_FA_CODE_ELABORATION] = 'P'; //DISABLED ($contrat->conditionnement_crd == 'NEGOCE_ACHEMINE') ? "P" : "N";
+            $ligne[self::CSV_FA_CODE_ELABORATION] = 'N'; //DISABLED ($contrat->conditionnement_crd == 'NEGOCE_ACHEMINE') ? "P" : "N";
             $ligne[self::CSV_FA_VOLUME] = $this->sprintFloatFr($contrat->volume_propose);
-            $ligne[self::CSV_FA_DEGRE] = "12.5"; //DISABLED sprintf("%0.1f", $contrat->degre);
+            $ligne[self::CSV_FA_DEGRE] = "12.0"; //DISABLED sprintf("%0.1f", $contrat->degre);
             $ligne[self::CSV_FA_PRIX] = $this->sprintFloatFr($contrat->prix_unitaire);
             $ligne[self::CSV_FA_UNITE_PRIX] = 'H';
             $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCodeCepageFA($type_contrat, $produit);
