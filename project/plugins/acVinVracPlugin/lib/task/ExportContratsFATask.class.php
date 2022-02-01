@@ -273,7 +273,7 @@ EOF;
     }
 
     protected function getCodeDenomVinIGP($produit) {
-        return sprintf('%03d',$produit->getIdentifiantDouane());
+        return sprintf('%03d', substr($produit->getIdentifiantDouane(), 2, 3));
     }
 
     protected function getCouleurIGP($type_contrat, $produit) {
