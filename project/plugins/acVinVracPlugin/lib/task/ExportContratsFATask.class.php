@@ -52,9 +52,11 @@ class ExportContratsFATask extends sfBaseTask {
     const CSV_FA_CODE_DEST = 32; // Z
 
     protected $produitsConfiguration = null;
+    protected $correspondancesInsee = array();
     protected static $regions = ['IVSE' => ['04', '05', '06', '13', '83', '84'], 'AURA' => ['07', '26', '38', '42', '43', '63', '69', '73', '74']];
     protected static $codeRegions = ['IVSE' => '030', 'AURA' => '060'];
     const DEFAULT_REGION = 'IVSE';
+    const CORRESPONDANCES_INSEE_FILE = '/export/correspondance-insee-postal.csv';
 
     protected function configure() {
 
@@ -85,6 +87,7 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
+        $this->makeInseeCorrespondances();
         $this->produitsConfiguration = ConfigurationProduitClient::getInstance()->getByInterpro(self::INTERPRO);
         $interpro = self::INTERPRO;
         $region = strtoupper($arguments['region']);
@@ -93,6 +96,34 @@ EOF;
         }
         $contrats = $this->getContrats($interpro, self::STARTDATE);
         $this->printCSV($contrats->rows, $region, $options['dryrun']);
+    }
+
+    protected function makeInseeCorrespondances() {
+        $file = sfConfig::get('sf_data_dir').self::CORRESPONDANCES_INSEE_FILE;
+        if (file_exists($file)) {
+            if (($handle = fopen($file, "r")) !== false) {
+                while (($data = fgetcsv($handle, null, ";")) !== false) {
+                    foreach(explode('/', $data[1]) as $cp) {
+                        $this->correspondancesInsee[$cp] = $data[0];
+                        $this->correspondancesInsee[$cp.KeyInflector::slugify($data[2])] = $data[0];
+                    }
+                }
+                fclose($handle);
+            }
+        }
+    }
+
+    protected function getInsee($tiers) {
+        if ($insee = $tiers->getCodeInsee()) {
+            return $insee;
+        }
+        if (isset($this->correspondancesInsee[$tiers->siege->code_postal.KeyInflector::slugify($tiers->siege->commune)])) {
+            return $this->correspondancesInsee[$tiers->siege->code_postal.KeyInflector::slugify($tiers->siege->commune)];
+        }
+        if (isset($this->correspondancesInsee[$tiers->siege->code_postal])) {
+            return $this->correspondancesInsee[$tiers->siege->code_postal];
+        }
+        return null;
     }
 
     protected function getContrats($interpro, $startDate) {
@@ -122,16 +153,21 @@ EOF;
             $vendeur = $contrat->getVendeurObject();
 
             $cp = $contrat->vendeur->code_postal;
+
             if (!$cp) {
-                $cp = $vendeur->getCodeInsee();
+                $cp = $vendeur->siege->code_postal;
+            }
+
+            if (!$cp) {
+                $cp = $this->getInsee($vendeur);
             }
 
             if ($cp && !in_array(substr($cp, 0, 2), $departements)) {
                 continue;
             }
 
-            if (!$cp) {
-                $code = self::$codeRegions[self::DEFAULT_REGION];
+            if (!$cp && $code != self::$codeRegions[self::DEFAULT_REGION]) {
+                continue;
             }
 
             $cpt++;
@@ -156,12 +192,12 @@ EOF;
             $ligne[self::CSV_FA_DATE_CONTRAT] = Date::francizeDate($contrat->valide->date_saisie);
             $ligne[self::CSV_FA_DATE_VISA] = Date::francizeDate($contrat->valide->date_validation);
 
-            $ligne[self::CSV_FA_CODE_COMMUNE_LIEU_VINIFICATION] = $vendeur->getCodeInsee(); // Code Insee Vendeur
+            $ligne[self::CSV_FA_CODE_COMMUNE_LIEU_VINIFICATION] = $this->getInsee($vendeur); // Code Insee Vendeur
             $ligne[self::CSV_FA_INDICATION_DOUBLE_FIN] = 'N'; // Quelle signification?
             /**
              * ACHETEUR
              */
-            $ligne[self::CSV_FA_CODE_INSEE_DEPT_COMMUNE_ACHETEUR] = $acheteur->getCodeInsee(); // Code Insee Acheteur
+            $ligne[self::CSV_FA_CODE_INSEE_DEPT_COMMUNE_ACHETEUR] = $this->getInsee($acheteur); // Code Insee Acheteur
             $ligne[self::CSV_FA_NATURE_ACHETEUR] = ($acheteur->exist('nature_inao'))? $acheteur->nature_inao : '09';
             $ligne[self::CSV_FA_SIRET_ACHETEUR] = preg_replace('/ /', '', $acheteur->siret);
             /**
