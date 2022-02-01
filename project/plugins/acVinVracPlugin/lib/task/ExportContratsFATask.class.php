@@ -53,10 +53,12 @@ class ExportContratsFATask extends sfBaseTask {
 
     protected $produitsConfiguration = null;
     protected $correspondancesInsee = array();
+    protected $correspondancesCepages = array();
     protected static $regions = ['IVSE' => ['04', '05', '06', '13', '83', '84'], 'AURA' => ['07', '26', '38', '42', '43', '63', '69', '73', '74']];
     protected static $codeRegions = ['IVSE' => '030', 'AURA' => '060'];
     const DEFAULT_REGION = 'IVSE';
     const CORRESPONDANCES_INSEE_FILE = '/export/correspondance-insee-postal.csv';
+    const CORRESPONDANCES_CEPAGES_FILE = '/export/correspondance-cepages.csv';
 
     protected function configure() {
 
@@ -88,6 +90,7 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
         $this->makeInseeCorrespondances();
+        $this->makeCepagesCorrespondances();
         $this->produitsConfiguration = ConfigurationProduitClient::getInstance()->getByInterpro(self::INTERPRO);
         $interpro = self::INTERPRO;
         $region = strtoupper($arguments['region']);
@@ -113,6 +116,18 @@ EOF;
         }
     }
 
+    protected function makeCepagesCorrespondances() {
+        $file = sfConfig::get('sf_data_dir').self::CORRESPONDANCES_CEPAGES_FILE;
+        if (file_exists($file)) {
+            if (($handle = fopen($file, "r")) !== false) {
+                while (($data = fgetcsv($handle, null, ";")) !== false) {
+                    $this->correspondancesCepages[KeyInflector::slugify($data[1])] = $data[2];
+                }
+                fclose($handle);
+            }
+        }
+    }
+
     protected function getInsee($tiers) {
         if ($insee = $tiers->getCodeInsee()) {
             return $insee;
@@ -122,6 +137,13 @@ EOF;
         }
         if (isset($this->correspondancesInsee[$tiers->siege->code_postal])) {
             return $this->correspondancesInsee[$tiers->siege->code_postal];
+        }
+        return null;
+    }
+
+    protected function getCepageCode($libelle) {
+        if (isset($this->correspondancesCepages[KeyInflector::slugify($libelle)])) {
+            return $this->correspondancesCepages[KeyInflector::slugify($libelle)];
         }
         return null;
     }
@@ -228,7 +250,7 @@ EOF;
             $ligne[self::CSV_FA_DEGRE] = "12.0"; //DISABLED sprintf("%0.1f", $contrat->degre);
             $ligne[self::CSV_FA_PRIX] = $this->sprintFloatFr($contrat->prix_unitaire);
             $ligne[self::CSV_FA_UNITE_PRIX] = 'H';
-            $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCodeCepageFA($type_contrat, $produit);
+            $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCepageCode($produit->libelle);
             $ligne[self::CSV_FA_CODE_DEST] = ($type_contrat == 'M') ? 'E' : "Z";
             $ligne[self::CSV_FA_CODE_DEST + 1 ] = $contrat->_id;
 
@@ -309,10 +331,6 @@ EOF;
             return true;
         }
         return false;
-    }
-
-    protected function getCodeCepageFA($type_contrat, $produit) {
-        return $produit->libelle;
     }
 
     private function sprintFloatFr($f) {
