@@ -15,7 +15,7 @@ class ExportContratsFATask extends sfBaseTask {
 
     const INTERPRO = 'INTERPRO-IVSE';
     const STARTDATE = '2021-12-31T99:99:99';
-    const ACCOMPTE = 15;
+    const ACCOMPTE = 0;
 
     const CSV_FA_NUM_LIGNE = 0;
     const CSV_FA_TYPE_CONTRAT = 1;
