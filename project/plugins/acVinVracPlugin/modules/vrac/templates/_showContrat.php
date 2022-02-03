@@ -153,7 +153,7 @@
 				<span>Cotisation interprofessionnelle :</span>
 				<span><?php echo $vrac->getCvoUnitaire() ?> € HT / HL</span>
 			</li>
-			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche && $vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
+			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Prix total unitaire :</span>
 				<span><?php echo $vrac->getTotalUnitaire() ?> € HT / HL</span>
@@ -168,6 +168,11 @@
 				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
 			</li>
 			<?php endif; ?>
+			<?php else: ?>
+			<li>
+				<span>Prix total :</span>
+				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+			</li>
 			<?php endif; ?>
 			<li>
 				<span>Type de prix :</span>
