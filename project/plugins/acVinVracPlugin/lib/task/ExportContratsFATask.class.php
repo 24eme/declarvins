@@ -50,6 +50,7 @@ class ExportContratsFATask extends sfBaseTask {
     const CSV_FA_UNITE_PRIX = 30; // H pour Hl
     const CSV_FA_CODE_CEPAGE = 31;
     const CSV_FA_CODE_DEST = 32; // Z
+    const CSV_FA_LAST = 33; // 0
 
     protected $produitsConfiguration = null;
     protected $correspondancesInsee = array();
@@ -252,7 +253,8 @@ EOF;
             $ligne[self::CSV_FA_UNITE_PRIX] = 'H';
             $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCepageCode($produit->libelle);
             $ligne[self::CSV_FA_CODE_DEST] = ($type_contrat == 'M') ? 'E' : "Z";
-            $ligne[self::CSV_FA_CODE_DEST + 1 ] = $contrat->_id;
+            $ligne[self::CSV_FA_LAST] = "0.0";
+            $ligne[self::CSV_FA_LAST + 1 ] = $contrat->_id;
 
              //export pour FA
             for($i = 0 ;  $i < count($ligne) - 1 ; $i++) {
