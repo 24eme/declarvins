@@ -1,0 +1,22 @@
+#!/bin/bash
+
+. bin/config.inc
+
+mkdir -p $TMP/exports_franceagrimer > /dev/null
+DATE=$(date +%Y%m%d);
+FILENAMEIVAURA="CA_IVAURA_"$DATE;
+FILENAMEIVSE="CA_IVSE_"$DATE;
+
+PATHFILEFAIVAURA=$TMP"/exports_franceagrimer/"$FILENAMEIVAURA;
+PATHFILEFAIVSE=$TMP"/exports_franceagrimer/"$FILENAMEIVSE;
+
+echo 'CONSTRUCTION DU FICHIER '$PATHFILEFAIVAURA'.txt';
+php symfony export:contrats-france-agrimer aura $SYMFONYTASKOPTIONS > $PATHFILEFAIVAURA".txt" 2> $PATHFILEFAIVAURA"_enrichi.csv"
+
+echo 'CONSTRUCTION DU FICHIER '$PATHFILEFAIVSE'.txt';
+php symfony export:contrats-france-agrimer ivse $SYMFONYTASKOPTIONS > $PATHFILEFAIVSE".txt" 2> $PATHFILEFAIVSE"_enrichi.csv"
+
+cp $PATHFILEFAIVAURA".txt" $FRANCEAGRIMER_PATH"/"
+cp $PATHFILEFAIVSE".txt" $FRANCEAGRIMER_PATH"/"
+
+lftp "ftp://"$FRANCEAGRIMER_USER":"$FRANCEAGRIMER_PASS"@$FRANCEAGRIMER_HOST" -e "mirror -e -R $FRANCEAGRIMER_PATH / ; quit"
