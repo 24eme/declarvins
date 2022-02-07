@@ -71,7 +71,7 @@ class VracValidationForm extends VracForm
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
         foreach (self::$_francize_date as $field) {
-        	if (isset($defaults[$field]) && !empty($defaults[$field])) {
+        	if (isset($defaults[$field]) && !empty($defaults[$field]) && !preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $defaults[$field])) {
         		$date = new DateTime($defaults[$field]);
         		$defaults[$field] = $date->format('d/m/Y');
         	}
