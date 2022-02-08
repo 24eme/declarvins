@@ -78,7 +78,7 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function buildDate($periode) {
-        return sprintf('%4d-%02d-%02d', $this->getAnnee($periode), $this->getMois($periode), date("t", $this->getMois($periode)));
+        return date('Y-m-t', strtotime($periode.'-01'));
     }
 
     public function buildDateDebut($periode) {
