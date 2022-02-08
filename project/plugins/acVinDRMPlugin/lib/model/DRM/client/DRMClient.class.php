@@ -82,9 +82,9 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function buildDateDebut($periode) {
-        return sprintf('%4d-%02d-%02d', $this->getAnnee($periode), $this->getMois($periode), 1);
+        return $periode.'-01';
     }
-    
+
     public function getPeriodeDebut($campagne) {
 
         return date('Y-m', strtotime(ConfigurationClient::getInstance()->getDateDebutCampagne($campagne)));
