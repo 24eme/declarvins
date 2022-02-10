@@ -78,10 +78,10 @@ EOF;
             if (!$this->inZone($interpro->zone, explode('|', $etablissement[EtablissementCsv::COL_ZONES]))) {
                 continue;
             }
-            if (!$this->isEligibleDRM($etablissement)) {
+            $historique = new DRMHistorique($etablissement[EtablissementCsv::COL_ID]);
+            if (!$this->isEligibleDRM($etablissement, $historique->getLastDRM())) {
                 continue;
             }
-            $historique = new DRMHistorique($etablissement[EtablissementCsv::COL_ID]);
             $drms = $historique->getDRMsByCampagne($campagne, true);
             $lastDrm = $historique->getLastDRM();
             $statuts = [];
@@ -167,14 +167,20 @@ EOF;
                     . $etablissement[EtablissementCsv::COL_SOUS_FAMILLE] . ';';
     }
 
-    private function isEligibleDRM($etablissement) {
+    private function isEligibleDRM($etablissement, $lastDRM) {
         try {
             $famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_FAMILLE])));
         } catch (Exception $e) {
             return false;
         }
         $isActif = (trim($etablissement[EtablissementCsv::COL_CHAMPS_STATUT]) == Etablissement::STATUT_ACTIF);
-        return ($isActif && ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$famille == EtablissementFamilles::FAMILLE_NEGOCIANT));
+        if (!$isActif) {
+            return false;
+        }
+        if ($famille == EtablissementFamilles::FAMILLE_NEGOCIANT && !$lastDRM) {
+            return false;
+        }
+        return ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$famille == EtablissementFamilles::FAMILLE_NEGOCIANT);
     }
 
     private function inZone($zone, $zones) {
