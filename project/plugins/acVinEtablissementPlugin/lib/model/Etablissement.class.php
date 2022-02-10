@@ -142,16 +142,7 @@ class Etablissement extends BaseEtablissement {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
     		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
     	}
-    	if ($bilan = $this->getBilan()) {
-    		$bilan->updateEtablissement($this);
-    		$bilan->save();
-    	}
     	parent::save();
-    }
-
-    public function getBilan()
-    {
-    	return BilanClient::getInstance()->findByIdentifiantAndType($this->identifiant, 'DRM');
     }
 
 
