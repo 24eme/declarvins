@@ -170,6 +170,7 @@ EOF;
     private function isEligibleDRM($etablissement, $lastDRM) {
         try {
             $famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_FAMILLE])));
+            $sousfamille = EtablissementClient::getInstance()->matchSousFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_SOUS_FAMILLE])));
         } catch (Exception $e) {
             return false;
         }
@@ -177,7 +178,10 @@ EOF;
         if (!$isActif) {
             return false;
         }
-        if ($famille == EtablissementFamilles::FAMILLE_NEGOCIANT && !$lastDRM) {
+        if ($sousfamille == EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN) {
+            return false;
+        }
+        if ($famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $sousfamille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR && !$lastDRM) {
             return false;
         }
         return ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$famille == EtablissementFamilles::FAMILLE_NEGOCIANT);
