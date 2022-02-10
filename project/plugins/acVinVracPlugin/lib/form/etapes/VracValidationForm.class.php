@@ -14,7 +14,7 @@ class VracValidationForm extends VracForm
 		$this->setWidget('commentaires', new sfWidgetFormTextarea());
 		$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
 		$this->setWidget('observations', new sfWidgetFormTextarea());
-        if ($this->getObject()->hasVersion()) {
+        if ($this->getObject()->hasVersion()&&!$this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->setValidator('observations', new sfValidatorString(array('required' => true), array('required' => 'Vous devez préciser les raisons des modifications apportées aux contrats')));
         } else {
             $this->setValidator('observations', new sfValidatorString(array('required' => false)));
@@ -71,7 +71,7 @@ class VracValidationForm extends VracForm
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
         foreach (self::$_francize_date as $field) {
-        	if (isset($defaults[$field]) && !empty($defaults[$field])) {
+        	if (isset($defaults[$field]) && !empty($defaults[$field]) && !preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $defaults[$field])) {
         		$date = new DateTime($defaults[$field]);
         		$defaults[$field] = $date->format('d/m/Y');
         	}

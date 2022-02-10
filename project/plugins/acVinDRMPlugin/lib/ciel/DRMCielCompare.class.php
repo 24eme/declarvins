@@ -161,7 +161,7 @@ class DRMCielCompare
 					continue;
 				}
 				if (preg_match($patternProduit, $key) && preg_match('/libelle-personnalise/i', $key)) {
-					$newKeyProduit .= '_'.KeyInflector::slugify($value);
+					$newKeyProduit .= '_'.KeyInflector::slugify($value, false);
 					continue;
 				}
 				if (!preg_match($patternCrd, $key) && preg_match('/\/compte-crd\/\{array\}\//i', $key)) {

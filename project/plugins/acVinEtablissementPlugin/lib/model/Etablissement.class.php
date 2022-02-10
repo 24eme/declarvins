@@ -142,16 +142,7 @@ class Etablissement extends BaseEtablissement {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
     		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
     	}
-    	if ($bilan = $this->getBilan()) {
-    		$bilan->updateEtablissement($this);
-    		$bilan->save();
-    	}
     	parent::save();
-    }
-
-    public function getBilan()
-    {
-    	return BilanClient::getInstance()->findByIdentifiantAndType($this->identifiant, 'DRM');
     }
 
 
@@ -286,5 +277,15 @@ class Etablissement extends BaseEtablissement {
 
     public function getSociete() {
       return SocieteClient::getInstance()->find($this->identifiant);
+    }
+
+    public function getCodeInsee() {
+        if (!$this->siege->exist('code_insee') && $this->cvi) {
+            $this->siege->add('code_insee',  substr($this->cvi, 0, 5));
+        }
+        if ($this->siege->exist('code_insee')) {
+            return $this->siege->code_insee;
+        }
+        return null;
     }
 }

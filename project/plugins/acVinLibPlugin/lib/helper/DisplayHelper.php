@@ -29,33 +29,33 @@ function escape_string_for_latex($string) {
 
 function display_latex_string($string, $sep = '', $limit = null, $nb_max = null) {
     $disp = escape_string_for_latex($string);
-    
+
     if (!$limit && $sep == '')
         return $disp;
-    
+
     if ($sep)
         $disp = str_replace($sep, " \\\\ ", $disp);
     if($nb_max!=null && substr_count($disp, " \\\\ ") >= $nb_max) return $disp;
-    
+
     $len = strlen(strstr($disp," \\\\ "));
     if ($limit!=null && $len > $limit) {
         $d = substr($disp, 0, $limit);
-        $pos = strrpos($d, ' ');        
+        $pos = strrpos($d, ' ');
         if ($pos !== FALSE) {
             $disp = substr($d, 0, $pos) . "\\\\ " . substr($disp, $pos, $len);
         }
-    }  
+    }
     return $disp;
 }
 
 function display_latex_message_communication($string) {
      $longueur_msg = strlen($string);
-    $msg = escape_string_for_latex($string);    
+    $msg = escape_string_for_latex($string);
         if($longueur_msg < 46){
             echo "\centering {~}\\\\
                     \centering {".$msg."}\\\\
                     \centering {~}\\\\
-                    \centering {~}";            
+                    \centering {~}";
             return;
         }
         if($longueur_msg < 91){
@@ -71,19 +71,19 @@ function display_latex_message_communication($string) {
         }
         echo "\centering {".$msg."}";
         return;
-            
+
 }
 
 function cut_latex_string($string, $limit) {
     $disp = escape_string_for_latex($string);
-    
+
     $len = strlen($disp);
     if ($len > $limit) {
         $disp = substr($disp, 0, $limit-3).'...';
-    }  
+    }
     return $disp;
 }
-   
+
 function enteteDs($ds,$date_echeance){
     if($ds->getEtablissement()->isNegociant())
         return 'Cet imprimé doit \^{e}tre obligatoirement rempli \underline{\textbf{avant le '.$date_echeance.'}} au plus\\\\tard par tous les négociants, \textbf{détenant des \underline{stocks de vins d\'appellation}}\\\\ \textbf{\underline{d\'origine}} (revendiqués et/ou agrées) \textbf{et quels que soient leurs lieux}\\\\ \textbf{d\'entreposage} selon la liste proposée ci-après conformément à l\'Accord\\\\ Interprofessionnel d\'InterLoire en vigueur.';
@@ -91,3 +91,14 @@ function enteteDs($ds,$date_echeance){
         return 'Cet imprimé doit \^{e}tre obligatoirement rempli \textsl{\textbf{avant le '.$date_echeance.'}} au plus tard\\\\par tous les propriétaires, fermiers, métayers, groupements de producteurs\\\\ \textbf{détenant des \textsl{stocks de vins d\'appellation d\'origine}} (revendiqués et/ou agrées)\\\\ \textbf{et quels que soient leurs lieux d\'entreposage} selon la liste proposée ci-après\\\\conformément à l\'Accord Interprofessionnel d\'InterLoire en vigueur.';
 }
 
+function display_numero_tel($num) {
+    $int = (int) filter_var($num, FILTER_SANITIZE_NUMBER_INT);
+    if (strpos($int, '330') === 0) {
+        $int = substr($int, 3);
+    } elseif (strpos($int, '33') === 0) {
+        $int = substr($int, 2);
+    } elseif (strpos($int, '0') === 0) {
+        $int = substr($int, 1);
+    }
+    return (strlen($int)==9)? wordwrap("0$int", 2, " ", 1) : $num;
+}

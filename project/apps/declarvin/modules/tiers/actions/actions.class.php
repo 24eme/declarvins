@@ -147,6 +147,9 @@ class tiersActions extends sfActions
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
       $this->societe = $this->etablissement->getSociete();
+      if (!$this->societe) {
+          $this->societe = $this->etablissement->getGenerateSociete();
+      }
   	  $this->hasCompte = false;
   	  $this->formEtablissement = null;
       $this->formSociete = null;

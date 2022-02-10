@@ -340,6 +340,7 @@ Vrac:
       commentaires: {  }
       observations: {  }
       mode_de_saisie: {  }
+      versement_fa: { required: false }
       clauses:
         type: collection
         definition:

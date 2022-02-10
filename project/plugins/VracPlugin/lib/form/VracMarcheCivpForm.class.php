@@ -7,17 +7,17 @@ class VracMarcheCivpForm extends VracMarcheForm
 
         $this->getWidget('conditions_paiement')->setLabel('Conditions de vente:');
         $this->getValidator('conditions_paiement')->setOption('required', false);
-        
+
         $this->getWidget('conditions_paiement')->setOption('multiple', true);
         $this->getValidator('conditions_paiement')->setOption('multiple', true);
-        
+
         $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix définitif ou de révision du prix*:');
 
         $this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
         $this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
         $this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
         $this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
-        if ($this->getObject()->type_transaction != 'vrac') {
+        if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche) {
             unset($this['prix_total_unitaire']);
         }
         $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));

@@ -1022,13 +1022,16 @@ class ediActions extends sfActions
   {
   		$drms = array();
   		$squeeze = null;
-			$numberValues = DRMDateView::numberValues();
+		$numberValues = DRMDateView::numberValues();
   		foreach ($items as $item) {
-				foreach ($numberValues as $val) {
-					if ($item->value[$val]) {
-						$item->value[$val] = number_format($item->value[$val], 5, '.', '');
-					}
+            if ($interpro == 'INTERPRO-IR' && $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]) {
+                $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT];
+            }
+			foreach ($numberValues as $val) {
+				if ($item->value[$val]) {
+					$item->value[$val] = number_format($item->value[$val], 5, '.', '');
 				}
+			}
   			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
   				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
@@ -1057,9 +1060,6 @@ class ediActions extends sfActions
     				$item->value[$correspondance] = $tableCorrespondances[$item->value[$correspondance]];
     			}
     		}
-    	}
-    	if ($type == 'DRM') {
-    		$item->value[DRMDateView::VALUE_DETAIL_CVO_MONTANT] = round($item->value[DRMDateView::VALUE_DETAIL_CVO_MONTANT], 2);
     	}
         $csv_file .= str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)));
       	$csv_file .= "\n";

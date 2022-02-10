@@ -223,7 +223,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         //gestion des multidetails
         foreach($noeuds as $hash => $array_cache) {
             $volume2hash = array();
-            if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash)) {
+            if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash) && !$this->drm->canSetStockDebutMois()) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
                     foreach(array("total", "acq_total") as $totalKey) {
                         $total_fin_mois = self::floatizeVal($d->get($totalKey) * 1);

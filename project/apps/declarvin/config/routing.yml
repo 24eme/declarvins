@@ -291,6 +291,10 @@ compte_modification:
   param: { module: acVinCompteAdmin, action: compteModification }
   options: { segment_separators: ["/"] }
 
+facture_autocomplete:
+  url: /factures-autocomplete/toutes
+  param: {module: facture_autocomplete, action: all}
+
 compte_autocomplete:
   url: /admin/comptes-autocomplete
   param: {module: acVinCompteAdmin, action: compteAutocomplete}

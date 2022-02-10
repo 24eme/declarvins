@@ -148,7 +148,7 @@
 				<span>Prix unitaire net :</span>
 				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
 			</li>
-			<?php if ($vrac->type_transaction == 'vrac'): ?>
+			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
 				<span><?php echo $vrac->getCvoUnitaire() ?> € HT / HL</span>
@@ -168,6 +168,11 @@
 				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
 			</li>
 			<?php endif; ?>
+			<?php else: ?>
+			<li>
+				<span>Prix total :</span>
+				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+			</li>
 			<?php endif; ?>
 			<li>
 				<span>Type de prix :</span>

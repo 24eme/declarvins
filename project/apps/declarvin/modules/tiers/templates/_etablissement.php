@@ -1,5 +1,6 @@
+<?php use_helper('Display') ?>
 <div id="application_dr" class="clearfix">
-	
+
 	<h1>Votre établissement<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> (archivé)<?php endif; ?></h1>
 	<div id="compteModification">
 		<div class="societe">
@@ -24,8 +25,8 @@
 				<li>CP : <strong><?php echo $etablissement->siege->code_postal ?></strong></li>
 				<li>ville : <strong><?php echo $etablissement->siege->commune ?></strong></li>
 				<li>Pays : <strong><?php echo $etablissement->siege->pays ?></strong></li>
-				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
-				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
+				<li>tel : <strong><?php echo display_numero_tel($etablissement->telephone) ?></strong></li>
+				<li>fax : <strong><?php echo display_numero_tel($etablissement->fax) ?></strong></li>
 			</ul>
 			<ul>
 				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>
@@ -67,12 +68,16 @@
 			<form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
 				<?php echo $formSociete->renderHiddenFields(); ?>
 				<?php echo $formSociete->renderGlobalErrors(); ?>
+
+            <div class="ligne_form">
+                        <label>&nbsp;</label>
+                        <?php echo $formSociete['code_comptable_client']->renderError() ?>
+            </div>
 			<div class="ligne_form">
 					<label>Code comptable société :</label>
-					<?php echo $formSociete['code_comptable_client']->renderError() ?>
 					<?php echo $formSociete['code_comptable_client']->render(array('style' => 'width: 120px;text-align:right;')) ?>
-					<input type="submit" value="Modifier"/>
-					<label>&nbsp;</label><span style="font-size:90%;color;grey;padding-left:5px;">Débute par 4110000C</span>
+					<input type="submit" value="Modifier"/><br />
+					<label>&nbsp;</label><span style="font-size:90%;color;grey;padding-left:5px;">Débute par C</span>
 			</div>
 			</form>
 			<?php endif; ?>

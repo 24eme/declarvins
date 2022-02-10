@@ -61,7 +61,8 @@ EOF;
             mkdir("$depot", 0755);
         }
 
-        $etablissements = $interpro->getEtablissementsArrayFromGrcFile();
+        $etablissements = array_merge(InterproClient::getInstance()->find('INTERPRO-IR')->getEtablissementsArrayFromGrcFile(), InterproClient::getInstance()->find('INTERPRO-CIVP')->getEtablissementsArrayFromGrcFile());
+
         $libellesStatuts = DRMClient::getAllLibellesStatusBilan();
         ksort($etablissements);
 
@@ -74,10 +75,13 @@ EOF;
 
         // On peuple des données les fichiers
         foreach($etablissements as $etablissement) {
-            if (!$this->isEligibleDRM($etablissement)) {
+            if (!$this->inZone($interpro->zone, explode('|', $etablissement[EtablissementCsv::COL_ZONES]))) {
                 continue;
             }
             $historique = new DRMHistorique($etablissement[EtablissementCsv::COL_ID]);
+            if (!$this->isEligibleDRM($etablissement, $historique->getLastDRM())) {
+                continue;
+            }
             $drms = $historique->getDRMsByCampagne($campagne, true);
             $lastDrm = $historique->getLastDRM();
             $statuts = [];
@@ -163,15 +167,39 @@ EOF;
                     . $etablissement[EtablissementCsv::COL_SOUS_FAMILLE] . ';';
     }
 
-    private function isEligibleDRM($etablissement) {
+    private function isEligibleDRM($etablissement, $lastDRM) {
         try {
             $famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_FAMILLE])));
-            $sousFamille = EtablissementClient::getInstance()->matchSousFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_SOUS_FAMILLE])));
+            $sousfamille = EtablissementClient::getInstance()->matchSousFamille(KeyInflector::slugify(trim($etablissement[EtablissementCsv::COL_SOUS_FAMILLE])));
         } catch (Exception $e) {
             return false;
         }
         $isActif = (trim($etablissement[EtablissementCsv::COL_CHAMPS_STATUT]) == Etablissement::STATUT_ACTIF);
-        return ($isActif && ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$sousFamille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR));
+        if (!$isActif) {
+            return false;
+        }
+        if ($sousfamille == EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN) {
+            return false;
+        }
+        if ($famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $sousfamille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR && !$lastDRM) {
+            return false;
+        }
+        return ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR||$famille == EtablissementFamilles::FAMILLE_NEGOCIANT);
+    }
+
+    private function inZone($zone, $zones) {
+        $client = ConfigurationZoneClient::getInstance();
+        foreach ($zones as $z) {
+            try {
+                $zn = $client->matchZone(trim($z));
+            } catch (Exception $e) {
+                continue;
+            }
+            if ($zn == $zone) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private function getPeriodes($campagne) {

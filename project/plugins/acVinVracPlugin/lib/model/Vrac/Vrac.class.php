@@ -249,7 +249,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	$this->storeSoussigneInformations('acheteur', $acheteur);
       	$this->storeSoussigneInformations('vendeur', $vendeur);
      	$this->storeSoussigneInformations('mandataire', $mandataire);
-     	if ($acheteur->compte == $vendeur->compte) {
+     	if ($acheteur->compte == $vendeur->compte && !$this->hasVersion()) {
      		$this->cas_particulier = 'interne';
      	}
     }
@@ -299,7 +299,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function getTotalUnitaire() {
-    	return ($this->type_transaction == 'vrac' && $this->isConditionneIr())? round($this->prix_unitaire + $this->getCvoUnitaire(), 2) : round($this->prix_unitaire, 2);
+    	return ($this->type_transaction == 'vrac' && $this->premiere_mise_en_marche && $this->isConditionneIr())? round($this->prix_unitaire + $this->getCvoUnitaire(), 2) : round($this->prix_unitaire, 2);
     }
 
     public function setDetailProduit($produit)
@@ -331,7 +331,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       parent::update($params);
       $vol = ($this->poids)? $this->poids : $this->volume_propose;
       $this->prix_total_net = round($this->prix_unitaire * $vol, 2);
-      if ($this->type_transaction != 'vrac') {
+      if ($this->type_transaction != 'vrac'||!$this->premiere_mise_en_marche) {
           $this->has_cotisation_cvo = 0;
       }
 	  if ($this->has_cotisation_cvo && $this->part_cvo > 0) {
@@ -377,6 +377,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
+            $this->add('versement_fa', VracClient::VERSEMENT_FA_ANNULATION);
     	} else {
     		if ($etablissement) {
     			$type = $this->getTypeByEtablissement($etablissement->identifiant);
@@ -401,6 +402,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	      	if ($statut_annule) {
 	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
 	    		$this->annulation->date_annulation = date('c');
+	            $this->add('versement_fa', VracClient::VERSEMENT_FA_ANNULATION);
     			//$this->date_stats = $this->annulation->date_annulation;
     			//$this->valide->date_validation = $this->annulation->date_annulation;
 	      	}
@@ -417,6 +419,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	if (!$this->mandataire_exist) {
       		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
       	}
+        $this->updateVersementFa();
     	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->isRectificative()) {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
     		if (!$this->date_signature) {
@@ -998,6 +1001,23 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
             $this->add('_attachments');
         } elseif ($this->_attachments->exist($filename)) {
             $this->_attachments->remove($filename);
+        }
+    }
+
+    public function isPrimeur() {
+        return in_array('prim', $this->mentions);
+    }
+
+    public function isBio() {
+        return in_array('biol', $this->labels_arr);
+    }
+
+    public function updateVersementFa(){
+        if (!$this->exist('versement_fa') || !$this->versement_fa) {
+            $this->add('versement_fa', VracClient::VERSEMENT_FA_NOUVEAU);
+        }
+        if ($this->exist('versement_fa') && $this->versement_fa == VracClient::VERSEMENT_FA_TRANSMIS) {
+            $this->versement_fa = VracClient::VERSEMENT_FA_MODIFICATION;
         }
     }
 }
