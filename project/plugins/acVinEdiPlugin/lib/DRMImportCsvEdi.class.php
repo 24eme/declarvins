@@ -153,9 +153,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     $complement = strtoupper(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
                     if (in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
                         $label = $complement;
-                    } else{
-                        $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                     }
+                    $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                 }
             }
             $produit = $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
