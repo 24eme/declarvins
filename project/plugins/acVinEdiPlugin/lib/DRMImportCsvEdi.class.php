@@ -184,6 +184,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
             $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
             $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
+      		if ($isAutre) {
+                $cache2datas[$this->getCacheKeyFromData($datas)]['inao'] = $this->getIdDouane($datas);
+      		}
         }
 
         //on prépare les vérifications
@@ -208,6 +211,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
                 $p->libelle = $cache2datas[$cacheid]['libelle'];
+                if (isset($cache2datas[$cacheid]['inao'])) {
+              		    $p->add('inao', $cache2datas[$cacheid]['inao']);
+                }
                 $this->cache[$cacheid] = $p;
             }
         }
@@ -275,6 +281,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $p = $this->drm->getOrAdd($new_hash);
                 $p->libelle = $cache2datas[$cacheid]['libelle'];
                 $p->labels = array($cache2datas[$cacheid]['label']);
+                if (isset($cache2datas[$cacheid]['inao'])) {
+              		    $p->add('inao', $cache2datas[$cacheid]['inao']);
+                }
                 $this->cache[$cacheid] = $p;
             }
         }
