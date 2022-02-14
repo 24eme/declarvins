@@ -118,8 +118,7 @@ class DRMDateView extends acCouchdbView
 			self::VALUE_DETAIL_STOCKFIN_INSTANCE,
 			self::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE,
 			self::VALUE_DETAIL_ENTREES_VCI,
-            self::VALUE_DETAIL_CVO_MONTANT,
-            self::VALUE_DETAIL_SORTIES_VRAC_EXPORT,
+            self::VALUE_DETAIL_SORTIES_VRAC_EXPORT
 		];
 	}
 
