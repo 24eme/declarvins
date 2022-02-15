@@ -153,6 +153,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     $complement = strtoupper(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
                     if (in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
                         $label = $complement;
+                        $libellePerso = trim($libelle);
                     }
                     $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                 }
