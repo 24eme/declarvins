@@ -677,7 +677,7 @@ class ediActions extends sfActions
   {
     $campagne = $request->getParameter('campagne');
     $interpro = $request->getParameter('interpro');
-    //$this->securizeInterpro($interpro);
+    $this->securizeInterpro($interpro);
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
@@ -702,7 +702,7 @@ class ediActions extends sfActions
     $campagne = $request->getParameter('campagne');
     $periode = $request->getParameter('periode');
     $interpro = $request->getParameter('interpro');
-    //$this->securizeInterpro($interpro);
+    $this->securizeInterpro($interpro);
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
