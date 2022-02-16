@@ -685,7 +685,7 @@ class ediActions extends sfActions
     	return $this->renderText("Campagne invalide");
     }
 	$interpro = str_replace('INTERPRO-', '', $interpro);
-    $targetFile = sfConfig::get('sf_web_dir').'exports/BILANDRM/'.$interpro.'/'.$campagne.'/bilan.csv';
+    $targetFile = sfConfig::get('sf_web_dir').'/exports/BILANDRM/'.$interpro.'/'.$campagne.'/bilan.csv';
     if (!file_exists($targetFile)) {
         throw new Exception('Aucun bilan pour la configuration : interpro : '.$interpro.' campagne : '.$campagne.' !');
     }
@@ -717,7 +717,7 @@ class ediActions extends sfActions
     	return $this->renderText("Periode invalide");
     }
     $interpro = str_replace('INTERPRO-', '', $interpro);
-    $targetFile = sfConfig::get('sf_web_dir').'exports/BILANDRM/'.$interpro.'/'.$campagne.'/'.$periode.'_bilan.csv';
+    $targetFile = sfConfig::get('sf_web_dir').'/exports/BILANDRM/'.$interpro.'/'.$campagne.'/'.$periode.'_bilan.csv';
     if (!file_exists($targetFile)) {
         throw new Exception('Aucun bilan N-1 pour la configuration : interpro : '.$interpro.' campagne : '.$campagne.' periode : '.$periode.' !');
     }
