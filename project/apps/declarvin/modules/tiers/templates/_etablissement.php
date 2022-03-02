@@ -77,7 +77,7 @@
 					<label>Code comptable société :</label>
 					<?php echo $formSociete['code_comptable_client']->render(array('style' => 'width: 120px;text-align:right;')) ?>
 					<input type="submit" value="Modifier"/><br />
-					<label>&nbsp;</label><span style="font-size:90%;color;grey;padding-left:5px;">Débute par C</span>
+					<label>&nbsp;</label><span style="font-size:90%;color;grey;padding-left:5px;">Nombre après la chaîne 4110000C</span>
 			</div>
 			</form>
 			<?php endif; ?>
