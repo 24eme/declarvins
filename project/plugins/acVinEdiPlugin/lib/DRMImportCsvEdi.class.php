@@ -107,11 +107,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$configurationProduit = null;
     		$isAutre = false;
     		if ($idDouane = $this->getIdDouane($datas)) {
-          $lp = '';
-          if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-              $lp = trim($result[1]).' ';
-          }
-    			$configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
+              $lp = '';
+              if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+                  $lp = trim($result[1]).' ';
+              }
+    		  $configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
     		}
     		if (!$configurationProduit) {
     			$configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
@@ -138,7 +138,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
                 $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
-            } elseif (trim($libelle) != trim($libelleConfig)) {
+            } elseif ($libelle && trim($libelle) != trim($libelleConfig)) {
                 $libellePerso = trim($libelle);
             }
 
@@ -168,7 +168,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $produit->libelle = $libellePerso;
           }
 
-      		if ($complement_libelle) {
+      		if ($complement_libelle && !$label) {
                 $l = $libellePerso;
                 if ($libellePerso != $complement_libelle) {
                   $l .= ' '.$complement_libelle;
