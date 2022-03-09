@@ -47,17 +47,17 @@ class Date {
 	    }
 	    return $french_date;
         }
-        
-    	public static function francizeDate($date) 
+
+    	public static function francizeDate($date)
     	{
-    		if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $date, $matches)) {
+    		if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})/', $date, $matches)) {
 	      		$jours = $matches[3];
 	      		$mois = $matches[2];
 	      		$annee = $matches[1];
 	      		return date('d/m/Y',mktime(0,0,0,$mois,$jours,$annee));
     		}
-                
-                if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2}) [0-9]{2}:[0-9]{2}:[0-9]{2}$/', $date, $matches)) {
+
+            if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2}) [0-9]{2}:[0-9]{2}:[0-9]{2}$/', $date, $matches)) {
 	      		$jours = $matches[3];
 	      		$mois = $matches[2];
 	      		$annee = $matches[1];

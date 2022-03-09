@@ -47,11 +47,11 @@ class DRMFictive extends DRM
     		}
     	}
     }
-    
+
     protected function preSave() {
     	return;
     }
-    public function save($updateBilan = true) 
+    public function save()
     {
     	$drm = $this->drm;
     	$produits = $this->getDetails();
@@ -63,8 +63,8 @@ class DRMFictive extends DRM
         $drm->remove('crds');
         $drm->add('crds');
         $drm->crds = $this->crds;
-    	$drm->save($updateBilan);
-    	
+    	$drm->save();
+
     }
     public function delete() 
     {

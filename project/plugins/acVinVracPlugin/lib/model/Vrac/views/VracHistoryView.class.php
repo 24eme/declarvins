@@ -11,8 +11,8 @@ class VracHistoryView extends acCouchdbView
     const VRAC_VIEW_VENDEUR_NOM = 6;
     const VRAC_VIEW_VENDEUR_RAISON_SOCIALE = 7;
     const VRAC_VIEW_MANDATAIRE_ID = 8;
-    const VRAC_VIEW_MANDATAIRE_NOM = 9;    
-    const VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE = 10;    
+    const VRAC_VIEW_MANDATAIRE_NOM = 9;
+    const VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE = 10;
     const VRAC_VIEW_TYPEPRODUIT = 11;
     const VRAC_VIEW_PRODUIT_ID = 12;
     const VRAC_VIEW_PRODUIT_LIBELLE = 13;
@@ -42,7 +42,7 @@ class VracHistoryView extends acCouchdbView
     const VRAC_OIOC_DATERECEPTION = 37;
     const VRAC_OIOC_DATETRAITEMENT = 38;
     const VRAC_POIDS = 39;
-    
+
 	public static function getInstance() {
 
         return acCouchdbManager::getView('vrac', 'history', 'Vrac');
@@ -64,23 +64,24 @@ class VracHistoryView extends acCouchdbView
 
 
 	public function findLastByStatutAndInterpro($statut, $interpro) {
-		if (!$statut) {
-        	return $this->client->startkey(array($statut, $interpro))
-                    		->endkey(array($statut, $interpro, array()))
-                            ->getView($this->design, $this->view);
+        $date_fin = date('c');
+        $date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
+		if (!$statut||in_array($statut, array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION))) {
+            $enCours = $this->client->startkey(array($statut, $interpro))->endkey(array($statut, $interpro, array()))->getView($this->design, $this->view)->rows;
+            $attValidation = $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
+            $attAnnulation = $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_debut))->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
+            return array_merge($enCours, $attValidation, $attAnnulation);
 		}
-		$date_fin = date('c');
-		$date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
         return $this->client->startkey(array($statut, $interpro, $date_debut))
                     		->endkey(array($statut, $interpro, $date_fin, array()))
-                            ->getView($this->design, $this->view);
+                            ->getView($this->design, $this->view)->rows;
     }
 
 	public function findLast() {
-      
+
         return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))
                     		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))
                             ->getView($this->design, $this->view);
     }
-    
-}  
+
+}

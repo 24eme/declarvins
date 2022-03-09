@@ -853,13 +853,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return false;
     }
 
-	public function save($updateBilan = true) {
-        parent::save();
-        if ($updateBilan) {
-        	$this->updateBilan();
-        }
-    }
-
     protected function getHistoriqueAbstract() {
 
         return DRMClient::getInstance()->getDRMHistorique($this->identifiant);
@@ -1508,16 +1501,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     /*     * ** FIN DES MOUVEMENTS *** */
-
-
-    /* CREATION BILAN */
-
-    public function updateBilan() {
-       $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($this->identifiant, 'DRM');
-       $bilan->updateEtablissement();
-       $bilan->updateFromDRM($this);
-       $bilan->save();
-    }
 
 
     /* FIN DES MOUVEMENTS *** */
