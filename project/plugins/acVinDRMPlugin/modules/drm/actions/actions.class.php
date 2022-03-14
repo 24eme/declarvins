@@ -573,6 +573,16 @@ class drmActions extends sfActions {
         return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
     }
 
+    private function notifieVolumesSurveilles($drm) {
+        foreach (InterproClient::$_drm_interpros as $interpro) {
+            $volumes = $drm->getVolumesSurveilles($interpro);
+            if ($volumes) {
+                Email::getInstance()->volumesSurveilles($drm, $volumes, InterproClient::getInstance()->find($interpro));
+            }
+        }
+
+    }
+
     private function updateLastDrmSession($etablissement) {
         if ($etablissement) {
             $historique = new DRMHistorique($etablissement->identifiant);

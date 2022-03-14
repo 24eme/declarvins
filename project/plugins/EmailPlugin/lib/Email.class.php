@@ -478,6 +478,16 @@ class Email {
     	return $this->getMailer()->send($message);
     }
 
+    public function volumesSurveilles($drm, $volumes, $interpro)
+    {
+        $from = $this->getFromEmailInterpros(array($interpro),true);
+        $to = array($interpro->email_contrat_inscription);
+    	$subject = "DeclarVins // Volumes surveillés";
+    	$body = $this->getBodyFromPartial('volumes_surveilles', array('drm' => $drm, 'volumes' => $volumes));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	return $this->getMailer()->send($message);
+    }
+
     protected function getMailer()
     {
         return $this->_context->getMailer();
