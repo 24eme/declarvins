@@ -570,6 +570,8 @@ class drmActions extends sfActions {
     	  }
 	    }
 
+        $this->notifieVolumesSurveilles($this->drm);
+
         return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
     }
 
