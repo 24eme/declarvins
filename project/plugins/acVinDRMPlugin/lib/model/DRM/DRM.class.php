@@ -12,6 +12,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected $mouvement_document = null;
     protected $version_document = null;
     protected $suivante = null;
+    protected static $mvtsSurveilles = array(
+        'Entrée replacement en suspension CRD' => 'entrees/crd',
+        'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
+        'Sortie autres' => 'sorties/pertes'
+    );
 
     public function __construct() {
         parent::__construct();
@@ -1821,5 +1826,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       }
     }
     return ($droit && $produits && !$hasDS);
+  }
+
+  public function getVolumesSurveilles($interpro) {
+      $volumes = array();
+      foreach ($this->getDetails($interpro) as $detail) {
+          foreach(self::$mvtsSurveilles as $mvtLibelle => $mvtHash) {
+              if ($detail->get($mvtHash) > 0) {
+                  $volumes[$detail->getLibelle().' - '.$mvtLibelle] = $detail->get($mvtHash);
+              }
+          }
+      }
+      return $volumes;
   }
 }

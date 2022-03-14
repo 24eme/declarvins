@@ -1,7 +1,8 @@
 <?php
 
 class InterproClient extends acCouchdbClient {
-	
+
+	public static $_drm_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR');
 	protected static $_base_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE');
 	protected static $_interpros = array('INTERPRO-IR', 'INTERPRO-CIVP', 'INTERPRO-IVSE', 'INTERPRO-IS', 'INTERPRO-ANIVIN');
     const INTERPRO_REFERENTE = 'INTERPRO-IR';
