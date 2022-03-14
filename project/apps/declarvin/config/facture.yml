@@ -31,3 +31,4 @@ all:
       export_relances: true
       teledeclaration: false
       seuil_minimum: 100
+      code_journal: 'BQ1'
