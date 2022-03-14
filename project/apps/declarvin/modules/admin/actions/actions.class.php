@@ -28,7 +28,13 @@ class adminActions extends sfActions
   {
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
   	$admin = (int)$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+
+    $familles = array(
+    	EtablissementFamilles::FAMILLE_PRODUCTEUR => implode("|",array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)),
+        EtablissementFamilles::FAMILLE_NEGOCIANT => implode("|",array_keys(EtablissementFamilles::getSousFamillesByFamille(EtablissementFamilles::FAMILLE_NEGOCIANT))),
+    );
+
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => $familles));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));
