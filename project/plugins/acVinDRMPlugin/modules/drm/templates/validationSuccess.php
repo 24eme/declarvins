@@ -137,15 +137,7 @@
                     </div>
                 </div>
 				<?php endif; ?>
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if ($form->getObject()->exist('observations') && $form->getObject()->observations): ?>
-                <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
-                    <div style="padding: 4px 10px 10px 10px;">
-                		<label style="padding: 10px 0px; font-weight: bold; display: block;">Observations</label>
-                		<pre style="background: #fff; padding: 8px 0;"><?php echo $form->getObject()->observations ?></pre>
-            		</div>
-                </div>
-                <?php endif; ?>
+                <?php if (isset($form['commentaires'])): ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
                         <?php echo $form['commentaires']->renderError() ?>

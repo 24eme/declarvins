@@ -13,14 +13,12 @@ class DRMValidationForm extends acCouchdbObjectForm
 	  $this->setWidget('brouillon', new sfWidgetFormInputHidden());
       $this->setValidator('brouillon', new ValidatorPass());
 
-      $this->setWidget('commentaires', new sfWidgetFormTextarea());
-      $this->getWidget('commentaires')->setLabel("Commentaires BO");
-      $this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
+      if($this->getOption('is_admin')) {
+        $this->setWidget('commentaires', new sfWidgetFormTextarea());
+        $this->getWidget('commentaires')->setLabel("Commentaires BO");
+        $this->setValidator('commentaires', new sfValidatorString(array('required' => true)));
+      }
 
-      /*$this->setWidget('observations', new sfWidgetFormTextarea());
-      $this->getWidget('observations')->setLabel("Observations");
-      $this->setValidator('observations', new sfValidatorString(array('required' => false)));*/
-      
       $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants')));
 	    
 	    $this->widgetSchema->setNameFormat('drm_validation[%s]');

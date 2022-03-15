@@ -443,7 +443,8 @@ class drmActions extends sfActions {
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->engagements = array();
         }
-        $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
+
+        $this->form = new DRMValidationForm($this->drm, array('is_admin' => $isAdmin, 'engagements' => $this->engagements));
 
         $this->drmCiel = $this->drm->getOrAdd('ciel');
 
