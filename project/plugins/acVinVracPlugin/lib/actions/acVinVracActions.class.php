@@ -267,6 +267,7 @@ class acVinVracActions extends sfActions
                     	} elseif ($sendEmail) {
                     		$this->saisieTerminee($this->vrac, $this->vrac->getProduitInterpro());
                     	}
+                        $this->notifiePrixNonCoherent($this->vrac);
                     	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {
                     	$this->saisieTerminee($this->vrac, $this->interpro);
