@@ -2,6 +2,7 @@
 class VracConfiguration
 {
 	private static $_instance = null;
+    protected $configuration;
 
 	public static function getInstance()
 	{
@@ -13,6 +14,11 @@ class VracConfiguration
 
 	public function __construct()
 	{
+        if(!sfConfig::has('vrac_configuration_vrac')) {
+			throw new sfException("La configuration pour les vrac n'a pas été définie pour cette application");
+		}
+
+        $this->configuration = sfConfig::get('vrac_configuration_vrac', array());
 	}
 
 	public function getContenances()
@@ -28,4 +34,9 @@ class VracConfiguration
 		}
 		return $centilisations;
 	}
+
+    public function getPrixAppellations() {
+
+        return $this->configuration['prix_appellations'];
+    }
 }

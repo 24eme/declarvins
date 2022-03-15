@@ -1,0 +1,103 @@
+all:
+  configuration:
+    vrac:
+      prix_appellations:
+        CDR:
+          min: 90
+          max: 200
+        BEA:
+          min: 250
+          max: 500
+        CAR:
+          min: 200
+          max: 350
+        CAD:
+          min: 180
+          max: 380
+        CDB:
+          min: 90
+          max: 200
+        CDD:
+          min: 90
+          max: 200
+        CDDB:
+          min: 90
+          max: 200
+        CDN:
+          min: 90
+          max: 200
+        CHD:
+          min: 100
+          max: 200
+        COD:
+          min: 1000
+          max: 2000
+        COR:
+          min: 1000
+          max: 1800
+        COT:
+          min: 90
+          max: 200
+        CRE:
+          min: 180
+          max: 350
+        CRH:
+          min: 350
+          max: 700
+        CRO:
+          min: 1000
+          max: 1800
+        CVG:
+          min: 90
+          max: 300
+        CVS:
+          min: 90
+          max: 300
+        CVX:
+          min: 90
+          max: 200
+        DUZ:
+          min: 90
+          max: 200
+        GIG:
+          min: 550
+          max: 850
+        GLA:
+          min: 85
+          max: 200
+        HER:
+          min: 1300
+          max: 2200
+        LIR:
+          min: 180
+          max: 400
+        LUB:
+          min: 80
+          max: 200
+        RTA:
+          min: 250
+          max: 380
+        SJO:
+          min: 500
+          max: 800
+        SPT:
+          min: 550
+          max: 700
+        TAV:
+          min: 250
+          max: 380
+        VAC:
+          min: 380
+          max: 650
+        VBR:
+          min: 200
+          max: 350
+        VBD:
+          min: 350
+          max: 450
+        VIV:
+          min: 90
+          max: 250
+        GRI:
+          min: 10
+          max: 20
