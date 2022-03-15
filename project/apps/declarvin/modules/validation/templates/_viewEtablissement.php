@@ -1,5 +1,7 @@
-<strong><?php echo $etablissement->identifiant ?></strong><br />
-<?php echo $etablissement->raison_sociale ?> <?php if ($etablissement->siret): ?>(<?php echo $etablissement->siret ?>)<?php endif; ?><br />
+<strong><?php echo $etablissement->identifiant ?></strong> - <?php echo $etablissement->raison_sociale ?><br /><br />
+SIRET : <?php echo $etablissement->siret ?><br />
+CVI : <?php echo $etablissement->cvi ?><br />
+EA : <?php echo $etablissement->no_accises ?><br />
 <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
     <?php if ($etablissement->siege->adresse): ?>
         <br />
