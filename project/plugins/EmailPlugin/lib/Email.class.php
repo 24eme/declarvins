@@ -488,6 +488,20 @@ class Email {
     	return $this->getMailer()->send($message);
     }
 
+    public function prixNonCoherent($vrac)
+    {
+        $interpro = $vrac->getProduitInterpro();
+        if (!$interpro) {
+            return;
+        }
+        $from = $this->getFromEmailInterpros(array($interpro),true);
+        $to = array($interpro->email_contrat_inscription);
+    	$subject = "DeclarVins // Contrat vrac - Prix non coherent";
+    	$body = $this->getBodyFromPartial('prix_non_coherent', array('vrac' => $vrac));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	return $this->getMailer()->send($message);
+    }
+
     protected function getMailer()
     {
         return $this->_context->getMailer();
