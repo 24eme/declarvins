@@ -432,7 +432,8 @@ class drmActions extends sfActions {
   		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
+        if ($isAdmin) {
         	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
         }
         $this->drm->storeDroits(array());
@@ -485,7 +486,7 @@ class drmActions extends sfActions {
         $this->drm->validate();
         // CIEL ==============
 	    $erreursCiel = false;
-        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        if (!$isAdmin) {
         if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion() && $request->getParameter('transfer_ciel')) {
 	        if ($this->etablissement->isTransmissionCiel()) {
 	        	$export = new DRMExportCsvEdi($this->drm);
