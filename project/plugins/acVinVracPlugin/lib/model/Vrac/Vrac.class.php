@@ -1020,4 +1020,21 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
             $this->versement_fa = VracClient::VERSEMENT_FA_MODIFICATION;
         }
     }
+
+    public function isVolumesAppellationsEnAlerte() {
+        $isTypeNonVrac = ($this->type_transaction != 'vrac');
+        $isContratInterne = ($this->cas_particulier == 'interne');
+        $retiraisonTireBouche = ($this->type_retiraison == 'tire_bouche');
+        if ($isTypeNonVrac||$isContratInterne||$retiraisonTireBouche||!$this->produit) {
+            return false;
+        }
+        $appellation = $this->produit_detail->appellation->code;
+        $volumesAppellations = VracConfiguration::getInstance()->getPrixAppellations();
+        if (isset($volumesAppellations[$appellation])) {
+            if (($this->prix_unitaire < $volumesAppellations[$appellation]['min'])||($this->prix_unitaire > $volumesAppellations[$appellation]['max'])) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
