@@ -15,7 +15,7 @@
 <?php if ($e->no_tva_intracommunautaire): ?>
         <cas:tva><?php echo $e->no_tva_intracommunautaire; ?></cas:tva>
 <?php endif; ?>
-    <cas:entity>
+    </cas:entity>
 <?php endforeach; ?>
 <?php else: ?>
     <cas:entity>
