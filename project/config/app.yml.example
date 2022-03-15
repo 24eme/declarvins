@@ -37,3 +37,5 @@ all:
       civp:
         iss: "********-****-****-****-************"
         keypath: "/absolute/path/to/private/key.pem"
+  viticonnect:
+    secret: "SECRET"

@@ -43,5 +43,6 @@ class acVinRouting
     $r->prependRoute('ac_vin_compte_mot_de_passe_oublie_login', new sfRoute('/mot_de_passe_oublie/login/:login/:mdp', array('module' => 'acVinCompte', 'action' => 'motDePasseOublieLogin')));
     $r->prependRoute('ac_vin_compte_mot_de_passe_oublie', new sfRoute('/mot_de_passe_oublie', array('module' => 'acVinCompte', 'action' => 'motDePasseOublie')));
     $r->prependRoute('ac_vin_compte_mot_de_passe_oublie_confirm', new sfRoute('/mot_de_passe_oublie/confirm', array('module' => 'acVinCompte', 'action' => 'motDePasseOublieConfirm')));
+    $r->prependRoute('ac_vin_compte_viticonnect_api', new sfRoute('/viticonnect/api/:login/:epoch/:md5', array('module' => 'acVinCompte', 'action' => 'viticonnect')));
   }
 }
