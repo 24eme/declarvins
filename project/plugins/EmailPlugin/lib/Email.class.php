@@ -482,7 +482,7 @@ class Email {
     {
         $from = $this->getFromEmailInterpros(array($interpro),true);
         $to = array($interpro->email_contrat_inscription);
-    	$subject = "DeclarVins // Volumes surveillés";
+    	$subject = "DeclarVins // DRM - Volumes surveillés";
     	$body = $this->getBodyFromPartial('volumes_surveilles', array('drm' => $drm, 'volumes' => $volumes));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
     	return $this->getMailer()->send($message);
