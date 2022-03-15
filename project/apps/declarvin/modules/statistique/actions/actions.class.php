@@ -62,7 +62,7 @@ class statistiqueActions extends sfActions {
     			}
                 if (in_array(trim($lineArr[$col]), array($libelles[DRMClient::DRM_STATUS_BILAN_VALIDE], $libelles[DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT], $libelles[DRMClient::DRM_STATUS_BILAN_CONTRAT_MANQUANT], $libelles[DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT], $libelles[DRMClient::DRM_STATUS_BILAN_NON_VALIDE]))) {
                     $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($lineArr[0], $periode);
-                    if (!$drm->mode_de_saisie) {
+                    if (!$drm||!$drm->mode_de_saisie) {
     					continue;
     				}
 	    			if ($drm->mode_de_saisie == 'PAPIER') {
