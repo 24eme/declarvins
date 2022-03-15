@@ -43,6 +43,11 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
+        <?php if ($configuration->isApplicationOuverte($sf_user->getCompte()->getGerantInterpro()->_id, 'factures')): ?>
+        <li<?php if ($active == 'factures'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('facture_societe', $etablissement) ?>">Factures</a>
+        </li>
+        <?php endif; ?>
 
         <?php if(SubventionConfiguration::getInstance()->isActif($etablissement, $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
@@ -76,9 +81,6 @@ use_helper('Text');
     <?php if ($etablissement->canAdhesionCiel()): ?>
     <ul id="nav_infociel">
     	<li><span style="cursor: auto;" class="<?php if($etablissement->isTransmissionCiel()): ?>ciel_connect<?php else: ?>ciel_disconnect<?php endif; ?>" title="<?php if($etablissement->isTransmissionCiel()): ?>Transmission CIEL activée<?php else: ?>Aucune transmission CIEL<?php endif; ?>">CIEL</span></li>
-    	<?php if($etablissement->isTransmissionCiel()): ?>
-    	<li><a href="<?php echo url_for('ciel_help', $etablissement) ?>"><span class="ciel_help" title="Assistance CIEL">&nbsp;</span></a></li>
-    	<?php endif; ?>
     </ul>
     <?php endif; ?>
 </nav>

@@ -78,13 +78,13 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function buildDate($periode) {
-        return sprintf('%4d-%02d-%02d', $this->getAnnee($periode), $this->getMois($periode), date("t", $this->getMois($periode)));
+        return date('Y-m-t', strtotime($periode.'-01'));
     }
 
     public function buildDateDebut($periode) {
-        return sprintf('%4d-%02d-%02d', $this->getAnnee($periode), $this->getMois($periode), 1);
+        return $periode.'-01';
     }
-    
+
     public function getPeriodeDebut($campagne) {
 
         return date('Y-m', strtotime(ConfigurationClient::getInstance()->getDateDebutCampagne($campagne)));
@@ -414,8 +414,13 @@ class DRMClient extends acCouchdbClient {
         sfContext::getInstance()->getConfiguration()->loadHelpers(array('Orthographe', 'Date'));
         $origineLibelle = 'DRM de';
         $drmSplited = explode('-', $id);
-        $annee = $drmSplited[2];
-        $mois = $drmSplited[3];
+        if (is_int($drmSplited[2]*1) && strlen($drmSplited[2]) == 4) {
+          $ind = 0;
+        } else {
+          $ind = 1;
+        }
+        $annee = $drmSplited[(2+$ind)];
+        $mois = $drmSplited[(3+$ind)];
         $date = $annee . '-' . $mois . '-01';
         $df = format_date($date, 'MMMM yyyy', 'fr_FR');
         return elision($origineLibelle, $df);

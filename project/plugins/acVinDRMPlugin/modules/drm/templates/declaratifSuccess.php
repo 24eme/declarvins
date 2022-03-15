@@ -21,19 +21,6 @@
                 <?php echo $form->renderHiddenFields() ?>
 
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if ($form->getObject()->isRectificative()): ?>
-                <ul class="onglets_declaratif">
-                    <li><strong>Administrateur</strong></li>
-                </ul>
-
-                <div class="contenu_onglet_declaratif ">
-                    <p class="intro"><?php echo $form['raison_rectificative']->renderLabel() ?><a href="" class="msg_aide" data-msg="help_popup_declaratif_raison_rectificative" title="Message aide"></a></p>
-                    <div class="ligne_form alignes">
-                        <?php echo $form['raison_rectificative']->renderError() ?>
-                        <?php echo $form['raison_rectificative']->render() ?>
-                    </div>
-                </div>
-                <?php endif; ?>
                 <?php if ($form->getObject()->isValidee()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signee" title="Message aide"></a></li>
@@ -128,33 +115,6 @@
                     		</tbody>
                     	</table>
                     </div>
-                    <div class="ligne_form ligne_entiere ecart_check">
-                        <?php echo $form['adhesion_emcs_gamma']->render() ?><?php echo $form['adhesion_emcs_gamma']->renderLabel() ?><?php echo $form['adhesion_emcs_gamma']->renderError() ?>
-                    </div>
-                </div>
-
-                <ul class="onglets_declaratif">
-                    <li><strong>Caution</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_caution" title="Message aide"></a></li>
-                </ul>
-
-                <div class="contenu_onglet_declaratif">
-                    <p class="intro">Veuillez indiquer si vous disposez d'une caution, si oui merci de préciser l'organisme :</p>
-                    <div class="ligne_form alignes" id="caution_accepte">
-                        <?php echo $form['caution']->renderError() ?>
-                        <?php echo $form['caution']->render() ?>
-                    </div>
-
-                    <div class="ligne_form alignes" id="numero" style="display:<?php echo ($form['caution']->getValue() === 1 || $form['numero']->hasError()) ? 'block' : 'none' ?>;">
-                        <?php echo $form['numero']->renderError() ?>
-                        <?php echo $form['numero']->renderLabel() ?>
-                        <?php echo $form['numero']->render() ?>
-                    </div>
-
-                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue() === 0 || $form['organisme']->hasError()) ? 'block' : 'none' ?>;">
-                        <?php echo $form['organisme']->renderError() ?>
-                        <?php echo $form['organisme']->renderLabel() ?>
-                        <?php echo $form['organisme']->render() ?>
-                    </div>
                 </div>
 
 				<?php if ($sf_user->getCompte()->isTiers() && !$etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
@@ -187,15 +147,35 @@
                     		<?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-                    <p class="intro"><?php echo $form['moyen_paiement']->renderLabel() ?><p>
-                    <div class="ligne_form alignes">
-                        <?php echo $form['moyen_paiement']->renderError() ?>
-                        <?php echo $form['moyen_paiement']->render() ?>
-                    </div>
                 </div>
                 <?php endif; ?>
 
                 <?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
+                <ul class="onglets_declaratif">
+                    <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
+                </ul>
+                <div class="contenu_onglet_declaratif">
+                    <div class="tableau_ajouts_liquidations">
+                        <p>
+                            <strong>/!\ Merci de préciser le volume de vin correspondant à l'observation /!\</strong>
+                        </p>
+                        <p style="text-align: right; padding-right: 20px;">
+                            250 caractères max.
+                        </p>
+                		<table class="tableau_recap">
+                		<?php $i=0; foreach ($form['observationsProduits'] as $formObservations): ?>
+                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
+                				<td style="width: 332px;"><?php echo $formObservations['observations']->renderLabel() ?></td>
+                				<td>
+                        			<?php echo $formObservations['observations']->renderError() ?>
+                        			<?php echo $formObservations['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
+                        		</td>
+                    		</tr>
+                    	<?php $i++; endforeach; ?>
+                    	</table>
+                    </div>
+                </div>
+
                 <ul class="onglets_declaratif">
                     <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="help_popup_drm_stats_euro" title="Message aide"></a></li>
                 </ul>
@@ -225,26 +205,6 @@
                     	</table>
                     </div>
                 </div>
-
-                <ul class="onglets_declaratif">
-                    <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
-                </ul>
-                <div class="contenu_onglet_declaratif">
-                    <div class="tableau_ajouts_liquidations">
-                		<table class="tableau_recap">
-                		<?php $i=0; foreach ($form['observationsProduits'] as $formObservations): ?>
-                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
-                				<td style="width: 332px;"><?php echo $formObservations['observations']->renderLabel() ?></td>
-                				<td>
-                        			<?php echo $formObservations['observations']->renderError() ?>
-                        			<?php echo $formObservations['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
-                        		</td>
-                    		</tr>
-                    	<?php $i++; endforeach; ?>
-                    	</table>
-                    	250 caractères max.
-                    </div>
-                </div>
                 <?php endif; ?>
 
                 <div id="btn_etape_dr">
@@ -271,8 +231,6 @@
 
 $(document).ready( function()
 	{
-        $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block'); $('#numero').css('display', 'none') });
-        $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none'); $('#numero').css('display', 'block') });
         $('#drm_declaratif_frequence_Mensuelle').click(function() { $('#reports').css('display', 'none'); });
         $('#drm_declaratif_frequence_Annuelle').click(function() { $('#reports').css('display', 'block'); });
 

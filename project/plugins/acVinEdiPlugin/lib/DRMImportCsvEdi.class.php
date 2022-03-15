@@ -169,10 +169,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
           }
 
       		if ($complement_libelle) {
-                $produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+                $l = $libellePerso;
+                if ($libellePerso != $complement_libelle) {
+                  $l .= ' '.$complement_libelle;
+                }
+                $produit->libelle = ($libellePerso) ? trim($l) : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
       		if ($isAutre) {
-              $produit->libelle = $libellePerso;
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
@@ -181,8 +184,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
             $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
-            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
         }
+
         //on prépare les vérifications
         $check = array();
         foreach ($this->cache as $cacheid => $produit) {
@@ -219,7 +223,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         //gestion des multidetails
         foreach($noeuds as $hash => $array_cache) {
             $volume2hash = array();
-            if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash)) {
+            if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash) && !$this->drm->canSetStockDebutMois()) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
                     foreach(array("total", "acq_total") as $totalKey) {
                         $total_fin_mois = self::floatizeVal($d->get($totalKey) * 1);

@@ -35,7 +35,8 @@ class Etablissement extends BaseEtablissement {
 
     public function getRegion()
     {
-    	return null;
+
+    	return sfConfig::get('app_facturation_region');
     }
 
     public function getInterproObject() {
@@ -141,16 +142,7 @@ class Etablissement extends BaseEtablissement {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
     		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
     	}
-    	if ($bilan = $this->getBilan()) {
-    		$bilan->updateEtablissement($this);
-    		$bilan->save();
-    	}
     	parent::save();
-    }
-
-    public function getBilan()
-    {
-    	return BilanClient::getInstance()->findByIdentifiantAndType($this->identifiant, 'DRM');
     }
 
 
@@ -246,5 +238,54 @@ class Etablissement extends BaseEtablissement {
     public function getCommune()
     {
         return $this->siege->commune;
+    }
+
+    public function getMasterCompte() {
+      return $this->getCompteObject();
+    }
+
+    public function getGenerateSociete()
+    {
+      $societe = new Societe();
+      $societe->addEtablissement($this);
+      $societe->raison_sociale = $this->raison_sociale;
+      $societe->type_societe = SocieteClient::TYPE_OPERATEUR;
+      $societe->identifiant = $this->identifiant;
+      $societe->siret = $this->siret;
+      $societe->statut = $this->statut;
+      $societe->cooperative = ($this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)? true : false;
+      $societe->email = $this->email;
+      $societe->fax = $this->fax;
+      $societe->no_tva_intracommunautaire = $this->no_tva_intracommunautaire;
+      $societe->siege->adresse = $this->siege->adresse;
+      $societe->siege->code_postal = $this->siege->code_postal;
+      $societe->siege->commune = $this->siege->commune;
+      $societe->siege->pays = $this->siege->pays;
+      $societe->add("date_creation", date('Y-m-d'));
+      $societe->constructId();
+      $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
+      $societe->compte_societe = $this->compte;
+      $societe->remove('contacts');
+      $societe->add('contacts');
+      $societe->contacts->getOrAdd($this->compte);
+      return $societe;
+    }
+
+    public function isActif() {
+        return $this->statut && ($this->statut == self::STATUT_ACTIF);
+    }
+
+    public function getSociete() {
+      return SocieteClient::getInstance()->find($this->identifiant);
+    }
+
+    public function getCodeInsee() {
+        if (!$this->siege->exist('code_insee') && $this->cvi) {
+            $this->siege->add('code_insee',  substr($this->cvi, 0, 5));
+        }
+        if ($this->siege->exist('code_insee')) {
+            return $this->siege->code_insee;
+        }
+        return null;
     }
 }

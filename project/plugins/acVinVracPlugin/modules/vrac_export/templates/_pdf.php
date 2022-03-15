@@ -125,7 +125,7 @@
 			<tr>
 				<th><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?></th>
 				<th>Prix unitaire net HT hors cotisation</th>
-				<?php if ($vrac->has_cotisation_cvo && $vrac->type_transaction == 'vrac'): ?>
+				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<th>Part cotisation payée par l'acheteur</th>
 				<?php endif; ?>
 				<th>Type de prix</th>
@@ -135,7 +135,7 @@
 			<tr>
 				<td><?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></td>
 				<td><?php echoFloat($vrac->prix_unitaire) ?> € HT / <?php if($vrac->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif;?></td>
-				<?php if ($vrac->has_cotisation_cvo && $vrac->type_transaction == 'vrac'): ?>
+				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  € HT / HL</td>
 				<?php endif; ?>
 				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
@@ -147,7 +147,7 @@
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
 		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && ($vrac->isConditionneIr()||$vrac->isConditionneIvse())): ?>
-			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</p>
+			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
 		<?php endif; ?>
 	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
@@ -172,7 +172,7 @@
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
 	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
-		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</p>
+		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
 	<?php endif; ?>
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
@@ -192,14 +192,76 @@
 	<hr />
 	<h2>Clauses</h2>
 	<div class="clauses">
+		<?php if ($vrac->isConditionneIvse()): ?>
+		<table class="tableau_simple">
+				<tbody>
+				<?php if ($vrac->clauses->exist('force_majeure')): ?>
+				<tr>
+					<td colspan="3">
+						<strong><?php echo $vrac->clauses->force_majeure->nom ?></strong><br />
+						<?php echo $vrac->clauses->force_majeure->description ?>
+					</td>
+				</tr>
+				<?php endif; ?>
+				<?php if ($vrac->clauses->exist('resiliation')): ?>
+					<tr>
+						<td colspan="3">
+							<strong><?php echo $vrac->clauses->resiliation->nom ?></strong><br />
+							<?php echo $vrac->clauses->resiliation->description ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Cas de résiliation
+						</td>
+							<td>
+								Délai de préavis
+							</td>
+								<td>
+									Indemnité
+								</td>
+					</tr>
+					<tr>
+						<td>
+							<br />
+							<?php echo $vrac->clause_resiliation_cas ?>
+							<br />
+						</td>
+							<td>
+								<br />
+								<?php echo $vrac->clause_resiliation_preavis ?>
+								<br />
+							</td>
+								<td>
+									<br />
+									<?php echo $vrac->clause_resiliation_indemnite ?>
+									<br />
+								</td>
+					</tr>
+				<?php endif; ?>
+			</tr>
+				</tbody>
+		</table>
+			<?php endif; ?>
 	<?php foreach ($vrac->clauses as $k => $clause): ?>
+		<?php if ($vrac->isConditionneIvse() && ($k=='resiliation'||$k=='force_majeure')): continue; endif; ?>
     <h3><?= $clause['nom'] ?></h3>
     <p><?= $clause['description'] ?></p>
     <?php if ($k == 'resiliation'): ?>
-    <?php if($vrac->clause_resiliation_cas): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
-    <?php if($vrac->clause_resiliation_preavis): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
-    <?php if($vrac->clause_resiliation_indemnite): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_preavis||$vrac->isConditionneIvse()): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_indemnite||$vrac->isConditionneIvse()): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
     <?php endif ?>
+    <?php if ($k == '5' && $vrac->isConditionneIvse()): ?>
+			<?php $complements = explode(',', $vrac->clauses_complementaires) ?>
+			<p>En cochant la case ci-contre, les Parties renoncent expressément au bénéfice de cette clause&nbsp;
+			<?php if (!in_array('transfert_propriete', $complements)): ?>
+			<input type="checkbox" checked="checked" />
+			<?php else: ?>
+			<input type="checkbox" />
+			<?php endif ?>
+			</p>
+		<?php endif ?>
 	<?php endforeach; ?>
 	</div>
 	<?php if($vrac->clauses_complementaires): ?>

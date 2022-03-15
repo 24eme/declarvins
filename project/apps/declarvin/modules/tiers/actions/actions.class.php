@@ -142,12 +142,17 @@ class tiersActions extends sfActions
     	$this->getUser()->setAttribute('last_drm', $infos);
     }
   }
-  
-  public function executeProfil(sfWebRequest $request) 
+
+  public function executeProfil(sfWebRequest $request)
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
+      $this->societe = $this->etablissement->getSociete();
+      if (!$this->societe) {
+          $this->societe = $this->etablissement->getGenerateSociete();
+      }
   	  $this->hasCompte = false;
   	  $this->formEtablissement = null;
+      $this->formSociete = null;
   	  if ($this->compte_id = $this->etablissement->compte) {
   	  	if ($this->compte = acCouchdbManager::getClient('_Compte')->find($this->compte_id)) {
   	    $this->hasCompte = true;;
@@ -170,6 +175,17 @@ class tiersActions extends sfActions
   	          $this->formEtablissement->bind($request->getParameter($this->formEtablissement->getName()));
   	          if ($this->formEtablissement->isValid()) {
   	              $this->formEtablissement->save();
+  	              $this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
+  	              $this->redirect('profil', $this->etablissement);
+  	          }
+  	      }
+  	  }
+  	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->societe) {
+  	      $this->formSociete = new SocieteCodeComptableForm($this->societe);
+  	      if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formSociete->getName())) {
+  	          $this->formSociete->bind($request->getParameter($this->formSociete->getName()));
+  	          if ($this->formSociete->isValid()) {
+  	              $this->formSociete->save();
   	              $this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
   	              $this->redirect('profil', $this->etablissement);
   	          }

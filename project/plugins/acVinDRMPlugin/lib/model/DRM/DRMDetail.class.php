@@ -183,7 +183,7 @@ class DRMDetail extends BaseDRMDetail {
 
     private function getIsFacturableSortiesArray() {
         $mergeSorties = array();
-        if ($this->interpro == Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID) {
+        if (in_array($this->interpro, [Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID, Interpro::INTERPRO_KEY . Interpro::INTERVINS_SUD_EST_ID])) {
             $mergeSorties = DRMDroits::getDroitSortiesInterRhone();
         }
         return $mergeSorties;
@@ -191,7 +191,7 @@ class DRMDetail extends BaseDRMDetail {
 
     private function getIsFacturableEntreeArray() {
         $mergeEntrees = array();
-        if ($this->interpro == Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID) {
+        if (in_array($this->interpro, [Interpro::INTERPRO_KEY . Interpro::INTER_RHONE_ID, Interpro::INTERPRO_KEY . Interpro::INTERVINS_SUD_EST_ID])) {
             $mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
         }
         return $mergeEntrees;
@@ -200,7 +200,7 @@ class DRMDetail extends BaseDRMDetail {
     private function getIsFacturableArray() {
         $mergeSorties = $this->getIsFacturableSortiesArray();
         $mergeEntrees = $this->getIsFacturableEntreeArray();
-        return array_unique(array_merge(DRMDroits::getDroitSorties($mergeSorties), DRMDroits::getDroitSorties($mergeEntrees)));
+        return array_unique(array_merge(DRMDroits::getDroitSorties($mergeSorties), DRMDroits::getDroitEntrees($mergeEntrees)));
     }
 
     public function getVolumeTaxable() {
@@ -518,35 +518,31 @@ class DRMDetail extends BaseDRMDetail {
         $mouvements = array();
         foreach ($this->get($hash) as $key => $volume) {
             if ($volume instanceof acCouchdbJson) {
-
                 continue;
             }
-
+            $type = (strpos($key, 'acq_') === false)? 'SUSPENDU' : 'ACQUITTE';
             $facturableArray = $this->getIsFacturableArray();
-            if (!$this->getCepage()->getConfig()) {
-            	continue;
-            }
-
             $mouvement = DRMMouvement::freeInstance($this->getDocument());
-            $mouvement->produit_hash = $this->getCepage()->getConfig()->getHash();
+            $mouvement->produit_libelle = $this->getLibelle();
+            $mouvement->produit_hash = $this->getCepage()->getHash();
+            $mouvement->type_drm = $type;
+            $mouvement->type_drm_libelle = ucfirst(strtolower($type));
             $mouvement->facture = 0;
             $mouvement->interpro = $this->interpro;
+            $mouvement->region = $this->interpro;
             $mouvement->cvo = $this->getCVOTaux();
-            $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
+            if (!$this->getDocument()->isProducteur()) {
+              $mouvement->facturable = 0;
+            } else {
+              $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
+            }
             $mouvement->version = $this->getDocument()->getVersion();
             $mouvement->date_version = ($this->getDocument()->valide->date_saisie) ? ($this->getDocument()->valide->date_saisie) : date('Y-m-d');
-
-
-//            if ($this->exist($hash . "/" . $key . "_details")) {
-//                $mouvements = array_replace_recursive($mouvements, $this->get($hash . "/" . $key . "_details")->createMouvements($mouvement));
-//                continue;
-//            }
-
+            $mouvement->categorie = FactureClient::FACTURE_LIGNE_MOUVEMENT_TYPE_PROPRIETE;
             $mouvement = $this->createMouvement(clone $mouvement, $hash . '/' . $key, $volume);
             if (!$mouvement) {
                 continue;
             }
-
             if (is_array($mouvement)) {
                 foreach ($mouvement as $mouvement_vrac) {
                     $mouvements[$this->getDocument()->getIdentifiant()][$mouvement_vrac->getMD5Key()] = $mouvement_vrac;
@@ -599,7 +595,7 @@ class DRMDetail extends BaseDRMDetail {
                 $mouvement_vrac->volume = $volume_vrac;
                 $mouvement_vrac->date = $this->getDocument()->getDate();
                 $mouvement_vrac->vrac_numero = $vrac_numero;
-
+                $mouvement_vrac->facturable = 0;
                 $mouvements_vrac[] = $mouvement_vrac;
 
                 $mouvement->volume -= $volume_vrac;

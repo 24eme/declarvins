@@ -42,13 +42,7 @@ Configuration:
               type: collection
               definition:
                 fields:
-                  drm: {  }
-                  vrac: {  }
-                  daids: {  }
-                  dsnegoce: {  }
-                  dae: {  }
-                  factures: { }
-                  ds: { }
+                  '*': {  }
       ciel:
         type: collection
         definition:

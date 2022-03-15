@@ -1,3 +1,4 @@
+<?php use_helper('Display') ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -203,8 +204,8 @@
 				<p>
                 Je soussigné,&nbsp;&nbsp;Nom : <strong><?php echo $contrat->nom ?></strong>&nbsp;&nbsp;Prénom : <strong><?php echo $contrat->prenom ?></strong>&nbsp;&nbsp;<br/>
 				Fonction : <strong><?php echo $contrat->fonction ?></strong><br />
-                <?php if($compte->exist('telephone') && $compte->telephone): ?> Tel : <strong><?php echo $compte->telephone ?></strong><br /><?php endif; ?>
-                <?php if($compte->exist('fax') && $compte->fax): ?>Fax : <strong><?php echo $compte->fax ?></strong><br /><?php endif; ?>
+                <?php if($compte->exist('telephone') && $compte->telephone): ?> Tel : <strong><?php echo display_numero_tel($compte->telephone) ?></strong><br /><?php endif; ?>
+                <?php if($compte->exist('fax') && $compte->fax): ?>Fax : <strong><?php echo display_numero_tel($compte->fax) ?></strong><br /><?php endif; ?>
                 <?php if($compte->exist('email') && $compte->email): ?>Email : <strong><?php echo $compte->email ?></strong><br /><?php endif; ?>
 				</p>
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
@@ -232,8 +233,8 @@
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
 					Ville : <strong><?php echo $etablissement->commune ?></strong><br />
 					Pays : <strong><?php echo $etablissement->pays ?></strong><br />
-					Tél : <strong><?php echo $etablissement->telephone ?></strong><br />
-					Fax : <strong><?php echo $etablissement->fax ?></strong><br />
+					Tél : <strong><?php echo display_numero_tel($etablissement->telephone) ?></strong><br />
+					Fax : <strong><?php echo display_numero_tel($etablissement->fax) ?></strong><br />
 					Email : <strong><?php echo $etablissement->email ?></strong>
 				</p>
                                 <?php $sousFamille = EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille); ?>

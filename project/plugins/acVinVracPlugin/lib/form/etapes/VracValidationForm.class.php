@@ -1,12 +1,12 @@
 <?php
-class VracValidationForm extends VracForm 
+class VracValidationForm extends VracForm
 {
 	protected static $_francize_date = array(
     	'date_signature',
 		'date_stats'
     );
 	public function configure()
-    {	
+    {
 		$this->setWidget('email', new sfWidgetFormInputHidden());
 		$this->setValidator('email', new ValidatorPass());
 		$this->setWidget('brouillon', new sfWidgetFormInputHidden());
@@ -14,7 +14,11 @@ class VracValidationForm extends VracForm
 		$this->setWidget('commentaires', new sfWidgetFormTextarea());
 		$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
 		$this->setWidget('observations', new sfWidgetFormTextarea());
-		$this->setValidator('observations', new sfValidatorString(array('required' => false)));
+        if ($this->getObject()->hasVersion()&&!$this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            $this->setValidator('observations', new sfValidatorString(array('required' => true), array('required' => 'Vous devez préciser les raisons des modifications apportées aux contrats')));
+        } else {
+            $this->setValidator('observations', new sfValidatorString(array('required' => false)));
+        }
 		if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 			$this->setWidget('date_signature', new sfWidgetFormInputText());
 			$this->setValidator('date_signature', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true)));
@@ -35,7 +39,7 @@ class VracValidationForm extends VracForm
 		$vracValideFormName = $this->vracValideFormName();
         $valide = new VracValideForm($this->getObject()->valide);
         $this->embedForm('valide', $valide);
-        
+
         $this->widgetSchema->setNameFormat('vrac_validation[%s]');
     }
 
@@ -60,23 +64,23 @@ class VracValidationForm extends VracForm
         	$this->getObject()->getDocument()->validate($this->user, $this->etablissement);
     	}
     }
-	
 
-    
+
+
 	protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
         foreach (self::$_francize_date as $field) {
-        	if (isset($defaults[$field]) && !empty($defaults[$field])) {
+        	if (isset($defaults[$field]) && !empty($defaults[$field]) && !preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $defaults[$field])) {
         		$date = new DateTime($defaults[$field]);
         		$defaults[$field] = $date->format('d/m/Y');
         	}
         }
         $defaults['email'] = 1;
         $defaults['brouillon'] = 0;
-        $this->setDefaults($defaults);     
+        $this->setDefaults($defaults);
     }
-    
+
     public function hasClauses() {
         return true;
     }

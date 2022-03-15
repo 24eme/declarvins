@@ -1,18 +1,10 @@
 <?php
 
-class DRMDeclaratifValidator extends sfValidatorSchema 
+class DRMDeclaratifValidator extends sfValidatorSchema
 {
 
-    public function configure($options = array(), $messages = array()) 
+    protected function doClean($values)
     {
-        $this->addOption('organisme_field', 'organisme');
-    }
-
-    protected function doClean($values) 
-    {
-        if ($values['caution'] == 0 && !$values['organisme']) {
-        	throw new sfValidatorErrorSchema($this, array($this->getOption('organisme_field') => new sfValidatorError($this, 'required')));
-        }
         if ($values['empreinte_debut'] || $values['empreinte_fin'] || $values['empreinte_nb']) {
         	if (!$values['empreinte_debut']) {
         		throw new sfValidatorErrorSchema($this, array('empreinte_debut' => new sfValidatorError($this, 'required')));
@@ -46,14 +38,14 @@ class DRMDeclaratifValidator extends sfValidatorSchema
         		throw new sfValidatorErrorSchema($this, array('dsa_nb' => new sfValidatorError($this, 'required')));
         	}
         }
-        
+
         if ($this->getOption('throw_global_error')) {
             throw new sfValidatorError($this, 'required');
         }
-        
+
         return $values;
 
-        
+
     }
 
 }

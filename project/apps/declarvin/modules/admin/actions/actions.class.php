@@ -125,6 +125,17 @@ class adminActions extends sfActions
     }
   }
 
+  public function executeEtablissementFacturesLogin(sfWebRequest $request)
+  {
+    $this->form = new FactureSelectionForm();
+    if ($request->isMethod(sfWebRequest::POST)) {
+      $this->form->bind($request->getParameter($this->form->getName()));
+      if ($this->form->isValid()) {
+        	return $this->redirect("facture_societe", array('identifiant' => $this->form->getEtablissement()->identifiant));
+      }
+    }
+  }
+
  /**
   * Executes libelles action
   *

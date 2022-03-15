@@ -3,7 +3,7 @@
 class DRMDetailEntreesForm  extends acCouchdbObjectForm {
 
     public function configure() {
-    	$contraintes = Configuration::getContraintes($this->getObject()->getParent()->getGenre()->code);
+    	$contraintes = Configuration::getContraintes($this->getObject()->getParent());
     	$stockEntrees = Configuration::getStocksEntree(true);
     	$stockEntrees = array_merge($stockEntrees, Configuration::getStocksEntree(false));
     	foreach ($stockEntrees as $key => $item) {

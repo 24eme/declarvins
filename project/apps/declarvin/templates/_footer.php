@@ -6,8 +6,8 @@
 			</div>
 			<ul id="logos_footer">
 				<li><img src="/images/visuels/logo_interpro-ir.png" alt="Inter Rhône" /></li>
-				<li><img src="/images/visuels/logo_interpro-ivse.png" alt="Inter Vins" /></li>
-				<li><img src="/images/visuels/logo_interpro-civp.png" alt="Vins de Provence" /></li>
+				<li><img src="/images/visuels/logo_interpro-ivse.png?20211206" alt="Inter Vins" /></li>
+				<li><img src="/images/visuels/logo_interpro-civp.png?20210817" alt="Vins de Provence" /></li>
 			</ul>
 		</footer>
 		<!-- fin #footer -->

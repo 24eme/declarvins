@@ -219,19 +219,7 @@ class drmActions extends sfActions {
             $hasVersion = $drm->hasVersion();
             $previous = ($drm->getPreviousVersion())? $drm->findDocumentByVersion($drm->getPreviousVersion()) : null;
             $mother = $drm->getMother();
-            $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($etablissement->identifiant, 'DRM');
             $drm->delete();
-
-            if ($hasVersion) {
-            	if ($previous) {
-            		$previous->updateBilan();
-            	} elseif($mother) {
-            		$mother->updateBilan();
-            	}
-            } else {
-            	$bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
-            	$bilan->save();
-            }
             $this->redirect('drm_mon_espace', $etablissement);
         }
         throw new sfException('Vous ne pouvez pas supprimer cette DRM');
@@ -421,6 +409,8 @@ class drmActions extends sfActions {
 
     public function executeReouvrir(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+				$region = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $this->getUser()->getCompte()->getGerantInterpro()->_id : null;
+				$this->forward404Unless($this->drm->isNonFactures($region));
         if ($this->drm->isFictive()) {
         	$this->drm = $this->drm->getDRM();
         }

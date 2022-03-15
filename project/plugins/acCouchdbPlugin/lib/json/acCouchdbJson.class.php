@@ -48,7 +48,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
             }
         }
 
-        throw new acCouchdbException(sprintf('field inexistant : %s:%s', $this->getDocument()->_id, $key_or_hash))  ;
+        throw new acCouchdbException(sprintf('field inexistant "%s" on %s:%s', $key_or_hash, $this->getDocument()->_id, $this->getHash()))  ;
     }
 
     /**
@@ -261,7 +261,10 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         return $array_fields;
     }
 
+    public function __debugInfo() {
 
+        return $this->toArray(true, false);
+    }
 
     public function getParentHash() {
         return preg_replace('/\/[^\/]+$/', '', $this->getHash());

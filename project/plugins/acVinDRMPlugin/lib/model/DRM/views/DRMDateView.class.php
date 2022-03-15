@@ -117,7 +117,8 @@ class DRMDateView extends acCouchdbView
 			self::VALUE_DETAIL_STOCKFIN_WARRANTE,
 			self::VALUE_DETAIL_STOCKFIN_INSTANCE,
 			self::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE,
-			self::VALUE_DETAIL_ENTREES_VCI
+			self::VALUE_DETAIL_ENTREES_VCI,
+            self::VALUE_DETAIL_SORTIES_VRAC_EXPORT
 		];
 	}
 
@@ -138,7 +139,7 @@ class DRMDateView extends acCouchdbView
                     		->getView($this->design, $this->view);
     }
 
-    public function findByInterproAndDates($interpro, $dates, $onlyVrac = false) 
+    public function findByInterproAndDates($interpro, $dates, $onlyVrac = false)
     {
     	if ($onlyVrac) {
       		return $this->client->startkey(array($interpro, $dates['begin'], 1))

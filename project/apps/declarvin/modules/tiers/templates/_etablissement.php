@@ -1,5 +1,6 @@
+<?php use_helper('Display') ?>
 <div id="application_dr" class="clearfix">
-	
+
 	<h1>Votre établissement<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> (archivé)<?php endif; ?></h1>
 	<div id="compteModification">
 		<div class="societe">
@@ -24,8 +25,8 @@
 				<li>CP : <strong><?php echo $etablissement->siege->code_postal ?></strong></li>
 				<li>ville : <strong><?php echo $etablissement->siege->commune ?></strong></li>
 				<li>Pays : <strong><?php echo $etablissement->siege->pays ?></strong></li>
-				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
-				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
+				<li>tel : <strong><?php echo display_numero_tel($etablissement->telephone) ?></strong></li>
+				<li>fax : <strong><?php echo display_numero_tel($etablissement->fax) ?></strong></li>
 			</ul>
 			<ul>
 				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>
@@ -45,15 +46,15 @@
 				<?php if($etablissement->comptabilite->pays): ?><li>Pays : <strong><?php echo $etablissement->comptabilite->pays ?></strong></li><?php endif; ?>
 			</ul>
             <?php endif; ?>
-            
-            <?php if ($form): ?>
+
+            <?php if ($formEtablissement): ?>
             <form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
-		    <?php echo $form->renderHiddenFields(); ?>
-		    <?php echo $form->renderGlobalErrors(); ?>
+		    <?php echo $formEtablissement->renderHiddenFields(); ?>
+		    <?php echo $formEtablissement->renderGlobalErrors(); ?>
 			<div class="ligne_form">
 			    <label>Mois de saisie du stock :</label>
-			    <?php echo $form['mois_stock_debut']->render() ?>
-			    <?php echo $form['mois_stock_debut']->renderError() ?>
+			    <?php echo $formEtablissement['mois_stock_debut']->render(array('style' => 'width: 130px;text-align:right;')) ?>
+			    <?php echo $formEtablissement['mois_stock_debut']->renderError() ?>
     		    <input type="submit" value="Modifier"/>
 			</div>
 			</form>
@@ -62,7 +63,25 @@
 				<li>Mois de saisie du stock : <strong><?php $dateFormat = new sfDateFormat('fr_FR'); echo ucfirst($dateFormat->format(date('Y').'-'.$etablissement->getMoisToSetStock().'-01', 'MMMM')); ?></strong>
 			</ul>
 			<?php endif; ?>
-			
+
+			<?php if ($formSociete): ?>
+			<form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
+				<?php echo $formSociete->renderHiddenFields(); ?>
+				<?php echo $formSociete->renderGlobalErrors(); ?>
+
+            <div class="ligne_form">
+                        <label>&nbsp;</label>
+                        <?php echo $formSociete['code_comptable_client']->renderError() ?>
+            </div>
+			<div class="ligne_form">
+					<label>Code comptable société :</label>
+					<?php echo $formSociete['code_comptable_client']->render(array('style' => 'width: 120px;text-align:right;')) ?>
+					<input type="submit" value="Modifier"/><br />
+					<label>&nbsp;</label><span style="font-size:90%;color;grey;padding-left:5px;">Débute par C</span>
+			</div>
+			</form>
+			<?php endif; ?>
+
 		</div>
 	</div>
 </div>

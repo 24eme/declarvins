@@ -45,7 +45,7 @@ class VracMarcheForm extends VracForm
         	'vin_livre' => 'Le produit sera:',
         	'type_retiraison' => 'Type de retiraison/livraison*:',
         ));
-        $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
+        $min = ($this->getObject()->volume_enleve)? floor($this->getObject()->volume_enleve) : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
         $this->setValidators(array(
         	'has_cotisation_cvo' => new ValidatorPass(),

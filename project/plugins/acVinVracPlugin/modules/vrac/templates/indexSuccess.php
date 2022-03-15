@@ -10,21 +10,34 @@
         	<a class="btn_ajouter" href="<?php echo url_for('interpro_upload_csv_vrac_prix') ?>">Mise à jours des prix</a>
         	<?php endif; ?>
         </h1>
-        
+
         <?php if (!$etablissement): ?>
     	<div id="mon_compte">
         <?php include_partial('admin/etablissement_login_form', array('form' => $form, 'route' => '@vrac_admin'))?>
         </div>
-
-        <div class="filtre">
-        	<?php if($statut !== 0): ?><a href="<?php echo url_for('vrac_admin') ?>">En cours de saisie</a><?php else: ?><strong>En cours de saisie</strong><?php endif; ?> |
-            <?php if($statut !== VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION): ?><a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)) ?>">En attente de validation</a><?php else: ?><strong>En attente de validation</strong><?php endif; ?> | 
-            <?php if($statut !== VracClient::STATUS_CONTRAT_SOLDE): ?><a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_SOLDE)) ?>">Soldé</a><?php else: ?><strong>Soldé</strong><?php endif; ?> | 
-            <?php if($statut !== VracClient::STATUS_CONTRAT_NONSOLDE): ?><a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_NONSOLDE)) ?>">Non soldé</a><?php else: ?><strong>Non soldé</strong><?php endif; ?> | 
-            <?php if($statut !== VracClient::STATUS_CONTRAT_ANNULE): ?><a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_ANNULE)) ?>">Annulé</a><?php else: ?><strong>Annulé</strong><?php endif; ?>
-        </div>
         <?php endif; ?>
-        
-        <?php include_partial('list', array('vracs' => $vracs, 'vracs_attente' => $vracs_attente, 'etablissement' => $etablissement, 'configurationProduit' => $configurationProduit)); ?>
+
+        <div class="filtre" style="text-align:center; margin:50px 0;">
+            <?php if($statut !== 0 && $statut !== VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION && $statut !== VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION): ?><a style="padding:10px; margin: 2px; border: 1px solid #86005b;" href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('sf_subject' => $etablissement)); ?>">En attente</a><?php else: ?><strong style="padding:10px; margin: 2px; background-color: #86005b; color: #fff;">En attente</strong><?php endif; ?>
+            <?php if($statut !== VracClient::STATUS_CONTRAT_NONSOLDE): ?><a style="padding:10px; margin: 2px; border: 1px solid #86005b;" href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_NONSOLDE)) : url_for('vrac_etablissement', array('sf_subject' => $etablissement, 'statut' => VracClient::STATUS_CONTRAT_NONSOLDE)); ?>">Non soldé</a><?php else: ?><strong style="padding:10px; margin: 2px; background-color: #86005b; color: #fff;">Non soldé</strong><?php endif; ?>
+            <?php if($statut !== VracClient::STATUS_CONTRAT_SOLDE): ?><a style="padding:10px; margin: 2px; border: 1px solid #86005b;" href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_SOLDE)) : url_for('vrac_etablissement', array('sf_subject' => $etablissement, 'statut' => VracClient::STATUS_CONTRAT_SOLDE)); ?>">Soldé</a><?php else: ?><strong style="padding:10px; margin: 2px; background-color: #86005b; color: #fff;">Soldé</strong><?php endif; ?>
+            <?php if($statut !== VracClient::STATUS_CONTRAT_ANNULE): ?><a style="padding:10px; margin: 2px; border: 1px solid #86005b;" href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_ANNULE)) : url_for('vrac_etablissement', array('sf_subject' => $etablissement, 'statut' => VracClient::STATUS_CONTRAT_ANNULE)); ?>">Annulé</a><?php else: ?><strong style="padding:10px; margin: 2px; background-color: #86005b; color: #fff;">Annulé</strong><?php endif; ?>
+        </div>
+        <?php if (!count($vracs)): ?>
+            <p style="padding-top: 20px;">
+                Aucun contrat
+                <strong>
+                    <?php if($statut === 0||$statut === VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION||$statut === VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION): ?>
+                        En attente
+                    <?php elseif ($statut === VracClient::STATUS_CONTRAT_NONSOLDE): ?>
+                        Non soldé
+                    <?php elseif ($statut === VracClient::STATUS_CONTRAT_SOLDE): ?>
+                        Soldé
+                    <?php elseif ($statut === VracClient::STATUS_CONTRAT_ANNULE): ?>
+                        Annulé
+                    <?php endif; ?>
+                </strong>
+            </p>
+        <?php else: include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement, 'configurationProduit' => $configurationProduit)); endif; ?>
     </div>
 </section>

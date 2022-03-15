@@ -21,6 +21,11 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_DOUANE = 16;
 	const KEY_CORRESPONDANCE = 17;
 	const KEY_EA = 18;
+	const KEY_CARTE_PRO = 19;
+	const KEY_EMAIL = 20;
+	const KEY_TELEPHONE = 21;
+	const KEY_FAX = 22;
+	const KEY_ADRESSE = 23;
 
 	public static function getInstance() {
 
@@ -57,7 +62,7 @@ class EtablissementAllView extends acCouchdbView
     	foreach($sous_familles as $famille => $sous_famille) {
     		if ($sous_famille)
     			$etablissements = array_merge($etablissements, $this->findByZoneAndSousFamille($zone, $famille, $sous_famille)->rows);
-    		else 
+    		else
     			$etablissements = array_merge($etablissements, $this->findByZoneAndSousFamille($zone, $famille)->rows);
     	}
     	return $etablissements;
@@ -164,7 +169,7 @@ class EtablissementAllView extends acCouchdbView
 
     	if (isset($datas[self::KEY_STATUT]))
     	  	$libelle .= ' / '.$datas[self::KEY_STATUT];
-        
+
         return trim($libelle);
     }
 }

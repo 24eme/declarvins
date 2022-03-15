@@ -420,7 +420,16 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     	}
     	$this->setDonneesCsvCallback($datas);
     }
-    
+
+	public function getCodeComptable() {
+        if (!$this->exist('code_comptable') || !$this->_get('code_comptable')) {
+
+            return $this->getParentNode()->getCodeComptable();
+        }
+
+        return $this->_get('code_comptable');
+    }
+
     protected function setDonneesCsvCallback($datas)
     {
     	$this->getParentNode()->setDonneesCsv($datas);

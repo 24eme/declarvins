@@ -10,9 +10,9 @@ class acVinVracActions extends sfActions
   		}
   		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
   			$configuration = ConfigurationClient::getCurrent();
-  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'vrac'));	
+  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'vrac'));
   		}
-  		
+
   	}
 	public function init($vrac, $etablissement)
 	{
@@ -20,7 +20,7 @@ class acVinVracActions extends sfActions
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
 		$this->configurationVracEtapes = $this->configurationVrac->getEtapes();
 	}
-	
+
 	public function executeIndex(sfWebRequest $request)
     {
     	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -37,9 +37,8 @@ class acVinVracActions extends sfActions
         	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
         }
         $this->vracs = array();
-		$this->vracs_attente = array();
         $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
-        foreach ($contrats->rows as $contrat) {
+        foreach ($contrats as $contrat) {
         		$this->vracs[$contrat->id] = $contrat;
         }
         uksort($this->vracs, array('VracClient', 'sortVracId'));
@@ -50,7 +49,7 @@ class acVinVracActions extends sfActions
 	    	} else {
 	      	$this->form->bind($request->getParameter($this->form->getName()));
 	    	}
-	      
+
 	      if ($this->form->isValid()) {
 	        return $this->redirect("vrac_etablissement", $this->form->getEtablissement());
 	      }
@@ -60,28 +59,25 @@ class acVinVracActions extends sfActions
     public function executeEtablissement(sfWebRequest $request)
 	{
         $this->etablissement = $this->getRoute()->getEtablissement();
-        $this->statut = $request->getParameter('statut', VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION);
-        if (!$this->statut) {
-            $this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
-        }
-        $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
+        $this->statut = $request->getParameter('statut');
+        $this->statut = ($this->statut)? $this->statut : 0;
+        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0))));
         $this->configurationProduit = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
         	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
         }
 		$this->vracs = array();
-		$this->vracs_attente = array();
         $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant)->rows);
         foreach ($contrats as $contrat) {
-        	if (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT] || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
-        		$this->vracs_attente[$contrat->id] = $contrat;
-        	} elseif($contrat->value[VracHistoryView::VRAC_VIEW_STATUT] != VracClient::STATUS_CONTRAT_ANNULE) {
+        	if (
+                (!$this->statut && (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT]||in_array($contrat->value[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))))||
+                ($this->statut === $contrat->value[VracHistoryView::VRAC_VIEW_STATUT])
+            ) {
         		$this->vracs[$contrat->id] = $contrat;
         	}
         }
         uksort($this->vracs, array('VracClient', 'sortVracId'));
-        uksort($this->vracs_attente, array('VracClient', 'sortVracId'));
         $this->setTemplate('index');
 	}
 
@@ -90,12 +86,12 @@ class acVinVracActions extends sfActions
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$vrac = $this->getNewVrac($this->etablissement);
-		$this->redirect(array('sf_route' => 'vrac_etape', 
-                              'sf_subject' => $vrac, 
-                              'step' => $this->configurationVracEtapes->next($vrac->etape), 
+		$this->redirect(array('sf_route' => 'vrac_etape',
+                              'sf_subject' => $vrac,
+                              'step' => $this->configurationVracEtapes->next($vrac->etape),
                               'etablissement' => $this->etablissement));
 	}
-	
+
 	private function getNewVrac($etablissement)
 	{
 		$vrac = new Vrac();
@@ -111,7 +107,7 @@ class acVinVracActions extends sfActions
 	{
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
-        
+
         if (!$this->vrac->isNew())  {
 	        if ($this->vrac->valide->date_validation) {
 	        	$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
@@ -143,7 +139,7 @@ class acVinVracActions extends sfActions
         $this->getResponse()->setHttpHeader('Pragma', '');
         $this->getResponse()->setHttpHeader('Cache-Control', 'public');
         $this->getResponse()->setHttpHeader('Expires', '0');
-        
+
         return $this->renderText($file);
 	}
 
@@ -226,7 +222,7 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         if ($this->vrac->isNew()) {
         	$this->vrac = $this->getNewVrac($this->etablissement);
-        } 
+        }
 		$this->init($this->vrac, $this->etablissement);
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->vrac->isValide() && !$this->vrac->hasVersion()) {
             return $this->redirect('vrac_valide_admin');
@@ -276,14 +272,14 @@ class acVinVracActions extends sfActions
                     	$this->saisieTerminee($this->vrac, $this->interpro);
                     	return $this->redirect('vrac_validation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->vrac->vous_etes));
                     }
-			        
+
 				}
 
 				if (!$this->vrac->has_transaction && $this->configurationVracEtapes->next($this->etape) == 'transaction') {
-					
+
                     return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => $this->configurationVracEtapes->next('transaction'), 'etablissement' => $this->etablissement));
 				}
-				
+
                 return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => $this->configurationVracEtapes->next($this->etape), 'etablissement' => $this->etablissement));
 			}
 		}
@@ -296,7 +292,7 @@ class acVinVracActions extends sfActions
 			throw new sfException('Compte required');
 		}
         $this->vrac = $this->getRoute()->getVrac();
-        $this->etablissement = $this->getRoute()->getEtablissement();   
+        $this->etablissement = $this->getRoute()->getEtablissement();
         $this->soussigne = $request->getParameter('soussigne', null);
         $this->type = $request->getParameter('type', null);
         $this->etape = $request->getParameter('step', null);
@@ -322,17 +318,17 @@ class acVinVracActions extends sfActions
 
             throw new sfException('Type '.$this->type.' n\'existe pas');
         }
-  	
+
         $this->vrac->storeSoussigneInformations($this->type, $this->soussigne);
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
-		
+
         if ($this->type != 'mandataire') {
 			return $this->renderPartial('form_etablissement', array('form' => $this->form[$this->type]));
 		}
-		
-    	return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));	
+
+    	return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));
   }
-  
+
   public function executePdf(sfWebRequest $request)
   {
     	ini_set('memory_limit', '512M');
@@ -341,10 +337,10 @@ class acVinVracActions extends sfActions
     	$this->interpro = $this->getInterpro($this->vrac, $this->etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
-  		
+
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
-  
+
   public function executePdfTransaction(sfWebRequest $request)
   {
     	ini_set('memory_limit', '512M');
@@ -353,10 +349,10 @@ class acVinVracActions extends sfActions
     	$this->interpro = $this->getInterpro($this->vrac, $this->etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac, true);
-  		
+
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
-  
+
 	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
@@ -366,7 +362,7 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
 	}
-	
+
 	public function executeValidation(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
@@ -382,7 +378,7 @@ class acVinVracActions extends sfActions
         if ($this->vrac->isValide()) {
         	if ($this->etablissement)
         		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
-        	else 
+        	else
         		$this->redirect('vrac_valide_admin');
         }
         $this->form = new VracSignatureForm($this->vrac->valide, $this->acteur);
@@ -400,7 +396,7 @@ class acVinVracActions extends sfActions
 			}
 		}
 	}
-	
+
 	public function executeAnnulation(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
@@ -427,19 +423,19 @@ class acVinVracActions extends sfActions
 			}
 		}
 	}
-	
+
 	public function executeValide(sfWebRequest $request) {
 		$this->etablissement = $this->getRoute()->getEtablissement();
     }
-	
+
 	public function executeValideAdmin(sfWebRequest $request) {
 		$this->etablissement = null;
 		$this->setTemplate('valide');
     }
-    
 
 
-    public function executeRectificative(sfWebRequest $request) {    
+
+    public function executeRectificative(sfWebRequest $request) {
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
@@ -455,9 +451,9 @@ class acVinVracActions extends sfActions
         }
         $vrac_rectificative->save(false);
 
-        return $this->redirect(array('sf_route' => 'vrac_etape', 
-                              'sf_subject' => $vrac_rectificative, 
-                              'step' => $this->configurationVracEtapes->getFirst(), 
+        return $this->redirect(array('sf_route' => 'vrac_etape',
+                              'sf_subject' => $vrac_rectificative,
+                              'step' => $this->configurationVracEtapes->getFirst(),
                               'etablissement' => $this->etablissement));
     }
 
@@ -477,9 +473,9 @@ class acVinVracActions extends sfActions
         }
         $vrac_modificative->save(false);
 
-        return $this->redirect(array('sf_route' => 'vrac_etape', 
-                              'sf_subject' => $vrac_modificative, 
-                              'step' => $this->configurationVracEtapes->getFirst(), 
+        return $this->redirect(array('sf_route' => 'vrac_etape',
+                              'sf_subject' => $vrac_modificative,
+                              'step' => $this->configurationVracEtapes->getFirst(),
                               'etablissement' => $this->etablissement));
     }
 
@@ -487,12 +483,12 @@ class acVinVracActions extends sfActions
 	{
 		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $user, $vrac);
 	}
-	
+
 	public function getNumeroContrat()
 	{
 		return VracClient::getInstance()->getNextNoContrat();
 	}
-	
+
 	public function getInterpro($vrac, $etablissement = null)
 	{
 		if ($interpro = $vrac->getProduitInterpro()) {
@@ -503,11 +499,11 @@ class acVinVracActions extends sfActions
         }
         return $this->getUser()->getCompte()->getGerantInterpro();
 	}
-	
+
 
     public function executeModificationRestreinte(sfWebRequest $request) {
         if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-            
+
             return $this->redirect('@acces_interdit');
         }
 
@@ -529,7 +525,7 @@ class acVinVracActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
 
         if(!$this->form->isValid()) {
-            
+
             return sfView::SUCCESS;
         }
 
@@ -542,36 +538,36 @@ class acVinVracActions extends sfActions
 	{
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
-	
+
 	protected function saisieTerminee($vrac, $interpro) {
 		return;
 	}
-	
+
 	protected function contratValide($vrac) {
 		return;
 	}
-	
+
 	protected function contratModifie($vrac) {
 		return;
 	}
-	
+
 	protected function contratValidation($vrac, $acteur) {
 		return;
 	}
-	
+
 	protected function contratAnnulation($vrac, $interpro, $etablissement = null) {
 		return;
 	}
-	
+
 	protected function contratDemandeAnnulation($vrac, $interpro, $etablissement = null) {
 		return;
 	}
-	
+
 	protected function contratRefusAnnulation($vrac, $interpro, $etablissement = null) {
 		return;
 	}
-	
-	
+
+
 
 
 }

@@ -11,6 +11,7 @@
 					<?php if($vrac->vendeur->raison_sociale): ?>
 						<?php echo $vrac->vendeur->raison_sociale; ?>
 					<?php endif; ?>
+					<?php echo ($vrac->vendeur->num_accise)? ' ('.$vrac->vendeur->num_accise.')' : ''; ?>
 					<?php echo ($vrac->vendeur->famille)? ' - '.ucfirst(($vrac->vendeur->famille)) : ''; ?>
 					<?php echo ($vrac->vendeur->sous_famille)? ' '.ucfirst(($vrac->vendeur->sous_famille)) : ''; ?>
 					<?php echo ($vrac->vendeur_tva)? ' (Assujetti à la TVA)' : ''; ?>
@@ -25,6 +26,7 @@
 					<?php if($vrac->acheteur->raison_sociale): ?>
 						<?php echo $vrac->acheteur->raison_sociale; ?>
 					<?php endif; ?>
+					<?php echo ($vrac->acheteur->num_accise)? ' ('.$vrac->acheteur->num_accise.')' : ''; ?>
 					<?php echo ($vrac->acheteur->famille)? ' - '.ucfirst(($vrac->acheteur->famille)) : ''; ?>
 					<?php echo ($vrac->acheteur->sous_famille)? ' '.ucfirst(($vrac->acheteur->sous_famille)) : ''; ?>
 					<?php echo ($vrac->acheteur_tva)? ' (Assujetti à la TVA)' : ''; ?>
@@ -65,11 +67,11 @@
 			</li>
 			<li>
 				<span>Label(s) :</span>
-				<span><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) ?></span>				
+				<span><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) ?></span>
 			</li>
 			<li>
 				<span>Mention(s) :</span>
-				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) ?></span>				
+				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) ?></span>
 			</li>
 			<?php $mentions = $vrac->getMentions()->getRawValue()->toArray() ?>
 			<?php if (in_array('chdo', $mentions)): ?>
@@ -146,7 +148,7 @@
 				<span>Prix unitaire net :</span>
 				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
 			</li>
-			<?php if ($vrac->type_transaction == 'vrac'): ?>
+			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
 				<span><?php echo $vrac->getCvoUnitaire() ?> € HT / HL</span>
@@ -166,6 +168,11 @@
 				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
 			</li>
 			<?php endif; ?>
+			<?php else: ?>
+			<li>
+				<span>Prix total :</span>
+				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+			</li>
 			<?php endif; ?>
 			<li>
 				<span>Type de prix :</span>
@@ -191,7 +198,7 @@
 				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->hasAcompteInfo()): ?>
 					<li>
 						<span>Rappel:</span>
-						<span>Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</span>
+						<span>Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</span>
 					</li>
 				<?php endif; ?>
 				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
@@ -224,7 +231,7 @@
 				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></span>
 			</li>
 			<?php endif; ?>
-			
+
 		</ul>
 		<?php if($editer_etape): ?>
 		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -287,7 +294,7 @@
 				<div class="lot">
 
 					<p><span>Numéro du lot :</span> <?php echo $lot->numero ?></p>
-					
+
 					<?php if($lot->cuves): ?>
 					<div class="cuves">
 						<p><span>Détail :</span></p>
@@ -334,22 +341,22 @@
 				        </table>
 					</div>
 					<?php endif; ?>
-					
+
 					<?php if (!is_null($lot->metayage)): ?>
 					<p><span>Métayage :</span> <?php echo ($lot->metayage)? 'Oui' : 'Non'; ?></p>
-						<?php if($lot->bailleur): ?>	
-						<p><span>Nom du bailleur et volumes :</span> <?php echo $lot->bailleur ?></p>	
+						<?php if($lot->bailleur): ?>
+						<p><span>Nom du bailleur et volumes :</span> <?php echo $lot->bailleur ?></p>
 						<?php endif; ?>
 					<?php endif; ?>
-					
+
 					<?php if ($lot->degre): ?>
 					<p><span>Degré :</span> <?php echo $lot->degre ?></p>
 					<?php endif; ?>
-					
+
 					<?php if (!is_null($lot->presence_allergenes)): ?>
 					<p><span>Présence d'allergènes :</span> <?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></p>
 					<?php endif; ?>
-				
+
 				</div>
 				<?php endforeach; ?>
 			</li>
@@ -389,12 +396,12 @@
 	</li>
 	<?php endif; ?>
 	<?php endif; ?>
-    <?php if ($vrac->hasEnlevements() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+    <?php if ($vrac->hasEnlevements()): ?>
     <li id="recap_enlevements" style="margin-top: 15px;">
 		<h3>Enlevements</h3>
 		<ul>
-			<?php 
-				foreach ($vrac->enlevements as $drm => $enlevement): 
+			<?php
+				foreach ($vrac->enlevements as $drm => $enlevement):
 				if ($d = DRMClient::getInstance()->find($drm)):
 			?>
 			<li>

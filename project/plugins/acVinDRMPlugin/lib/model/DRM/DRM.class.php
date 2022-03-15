@@ -82,6 +82,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->declarant->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $this->declarant->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR;
     }
 
+    public function isProducteur() {
+        return $this->declarant->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR;
+    }
+
     public function getCielLot() {
         return ($this->isNegoce())? 'lot1' : 'lot2';
     }
@@ -361,7 +365,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function hasStocksEpuise() {
         $hasStock = false;
-        foreach ($details as $detail) {
+        foreach ($this->getDetails() as $detail) {
             if ($detail->total > 0 || $detail->acq_total > 0) {
                 $hasStock = true;
                 break;
@@ -849,13 +853,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return false;
     }
 
-	public function save($updateBilan = true) {
-        parent::save();
-        if ($updateBilan) {
-        	$this->updateBilan();
-        }
-    }
-
     protected function getHistoriqueAbstract() {
 
         return DRMClient::getInstance()->getDRMHistorique($this->identifiant);
@@ -938,8 +935,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->declaratif->daa->debut ||
                 $this->declaratif->daa->fin ||
                 $this->declaratif->dsa->debut ||
-                $this->declaratif->dsa->debut ||
-                $this->declaratif->adhesion_emcs_gamma
+                $this->declaratif->dsa->debut
         ) {
 
             return true;
@@ -1165,6 +1161,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT;
         }
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
+    }
+
+    public function getObservationsProduit() {
+        $obs = array();
+        foreach ($this->getDetails() as $detail) {
+            if ($detail->observations) {
+                $obs[] = $detail;
+            }
+        }
+        return $obs;
     }
 
     public function addObservationProduit($hash, $observation)
@@ -1472,14 +1478,21 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->mouvement_document->facturerMouvements();
     }
 
-    public function isFactures() {
-
-        return $this->mouvement_document->isFactures();
+    public function isFactures($region = null) {
+        foreach($this->getMouvements() as $mouvements) {
+            foreach($mouvements as $mouvement) {
+                if($mouvement->facture) {
+                    if (!$region||($region && $mouvement->region == $region)) {
+                      return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
-    public function isNonFactures() {
-
-        return $this->mouvement_document->isNonFactures();
+    public function isNonFactures($region = null) {
+        return !$this->isFactures($region);
     }
 
     public function clearMouvements() {
@@ -1488,16 +1501,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     /*     * ** FIN DES MOUVEMENTS *** */
-
-
-    /* CREATION BILAN */
-
-    public function updateBilan() {
-       $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($this->identifiant, 'DRM');
-       $bilan->updateEtablissement();
-       $bilan->updateFromDRM($this);
-       $bilan->save();
-    }
 
 
     /* FIN DES MOUVEMENTS *** */

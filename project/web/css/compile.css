@@ -3236,7 +3236,7 @@ p#date_drm {
   text-align: right;
 }
 .drm_vracs .contrat_vracs tbody td input.ui-autocomplete-input {
-  width: 550px;
+  width: 450px;
 }
 .drm_vracs .contrat_vracs tbody td.supprimer {
   text-align: center;

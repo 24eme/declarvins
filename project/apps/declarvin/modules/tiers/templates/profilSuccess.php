@@ -19,9 +19,9 @@
 				</div>
 			</div>
 		<?php endif; ?>
-		
+
 		<div id="visualisation_profil">
-			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'form' => $formEtablissement)); ?>
+			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'formEtablissement' => $formEtablissement, 'formSociete' => $formSociete)); ?>
 		</div>
 
 		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>

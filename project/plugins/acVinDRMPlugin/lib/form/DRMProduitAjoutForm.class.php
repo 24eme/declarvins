@@ -29,9 +29,9 @@ class DRMProduitAjoutForm extends acCouchdbForm
             'libelle' => new sfWidgetFormInput(),
         ));
         $this->widgetSchema->setLabels(array(
-            'hashref' => 'Produit: ',
-            'label' => 'Label: ',
-            'libelle' => 'Libelle CIEL: ',
+            'hashref' => 'Produit ou code INAO : ',
+            'label' => 'Label : ',
+            'libelle' => 'Libelle CIEL* : ',
             'disponible' => 'Volume disponible : ',
         ));
 

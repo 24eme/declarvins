@@ -1,5 +1,5 @@
 <?php
-class VracConditionForm extends VracForm 
+class VracConditionForm extends VracForm
 {
    	public function configure()
     {
@@ -38,17 +38,16 @@ class VracConditionForm extends VracForm
         if (count($this->getTypesTransaction()) < 2) {
             unset($this['type_transaction']);
         }
-  		
+
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
 
     protected function doUpdateObject($values) {
-      $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
       if (!$values['contrat_pluriannuel']) {
           $values['reference_contrat_pluriannuel'] = null;
       }
-      parent::doUpdateObject($values); 
+      parent::doUpdateObject($values);
       if (!$this->getObject()->annexe) {
           $this->getObject()->annexe = 0;
       }
@@ -59,29 +58,30 @@ class VracConditionForm extends VracForm
             }
         }
         $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
+        $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
     }
 
     protected function updateDefaultsFromObject() {
-      parent::updateDefaultsFromObject();    
+      parent::updateDefaultsFromObject();
       $this->setDefault('cas_particulier', (($this->getObject()->cas_particulier) ? $this->getObject()->cas_particulier : null));
       if (is_null($this->getObject()->export)) {
           $this->setDefault('export', 0);
       }
       if (is_null($this->getObject()->annexe)) {
         $this->setDefault('annexe', 0);
-      }   
+      }
       if (is_null($this->getObject()->bailleur_metayer)) {
         $this->setDefault('bailleur_metayer', 0);
-      }    
+      }
       if (!$this->getObject()->contrat_pluriannuel) {
         $this->setDefault('contrat_pluriannuel', '0');
       } else {
           $this->setDefault('contrat_pluriannuel', '1');
       }
-      
+
       if (is_null($this->getObject()->type_transaction)) {
         $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
-      }      
+      }
     }
 
     public function conditionneIVSE() {

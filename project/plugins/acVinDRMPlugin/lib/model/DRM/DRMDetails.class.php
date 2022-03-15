@@ -7,7 +7,7 @@
 class DRMDetails extends BaseDRMDetails {
 
 	public function getProduit($labels = array(), $complement_libelle = null) {
-		$slug = self::hashifyLabels($labels, $complement_libelle);
+		$slug = self::hashifyLabels($labels, $this->checkComplementLibelle($complement_libelle));
 		$keys = array_keys($this->toArray());
 		foreach ($keys as $key) {
 		    if ($slug == $key) {
@@ -24,7 +24,7 @@ class DRMDetails extends BaseDRMDetails {
 	}
 
 	public function addProduit($labels = array(), $complement_libelle = null) {
-		$detail = $this->add(self::hashifyLabels($labels, $complement_libelle));
+		$detail = $this->add(self::hashifyLabels($labels, $this->checkComplementLibelle($complement_libelle)));
 		$lab = array();
 		foreach ($labels as $label) {
 			$lab[] = $label;
@@ -42,6 +42,13 @@ class DRMDetails extends BaseDRMDetails {
 			return KeyInflector::slugify(self::getLabelKeyFromArray($labels));
 		}
 		return md5(KeyInflector::slugify(self::getLabelKeyFromArray($labels)).$complement_libelle);
+	}
+
+	protected function checkComplementLibelle($complement_libelle = null) {
+			if (trim($complement_libelle) == trim($this->getParent()->getLibelle())) {
+				$complement_libelle = null;
+			}
+			return $complement_libelle;
 	}
 
 	protected static function getLabelKeyFromArray($labels) {

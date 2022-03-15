@@ -29,10 +29,17 @@
 
     	<?php $drmCiel = $drm->getOrAdd('ciel');  ?>
 
-        <?php if ($drm->isValidee()): ?>
+        <?php
+          if ($drm->isValidee()):
+            $region = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
+            $isFacture = $drm->isFactures($region);
+        ?>
 
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if(!$isFacture && !$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
+            <?php endif; ?>
+            <?php if($isFacture): ?>
+            <p style="text-align: right; margin-bottom: 10px;"><strong>DRM facturée</strong></p>
             <?php endif; ?>
             <div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
@@ -131,24 +138,6 @@
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
             <?php include_partial('drm/mouvements', array('interpro' => $interpro, 'configurationProduits' => $configurationProduits, 'mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <?php endif; ?>
-
-        <?php if ($drm->exist('observations') && $drm->observations): ?>
-            <div style="padding: 0 0 30px 0" class="tableau_ajouts_liquidations">
-                <h2>
-					<strong>Observations</strong>
-				</h2>
-                <table class="tableau_recap">
-                	<?php $i=0; foreach ($drm->getDetails() as $detail): if (!$detail->observations) {continue;} ?>
-                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
-                				<td style="width: 332px;"><?php echo $detail->getLibelle() ?></td>
-                				<td style="text-align: left;">
-                        			<pre><?php echo $detail->observations ?></pre>
-                        		</td>
-                    		</tr>
-                    	<?php $i++; endforeach; ?>
-                </table>
-            </div>
-        <?php endif; ?>
 
         <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">

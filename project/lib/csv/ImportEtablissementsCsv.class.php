@@ -15,7 +15,7 @@ class ImportEtablissementsCsv {
     	$this->_ldap = new Ldap();
         $file_uri = $interpro->getAttachmentUri("etablissements.csv");
         $this->_interpro = $interpro;
-        $this->_csv = array();
+        $this->_csv = $this->_interpro->getEtablissementsArrayFromGrcFile();
         $interproClient = InterproClient::getInstance();
         $this->_zoneClient = ConfigurationZoneClient::getInstance();
         $interpros = $interproClient->getAllInterpros();
@@ -27,24 +27,12 @@ class ImportEtablissementsCsv {
         foreach ($zones as $z) {
         	$this->_zones[$z] = $this->_zoneClient->find($z);
         }
-    	if (@file_get_contents($file_uri)) {
-	        $handler = fopen($file_uri, 'r');
-	        if (!$handler) {
-	            throw new Exception('Cannot open csv file anymore');
-	        }
-	        while (($line = fgetcsv($handler, 0, ";")) !== FALSE) {
-	            if (!preg_match('/^#/', trim($line[EtablissementCsv::COL_ID]))) {
-	                $this->_csv[] = $line;
-	            }
-	        }
-	        fclose($handler);
-    	}
     }
-    
+
     public function getErrors() {
     	return $this->_errors;
     }
-    
+
     protected function existLine($ligne, $line)
     {
     	$errors = array();
