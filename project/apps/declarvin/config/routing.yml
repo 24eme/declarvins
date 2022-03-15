@@ -358,8 +358,16 @@ oioc_compte_password:
   url:   /oioc/compte-password/:login
   param: { module: CompteOIOC, action: redefinitionPassword }
   options: { segment_separators: ["/"] }
- 
-  
+
+# Statistiques
+statistiques_bilan_drm:
+  url:   /admin/statistiques/bilan-drm
+  param: { module: statistique, action: bilanDrm }
+
+statistiques_demat_drm:
+  url:   /admin/statistiques/demat-drm
+  param: { module: statistique, action: dematDrm }
+
 # Statiques
 statiques:
   url:   /statiques
