@@ -16,7 +16,7 @@ class DRMValidationForm extends acCouchdbObjectForm
       if($this->getOption('is_admin')) {
         $this->setWidget('commentaires', new sfWidgetFormTextarea());
         $this->getWidget('commentaires')->setLabel("Commentaires BO");
-        $this->setValidator('commentaires', new sfValidatorString(array('required' => true)));
+        $this->setValidator('commentaires', new sfValidatorString(array('required' => ($this->getObject()->hasVersion())? true : false)));
       }
 
       $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants')));

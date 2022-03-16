@@ -9,11 +9,6 @@
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
-		<!--
-        <li<?php if ($active == 'alertes'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@alertes?reset_filters=true') ?>">Alertes</a>
-		</li>
-		 -->
 		 <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'statistiques'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Rapports</a>
@@ -84,19 +79,6 @@
 			<li<?php if ($subactive == 'demat_drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_demat_drm') ?>">Démat. DRM</a>
 			</li>
-			<!--
-			<li<?php if ($subactive == 'drm'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('statistiques_drm') ?>">DRM</a>
-			</li>
-			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('statistiques_vrac') ?>">Contrat interprofessionnel</a>
-			</li>
-			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('statistiques_drm') ?>">DAI/DS</a>
-			</li>
-			<li class="options_recherche">
-				<a href="#">Options de recherche</a>
-			</li> -->
 			<?php endif; ?>
 		<?php endif; ?>
 	</ul>

@@ -499,20 +499,28 @@ class ediActions extends sfActions
 
   public function executeGetBilanDrmEtablissement(sfWebRequest $request)
   {
-  	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
   	$result = array(array('Période', 'Code statut', 'Libellé statut'));
-  	$bilanClient = BilanClient::getInstance();
-  	$find = false;
-  	if ($bilan = $bilanClient->findByIdentifiantAndType($etablissement, 'DRM')) {
-  		foreach ($bilan->periodes as $periode => $datas) {
-  			if (!$find && !$datas->id_drm) { continue; }
-  			$find = true;
-  			$result[] = array(str_replace('-', '', $periode), $bilanClient->getStatutSimple($datas->statut), $bilanClient->getStatutLibelleSimple($datas->statut));
-  		}
-  	}
+    $historique = new DRMHistorique($etablissement);
+    $drms = $historique->getDRMs();
+    $libelles = DRMClient::getAllLibellesStatusBilan();
+    $item = 0;
+    foreach ($drms as $d) {
+        if ($item >= 23) {
+            break;
+        }
+        if (isset($result[$d->periode])) {
+            continue;
+        }
+        $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($d->identifiant, $d->periode);
+        $statut = $drm->getStatutBilan();
+        if (in_array($statut, array(DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT, DRMClient::DRM_STATUS_BILAN_CONTRAT_MANQUANT, DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT))) {
+            $statut = DRMClient::DRM_STATUS_BILAN_VALIDE;
+        }
+        $result[] = array(str_replace('-', '', $drm->periode), $statut, $libelles[$statut]);
+        $item++;
+    }
   	return $this->renderSimpleCsv($result, "bilan");
   }
 
