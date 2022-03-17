@@ -53,7 +53,7 @@ class EtablissementFamilles
     	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
     	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
     	"negociant_union" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
-    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD, EtablissementDroit::DROIT_DS),
+    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD, EtablissementDroit::DROIT_DS, EtablissementDroit::DROIT_SV12),
     	"courtier" => array(EtablissementDroit::DROIT_VRAC)
     );
 
