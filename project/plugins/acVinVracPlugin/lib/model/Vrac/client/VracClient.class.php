@@ -16,7 +16,14 @@ class VracClient extends acCouchdbClient {
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
     const STATUS_CONTRAT_ATTENTE_VALIDATION = 'ATTENTE_VALIDATION';
     const STATUS_CONTRAT_ATTENTE_ANNULATION= 'ATTENTE_ANNULATION';
-    
+
+    const FIRST_SV12_CAMPAGNE = "2021-2022";
+
+    public static $types_transaction = array('' => '', VracClient::TYPE_TRANSACTION_RAISINS => 'Raisins',
+        VracClient::TYPE_TRANSACTION_MOUTS => 'Moûts',
+        VracClient::TYPE_TRANSACTION_VIN_VRAC => 'Vin en vrac',
+        VracClient::TYPE_TRANSACTION_VIN_BOUTEILLE => 'Vin conditionné');
+
     protected $_acteurs = array(self::VRAC_TYPE_VENDEUR, self::VRAC_TYPE_ACHETEUR, self::VRAC_TYPE_COURTIER);
     
     protected $_status_contrat = array(self::STATUS_CONTRAT_SOLDE, 
@@ -273,5 +280,20 @@ class VracClient extends acCouchdbClient {
 
     public function retrieveAllVracs($interpro, $startDate) {
         return VracDateView::getInstance()->findByInterproAndDate($interpro, $startDate);
+    }
+
+    public function listCampagneByEtablissementId($identifiant) {
+        return ConfigurationClient::getInstance()->getCampagneVinicole()->fillCampagnesList(self::FIRST_SV12_CAMPAGNE);
+    }
+
+    // Compatibilite module giilda SV12
+    public function retrieveBySoussigneAndType($soussigneId, $campagne, $type, $limit = null) {
+        $obj = new stdClass();
+        $obj->rows = array();
+        return $obj;
+    }
+
+    public static function getTypes() {
+        return self::$types_transaction;
     }
  }

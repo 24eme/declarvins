@@ -39,4 +39,9 @@ class VracConfiguration
 
         return $this->configuration['prix_appellations'];
     }
+
+	public function getRepartitionCvo()
+	{
+		return (isset($this->configuration['repartition_cvo']))? $this->configuration['repartition_cvo'] : 0;
+	}
 }
