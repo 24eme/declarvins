@@ -1,26 +1,11 @@
-<cas:entities>
-<?php if ($compte->exist("tiers") && $compte->tiers): ?>
-<?php foreach ($compte->tiers as $k => $t): $e = EtablissementClient::getInstance()->find($t->id); ?>
-    <cas:entity>
-        <cas:raison_sociale><?php echo htmlspecialchars($t->raison_sociale, ENT_XML1, 'UTF-8'); ?></cas:raison_sociale>
-<?php if ($e->cvi): ?>
-        <cas:cvi><?php echo $e->cvi; ?></cas:cvi>
-<?php endif; ?>
-<?php if ($e->siret): ?>
-        <cas:siret><?php echo $e->siret; ?></cas:siret>
-<?php endif; ?>
-<?php if ($e->no_accises): ?>
-        <cas:accise><?php echo $e->no_accises; ?></cas:accise>
-<?php endif; ?>
-<?php if ($e->no_tva_intracommunautaire): ?>
-        <cas:tva><?php echo $e->no_tva_intracommunautaire; ?></cas:tva>
-<?php endif; ?>
-    </cas:entity>
+<cas:viticonnect_entities>
+<cas:viticonnect_entities_number><?php echo $entities_number; ?></cas:viticonnect_entities_number>
+<?php foreach($entities as $k => $a): $i = 0; ?>
+<?php foreach($a as $v) : $i++ ; if ($v): ?>
+<cas:viticonnect_entity_<?php echo $i; ?>_<?php echo $k; ?>><?php echo $v ?></cas:viticonnect_entity_<?php echo $i; ?>_<?php echo $k; ?>>
+<?php endif; endforeach; ?>
 <?php endforeach; ?>
-<?php else: ?>
-    <cas:entity>
-        <cas:raison_sociale><?php echo htmlspecialchars($compte->nom, ENT_XML1, 'UTF-8'); ?></cas:raison_sociale>
-        <cas:email><?php echo $compte->email; ?></cas:email>
-    </cas:entity>
-<?php endif; ?>
-</cas:entities>
+<?php foreach($entities as $k => $a): $a = array_filter($a->getRawValue()); if (count($a)):  ?>
+<cas:viticonnect_entities_all_<?php echo $k; ?>><?php echo implode('|', $a); ?></cas:viticonnect_entities_all_<?php echo $k; ?>>
+<?php endif; endforeach; ?>
+</cas:viticonnect_entities>

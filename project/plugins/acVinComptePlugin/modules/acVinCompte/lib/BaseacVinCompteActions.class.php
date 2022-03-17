@@ -211,7 +211,21 @@ class BaseacVinCompteActions extends sfActions
             die("Unauthorized");
         }
 
-        $this->compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($login);
+        $compte = acCouchdbManager::getClient('Compte')->retrieveByLogin($login);
+        $this->entities = array('raison_sociale' => [], 'cvi' => [], 'siret' => [], 'ppm' => [], 'accise' => [], 'tva' => []);
+        $this->entities_number = 0;
+        if ($compte->exist("tiers") && $compte->tiers) {
+            foreach ($compte->tiers as $k => $t) {
+                $e = EtablissementClient::getInstance()->find($t->id);
+                $this->entities['raison_sociale'][] = htmlspecialchars($t->raison_sociale, ENT_XML1, 'UTF-8');
+                $this->entities['cvi'][] = str_replace(' ', '', $e->cvi);
+                $this->entities['siret'][] = str_replace(' ', '', $e->siret);
+                $this->entities['accises'][] = str_replace(' ', '', $e->no_accises);
+                $this->entities['tva'][] = str_replace(' ', '', $e->no_tva_intracommunautaire);
+                $this->entities_number++;
+            }
+        }
+
         $this->setLayout(false);
         $this->getResponse()->setHttpHeader('Content-Type', 'text/plain');
 
