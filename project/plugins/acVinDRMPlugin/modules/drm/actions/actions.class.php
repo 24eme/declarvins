@@ -432,7 +432,8 @@ class drmActions extends sfActions {
   		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
+        if ($isAdmin) {
         	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
         }
         $this->drm->storeDroits(array());
@@ -443,7 +444,8 @@ class drmActions extends sfActions {
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->engagements = array();
         }
-        $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
+
+        $this->form = new DRMValidationForm($this->drm, array('is_admin' => $isAdmin, 'engagements' => $this->engagements));
 
         $this->drmCiel = $this->drm->getOrAdd('ciel');
 
@@ -484,7 +486,7 @@ class drmActions extends sfActions {
         $this->drm->validate();
         // CIEL ==============
 	    $erreursCiel = false;
-        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        if (!$isAdmin) {
         if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion() && $request->getParameter('transfer_ciel')) {
 	        if ($this->etablissement->isTransmissionCiel()) {
 	        	$export = new DRMExportCsvEdi($this->drm);
@@ -570,7 +572,19 @@ class drmActions extends sfActions {
     	  }
 	    }
 
+        $this->notifieVolumesSurveilles($this->drm);
+
         return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
+    }
+
+    private function notifieVolumesSurveilles($drm) {
+        foreach (InterproClient::$_drm_interpros as $interpro) {
+            $volumes = $drm->getVolumesSurveilles($interpro);
+            if ($volumes) {
+                Email::getInstance()->volumesSurveilles($drm, $volumes, InterproClient::getInstance()->find($interpro));
+            }
+        }
+
     }
 
     private function updateLastDrmSession($etablissement) {

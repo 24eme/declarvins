@@ -107,11 +107,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$configurationProduit = null;
     		$isAutre = false;
     		if ($idDouane = $this->getIdDouane($datas)) {
-          $lp = '';
-          if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-              $lp = trim($result[1]).' ';
-          }
-    			$configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
+              $lp = '';
+              if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+                  $lp = trim($result[1]).' ';
+              }
+    		  $configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
     		}
     		if (!$configurationProduit) {
     			$configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
@@ -138,7 +138,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
                 $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
-            } elseif (trim($libelle) != trim($libelleConfig)) {
+            } elseif ($libelle && trim($libelle) != trim($libelleConfig)) {
                 $libellePerso = trim($libelle);
             }
 
@@ -153,9 +153,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     $complement = strtoupper(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
                     if (in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
                         $label = $complement;
-                    } else{
-                        $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+                        $libellePerso = trim($libelle);
                     }
+                    $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                 }
             }
             $produit = $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
@@ -168,7 +168,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $produit->libelle = $libellePerso;
           }
 
-      		if ($complement_libelle) {
+      		if ($complement_libelle && !$label) {
                 $l = $libellePerso;
                 if ($libellePerso != $complement_libelle) {
                   $l .= ' '.$complement_libelle;
@@ -185,6 +185,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
             $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
             $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
+      		if ($isAutre) {
+                $cache2datas[$this->getCacheKeyFromData($datas)]['inao'] = $this->getIdDouane($datas);
+      		}
         }
 
         //on prépare les vérifications
@@ -209,6 +212,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
                 $p->libelle = $cache2datas[$cacheid]['libelle'];
+                if (isset($cache2datas[$cacheid]['inao'])) {
+              		    $p->add('inao', $cache2datas[$cacheid]['inao']);
+                }
                 $this->cache[$cacheid] = $p;
             }
         }
@@ -276,6 +282,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $p = $this->drm->getOrAdd($new_hash);
                 $p->libelle = $cache2datas[$cacheid]['libelle'];
                 $p->labels = array($cache2datas[$cacheid]['label']);
+                if (isset($cache2datas[$cacheid]['inao'])) {
+              		    $p->add('inao', $cache2datas[$cacheid]['inao']);
+                }
                 $this->cache[$cacheid] = $p;
             }
         }

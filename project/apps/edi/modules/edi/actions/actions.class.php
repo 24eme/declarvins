@@ -10,11 +10,11 @@
  */
 class ediActions extends sfActions
 {
-	
+
   protected function getCompte() {
   	return acCouchdbManager::getClient('_Compte')->retrieveByLogin($_SERVER['PHP_AUTH_USER']);
   }
-	
+
   protected function securizeInterpro($interpro)
   {
     if (!preg_match('/^INTERPRO-/', $interpro)) {
@@ -499,20 +499,28 @@ class ediActions extends sfActions
 
   public function executeGetBilanDrmEtablissement(sfWebRequest $request)
   {
-  	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
   	$result = array(array('Période', 'Code statut', 'Libellé statut'));
-  	$bilanClient = BilanClient::getInstance();
-  	$find = false;
-  	if ($bilan = $bilanClient->findByIdentifiantAndType($etablissement, 'DRM')) {
-  		foreach ($bilan->periodes as $periode => $datas) {
-  			if (!$find && !$datas->id_drm) { continue; }
-  			$find = true;
-  			$result[] = array(str_replace('-', '', $periode), $bilanClient->getStatutSimple($datas->statut), $bilanClient->getStatutLibelleSimple($datas->statut));
-  		}
-  	}
+    $historique = new DRMHistorique($etablissement);
+    $drms = $historique->getDRMs();
+    $libelles = DRMClient::getAllLibellesStatusBilan();
+    $item = 0;
+    foreach ($drms as $d) {
+        if ($item >= 23) {
+            break;
+        }
+        if (isset($result[$d->periode])) {
+            continue;
+        }
+        $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($d->identifiant, $d->periode);
+        $statut = $drm->getStatutBilan();
+        if (in_array($statut, array(DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT, DRMClient::DRM_STATUS_BILAN_CONTRAT_MANQUANT, DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT))) {
+            $statut = DRMClient::DRM_STATUS_BILAN_VALIDE;
+        }
+        $result[] = array(str_replace('-', '', $drm->periode), $statut, $libelles[$statut]);
+        $item++;
+    }
   	return $this->renderSimpleCsv($result, "bilan");
   }
 
@@ -675,33 +683,22 @@ class ediActions extends sfActions
 
   public function executeStreamStatistiquesBilanDrm(sfWebRequest $request)
   {
-  	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);
     $campagne = $request->getParameter('campagne');
     $interpro = $request->getParameter('interpro');
     $this->securizeInterpro($interpro);
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
-    if (!preg_match("/[0-9]{4}-[0-9]{4}/", $campagne)) {
+    if (!preg_match("/^[0-9]{4}-[0-9]{4}$/", $campagne)) {
     	return $this->renderText("Campagne invalide");
     }
-    if (!preg_match('/^INTERPRO-/', $interpro)) {
-		$interpro = 'INTERPRO-'.$interpro;
+	$interpro = str_replace('INTERPRO-', '', $interpro);
+    $targetFile = sfConfig::get('sf_web_dir').'/exports/BILANDRM/'.$interpro.'/'.$campagne.'/bilan.csv';
+    if (!file_exists($targetFile)) {
+        throw new Exception('Aucun bilan pour la configuration : interpro : '.$interpro.' campagne : '.$campagne.' !');
     }
-  	$statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
+    $csv_file = file_get_contents($targetFile);
 
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;';
-        foreach ($statistiquesBilan->getPeriodes() as $periode) {
-            $csv_file .= "$periode;";
-        }
-        $csv_file .= "\n";
-
-        foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
-            $csv_file .= $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
-            $csv_file .= $statistiquesBilan->getStatutsDrmsCsv($bilanOperateur);
-            $csv_file .= "\n";
-        }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne.".csv");
@@ -710,58 +707,30 @@ class ediActions extends sfActions
 
   public function executeStreamStatistiquesBilanDrmManquantes(sfWebRequest $request)
   {
-  	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);
     $campagne = $request->getParameter('campagne');
     $periode = $request->getParameter('periode');
     $interpro = $request->getParameter('interpro');
-    //$this->securizeInterpro($interpro);
+    $this->securizeInterpro($interpro);
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
     if (!preg_match("/[0-9]{4}-[0-9]{4}/", $campagne)) {
     	return $this->renderText("Campagne invalide");
     }
-        if (!$periode) {
-            return $this->renderText("Pas de periode définie");
-        }
-    if (!preg_match('/^INTERPRO-/', $interpro)) {
-		$interpro = 'INTERPRO-'.$interpro;
+    if (!$periode) {
+        return $this->renderText("Pas de periode définie");
     }
-  	$statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
+	$periode = str_replace('-', '', $periode);
+    if (!preg_match("/^[0-9]{6}$/", $periode)) {
+    	return $this->renderText("Periode invalide");
+    }
+    $interpro = str_replace('INTERPRO-', '', $interpro);
+    $targetFile = sfConfig::get('sf_web_dir').'/exports/BILANDRM/'.$interpro.'/'.$campagne.'/'.$periode.'_bilan.csv';
+    if (!file_exists($targetFile)) {
+        throw new Exception('Aucun bilan N-1 pour la configuration : interpro : '.$interpro.' campagne : '.$campagne.' periode : '.$periode.' !');
+    }
+    $csv_file = file_get_contents($targetFile);
 
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France';
-        $csv_file .= "\n";
-
-        foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
-        	$statutPeriode = (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? DRMClient::DRM_STATUS_BILAN_A_SAISIR : $bilanOperateur->periodes[$periode]->statut;
-        	if ($statutPeriode == DRMClient::DRM_STATUS_BILAN_A_SAISIR) {
-        		$periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
-        		if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($bilanOperateur->identifiant, $periodeNmoins1)) {
-        			foreach ($drm->getDetails() as $detail) {
-        				if ($detail->interpro != $interpro) {
-        					continue;
-        				}
-        				$appCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getAppellation()->getKey());
-        				$lieuCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getLieu()->getKey());
-        				$cepCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getCepage()->getKey());
-        				$csv_file .= $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
-        				$csv_file .=  $detail->getCertification()->getKey().";";
-        				$csv_file .=  $detail->getGenre()->getCode().";";
-        				$csv_file .=  $appCode.";";
-        				$csv_file .=  $lieuCode.";";
-        				$csv_file .=  $detail->getCouleur()->getKey().";";
-        				$csv_file .=  $cepCode.";";
-        				$csv_file .=  $detail->getStockBilan().";";
-        				$csv_file .=  $detail->total_debut_mois.";";
-        				$csv_file .=  $detail->sorties->vrac.";";
-        				$csv_file .=  $detail->sorties->export.";";
-        				$csv_file .=  $detail->sorties->factures.";";
-        				$csv_file .=  $detail->sorties->crd."\n";
-        			}
-        		}
-        	}
-        }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne."_".$periode.".csv");

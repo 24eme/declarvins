@@ -12,6 +12,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected $mouvement_document = null;
     protected $version_document = null;
     protected $suivante = null;
+    protected static $mvtsSurveilles = array(
+        'Entrée replacement en suspension CRD' => 'entrees/crd',
+        'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
+        'Sortie autres' => 'sorties/pertes'
+    );
 
     public function __construct() {
         parent::__construct();
@@ -785,15 +790,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             foreach ($detail->vrac as $numero => $vrac) {
                 $volume = $vrac->volume;
                 if ($contrat = VracClient::getInstance()->findByNumContrat($numero)) {
-                    if ($contrat->isSolde()) {
-                        $contrat->desolder();
-                    }
                     $contrat->soustraitVolumeEnleve($volume);
                     $enlevements = $contrat->getOrAdd('enlevements');
                     if ($enlevements->exist($this->_id)) {
                     	$enlevements->remove($this->_id);
                     }
-                    $contrat->save(false);
+                    $contrat->save();
                 }
             }
         }
@@ -1514,6 +1516,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $e = $this->getEtablissementObject();
         $produits = $this->getDetails();
 
+        return $produits; // on ne s'occupe plus de la drm précédente car peut poser probleme
+
         if ($this->isMoisOuvert()) {
             return $produits;
         }
@@ -1822,5 +1826,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       }
     }
     return ($droit && $produits && !$hasDS);
+  }
+
+  public function getVolumesSurveilles($interpro) {
+      $volumes = array();
+      foreach ($this->getDetails($interpro) as $detail) {
+          foreach(self::$mvtsSurveilles as $mvtLibelle => $mvtHash) {
+              if ($detail->get($mvtHash) > 0) {
+                  $volumes[$detail->getLibelle().' - '.$mvtLibelle] = $detail->get($mvtHash);
+              }
+          }
+      }
+      return $volumes;
   }
 }

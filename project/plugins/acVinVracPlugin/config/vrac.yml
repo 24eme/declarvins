@@ -1,0 +1,7 @@
+all:
+  configuration:
+    vrac:
+      prix_appellations:
+        APPELLATION_CODE:
+          min: prix_min
+          max: prix_max

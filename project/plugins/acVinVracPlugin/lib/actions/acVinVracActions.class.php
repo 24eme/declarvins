@@ -267,6 +267,7 @@ class acVinVracActions extends sfActions
                     	} elseif ($sendEmail) {
                     		$this->saisieTerminee($this->vrac, $this->vrac->getProduitInterpro());
                     	}
+                        $this->notifiePrixNonCoherent($this->vrac);
                     	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {
                     	$this->saisieTerminee($this->vrac, $this->interpro);
@@ -356,9 +357,6 @@ class acVinVracActions extends sfActions
 	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
-        /*if (!$this->vrac->isValide()) {
-            throw new sfException("Le contrat vrac n°".$this->vrac->numero_contrat." n'est pas validé");
-        }*/
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
 	}
@@ -390,12 +388,19 @@ class acVinVracActions extends sfActions
 				$this->getUser()->setFlash('valide', true);
 				if ($this->vrac->isValide()) {
 					$this->contratValide($this->vrac);
+                    $this->notifiePrixNonCoherent($this->vrac);
 					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
 				$this->redirect('vrac_validation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->acteur));
 			}
 		}
 	}
+
+    private function notifiePrixNonCoherent($vrac) {
+        if ($vrac->isVolumesAppellationsEnAlerte()) {
+            Email::getInstance()->prixNonCoherent($vrac);
+        }
+    }
 
 	public function executeAnnulation(sfWebRequest $request)
 	{
