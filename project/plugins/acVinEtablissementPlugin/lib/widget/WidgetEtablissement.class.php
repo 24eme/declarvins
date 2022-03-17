@@ -22,7 +22,8 @@ class WidgetEtablissement extends sfWidgetFormChoice
         $this->addOption('only_actif', 0);
         $this->addOption('admin', 0);
         $this->addRequiredOption('interpro_id', null);
-        $this->setAttribute('class', 'autocomplete'); 
+        $this->setAttribute('class', 'autocomplete');
+        $this->addOption('autofocus', array());
     }
 
     public function setOption($name, $value) {
@@ -30,6 +31,10 @@ class WidgetEtablissement extends sfWidgetFormChoice
 
         if($name == 'familles') {
             $this->setAttribute('data-ajax', $this->getUrlAutocomplete());
+        }
+
+        if($name == 'autofocus') {
+            $this->setAttribute('autofocus','autofocus');
         }
 
         return $this;

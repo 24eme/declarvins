@@ -38,6 +38,9 @@ class EtablissementChoiceForm extends baseForm {
 
         return $this->getValidator('identifiant')->getDocument();
     }
-    
-}
 
+    public function configureAutfocus() {
+        $this->getWidget('identifiant')->setOption('autofocus','autofocus');
+    }
+
+}
