@@ -142,6 +142,18 @@ class adminActions extends sfActions
     }
   }
 
+  public function executeEtablissementSV12Login(sfWebRequest $request)
+  {
+      $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => array(EtablissementFamilles::FAMILLE_NEGOCIANT => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR)));
+    if ($request->isMethod(sfWebRequest::POST)) {
+      $this->form->bind($request->getParameter($this->form->getName()));
+      if ($this->form->isValid()) {
+        	return $this->redirect("sv12_etablissement", array('identifiant' => $this->form->getEtablissement()->identifiant));
+      }
+    }
+  }
+
  /**
   * Executes libelles action
   *

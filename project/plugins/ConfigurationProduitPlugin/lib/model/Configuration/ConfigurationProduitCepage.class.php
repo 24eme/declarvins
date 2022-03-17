@@ -33,7 +33,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     		return array();
     	}  
         return array($this->getHash() => $this);
-        
+
+    }
+
+    public function getDroitCVO($date = null) {
+        return $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date, true);
     }
     
     protected function getProduitWithTaux($date = null) {

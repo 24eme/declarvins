@@ -1,6 +1,7 @@
 all:
   configuration:
     vrac:
+      repartition_cvo: 100
       prix_appellations:
         CDR:
           min: 90
