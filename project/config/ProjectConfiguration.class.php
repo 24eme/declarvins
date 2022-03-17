@@ -31,20 +31,20 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('acVinAlertePlugin');
 		$this->enablePlugins('DAIDSPlugin');
 		$this->enablePlugins('acExceptionNotifierPlugin');
-    $this->enablePlugins('acElasticaPlugin');
-    $this->enablePlugins('ConfigurationProduitPlugin');
-    $this->enablePlugins('ConfigurationZonePlugin');
-    $this->enablePlugins('acVinEdiPlugin');
-    $this->enablePlugins('acVinDAEPlugin');
-    $this->enablePlugins('acVinFichierPlugin');
-    $this->enablePlugins('DSNegoceUploadPlugin');
-    $this->enablePlugins('acVinSubventionPlugin');
-    $this->enablePlugins('acVinDSPlugin');
-    $this->enablePlugins('acVinSocietePlugin');
-    $this->enablePlugins('acVinSV12Plugin');
-    $this->enablePlugins('acVinGenerationPlugin');
-    $this->enablePlugins('acVinFacturePlugin');
-    $this->enablePlugins('MandatSepaPlugin');
+        $this->enablePlugins('acElasticaPlugin');
+        $this->enablePlugins('ConfigurationProduitPlugin');
+        $this->enablePlugins('ConfigurationZonePlugin');
+        $this->enablePlugins('acVinEdiPlugin');
+        $this->enablePlugins('acVinDAEPlugin');
+        $this->enablePlugins('acVinFichierPlugin');
+        $this->enablePlugins('DSNegoceUploadPlugin');
+        $this->enablePlugins('acVinSubventionPlugin');
+        $this->enablePlugins('acVinDSPlugin');
+        $this->enablePlugins('acVinSocietePlugin');
+        $this->enablePlugins('acVinSV12Plugin');
+        $this->enablePlugins('acVinGenerationPlugin');
+        $this->enablePlugins('acVinFacturePlugin');
+        $this->enablePlugins('MandatSepaPlugin');
 	}
 
 	public static function getAppRouting()
