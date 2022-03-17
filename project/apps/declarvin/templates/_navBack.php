@@ -29,6 +29,11 @@
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('vrac_admin') ?>">Contrat interprofessionnel</a>
 			</li>
+            <?php if ($configuration->isApplicationOuverte($interpro->_id, 'sv12')): ?>
+			<li<?php if ($subactive == 'sv12'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('sv12') ?>">SV12</a>
+			</li>
+			<?php endif; ?>
 			<?php if ($configuration->isApplicationOuverte($interpro->_id, 'factures')): ?>
 			<li<?php if ($subactive == 'factures'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('facture') ?>">Factures</a>
