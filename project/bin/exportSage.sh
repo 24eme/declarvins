@@ -18,7 +18,7 @@ cat $TMP/factures.csv | awk -F ';' '{print $14}' | sort | uniq | grep 2[0-9][0-9
 done
 
 php symfony export:facture-paiements $SYMFONYTASKOPTIONS > $TMP/paiements.csv
-cat $TMP/paiements.csv | perl bin/convertExportFacture2SAGE.pl | iconv -f UTF8 -t IBM437//TRANSLIT | sed 's/$/\r/' > $TMP/paiements.txt
+cat $TMP/paiements.csv | perl bin/convertExportPaiement2SAGE.pl | iconv -f UTF8 -t IBM437//TRANSLIT | sed 's/$/\r/' > $TMP/paiements.txt
 
 echo -n > $TMP/paiements.sage
 echo  "#FLG 001" | sed 's/$/\r/' >> $TMP/paiements.sage
