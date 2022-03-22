@@ -48,7 +48,7 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
 		 	$date = date('Y-m-d');
 		$cvo = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date, true);
 		$douane = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE, $date, true);
-		return !($cvo && $douane && $cvo->taux == -1 && $douane == -1);
+		return !($cvo && $douane && $cvo->taux == -1 && $douane->taux == -1);
 	}
 
     protected function getProduitWithTaux($date = null) {
