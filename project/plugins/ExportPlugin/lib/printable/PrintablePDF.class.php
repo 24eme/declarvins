@@ -77,5 +77,8 @@ class PrintablePDF extends PrintableOutput {
         }
         return file_get_contents($this->pdf_file);
     }
-}
 
+    public function getFilename() {
+        return $this->pdf_file;
+    }
+}
