@@ -150,7 +150,7 @@
                 </div>
                 <?php endif; ?>
 
-                <?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
+                <?php if (($sf_user->getCompte()->isTiers()) || $drm->isNegoce()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
                 </ul>
@@ -175,7 +175,8 @@
                     	</table>
                     </div>
                 </div>
-
+                <?php endif; ?>
+                <?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="help_popup_drm_stats_euro" title="Message aide"></a></li>
                 </ul>
