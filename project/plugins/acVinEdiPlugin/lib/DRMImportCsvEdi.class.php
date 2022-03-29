@@ -516,7 +516,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			return;
   		}
 
-  		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
+  		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)||$centilisation == '$centilisation') {
   			$isBib = null;
   			if (preg_match('/^(BIB|CL)_([0-9]+)/i', $centilisation, $m)) {
   				$crd = $this->drm->addCrd($categorie, $typeDroit, 'AUTRE', $m[2], ($m[1] == 'BIB'));

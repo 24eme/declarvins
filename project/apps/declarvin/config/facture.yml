@@ -10,6 +10,8 @@ all:
       prefix_sage_divers: null
       tva_compte: "44571500"
       defaut_compte: "70800000"
+      general_compte: "4110000"
+      banque_compte: "51211000"
       type_cvo:
         identifiant_prefix: ""
       type_libre:
