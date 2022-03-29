@@ -30,14 +30,21 @@ class acVinVracActions extends sfActions
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->statut = $request->getParameter('statut');
         $this->statut = ($this->statut)? $this->statut : 0;
-        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0))));
+        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0, 'TOUS'))));
         $this->configurationProduit = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
         	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
         }
         $this->vracs = array();
-        $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
+        if ($this->statut === 'TOUS') {
+            $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro(0, $this->interpro->get('_id'));
+            foreach(VracClient::getInstance()->getStatusContrat() as $stat) {
+                $contrats = array_merge($contrats, VracHistoryView::getInstance()->findLastByStatutAndInterpro($stat, $this->interpro->get('_id')));
+            }
+        } else {
+                $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
+        }
         foreach ($contrats as $contrat) {
         		$this->vracs[$contrat->id] = $contrat;
         }
@@ -61,7 +68,7 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->statut = $request->getParameter('statut');
         $this->statut = ($this->statut)? $this->statut : 0;
-        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0))));
+        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0, 'TOUS'))));
         $this->configurationProduit = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
@@ -71,6 +78,7 @@ class acVinVracActions extends sfActions
         $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant)->rows);
         foreach ($contrats as $contrat) {
         	if (
+                ($this->statut === 'TOUS')||
                 (!$this->statut && (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT]||in_array($contrat->value[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))))||
                 ($this->statut === $contrat->value[VracHistoryView::VRAC_VIEW_STATUT])
             ) {
