@@ -199,15 +199,21 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $check[$produit->getHash()][$cacheid] = 1;
         }
         // Cas d'un nouveau produit avec label ou complement et où un produit DEFAUT existe
+
         foreach ($check as $hash => $array) {
             if (count($array) <= 1) {
                 continue;
             }
             ksort($array);
             $isfirst = true;
+            $typeDroit = null;
             foreach($array as $cacheid => $null) {
                 if ($isfirst) {
                     $isfirst = false;
+                    $typeDroit =  $cache2datas[$cacheid][13];
+                    continue;
+                }
+                if ($typeDroit != $cache2datas[$cacheid][13]) {
                     continue;
                 }
                 $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
