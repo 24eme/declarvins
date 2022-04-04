@@ -326,6 +326,9 @@ EOF;
     }
 
     public function isContratATransmettre($contrat) {
+        if ($contrat->type_transaction !== 'vrac') {
+            return false;
+        }
         if (!$contrat->exist('versement_fa')) {
             return false;
         }
