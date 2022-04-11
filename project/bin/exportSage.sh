@@ -37,4 +37,4 @@ echo "$TMP/factures.sage|factures.sage|Export SAGE des factures"
 echo "$TMP/factures.csv|factures.csv|Export CSV des factures"
 echo "$TMP/paiements.sage|paiements.sage|Export SAGE des paiements"
 echo "$TMP/paiements.csv|paiements.csv|Export CSV des paiements"
-echo "$TMP/paiements.pdf|paiements.pdf|Bordereaux de remise
+echo "$TMP/paiements.pdf|paiements.pdf|Bordereaux de remise"
