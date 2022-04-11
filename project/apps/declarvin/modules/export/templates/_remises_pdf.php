@@ -186,7 +186,7 @@
 
 		<div id="formulaire">
 			<?php
-                $nb = count($remises);
+                $nbRemises = count($remises);
                 $i=0;
 				foreach ($remises as $id => $paiements):
                     $i++;
@@ -251,7 +251,7 @@
                     </td>
                 </tr>
             </table>
-			<?php if ($i < $nb): ?><div class="page_break">&nbsp;</div><?php endif; ?>
+			<?php if ($i < $nbRemises): ?><div class="page_break">&nbsp;</div><?php endif; ?>
             <?php endforeach; ?>
 		</div>
 
