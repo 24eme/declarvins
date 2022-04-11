@@ -22,7 +22,7 @@ cat $TMP/paiements.csv | perl bin/convertExportPaiement2SAGE.pl | iconv -f UTF8 
 
 echo -n > $TMP/paiements.sage
 echo  "#FLG 001" | sed 's/$/\r/' >> $TMP/paiements.sage
-echo "#VER 18" | sed 's/$/\r/' >> $TMP/paiements.sage
+echo "#VER 6" | sed 's/$/\r/' >> $TMP/paiements.sage
 echo "#DEV EUR" | sed 's/$/\r/' >> $TMP/paiements.sage
 cat $TMP/paiements.txt >> $TMP/paiements.sage
 echo "#FIN" | sed 's/$/\r/' >> $TMP/paiements.sage
