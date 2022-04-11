@@ -189,10 +189,10 @@
                 $nb = count($remises);
                 $i=0;
 				foreach ($remises as $id => $paiements):
+                    $i++;
                     if (!count($paiements)) {
                         continue;
                     }
-                    $i++;
                     $remiseInfo = $paiements[0];
 			?>
             <div class="remise">
