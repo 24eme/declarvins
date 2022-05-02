@@ -5,6 +5,7 @@ class EtablissementDroit
     const DROIT_DRM_PAPIER = 'drm_papier';
     const DROIT_DRM_DTI = 'drm_dti';
     const DROIT_VRAC = 'vrac';
+    const DROIT_SV12 = 'sv12';
     const DROIT_DAE = 'dae';
     const DROIT_DAEE = 'daee';
     const DROIT_DSNEGOCEUPLOAD = 'dsnegoceupload';

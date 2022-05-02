@@ -9,9 +9,12 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
       return null;
     }
 
-    public function getProduits($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
-    {      
-        
+    public function getProduits($onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    {
+		if (!$this->isDeclarable()) {
+			return array();
+		}
+
     	if ($onlyForDrmVrac) {
     		if (!$this->getCurrentDrmVrac(true)) {
     			return array();
@@ -33,9 +36,21 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     		return array();
     	}  
         return array($this->getHash() => $this);
-        
+
     }
-    
+
+    public function getDroitCVO($date = null) {
+        return $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date, true);
+    }
+
+	protected function isDeclarable($date = null) {
+        if (!$date)
+		 	$date = date('Y-m-d');
+		$cvo = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date, true);
+		$douane = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE, $date, true);
+		return !($cvo && $douane && $cvo->taux == -1 && $douane->taux == -1);
+	}
+
     protected function getProduitWithTaux($date = null) {
         $date_cvo = (!$date)? date('Y-m-d') : $date;
         $droit = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date_cvo, true);

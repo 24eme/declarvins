@@ -3,3 +3,4 @@ all:
     sv12:
       actif: false
       raisinetmout: false
+      no_viti: true

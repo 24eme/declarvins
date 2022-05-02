@@ -29,12 +29,7 @@ class adminActions extends sfActions
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
   	$admin = (int)$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
 
-    $familles = array(
-    	EtablissementFamilles::FAMILLE_PRODUCTEUR => implode("|",array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)),
-        EtablissementFamilles::FAMILLE_NEGOCIANT => implode("|",array_keys(EtablissementFamilles::getSousFamillesByFamille(EtablissementFamilles::FAMILLE_NEGOCIANT))),
-    );
-
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => $familles));
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));
@@ -43,7 +38,11 @@ class adminActions extends sfActions
     	}
 
       if ($this->form->isValid()) {
+          if ($this->form->getEtablissement()->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER)) {
         	return $this->redirect("drm_mon_espace", $this->form->getEtablissement());
+        } else {
+            return $this->redirect("profil", $this->form->getEtablissement());
+        }
       }
     }
   }
@@ -138,6 +137,18 @@ class adminActions extends sfActions
       $this->form->bind($request->getParameter($this->form->getName()));
       if ($this->form->isValid()) {
         	return $this->redirect("facture_societe", array('identifiant' => $this->form->getEtablissement()->identifiant));
+      }
+    }
+  }
+
+  public function executeEtablissementSV12Login(sfWebRequest $request)
+  {
+      $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => array(EtablissementFamilles::FAMILLE_NEGOCIANT => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR)));
+    if ($request->isMethod(sfWebRequest::POST)) {
+      $this->form->bind($request->getParameter($this->form->getName()));
+      if ($this->form->isValid()) {
+        	return $this->redirect("sv12_etablissement", array('identifiant' => $this->form->getEtablissement()->identifiant));
       }
     }
   }

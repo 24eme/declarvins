@@ -6,6 +6,7 @@ class ConfigurationClient extends acCouchdbClient
 	private static $current = null;
 	protected $countries = null;
 	protected $devises = null;
+    protected $campagne_vinicole_manager = null;
 	protected $configurations = array();
 
 	protected $saltToken = null;
@@ -176,6 +177,16 @@ class ConfigurationClient extends acCouchdbClient
     public function anonymisation($value) {
 
         return hash("ripemd128", $value.$this->getSaltToken());
+    }
+
+
+    public function getCampagneVinicole() {
+        if(is_null($this->campagne_vinicole_manager)) {
+
+            $this->campagne_vinicole_manager = new CampagneManager('08-01');
+        }
+
+        return $this->campagne_vinicole_manager;
     }
 }
 

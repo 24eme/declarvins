@@ -42,7 +42,7 @@ class VracMarcheIrForm extends VracMarcheForm
     {
       $conditions = $this->getConfiguration()->getConditionsPaiement()->toArray();
       $hasEcheancier = false;
-      if ($this->getObject()->type_transaction == 'raisin' && $this->getObject()->contrat_pluriannuel) {
+      if ($this->getObject()->contrat_pluriannuel) {
         $hasEcheancier = true;
       }
       if (!$hasEcheancier && isset($conditions['echeancier_paiement'])) {

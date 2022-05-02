@@ -247,6 +247,14 @@ class Configuration extends BaseConfiguration {
     	return $this->getFormattedCouleursWithoutCode(null, array(ConfigurationZoneClient::ZONE_RHONE => $zone), false, "%g% %a% %m% %l% %co%", false,  $date, $exception);
     }
 
+    public function formatProduitsSV12($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false) {
+        $zones = array(
+            ConfigurationZoneClient::ZONE_RHONE => ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_RHONE),
+            ConfigurationZoneClient::ZONE_IVSE => ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_IVSE)
+        );
+        return $this->getFormattedProduits(null, $zones, null, null, false, $format, $cvoNeg,  $date);
+    }
+
     public function getConfigurationProduitsComplete() {
         $configuration = array();
         foreach ($this->produits->toArray() as $interpro => $configurationProduits) {

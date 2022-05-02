@@ -199,15 +199,21 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $check[$produit->getHash()][$cacheid] = 1;
         }
         // Cas d'un nouveau produit avec label ou complement et où un produit DEFAUT existe
+
         foreach ($check as $hash => $array) {
             if (count($array) <= 1) {
                 continue;
             }
             ksort($array);
             $isfirst = true;
+            $typeDroit = null;
             foreach($array as $cacheid => $null) {
                 if ($isfirst) {
                     $isfirst = false;
+                    $typeDroit =  $cache2datas[$cacheid][13];
+                    continue;
+                }
+                if ($typeDroit != $cache2datas[$cacheid][13]) {
                     continue;
                 }
                 $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
@@ -516,7 +522,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			return;
   		}
 
-  		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
+  		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)||$centilisation == 'AUTRE') {
   			$isBib = null;
   			if (preg_match('/^(BIB|CL)_([0-9]+)/i', $centilisation, $m)) {
   				$crd = $this->drm->addCrd($categorie, $typeDroit, 'AUTRE', $m[2], ($m[1] == 'BIB'));

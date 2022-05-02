@@ -17,6 +17,13 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'sv12') && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_SV12)): ?>
+        <li<?php if ($active == 'sv12'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('sv12_etablissement', $etablissement) ?>">SV12</a>
+        </li>
+        <?php endif; ?>
+        <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'daids')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'daids'): ?> class="actif"<?php endif; ?>>

@@ -262,6 +262,9 @@ etablissement_login_dsnegoce:
 etablissement_login_factures:
   url: /admin/etablissements/factures
   param: {module: admin, action: etablissementFacturesLogin}
+etablissement_login_sv12:
+  url: /admin/etablissements/sv12
+  param: {module: admin, action: etablissementSV12Login}
 
 ## Administration des Comptes
 admin_comptes:
