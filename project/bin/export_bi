@@ -26,6 +26,8 @@ EXPORTDIR_INTERPRO=$EXPORTDIR/$1
 METABASE_SQLITE_INTERPRO=$(echo $METABASE_SQLITE | sed "s/%INTERPRO%/$1/")
 TMPI=$TMP/$1
 
+mkdir -p $EXPORTDIR_INTERPRO $TMPI
+
 echo "#MOUVEMENT;type document;identifiant declarant;campagne;periode;document id;certification;genre;appellation;mention;lieu;couleur;cepage;code produit;type de mouvement;numero vrac du mouvement;detail identifiant;nom declarant;libelle produit;libelle type;volume mouvement;vrac destinataire;detail libelle;date;version document;cvo;facturable;identifiant mouvement;pays export (si export);is_facture;is_vendeur;type de drm;libelle type de drm;date mouvement;famille DRM;extra" > $TMPI/export_bi_mouvements.csv
 curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/mouvement/_view/consultation  | grep "INTERPRO-$1" | sed -f bin/unicode2alpha | sed 's/.*"key":\[/MOUVEMENT;/' | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep '^MOUVEMENT;"' | sed -r 's/"([a-zA-Z ]+),([a-zA-Z ]+)"/\1 \2/g' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed 's/;"\/declaration/;\0/g' | sed 's/"//g' | sed -r 's|[\-]?[0-9]+;$||' | sed 's|/declaration/certifications/||' | sed 's|/genres/|;|' | sed 's|/appellations/|;|' | sed 's|/mentions/|;|' | sed 's|/lieux/|;|' | sed 's|/couleurs/|;|' | sed 's|/cepages/|;|' | sed 's/%/%%/g' | sed 's/-31T00:00:00/-28T00:00:00/g' | awk -F ";" 'BEGIN { OFS=";"} { for(i=1;i<=6;i++) { printf($(i) ";") } for(i=8;i<=14;i++) { printf($(i) ";") } ; printf(";") ; for(i=16;i<=20;i++) { printf($(i) ";") } for(i=22;i <= NF - 4;i++) { printf($(i) ";") } printf($15 ";" $21 ";" $(NF-3)"T00:00:00;"$(NF-2)";"$(NF - 1)";"$(NF)); printf("\n")  }' >> $TMPI/export_bi_mouvements.csv
 
