@@ -1,36 +1,11 @@
 . $(echo $0 | sed 's/[^\/]*$//')config.inc
-
-if test -e $TMP/$PROJET".updateviews.pid"; then
+if test -e $TMPDIR/$COUCHBASE".updateviews.pid"; then
 exit 2;
 fi
 
-echo $$ > $TMP/$PROJET".updateviews.pid"
+echo $$ > $TMPDIR/$COUCHBASE".updateviews.pid"
 
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/ciel/_view/drm
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/compte/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/compte/_view/email
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/convention/_view/inscription
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/document/_view/produit
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/douane/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/date
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/etablissement
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/drmpartenaire
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/vracpartenaire
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/identifiant
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/interpro
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/mouvement/_view/consultation
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/oioc/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/piece/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/statistiques/_view/bilan
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/statistiques/_view/n-1
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/all
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/date
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/etablissement
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/history
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/oioc
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/soussigneidentifiant
 
-rm $TMP/$PROJET".updateviews.pid"
+curl -s "http://$COUCHHOST:$COUCHDBPORT/$COUCHBASE/_all_docs?startkey=%22_design%2F%22&endkey=%22_design0%22&include_docs=true" | sed -r 's/key.+views//' | cut -d "," -f 1,2 | cut -d ":" -f 2,3 | sed 's|","":{"|/_view/|' | sed 's/"//g' | grep "_design" | sed "s|^|curl -s http://$COUCHHOST:$COUCHDBPORT/$COUCHBASE/|" | bash > /dev/null
+
+rm $TMPDIR/$COUCHBASE".updateviews.pid"
