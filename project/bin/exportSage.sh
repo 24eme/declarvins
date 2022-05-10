@@ -27,8 +27,10 @@ echo "#DEV EUR" | sed 's/$/\r/' >> $TMP/paiements.sage
 cat $TMP/paiements.txt >> $TMP/paiements.sage
 echo "#FIN" | sed 's/$/\r/' >> $TMP/paiements.sage
 
-cat $TMP/paiements.csv | awk -F ';' '{print $12}' | sort | uniq | grep 2[0-9][0-9][0-9] | while read FACTUREID; do
-    php symfony paiements:setexported $SYMFONYTASKOPTIONS $FACTUREID;
+cat $TMP/paiements.csv | awk -F ';' '{print $12 ";" $5 }' | sort | uniq | grep 2[0-9][0-9][0-9] | while read ligne; do
+    FACTUREID=$(echo -n $ligne | cut -d ';' -f 1)
+    FACTUREDATE=$(echo -n $ligne | cut -d ';' -f 2)
+    php symfony paiements:setexported $SYMFONYTASKOPTIONS $FACTUREID $FACTUREDATE;
 done
 
 php symfony paiements:generate-remises $SYMFONYTASKOPTIONS --filename="$TMP/paiements.pdf" $TMP/paiements.csv
