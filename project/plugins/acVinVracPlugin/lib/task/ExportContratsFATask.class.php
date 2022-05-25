@@ -14,7 +14,7 @@
 class ExportContratsFATask extends sfBaseTask {
 
     const INTERPRO = 'INTERPRO-IVSE';
-    const STARTDATE = '2021-12-31T99:99:99';
+    const STARTDATE = '2022-03-31T99:99:99';
     const ACCOMPTE = 0;
 
     const CSV_FA_NUM_LIGNE = 0;
@@ -52,6 +52,7 @@ class ExportContratsFATask extends sfBaseTask {
     const CSV_FA_CODE_DEST = 32; // Z
     const CSV_FA_LAST = 33; // 0
 
+    protected $cm = null;
     protected $produitsConfiguration = null;
     protected $correspondancesInsee = array();
     protected $correspondancesCepages = array();
@@ -92,6 +93,7 @@ EOF;
 
         $this->makeInseeCorrespondances();
         $this->makeCepagesCorrespondances();
+        $this->cm = new CampagneManager('08-01');
         $this->produitsConfiguration = ConfigurationProduitClient::getInstance()->getByInterpro(self::INTERPRO);
         $interpro = self::INTERPRO;
         $region = strtoupper($arguments['region']);
@@ -207,8 +209,9 @@ EOF;
             } else {
                 $type_contrat = "M";
             }
+            $campagne = $this->cm->getCampagneByDate($contrat->valide->date_validation);
             $ligne[self::CSV_FA_TYPE_CONTRAT] = $type_contrat; // V pour vrac, M pour Mout
-            $ligne[self::CSV_FA_CAMPAGNE] = substr($contrat->valide->date_validation, 0, 4);
+            $ligne[self::CSV_FA_CAMPAGNE] = substr($campagne, 0, 4);
             $ligne[self::CSV_FA_NUM_ARCHIVAGE] = substr($contrat->numero_contrat, 5); // Est-ce notre numéro d'archivage?
             $ligne[self::CSV_FA_CODE_LIEU_VISA] = $code;
             $ligne[self::CSV_FA_CODE_ACTION] = ($contrat->exist("versement_fa")) ? $contrat->versement_fa : 'NC'; // NC = Nouveau Contrat, SC = Supprimé Contrat, MC = Modifié Contrat
