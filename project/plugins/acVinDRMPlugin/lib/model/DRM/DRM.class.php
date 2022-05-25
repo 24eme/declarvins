@@ -1628,7 +1628,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	public function getExportableRna() {
 		$result = array();
 		if ($this->declaratif->exist('rna')) {
-			foreach ($this->declaratif->rna as $rna) {
+			foreach ($this->declaratif->rna as $rna) if ($rna->date) {
 				$result[] = array(
 					DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION => $rna->date,
 					DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST => $rna->accises,
