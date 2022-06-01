@@ -250,9 +250,9 @@ EOF;
             $ligne[self::CSV_FA_COULEUR] = $this->getCouleurIGP($type_contrat, $produit);
             $ligne[self::CSV_FA_ANNEE_RECOLTE] = (substr($contrat->millesime, 0, 4))? substr($contrat->millesime, 0, 4) : substr($contrat->valide->date_saisie, 0, 4); //??
             $ligne[self::CSV_FA_CODE_ELABORATION] = 'N'; //DISABLED ($contrat->conditionnement_crd == 'NEGOCE_ACHEMINE') ? "P" : "N";
-            $ligne[self::CSV_FA_VOLUME] = $this->sprintFloatFr($contrat->volume_propose);
+            $ligne[self::CSV_FA_VOLUME] = sprintf($contrat->volume_propose, '0.3f');
             $ligne[self::CSV_FA_DEGRE] = "12.0"; //DISABLED sprintf("%0.1f", $contrat->degre);
-            $ligne[self::CSV_FA_PRIX] = $this->sprintFloatFr($contrat->prix_unitaire);
+            $ligne[self::CSV_FA_PRIX] = sprintf($contrat->prix_unitaire, '0.2f');
             $ligne[self::CSV_FA_UNITE_PRIX] = 'H';
             $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCepageCode($produit->libelle);
             $ligne[self::CSV_FA_CODE_DEST] = ($type_contrat == 'M') ? 'E' : "Z";
@@ -339,10 +339,6 @@ EOF;
             return true;
         }
         return false;
-    }
-
-    private function sprintFloatFr($f) {
-        return sprintf($f, '0.4f');
     }
 
 }
