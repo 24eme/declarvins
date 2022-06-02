@@ -332,6 +332,9 @@ EOF;
         if ($contrat->type_transaction !== 'vrac') {
             return false;
         }
+        if (!$contrat->referente) {
+            return false;
+        }
         if (!$contrat->exist('versement_fa')) {
             return false;
         }
