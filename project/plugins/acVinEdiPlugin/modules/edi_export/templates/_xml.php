@@ -98,10 +98,10 @@
 				<achats><?php echo $crd->entrees->achats ?></achats>
 <?php endif; ?>
 <?php if ($crd->entrees->excedents): ?>
-				<retours><?php echo $crd->entrees->excedents ?></retours>
+				<excedents><?php echo $crd->entrees->excedents ?></excedents>
 <?php endif; ?>
 <?php if ($crd->entrees->retours): ?>
-				<excedents><?php echo $crd->entrees->retours ?></excedents>
+				<retours><?php echo $crd->entrees->retours ?></retours>
 <?php endif; ?>
         		</entrees-capsules>
 <?php endif; ?>
