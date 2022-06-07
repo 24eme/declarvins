@@ -402,7 +402,7 @@
 		<ul>
 			<?php
 				foreach ($vrac->enlevements as $drm => $enlevement):
-				if ($d = DRMClient::getInstance()->find($drm)):
+				if ($drm && ($d = DRMClient::getInstance()->find($drm))):
 			?>
 			<li>
 				<span><a href="<?php echo url_for('drm_visualisation', $d); ?>"><?php echo $drm ?></a></span>
