@@ -423,6 +423,9 @@ class DRMClient extends acCouchdbClient {
         $mois = $drmSplited[(3+$ind)];
         $date = $annee . '-' . $mois . '-01';
         $df = format_date($date, 'MMMM yyyy', 'fr_FR');
+        if (isset($drmSplited[(4+$ind)])) {
+            $df .= ' ('.$drmSplited[(4+$ind)].')';
+        }
         return elision($origineLibelle, $df);
     }
 
