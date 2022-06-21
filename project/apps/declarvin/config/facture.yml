@@ -31,6 +31,7 @@ all:
           20140101: 20.0
       export_shell: "%sf_root_dir%/bin/exportSage.sh"
       export_relances: true
+      export_sv12: true
       teledeclaration: false
       seuil_minimum: 100
       code_journal: 'BQ1'
