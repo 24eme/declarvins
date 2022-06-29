@@ -70,6 +70,14 @@ class VracValidationForm extends VracForm
 	protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
+        if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            if (!isset($defaults['date_signature'])||empty($defaults['date_signature'])) {
+                $defaults['date_signature'] = date('Y-m-d');
+            }
+            if (!isset($defaults['date_stats'])||empty($defaults['date_stats'])) {
+                $defaults['date_stats'] = date('Y-m-d');
+            }
+        }
         foreach (self::$_francize_date as $field) {
         	if (isset($defaults[$field]) && !empty($defaults[$field]) && !preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $defaults[$field])) {
         		$date = new DateTime($defaults[$field]);

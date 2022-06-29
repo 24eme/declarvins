@@ -14,7 +14,7 @@
 class ExportContratsFATask extends sfBaseTask {
 
     const INTERPRO = 'INTERPRO-IVSE';
-    const STARTDATE = '2021-12-31T99:99:99';
+    const STARTDATE = '2022-03-31T99:99:99';
     const ACCOMPTE = 0;
 
     const CSV_FA_NUM_LIGNE = 0;
@@ -52,6 +52,7 @@ class ExportContratsFATask extends sfBaseTask {
     const CSV_FA_CODE_DEST = 32; // Z
     const CSV_FA_LAST = 33; // 0
 
+    protected $cm = null;
     protected $produitsConfiguration = null;
     protected $correspondancesInsee = array();
     protected $correspondancesCepages = array();
@@ -92,6 +93,7 @@ EOF;
 
         $this->makeInseeCorrespondances();
         $this->makeCepagesCorrespondances();
+        $this->cm = new CampagneManager('08-01');
         $this->produitsConfiguration = ConfigurationProduitClient::getInstance()->getByInterpro(self::INTERPRO);
         $interpro = self::INTERPRO;
         $region = strtoupper($arguments['region']);
@@ -207,8 +209,9 @@ EOF;
             } else {
                 $type_contrat = "M";
             }
+            $campagne = $this->cm->getCampagneByDate($contrat->valide->date_validation);
             $ligne[self::CSV_FA_TYPE_CONTRAT] = $type_contrat; // V pour vrac, M pour Mout
-            $ligne[self::CSV_FA_CAMPAGNE] = substr($contrat->valide->date_validation, 0, 4);
+            $ligne[self::CSV_FA_CAMPAGNE] = substr($campagne, 0, 4);
             $ligne[self::CSV_FA_NUM_ARCHIVAGE] = substr($contrat->numero_contrat, 5); // Est-ce notre numéro d'archivage?
             $ligne[self::CSV_FA_CODE_LIEU_VISA] = $code;
             $ligne[self::CSV_FA_CODE_ACTION] = ($contrat->exist("versement_fa")) ? $contrat->versement_fa : 'NC'; // NC = Nouveau Contrat, SC = Supprimé Contrat, MC = Modifié Contrat
@@ -247,9 +250,9 @@ EOF;
             $ligne[self::CSV_FA_COULEUR] = $this->getCouleurIGP($type_contrat, $produit);
             $ligne[self::CSV_FA_ANNEE_RECOLTE] = (substr($contrat->millesime, 0, 4))? substr($contrat->millesime, 0, 4) : substr($contrat->valide->date_saisie, 0, 4); //??
             $ligne[self::CSV_FA_CODE_ELABORATION] = 'N'; //DISABLED ($contrat->conditionnement_crd == 'NEGOCE_ACHEMINE') ? "P" : "N";
-            $ligne[self::CSV_FA_VOLUME] = $this->sprintFloatFr($contrat->volume_propose);
+            $ligne[self::CSV_FA_VOLUME] = sprintf($contrat->volume_propose, '0.3f');
             $ligne[self::CSV_FA_DEGRE] = "12.0"; //DISABLED sprintf("%0.1f", $contrat->degre);
-            $ligne[self::CSV_FA_PRIX] = $this->sprintFloatFr($contrat->prix_unitaire);
+            $ligne[self::CSV_FA_PRIX] = sprintf($contrat->prix_unitaire, '0.2f');
             $ligne[self::CSV_FA_UNITE_PRIX] = 'H';
             $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCepageCode($produit->libelle);
             $ligne[self::CSV_FA_CODE_DEST] = ($type_contrat == 'M') ? 'E' : "Z";
@@ -326,6 +329,12 @@ EOF;
     }
 
     public function isContratATransmettre($contrat) {
+        if ($contrat->type_transaction !== 'vrac') {
+            return false;
+        }
+        if (!$contrat->referente) {
+            return false;
+        }
         if (!$contrat->exist('versement_fa')) {
             return false;
         }
@@ -333,10 +342,6 @@ EOF;
             return true;
         }
         return false;
-    }
-
-    private function sprintFloatFr($f) {
-        return sprintf($f, '0.4f');
     }
 
 }

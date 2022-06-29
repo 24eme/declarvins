@@ -38,21 +38,27 @@ class drmComponents extends sfComponents {
                 'validation' => 5 + $nbCertifs,
             );
         }
-        
+
         $etablissement = $this->drm->getEtablissementObject();
         if (!$etablissement->isTransmissionCiel()) {
             if ($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
-                
+
             } else {
             	unset($this->numeros['crd']);
             	$this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
             	$this->numeros['validation'] = $this->numeros['validation'] - 1;
             }
         }
-        
+
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        	unset($this->numeros['declaratif'], $this->numeros['crd']);
-        	$this->numeros['validation'] = $this->numeros['validation'] - 2;
+            if (isset($this->numeros['crd'])) {
+                unset($this->numeros['crd']);
+            	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+            }
+            if (isset($this->numeros['declaratif'])) {
+                unset($this->numeros['declaratif']);
+            	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+            }
         }
 
         if (isset($this->numeros[$this->drm->etape]))
