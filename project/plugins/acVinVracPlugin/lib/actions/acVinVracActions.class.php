@@ -492,6 +492,30 @@ class acVinVracActions extends sfActions
                               'etablissement' => $this->etablissement));
     }
 
+    public function executePluriannuel(sfWebRequest $request) {
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->init($this->vrac, $this->etablissement);
+
+        $master = $this->vrac->getMaster();
+        $vrac_rectificative = $master->generateRectificative();
+        $vrac_rectificative->reference_contrat_pluriannuel = $master->numero_contrat;
+        if ($conflict = VracClient::getInstance()->find($vrac_rectificative->makeId())) {
+        	$conflict->delete();
+        }
+        if ($this->etablissement) {
+        	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
+        } else {
+        	$vrac_rectificative->vous_etes = null;
+        }
+        $vrac_rectificative->save(false);
+
+        return $this->redirect(array('sf_route' => 'vrac_etape',
+                              'sf_subject' => $vrac_rectificative,
+                              'step' =>$this->configurationVracEtapes->next($this->configurationVracEtapes->getFirst()),
+                              'etablissement' => $this->etablissement));
+    }
+
 	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $user, $vrac)
 	{
 		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $user, $vrac);
