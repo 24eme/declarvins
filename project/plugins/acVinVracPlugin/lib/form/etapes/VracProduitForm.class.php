@@ -34,7 +34,7 @@ class VracProduitForm extends VracForm
         		'mentions_libelle_chdo' => new sfValidatorString(array('required' => false)),
         		'mentions_libelle_marque' => new sfValidatorString(array('required' => false)),
 	        ));
-
+            $this->editablizeInputPluriannuel();
 	        $this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
 	        $this->widgetSchema->setLabel('non_millesime', '&nbsp;');
 	        $this->setValidator('non_millesime', new ValidatorPass());

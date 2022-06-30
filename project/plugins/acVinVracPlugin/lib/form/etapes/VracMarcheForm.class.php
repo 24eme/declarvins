@@ -77,18 +77,19 @@ class VracMarcheForm extends VracForm
     		$this->widgetSchema->setLabel('cepages', 'Cépage:');
     		$this->setValidator('cepages', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($cepages))));
     	}
-    	
+
     	if ($this->getObject()->type_transaction != 'raisin') {
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT hors cotisation*:');
     	} else {
     	    $this->getWidget('volume_propose')->setLabel('Quantité totale proposée*:');
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT*:');
     	}
-    	
+
     	if ($this->getObject()->type_transaction != 'vrac') {
     	    unset($this['type_retiraison']);
     	}
-    		
+
+        $this->editablizeInputPluriannuel();
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
     }

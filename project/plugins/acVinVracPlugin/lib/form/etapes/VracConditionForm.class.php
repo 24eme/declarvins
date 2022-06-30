@@ -43,6 +43,7 @@ class VracConditionForm extends VracForm
             $this->configurePluriannuel();
         }
 
+        $this->editablizeInputPluriannuel();
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
