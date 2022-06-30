@@ -5,7 +5,7 @@
 .vracs
 {
     color: @couleur-e1;
-    .disabled 
+    .disabled
     {
         background-color: #cdcdcd;
         color: #3e3e3e;
@@ -80,7 +80,7 @@
                             width: 14px;
                         }
                     }
-                } 
+                }
             }
         }
 
@@ -212,7 +212,7 @@
     }
 
     input[type=text], textarea
-    {    
+    {
         .border-radius(3px);
         .box-shadow(0px 1px 3px rgba(0, 0, 0, 0.4) inset);
 
@@ -226,7 +226,7 @@
         }
     }
     textarea
-    {    
+    {
         width: 500px;
         height: 40px;
     }
@@ -247,7 +247,7 @@
         &[disabled] { background: @couleur-a5; }
     }
 
-    #mon_compte 
+    #mon_compte
     {
 
         margin: 0 0 25px;
@@ -257,16 +257,16 @@
             padding: 0 4px;
             width: 220px;
         }
-        
+
         .popup_form .ui-autocomplete-input
         {
             height: 20px;
         }
     }
 
-    .filtre 
+    .filtre
     {
-        margin: 0 0 5px 5px;  
+        margin: 0 0 5px 5px;
     }
 
     .ui-button { display: none; }
@@ -287,7 +287,7 @@
         margin-bottom: 10px;
         float: none;
     }
-    
+
     #vrac_type_transaction,
     #vrac_type_prix
     {
@@ -323,7 +323,7 @@
             }
 
             label
-            { 
+            {
                 font-weight: normal !important;
             }
         }
@@ -340,9 +340,9 @@
 		min-height: 29px;
 
         ul.radio_list
-        { 
-            label { width: 60px !important; } 
-        }   
+        {
+            label { width: 60px !important; }
+        }
     }
 
     .section_label_maj
@@ -358,7 +358,7 @@
 
         .radio_list
         {
-            label { width: 100px !important; } 
+            label { width: 100px !important; }
         }
 
         .ui-autocomplete-input
@@ -378,14 +378,14 @@
             display: inline-block;
             font-weight: bold;
             text-transform: none;
-            width : 210px; 
+            width : 210px;
             float: left;
-            
+
         }
 
         .radio_list
         {
-            li { width : 200px !important; }
+            li { width : 120px !important; }
         }
     }
 
@@ -397,11 +397,11 @@
             display: inline-block;
             font-weight: bold;
             text-transform: none;
-            width : 210px; 
+            width : 210px;
             vertical-align: top;
 
             & + .msg_aide
-            { 
+            {
                 margin: 0 10px 0 -30px;
                 vertical-align: top;
             }
@@ -411,13 +411,13 @@
         {
             li {
                 display: block;
-                float: none; 
-                width : auto !important; 
+                float: none;
+                width : auto !important;
                 padding: 2px 0 2px 20px;
             }
-        } 
+        }
     }
-    
+
     .contenu_onglet
     {
         .border(@couleur-a3);
@@ -438,11 +438,11 @@
 
     #mandataire, #contrat { padding-top: 20px; }
 
-    .ligne_form_btn 
+    .ligne_form_btn
 	{
 		margin: 30px 0 0;
 		text-align: right;
-		
+
 		button, a
 		{
             font-size: 12px;
@@ -451,10 +451,10 @@
 			margin: 0 0 0 5px;
 			padding: 0 10px;
 			text-transform: uppercase;
-		
+
 			&.btn_annuler
-            {        
-                .btn_gris; 
+            {
+                .btn_gris;
                 &:hover { text-decoration: none; }
             }
 
@@ -465,8 +465,8 @@
             &.etape_prec,
             &.annuler_saisie { float: left; }
 
-            &.annuler_saisie 
-			{ 
+            &.annuler_saisie
+			{
 				.btn_remise;
 			}
 		}
@@ -476,22 +476,22 @@
     {
         .clear;
         font-size: 14px;
-        
+
         h3 { margin-bottom: 20px; }
 
         #vendeur, .vendeur
-        { 
+        {
             display: block;
             height: 176px;
             width: 897px;
         }
 
-        
+
 
         #vendeur_choice, #acheteur_choice{
             .clearfix;
         }
-        
+
         .mandataire_infos{
             clear: both;
         }
@@ -499,22 +499,22 @@
 
         #has_mandataire{ padding : 20px 0 0 10px;}
 
-        #mandataire{ 
-                .clearfix; 
+        #mandataire{
+                .clearfix;
                 padding : 0 0 0 10px;
-        } 
+        }
 
-        #mandatant{ 
+        #mandatant{
                 padding : 10px 0 0 0px;
-                .checkbox_list{ 
+                .checkbox_list{
                         float: right;
                         margin-right: 460px;
-                        li{ 
-                                display:inline; 
+                        li{
+                                display:inline;
                                 float : left;
-                                width : 150px; 
+                                width : 150px;
                         }
-                }     
+                }
         }
 
         .btnModification
@@ -541,7 +541,7 @@
         #original, #produit, #millesime, #type, #label, #prixUnitaire, #domaine
         {
             .clearfix;
-            margin: 20px 0; 
+            margin: 20px 0;
 
             label
             {
@@ -551,7 +551,7 @@
                     width: 230px !important;
                 }
             }
-        }   
+        }
 
         #vrac_marche_volumePropose
         {
@@ -569,9 +569,9 @@
         {
             label { width: 230px; }
         }
-            
+
     }
-    
+
     .section_label_maj
     {
        & > label:first-child
@@ -585,16 +585,16 @@
         }
     }
 
-    
+
     .bloc_form
     {
         overflow: hidden;
 
         textarea
-        {    
+        {
             width: 403px;
         }
-        
+
         .border-radius(5px);
         .border(#e3e2e2);
 
@@ -614,7 +614,7 @@
                     /*height: 30px;
                     line-height: 30px;*/
                     vertical-align: middle;
-            }  
+            }
 
             input[type=text] { width: 200px; }
         }
@@ -626,8 +626,8 @@
 
             float: left;
             vertical-align: top;
-            width: 448px;    
-            
+            width: 448px;
+
             &:first-child
             {
                 border-right: 1px solid #e3e2e2;
@@ -639,7 +639,7 @@
             }
 
             &:last-child
-            {     
+            {
                 .vracs_ligne_form
                 {
                     &:first-child { .border-radius(0 5px 0 0) }
@@ -655,20 +655,20 @@
    .adresse_livraison
    {
         .bloc_form { height: 175px !important; }
-        .section_label_strong label { width: 500px; }  
+        .section_label_strong label { width: 500px; }
 
         label { input[type="checkbox"] { margin: 0  5px; } }
     }
 
     #ligne_btn
-    { 
+    {
         display: block;
         .btnAnnulation { float: left; }
         .btnValidation { float: right; }
         margin: 10px 0;
     }
 
-  
+
     .champ_datepicker
     {
         padding-top: 10px;
@@ -688,9 +688,9 @@
                     label { width : 300px }
             }*/
     }
-    
+
     .vrac_transaction{
-            
+
     }
 
     .lot
@@ -699,7 +699,7 @@
         margin: 5px;
         vertical-align: top;
         width: 430px;
-        
+
         .ielt8 & { .inline-block-ie; }
     }
 
@@ -716,7 +716,7 @@
 
         table{
             display: inline-block;
-            input{ 
+            input{
                 width : 70px;
             }
         }
@@ -724,7 +724,7 @@
             display:inline;
             font-weight:bold;
 
-            span { 
+            span {
                     line-height : 23px;
                     &:hover{ text-decoration :none; }
             }
@@ -761,11 +761,11 @@
             margin: 0 !important;
         }
     }
-    
-    
+
+
 
     .bloc_form_commentaire{
-        
+
              .vracs_ligne_form label {
                     display: block;
                     padding: 10px 0;
@@ -775,13 +775,13 @@
              textarea{
                     width : 872px;
              }
-    
+
     }
 
     .btn_ajouter_transaction
     {
             margin:15px 0;
-            
+
             .btn_ajouter_ligne_template { display: inline; }
     }
 
@@ -875,7 +875,7 @@
             }
 
             #solder_contrat{
-                .btn_vert; 
+                .btn_vert;
                 .f_right;
                 height: 21px;
                 line-height: 21px;
@@ -883,7 +883,7 @@
                 text-transform: uppercase;
                 font-weight:bold;
             }
-    
+
     }
 
     /* Recap transaction */
@@ -894,7 +894,7 @@
             background: @couleur-e2;
             font-size: 14px;
             font-weight: normal;
-            
+
             .lot
             {
                 .border-radius(5px);
@@ -926,6 +926,6 @@
             }
         }
     }
-    
+
 
 }
