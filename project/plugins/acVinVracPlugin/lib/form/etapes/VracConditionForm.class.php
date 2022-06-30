@@ -39,6 +39,10 @@ class VracConditionForm extends VracForm
             unset($this['type_transaction']);
         }
 
+        if ($this->getConfiguration()->isContratPluriannuelActif()) {
+            $this->configurePluriannuel();
+        }
+
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }

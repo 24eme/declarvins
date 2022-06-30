@@ -6,7 +6,6 @@ class VracConditionIrForm extends VracConditionForm
         unset($this['annexe']);
         unset($this['premiere_mise_en_marche']);
         unset($this['bailleur_metayer']);
-        $this->configurePluriannuel();
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
