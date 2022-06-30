@@ -15,6 +15,15 @@ class VracMarcheIrForm extends VracMarcheForm
 		if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche) {
 		   unset($this['prix_total_unitaire']);
 		}
+        if ($this->getObject()->isPluriannuel()) {
+    		$this->setWidget('pourcentage_recolte', new sfWidgetFormInputFloat());
+    		$this->setValidator('pourcentage_recolte', new sfValidatorNumber(array('required' => false)));
+    		$this->getWidget('pourcentage_recolte')->setLabel('Pourcentage de la récolte');
+    		$this->setWidget('surface', new sfWidgetFormInputFloat());
+    		$this->setValidator('surface', new sfValidatorNumber(array('required' => false)));
+    		$this->getWidget('surface')->setLabel('Surface concernée');
+        }
+
         $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     }
     protected function doUpdateObject($values) {
