@@ -1037,4 +1037,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
         return false;
     }
+
+	public function isPluriannuel() {
+		return ($this->contrat_pluriannuel == 1);
+	}
 }
