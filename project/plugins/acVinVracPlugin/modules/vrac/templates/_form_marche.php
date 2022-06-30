@@ -18,6 +18,18 @@
             <?php endif; ?>
 
         	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix</h1>
+            <?php if (isset($form['pourcentage_recolte'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['pourcentage_recolte']->renderLabel() ?>
+                <?php echo $form['pourcentage_recolte']->render() ?>  <strong>%</strong>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($form['surface'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['surface']->renderLabel() ?>
+                <?php echo $form['surface']->render() ?> <strong>HA</strong>
+            </div>
+            <?php endif; ?>
             <div class="section_label_strong">
                 <?php echo $form['volume_propose']->renderError() ?>
                 <?php echo $form['volume_propose']->renderLabel() ?>
