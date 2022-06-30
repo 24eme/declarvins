@@ -138,5 +138,9 @@ class ConfigurationVrac extends BaseConfigurationVrac {
         }
         return $this->getConfig()->getFormattedCouleurs(null, $zones, false, "%g% %a% %m% %l% %co%", false,  $date, $exception);
     }
-    
+
+	public function isContratPluriannuelActif() {
+		return ($this->contrat_pluriannuel_actif == 1);
+	}
+
 }
