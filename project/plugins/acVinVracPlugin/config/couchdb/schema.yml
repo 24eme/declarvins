@@ -341,6 +341,13 @@ Vrac:
       observations: {  }
       mode_de_saisie: {  }
       versement_fa: { required: false }
+      pourcentage_recolte: { }
+      surface: { }
+      pluriannuel_campagne_debut: { }
+      pluriannuel_campagne_fin: { }
+      pluriannuel_prix_plancher: { }
+      pluriannuel_prix_plafond: { }
+      pluriannuel_clause_indexation: { }
       clauses:
         type: collection
         definition:
