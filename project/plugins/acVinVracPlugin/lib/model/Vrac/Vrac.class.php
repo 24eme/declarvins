@@ -192,6 +192,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return null;
     }
 
+	public function isCreateur($etablissement = null) {
+		return ($etablissement && $etablissement->identifiant ==  $this->get($this->vous_etes.'_identifiant'))? true : false;
+	}
+
     public function getVendeurInterpro()
     {
         return $this->getVendeurObject()->interpro;
@@ -1040,5 +1044,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
 	public function isPluriannuel() {
 		return ($this->contrat_pluriannuel == 1);
+	}
+
+	public function isPluriannuelAdosse() {
+		return ($this->reference_contrat_pluriannuel)? true : false;
 	}
 }

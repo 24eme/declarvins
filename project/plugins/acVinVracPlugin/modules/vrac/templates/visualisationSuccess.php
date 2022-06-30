@@ -64,7 +64,17 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                     <br />Chargement Oco : <?php echo format_date($vrac->oioc->date_reception, 'dd/MM/y') ?>
                     <?php endif; ?>
                 </div>
-                <div id="vrac_condition">  
+                <?php if($vrac->isPluriannuel() && $configurationVrac->isContratPluriannuelActif()): ?>
+                <div class="titre" style="background-color: #eee; margin-top: 10px;">
+                    <strong style="font-size: 13px; margin-right: 50px;">
+                        Contrat <?php if($vrac->isPluriannuelAdosse()): ?>adossé à un contrat pluriannuel (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php else: ?>pluriannuel<?php endif; ?>
+                    </strong>
+                    <?php if($vrac->isCreateur($etablissement)): ?>
+                    <a href="<?php echo url_for('vrac_pluriannuel', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>">[+] nouvelle application</a>
+                <?php endif; ?>
+                </div>
+                <?php endif; ?>
+                <div id="vrac_condition">
                     <div class="legende" id="ss_titre">
                         <span class="style_label">Etat du contrat</span>
                     	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
