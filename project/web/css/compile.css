@@ -4465,12 +4465,12 @@ p#date_drm {
   text-align: center;
   text-decoration: underline;
 }
-.vracs .visualisation_contrat #titre {
+.vracs .visualisation_contrat #titre, .vracs .visualisation_contrat .titre {
   background-color: #E3E2E2;
   padding: 10px;
   text-align: center;
 }
-.vracs .visualisation_contrat #titre .style_label {
+.vracs .visualisation_contrat #titre .style_label, .vracs .visualisation_contrat .titre .style_label {
   font-size: 15px;
   font-weight: bold;
   padding: 10px 0;
