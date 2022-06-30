@@ -635,6 +635,10 @@
 		 $(this).initBlocCondition();
 		 $('.bloc_form').has('.col').initBlocsFormCol();
 
+		 $('select[readonly="readonly"] option:not(:selected)').attr('disabled',true);
+		 $(':radio[readonly="readonly"]:not(:checked)').attr('disabled', true);
+		 $(':checkbox[readonly="readonly"]:not(:checked)').attr('disabled', true);
+
 		 init();
 	     initSoussigne();
 	     initMarche();
