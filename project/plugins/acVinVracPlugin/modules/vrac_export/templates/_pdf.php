@@ -106,7 +106,10 @@
 	<?php endif; ?>
 	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) : '-'; ?></p>
 	<h2>Type de contrat</h2>
-	<p><?php if ($vrac->contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?>, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php endif; ?><?php else: ?>Contrat ponctuel<?php endif; ?></p>
+	<p><?php if ($vrac->reference_contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Contrat ponctuel<?php endif; ?></p>
+    <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?><p>Campagne de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></p><?php endif; ?>
+    <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?><p>Prix entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?></p><?php endif; ?>
+    <?php if ($vrac->pluriannuel_clause_indexation): ?><p>Indexation : <?php echo $vrac->pluriannuel_clause_indexation ?></p><?php endif; ?>
 	<h2>Spécificités du contrat</h2>
 	<p>Condition particulière : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></p>
 	<p>Expédition export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
@@ -123,6 +126,12 @@
 	<table class="tableau_simple">
 		<thead>
 			<tr>
+                <?php if($vrac->pourcentage_recolte): ?>
+                <th>Pourcentage de récolte</th>
+                <?php endif; ?>
+                <?php if($vrac->surface): ?>
+                <th>Surface concernée</th>
+                <?php endif; ?>
 				<th><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?></th>
 				<th>Prix unitaire net HT hors cotisation</th>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
@@ -133,6 +142,12 @@
         </thead>
         <tbody>
 			<tr>
+                <?php if($vrac->pourcentage_recolte): ?>
+                <td><?php echo $vrac->pourcentage_recolte ?>%</td>
+                <?php endif; ?>
+                <?php if($vrac->surface): ?>
+                <td><?php echoFloat($vrac->surface) ?>&nbsp;HA</td>
+                <?php endif; ?>
 				<td><?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></td>
 				<td><?php echoFloat($vrac->prix_unitaire) ?> € HT / <?php if($vrac->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif;?></td>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>

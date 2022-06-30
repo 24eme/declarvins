@@ -96,8 +96,26 @@
         <ul>
 			<li>
 				<span>Type de contrat :</span>
-				<span><?php if ($vrac->contrat_pluriannuel): ?>Adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?> (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php endif ?><?php else: ?>Ponctuel<?php endif; ?></span>
+				<span><?php if ($vrac->reference_contrat_pluriannuel): ?>Adossé à un contrat pluriannuel (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
 			</li>
+            <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?>
+			<li>
+				<span>Campagne :</span>
+				<span>de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?>
+			<li>
+				<span>Prix :</span>
+				<span>entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?></span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->pluriannuel_clause_indexation): ?>
+			<li>
+				<span>Indexation :</span>
+				<span><?php echo $vrac->pluriannuel_clause_indexation ?></span>
+			</li>
+            <?php endif; ?>
 		</ul>
     	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -140,6 +158,18 @@
 	<li>
 	    <h3>Volume / Prix</h3>
         <ul>
+            <?php if ($vrac->pourcentage_recolte): ?>
+			<li>
+				<span>Pourcentage de la récolte :</span>
+				<span><?php echo $vrac->pourcentage_recolte ?>%</span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->surface): ?>
+			<li>
+				<span>Surface concernée :</span>
+				<span><?php echo $vrac->surface ?> HA</span>
+			</li>
+            <?php endif; ?>
 			<li>
 				<span>Volume :</span>
 				<span><?php echo $vrac->volume_propose ?><?php if($vrac->type_transaction == 'raisin'): ?> Kg<?php else: ?> HL<?php endif; ?></span>
