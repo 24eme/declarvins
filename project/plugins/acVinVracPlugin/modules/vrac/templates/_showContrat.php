@@ -96,23 +96,23 @@
         <ul>
 			<li>
 				<span>Type de contrat :</span>
-				<span><?php if ($vrac->reference_contrat_pluriannuel): ?>Adossé à un contrat pluriannuel (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
+				<span><?php if ($vrac->reference_contrat_pluriannuel): ?>Adossé au contrat pluriannuel n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
 			</li>
             <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?>
 			<li>
-				<span>Campagne :</span>
+				<span>Campagnes d'application :</span>
 				<span>de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></span>
 			</li>
             <?php endif; ?>
             <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?>
 			<li>
-				<span>Prix :</span>
+				<span>Fourchette de prix :</span>
 				<span>entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?></span>
 			</li>
             <?php endif; ?>
             <?php if ($vrac->pluriannuel_clause_indexation): ?>
 			<li>
-				<span>Indexation :</span>
+				<span>Indexation du prix :</span>
 				<span><?php echo $vrac->pluriannuel_clause_indexation ?></span>
 			</li>
             <?php endif; ?>
