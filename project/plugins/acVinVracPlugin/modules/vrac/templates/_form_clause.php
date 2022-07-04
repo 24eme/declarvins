@@ -51,8 +51,9 @@
 <?php if (count($clauses_complementaires) > 0): ?>
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
 	<?php
+    $clausesMask = $configurationVrac->getClausesMask($form->getObject()->getClausesMaskConf());
     foreach ($clauses_complementaires as $key => $clause):
-        if ($key == 'transfert_propriete' && $form->getObject()->type_transaction != 'vrac') continue;
+        if (in_array($key, $clausesMask)) continue;
     ?>
 
     <h2><?= $clause['nom'] ?></h2>

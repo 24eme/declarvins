@@ -51,7 +51,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
         $cc = array();
         foreach ($configuration->get('clauses_complementaires') as $k => $v) {
-            if (in_array($k, $clausesMask)) continue;
             $cc[$k] = $k;
         }
         $this->clauses_complementaires = implode(',', $cc);
