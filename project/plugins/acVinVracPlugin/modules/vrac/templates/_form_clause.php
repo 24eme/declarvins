@@ -37,7 +37,15 @@
         <?php echo $form['clause_resiliation_indemnite']->render() ?>
     </div>
     <?php endif; ?>
-
+    <?php endif; ?>
+    <?php if ($k == 'revision_prix'): ?>
+    <?php if (isset($form['clause_revision_prix'])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_revision_prix']->renderError() ?>
+        <?php echo $form['clause_revision_prix']->renderLabel() ?>
+        <?php echo $form['clause_revision_prix']->render() ?>
+    </div>
+    <?php endif; ?>
     <?php endif; ?>
 <?php endforeach; ?>
 <?php if (count($clauses_complementaires) > 0): ?>
