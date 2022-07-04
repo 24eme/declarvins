@@ -56,7 +56,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         $this->clauses_complementaires = implode(',', $cc);
     }
 
-    private function getClausesMaskConf() {
+    public function getClausesMaskConf() {
         $conf = '';
         $conf .= ($this->contrat_pluriannuel)? '1' : '0';
         $conf .= ($this->type_transaction == 'vrac')? '1' : '0';

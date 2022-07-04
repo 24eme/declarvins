@@ -51,7 +51,7 @@
 <?php if (count($clauses_complementaires) > 0): ?>
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
 	<?php
-    $clausesMask = $configurationVrac->getClausesMask($form->getObject()->getClausesMaskConf());
+    $clausesMask = $configurationVrac->getClausesMask($form->getObject()->getClausesMaskConf())->getRawValue();
     foreach ($clauses_complementaires as $key => $clause):
         if (in_array($key, $clausesMask)) continue;
     ?>
