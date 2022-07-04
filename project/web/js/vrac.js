@@ -635,9 +635,13 @@
 		 $(this).initBlocCondition();
 		 $('.bloc_form').has('.col').initBlocsFormCol();
 
-		 $('select[readonly="readonly"] option:not(:selected)').attr('disabled',true);
-		 $(':radio[readonly="readonly"]:not(:checked)').attr('disabled', true);
-		 $(':checkbox[readonly="readonly"]:not(:checked)').attr('disabled', true);
+		 $('select[readonly="readonly"] option:not(:selected)').attr('disabled', 'disabled');
+		 $(':radio[readonly="readonly"]:not(:checked)').attr('disabled', 'disabled');
+		 $(':checkbox[readonly="readonly"]:not(:checked)').attr('disabled', 'disabled');
+
+ 		 $('select[readonly="readonly"] option:not(:selected)').addClass('input-disabled');
+ 		 $(':radio[readonly="readonly"]:not(:checked)').addClass('input-disabled');
+ 		 $(':checkbox[readonly="readonly"]:not(:checked)').addClass('input-disabled');
 
 		 init();
 	     initSoussigne();
