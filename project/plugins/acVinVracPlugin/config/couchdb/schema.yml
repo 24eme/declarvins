@@ -143,6 +143,7 @@ Vrac:
       original: {  }
       type_transaction: {  }
       type_transaction_libelle: {  }
+      ramasseur_raisin: {  }
       produit: {  }
       produit_libelle: {  }
       produit_detail:

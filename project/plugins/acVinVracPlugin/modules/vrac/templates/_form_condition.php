@@ -1,14 +1,21 @@
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
-        
+
         <div>
         	<h1>Type</h1>
             <?php if (isset($form['type_transaction'])): ?>
-            <div class="section_label_strong">
+            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_ramasseur_raisin">
                 <?php echo $form['type_transaction']->renderError() ?>
                 <?php echo $form['type_transaction']->renderLabel() ?>
                 <?php echo $form['type_transaction']->render() ?>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($form['ramasseur_raisin'])): ?>
+            <div class="section_label_strong bloc_conditionner" id="bloc_ramasseur_raisin" data-condition-value="raisin">
+                <?php echo $form['ramasseur_raisin']->renderError() ?>
+                <?php echo $form['ramasseur_raisin']->renderLabel() ?>
+                <?php echo $form['ramasseur_raisin']->render() ?>
             </div>
             <?php endif; ?>
             <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel|#bloc_pluriannuel_campagne|#bloc_pluriannuel_prix|#bloc_pluriannuel_clause_indexation">
