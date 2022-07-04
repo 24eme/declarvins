@@ -33,11 +33,13 @@ class VracForm extends acCouchdbObjectForm
     );
 
     public function editablizeInputPluriannuel() {
-        foreach ($this->getWidgetSchema()->getPositions() as $field)
-        {
-            if (in_array($field, self::$_editable_input_pluriannuel)) continue;
-            $widget = $this->getWidget($field);
-            $widget->setAttribute('readonly', 'readonly');
+        if ($this->configuration->isContratPluriannuelActif() && $this->getObject()->isPluriannuel() && $this->getObject()->isPluriannuelAdosse()) {
+            foreach ($this->getWidgetSchema()->getPositions() as $field)
+            {
+                if (in_array($field, self::$_editable_input_pluriannuel)) continue;
+                $widget = $this->getWidget($field);
+                $widget->setAttribute('readonly', 'readonly');
+            }
         }
     }
 
