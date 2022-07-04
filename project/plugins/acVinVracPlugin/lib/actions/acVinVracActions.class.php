@@ -496,22 +496,19 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
-
-        $master = $this->vrac->getMaster();
-        $vrac_rectificative = $master->generateRectificative();
-        $vrac_rectificative->reference_contrat_pluriannuel = $master->numero_contrat;
-        if ($conflict = VracClient::getInstance()->find($vrac_rectificative->makeId())) {
-        	$conflict->delete();
-        }
+        $application = clone $this->vrac;
+        $application->reference_contrat_pluriannuel = $this->vrac->numero_contrat;
+        $application->numero_contrat = VracClient::getInstance()->getNextNoContrat();
+        $application->constructId();
+        $application->devalide();
         if ($this->etablissement) {
-        	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
+        	$application->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
         } else {
-        	$vrac_rectificative->vous_etes = null;
+        	$application->vous_etes = null;
         }
-        $vrac_rectificative->save(false);
-
+        $application->save(false);
         return $this->redirect(array('sf_route' => 'vrac_etape',
-                              'sf_subject' => $vrac_rectificative,
+                              'sf_subject' => $application,
                               'step' =>$this->configurationVracEtapes->next($this->configurationVracEtapes->getFirst()),
                               'etablissement' => $this->etablissement));
     }
