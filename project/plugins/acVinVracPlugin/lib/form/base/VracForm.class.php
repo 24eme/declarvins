@@ -1,7 +1,7 @@
 <?php
 class VracForm extends acCouchdbObjectForm 
 {
-	protected $configuration;
+	public $configuration;
     protected $etablissement;
     protected $user;
     
