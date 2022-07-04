@@ -25,6 +25,8 @@ class VracClauseIrForm extends VracClauseForm
 
         $this->setWidget('annexe_file', new sfWidgetFormInputFile(array('label' => 'fichier PDF:')));
         $this->setValidator('annexe_file', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
+
+        $this->editablizeInputPluriannuel();
     }
     
     public function processValues($values) {
