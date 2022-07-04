@@ -40,6 +40,32 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         $this->remove('clauses_complementaires');
         $this->add('clauses');
         $this->add('clauses_complementaires');
+        $configuration = $this->getVracConfiguration();
+        if (!$configuration) return;
+        $clausesMask = $configuration->getClausesMask($this->getClausesMaskConf());
+        $this->clauses = $configuration->get('clauses');
+        foreach($clausesMask as $mask) {
+            if ($this->clauses->exist($mask)) {
+                $this->clauses->remove($mask);
+            }
+        }
+        $cc = array();
+        foreach ($configuration->get('clauses_complementaires') as $k => $v) {
+            if (in_array($k, $clausesMask)) continue;
+            $cc[$k] = $k;
+        }
+        $this->clauses_complementaires = implode(',', $cc);
+    }
+
+    private function getClausesMaskConf() {
+        $conf = '';
+        $conf .= ($this->contrat_pluriannuel)? '1' : '0';
+        $conf .= ($this->type_transaction == 'vrac')? '1' : '0';
+        $conf .= ($this->reference_contrat_pluriannuel)? '1' : '0';
+        return $conf;
+    }
+
+    public function getVracConfiguration() {
         $interpro = $this->getProduitInterpro();
         if (!$interpro) {
             $interpro = ($this->interpro)? InterproClient::getInstance()->find($this->interpro) : null;
@@ -50,13 +76,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         if (!ConfigurationClient::getCurrent()->vrac->interpro->exist($interpro->_id)) {
             return;
         }
-        $configuration = ConfigurationClient::getCurrent()->vrac->interpro->get($interpro->_id);
-        $this->clauses = $configuration->get('clauses');
-        $cc = array();
-        foreach ($configuration->get('clauses_complementaires') as $k => $v) {
-            $cc[$k] = $k;
-        }
-        $this->clauses_complementaires = implode(',', $cc);
+        return ConfigurationClient::getCurrent()->vrac->interpro->get($interpro->_id);
     }
 
     public function getLibellesMentions()
