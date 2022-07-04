@@ -95,6 +95,7 @@ class VracConditionForm extends VracForm
         }
         $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
         $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
+        $this->getObject()->initClauses();
     }
 
     protected function updateDefaultsFromObject() {
