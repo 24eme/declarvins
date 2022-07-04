@@ -23,7 +23,7 @@ class VracMarcheIrForm extends VracMarcheForm
     		$this->setValidator('surface', new sfValidatorNumber(array('required' => false)));
     		$this->getWidget('surface')->setLabel('Surface concernée');
         }
-
+        $this->editablizeInputPluriannuel();
         $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     }
     protected function doUpdateObject($values) {
