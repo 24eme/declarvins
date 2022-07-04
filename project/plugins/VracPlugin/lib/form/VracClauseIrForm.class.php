@@ -2,6 +2,8 @@
 
 class VracClauseIrForm extends VracClauseForm
 {
+    const COMPLEMENTS_TITLE = 'Conditions particulières liées à l\'enregistrement du contrat';
+
     public function configure() {
         parent::configure();
 
@@ -57,5 +59,9 @@ class VracClauseIrForm extends VracClauseForm
             unlink($file->getSavedName());
         }
     }
-    
+
+    public function getComplementsTitle() {
+        return self::COMPLEMENTS_TITLE;
+    }
+
 }

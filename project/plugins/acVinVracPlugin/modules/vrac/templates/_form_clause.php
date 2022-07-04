@@ -57,7 +57,7 @@
 <?php endforeach; ?>
 <?php endif; ?>
 <?php if ($configurationVrac->informations_complementaires): ?>
-<h1 style="margin: 20px 0 20px 0;">Informations complémentaires</h1>
+<h1 style="margin: 15px 0 0 0;"><?php echo $form->getComplementsTitle() ?></h1>
 <div id="informations_complementaires">
 <?= html_entity_decode($configurationVrac->informations_complementaires); ?>
 </div>

@@ -4,6 +4,8 @@ class VracClauseForm extends VracForm
 {
     protected $text = 'En cochant la case ci-contre, les Parties renoncent expressément au bénéfice de cette clause';
 
+    const COMPLEMENTS_TITLE = 'Informations complémentaires';
+
     public function configure()
     {
         $clauses_complementaires = $this->getConfiguration()->clauses_complementaires;
@@ -59,5 +61,9 @@ class VracClauseForm extends VracForm
               $this->setDefault($key, 0);
           }
         }
+    }
+
+    public function getComplementsTitle() {
+        return self::COMPLEMENTS_TITLE;
     }
 }
