@@ -18,6 +18,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     protected $permettedValues = null;
     protected $complements = array();
     protected $drmPrecedente = null;
+    protected $cacheConfProduit = array();
 
     public function __construct($file, DRM $drm = null)
     {
@@ -106,7 +107,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
     		$configurationProduit = null;
     		$isAutre = false;
-    		if ($idDouane = $this->getIdDouane($datas)) {
+            if (isset($this->cacheConfProduit[$this->getCacheKeyFromData($datas)])) {
+                $configurationProduit = $this->cacheConfProduit[$this->getCacheKeyFromData($datas)];
+            }
+    		if (!$configurationProduit && ($idDouane = $this->getIdDouane($datas))) {
               $lp = '';
               if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
                   $lp = trim($result[1]).' ';
@@ -130,6 +134,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;
       		}
+            if (!isset($this->cacheConfProduit[$this->getCacheKeyFromData($datas)])) {
+                $this->cacheConfProduit[$this->getCacheKeyFromData($datas)] = $configurationProduit;
+            }
 
     		$hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
 
