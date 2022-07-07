@@ -435,8 +435,8 @@ class Configuration extends BaseConfiguration {
         $s = strpos($libelle, '(');
         $e = strpos($libelle, ')');
         if ($s !== false && $e !== false) {
+            $libelleDouane = substr($libelle, $s+1, $e-$s-1);
         	$libelle = trim(substr($libelle, 0, $s));
-        	$libelleDouane = substr($libelle, $s+1, $e-$s-1);
         }
     	if ($libelle || $libelleDouane) {
 	        $configuration = $this->getConfigurationProduitsComplete();
