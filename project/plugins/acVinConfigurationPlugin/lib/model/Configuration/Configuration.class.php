@@ -11,6 +11,7 @@ class Configuration extends BaseConfiguration {
     protected $_configuration_produits_IVSE = null;
     protected $_configuration_produits_ANIVIN = null;
     protected $_configuration_produits_IS = null;
+    protected $_configuration_produits_complete = null;
     protected $_zones = null;
     protected $identifyLibelleProduct = array();
 
@@ -256,11 +257,14 @@ class Configuration extends BaseConfiguration {
     }
 
     public function getConfigurationProduitsComplete() {
-        $configuration = array();
-        foreach ($this->produits->toArray() as $interpro => $configurationProduits) {
-            $configuration[$interpro] = $this->getConfigurationProduits($interpro);
+        if ($this->_configuration_produits_complete) {
+            return $this->_configuration_produits_complete;
         }
-        return $configuration;
+        $this->_configuration_produits_complete = array();
+        foreach ($this->produits->toArray() as $interpro => $configurationProduits) {
+            $this->_configuration_produits_complete[$interpro] = $this->getConfigurationProduits($interpro);
+        }
+        return $this->_configuration_produits_complete;
     }
 
     public function getProduitsComplete() {
@@ -428,10 +432,12 @@ class Configuration extends BaseConfiguration {
 
     public function getConfigurationProduitByLibelle($libelle = null) {
     	$libelleDouane = null;
-    	if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-    		$libelle = trim($result[1]);
-    		$libelleDouane = trim($result[2]);
-    	}
+        $s = strpos($libelle, '(');
+        $e = strpos($libelle, ')');
+        if ($s !== false && $e !== false) {
+        	$libelle = trim(substr($libelle, 0, $s));
+        	$libelleDouane = substr($libelle, $s+1, $e-$s-1);
+        }
     	if ($libelle || $libelleDouane) {
 	        $configuration = $this->getConfigurationProduitsComplete();
 	        foreach ($configuration as $interpro => $configurationProduits) {
