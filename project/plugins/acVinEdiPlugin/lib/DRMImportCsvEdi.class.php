@@ -223,7 +223,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 if ($typeDroit != $cache2datas[$cacheid][13]) {
                     continue;
                 }
-                $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
+                $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['complement_libelle']);
                 $p->libelle = $cache2datas[$cacheid]['libelle'];
                 if (isset($cache2datas[$cacheid]['inao'])) {
               		    $p->add('inao', $cache2datas[$cacheid]['inao']);
