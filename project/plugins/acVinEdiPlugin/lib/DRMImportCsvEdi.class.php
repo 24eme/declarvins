@@ -169,7 +169,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                 }
             }
-            $produit = $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
+            $produit = $this->drm->getProduitByIdDouane($hash, ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
 
             if (!$produit) {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
