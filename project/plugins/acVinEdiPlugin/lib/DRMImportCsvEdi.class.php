@@ -176,12 +176,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             if (!$produit) {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
       		}
-
           if ($libellePerso) {
             $produit->libelle = $libellePerso;
           }
 
-      		if ($complement_libelle && !$label) {
+      		if ($complement_libelle) {
                 $l = $libellePerso;
                 if ($libellePerso != $complement_libelle) {
                   $l .= ' '.$complement_libelle;
