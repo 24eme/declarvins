@@ -180,13 +180,20 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $produit->libelle = $libellePerso;
           }
 
-      		if ($complement_libelle) {
+      		if ($complement_libelle && !$label) {
                 $l = $libellePerso;
                 if ($libellePerso != $complement_libelle) {
                   $l .= ' '.$complement_libelle;
                 }
                 $produit->libelle = ($libellePerso) ? trim($l) : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
+    		if ($complement_libelle && $label) {
+              $l = $libellePerso;
+              if ($libellePerso != $complement_libelle) {
+                $l .= ' '.$complement_libelle;
+              }
+              $produit->libelle = $complement_libelle;
+    		}
       		if ($isAutre) {
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
