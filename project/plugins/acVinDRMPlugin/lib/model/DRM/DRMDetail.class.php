@@ -526,7 +526,8 @@ class DRMDetail extends BaseDRMDetail {
             $mouvement->produit_hash = $this->getHash();
             $mouvement->produit_libelle = trim($mouvement->produit_libelle);
             if (count($this->labels) > 0) {
-                $mouvement->produit_libelle .= ' '.implode(', ', $this->labels->toArray());
+                $mouvement->denomination_complementaire = implode(', ', $this->labels->toArray());
+                $mouvement->produit_libelle .= ' '.$mouvement->denomination_complementaire;
             }
             $mouvement->type_drm = $type;
             $mouvement->type_drm_libelle = ucfirst(strtolower($type));
