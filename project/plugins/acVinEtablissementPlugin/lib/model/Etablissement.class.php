@@ -295,4 +295,8 @@ class Etablissement extends BaseEtablissement {
         }
         return null;
     }
+
+    public function getEmailTeledeclaration() {
+       return null;
+    }
 }
