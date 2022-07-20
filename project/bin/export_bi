@@ -43,7 +43,7 @@ curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/all 
 . bin/export_bi_stocks $1
 
 echo "#ID;Type document;campagne;identifiant;certifications;genres;appellations;mentions;lieux;couleurs;cepages;date;modificatrice;stock debut;entree;entree revendiquee;sortie;sortie revendiquee;stock fin;nom;libelle produit" > $TMPI/export_bi_drm_stock.csv
-cat $TMPI/export_bi_drm_stock_last_modificatrices.csv | sed 's/"//g' | sed 's|/declaration/certifications/||' | sed 's|/genres/|;|' | sed 's|/appellations/|;|' | sed 's|/mentions/|;|' | sed 's|/lieux/|;|' | sed 's|/couleurs/|;|' | sed 's|/cepages/|;|' >> $TMPI/export_bi_drm_stock.csv
+cat $TMPI/export_bi_drm_stock_last_modificatrices.csv | sed 's/"//g' | sed 's|/declaration/certifications/||' | sed 's|/genres/|;|' | sed 's|/appellations/|;|' | sed 's|/mentions/|;|' | sed 's|/lieux/|;|' | sed 's|/couleurs/|;|' | sed 's|/cepages/|;|' | sed 's|/details/|;|' | awk -F ";" 'BEGIN { OFS=";"} { for(i=1;i<=11;i++) { printf($(i) ";") } for(i=13;i<=NF;i++) { printf($(i) ";") } printf("\n") }' >> $TMPI/export_bi_drm_stock.csv
 
 . bin/export_bi_drm $1
 
