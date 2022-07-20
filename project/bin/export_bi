@@ -61,7 +61,7 @@ done
 
 cd $TMPI
 #recode UTF8..ISO88591-1 export_bi_daes.csv
-recode UTF8..ISO88591-1 export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm_stock.csv export_bi_daes.csv
+recode UTF8..ISO88591-1 export_bi_mouvements.csv export_bi_societes.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm_stock.csv export_bi_daes.csv export_bi_factures.csv export_bi_factures_paiements.csv
 
 #Fichier DV
 #export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm.csv export_bi_daes.csv
