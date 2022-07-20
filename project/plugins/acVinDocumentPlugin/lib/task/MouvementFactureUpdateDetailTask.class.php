@@ -1,6 +1,6 @@
 <?php
 
-class mouvementUpdateTask extends sfBaseTask
+class mouvementFactureUpdateDetailTask extends sfBaseTask
 {
   protected function configure()
   {
