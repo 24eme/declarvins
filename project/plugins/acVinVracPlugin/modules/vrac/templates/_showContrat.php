@@ -1,3 +1,5 @@
+<?php use_helper('Float') ?>
+
 <ol>
 	<li>
 		<h3>Soussignés</h3>
@@ -151,7 +153,7 @@
 			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> € HT / HL</span>
+				<span><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> € HT / HL</span>
 			</li>
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
