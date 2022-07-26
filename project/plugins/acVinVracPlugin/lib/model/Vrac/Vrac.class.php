@@ -295,7 +295,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function getCvoUnitaire() {
-    	return round($this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2);
+        return round($this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 4);
     }
 
     public function getTotalUnitaire() {
