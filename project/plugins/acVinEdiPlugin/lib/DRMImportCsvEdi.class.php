@@ -112,8 +112,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             }
     		if (!$configurationProduit && ($idDouane = $this->getIdDouane($datas))) {
               $lp = '';
-              if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-                  $lp = trim($result[1]).' ';
+              $s = strpos($libelle, '(');
+              $e = strpos($libelle, ')');
+              if ($s !== false && $e !== false) {
+                $lp = trim(substr($libelle, 0, $s));
               }
     		  $configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
     		}
@@ -143,8 +145,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       		$libellePerso = null;
       		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
 
-            if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-                $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
+            $s = strpos($libelle, '(');
+            $e = strpos($libelle, ')');
+            if ($s !== false && $e !== false) {
+            	$libellePerso = trim(substr($libelle, 0, $s));
             } elseif ($libelle && trim($libelle) != trim($libelleConfig)) {
                 $libellePerso = trim($libelle);
             }
@@ -161,16 +165,17 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     if (in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
                         $label = $complement;
                         $libellePerso = trim($libelle);
+                        $complement_libelle = $libellePerso.' '.$label;
+                    } else {
+                        $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                     }
-                    $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                 }
             }
-            $produit = $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
+            $produit = $this->drm->getProduitByIdDouane($hash, ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
 
             if (!$produit) {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
       		}
-
           if ($libellePerso) {
             $produit->libelle = $libellePerso;
           }
@@ -182,6 +187,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $produit->libelle = ($libellePerso) ? trim($l) : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
+    		if ($complement_libelle && $label) {
+              $l = $libellePerso;
+              if ($libellePerso != $complement_libelle) {
+                $l .= ' '.$complement_libelle;
+              }
+              $produit->libelle = $complement_libelle;
+    		}
       		if ($isAutre) {
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
@@ -877,12 +889,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		return $certification;
     	}
       $libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
-      if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-    		if ($libelleDouane = trim($result[2])) {
-          return $libelleDouane;
-        }
-    	}
-    	return null;
+      $libelleDouane = null;
+      $s = strpos($libelle, '(');
+      $e = strpos($libelle, ')');
+      if ($s !== false && $e !== false) {
+        $libelleDouane = substr($libelle, $s+1, $e-$s-1);
+      }
+      return $libelleDouane;
     }
 
     private function getHashProduit($datas)

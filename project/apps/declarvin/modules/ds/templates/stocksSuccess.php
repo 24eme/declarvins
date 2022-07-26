@@ -23,7 +23,16 @@
         		</ul>
       	  </div>
 
-          <p class="groupe"><strong>Autre millésime <span style="font-size: 80%;">(<?php echo ($ds->millesime - 1) ?>, précédent et non millésimé)</span></strong></p>
+          <p class="groupe"><strong>Millésime <?php echo ($ds->millesime - 1) ?></span></strong></p>
+
+    	<div class="groupe demarrage-ouvert" data-groupe-id="2">
+    		<ul style="display: block; padding-top:0px;">
+          <li style="height: 21px;">Stock millésime <?php echo ($ds->millesime -1) ?> (vrac et conditionné)&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_stock_precedent" title="Message aide"></a></li>
+    			<li style="height: 21px;"><strong>Dont</strong> Vrac libre à la vente&nbsp;<a href="" class="msg_aide" data-msg="help_popup_ds_dontvrac_precedent" title="Message aide"></a></li>
+    		</ul>
+    	</div>
+
+          <p class="groupe"><strong>Autre millésime <span style="font-size: 80%;">(<?php echo ($ds->millesime - 2) ?>, précédent et non millésimé)</span></strong></p>
 
         	<div class="groupe demarrage-ouvert" data-groupe-id="2">
         		<ul style="display: block; padding-top:0px;">
@@ -55,6 +64,13 @@
                               <ul style="display: block;padding-top:0px;">
                                 <li class="<?php echo isVersionnerCssClass($stocks, 'stock_declare_millesime_courant') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['stock_declare_millesime_courant']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
                                 <li class="<?php echo isVersionnerCssClass($stocks, 'dont_vraclibre_millesime_courant') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['dont_vraclibre_millesime_courant']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
+                              </ul>
+                          </div>
+                          <p class="groupe" style="height: 23px;">&nbsp;</p>
+                          <div class="groupe" data-groupe-id="2">
+                              <ul style="display: block;padding-top:0px;">
+                                <li class="<?php echo isVersionnerCssClass($stocks, 'stock_declare_millesime_precedent') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['stock_declare_millesime_precedent']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
+                                <li class="<?php echo isVersionnerCssClass($stocks, 'dont_vraclibre_millesime_precedent') ?>" style="height: 21px;"><?php echo $form[$hash][$detail]['dont_vraclibre_millesime_precedent']->render(array('class' => 'num num_float num_light', 'style' => 'height: 20px; width: 88px;')) ?></li>
                               </ul>
                           </div>
                           <p class="groupe" style="height: 23px;">&nbsp;</p>

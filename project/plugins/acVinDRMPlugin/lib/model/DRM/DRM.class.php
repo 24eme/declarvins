@@ -1825,7 +1825,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         break;
       }
     }
-    return ($droit && $produits && !$hasDS);
+    return ($droit && $produits);
   }
 
   public function getVolumesSurveilles($interpro) {

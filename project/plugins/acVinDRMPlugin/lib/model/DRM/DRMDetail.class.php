@@ -523,8 +523,12 @@ class DRMDetail extends BaseDRMDetail {
             $type = (strpos($key, 'acq_') === false)? 'SUSPENDU' : 'ACQUITTE';
             $facturableArray = $this->getIsFacturableArray();
             $mouvement = DRMMouvement::freeInstance($this->getDocument());
-            $mouvement->produit_libelle = $this->getLibelle();
-            $mouvement->produit_hash = $this->getCepage()->getHash();
+            $mouvement->produit_hash = $this->getHash();
+            $mouvement->produit_libelle = trim($mouvement->produit_libelle);
+            if (count($this->labels) > 0) {
+                $mouvement->denomination_complementaire = implode(', ', $this->labels->toArray());
+                $mouvement->produit_libelle .= ' '.$mouvement->denomination_complementaire;
+            }
             $mouvement->type_drm = $type;
             $mouvement->type_drm_libelle = ucfirst(strtolower($type));
             $mouvement->facture = 0;
