@@ -15,7 +15,7 @@ class tiersActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
-  public function executeLogin(sfWebRequest $request) 
+  public function executeLogin(sfWebRequest $request)
   {
 	  if (!$this->getUser()->hasCredential('plateforme')) {
 	  	return $this->redirect('tiers_forbidden');
@@ -24,7 +24,7 @@ class tiersActions extends sfActions
 	  if ($this->compte->isVirtuel()) {
 	  	return $this->redirect("admin");
 	  }
-	  
+
 	  $nbEtablissement = 0;
 	  $etablissements = array();
   	  foreach($this->compte->tiers as $tiers) {
@@ -42,14 +42,14 @@ class tiersActions extends sfActions
       }
 
   	  $this->form = new TiersLoginForm($this->compte, true, $etablissements);
-	
+
   	  if ($request->isMethod(sfWebRequest::POST)) {
     		$this->form->bind($request->getParameter($this->form->getName()));
     		$tiers = $this->form->process();
       		return $this->redirect("tiers_mon_espace", $tiers);
 	  }
   }
-  
+
   public function executeConnexion(sfWebRequest $request)
   {
   	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -74,7 +74,7 @@ class tiersActions extends sfActions
   	}
   	return $this->redirect('tiers_forbidden');
   }
-  
+
   public function executeInitialConnexion(sfWebRequest $request)
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
@@ -90,20 +90,20 @@ class tiersActions extends sfActions
   	}
   	return $this->redirect('tiers_forbidden');
   }
-  
+
   public function executeAccessForbidden(sfWebRequest $request)
   {
-  	
+
   }
 
-  public function executeMonEspace(sfWebRequest $request) 
+  public function executeMonEspace(sfWebRequest $request)
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
     $configuration = ConfigurationClient::getCurrent();
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm', $this->etablissement)) {
 		$this->configureAlerteDrm($this->etablissement);
-		
+
 		if ($this->etablissement->canAdhesionCiel() && !$this->etablissement->isTransmissionCiel()) {
 			$convention = $this->getUser()->getCompte()->getConventionCiel();
 			if (!$convention) {
@@ -113,7 +113,7 @@ class tiersActions extends sfActions
 				return $this->redirect("convention_ciel", $this->etablissement);
 			}
 		}
-		
+
         return $this->redirect("drm_mon_espace", $this->etablissement);
     }
 
@@ -121,7 +121,7 @@ class tiersActions extends sfActions
 
         return $this->redirect("vrac_etablissement", $this->etablissement);
     }
-    
+
   	return $this->redirect("profil", $this->etablissement); // solution temporaire
 
   	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))) {
@@ -129,7 +129,7 @@ class tiersActions extends sfActions
         return $this->redirect("drm_mon_espace", $this->etablissement);
     }
   }
-  
+
   private function configureAlerteDrm($etablissement)
   {
   	if ($etablissement) {
@@ -147,6 +147,7 @@ class tiersActions extends sfActions
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
       $this->societe = $this->etablissement->getSociete();
+      $hasSocieteEtablissement = $this->etablissement->hasSociete();
       if (!$this->societe) {
           $this->societe = $this->etablissement->getGenerateSociete();
       }
@@ -186,24 +187,27 @@ class tiersActions extends sfActions
   	          $this->formSociete->bind($request->getParameter($this->formSociete->getName()));
   	          if ($this->formSociete->isValid()) {
   	              $this->formSociete->save();
+                  if (!$hasSocieteEtablissement) {
+                      $this->etablissement->save();
+                  }
   	              $this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
   	              $this->redirect('profil', $this->etablissement);
   	          }
   	      }
   	  }
   }
-  
-  public function executeCiel(sfWebRequest $request) 
+
+  public function executeCiel(sfWebRequest $request)
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
-  	  
+
   	  $this->etablissement->transmission_ciel = ($this->etablissement->transmission_ciel)? 0 : 1;
   	  $this->etablissement->save();
-  	  
+
   	  $this->redirect('profil', $this->etablissement);
   }
-  
-  public function executeStatut(sfWebRequest $request) 
+
+  public function executeStatut(sfWebRequest $request)
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
   	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -235,22 +239,22 @@ class tiersActions extends sfActions
   	$pdf = new ExportFichePdf($this->contrat, $this->compte);
   	return $this->renderText($pdf->render($this->getResponse(), false));
   }
-  
+
   public function executeConvention(sfWebRequest $request)
   {
   	$this->etablissement = $this->getRoute()->getEtablissement();
   	$this->compte = $this->etablissement->getCompteObject();
   	$this->convention = $this->compte->getConventionCiel();
-  	 
+
   	$path = sfConfig::get('sf_data_dir').'/convention-ciel';
-  	 
+
   	if (!file_exists($path.'/pdf/'.$this->convention->_id.'.pdf')) {
   		$fdf = tempnam(sys_get_temp_dir(), 'CONVENTIONCIEL');
   		file_put_contents($fdf, $this->convention->generateFdf());
   		exec("pdftk ".$path."/template.pdf fill_form $fdf output  /dev/stdout flatten |  gs -o ".$path.'/pdf/'.$this->convention->_id.".pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true  -sFONTPATH=\"/usr/share/fonts/truetype/freefont\" - ");
   		unlink($fdf);
   	}
-  	 
+
   	$response = $this->getResponse();
   	$response->setHttpHeader('Content-Type', 'application/pdf');
   	$response->setHttpHeader('Content-disposition', 'attachment; filename="' . basename($path.'/pdf/'.$this->convention->_id.'.pdf') . '"');
@@ -258,8 +262,8 @@ class tiersActions extends sfActions
   	$response->setHttpHeader('Pragma', '');
   	$response->setHttpHeader('Cache-Control', 'public');
   	$response->setHttpHeader('Expires', '0');
-  
+
   	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
   }
-  
+
 }

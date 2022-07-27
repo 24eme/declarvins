@@ -255,6 +255,7 @@ class Etablissement extends BaseEtablissement {
       $societe->statut = $this->statut;
       $societe->cooperative = ($this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)? true : false;
       $societe->email = $this->email;
+      $societe->telephone = $this->telephone;
       $societe->fax = $this->fax;
       $societe->no_tva_intracommunautaire = $this->no_tva_intracommunautaire;
       $societe->siege->adresse = $this->siege->adresse;
@@ -268,6 +269,7 @@ class Etablissement extends BaseEtablissement {
       $societe->remove('contacts');
       $societe->add('contacts');
       $societe->contacts->getOrAdd($this->compte);
+      $this->societe = $societe->_id;
       return $societe;
     }
 
@@ -276,7 +278,12 @@ class Etablissement extends BaseEtablissement {
     }
 
     public function getSociete() {
-      return SocieteClient::getInstance()->find($this->identifiant);
+        $identifiant = ($this->_get('societe'))? $this->_get('societe') : $this->identifiant;
+        return SocieteClient::getInstance()->find($identifiant);
+    }
+
+    public function hasSociete() {
+        return $this->_get('societe');
     }
 
     public function getCodeInsee() {
@@ -287,5 +294,9 @@ class Etablissement extends BaseEtablissement {
             return $this->siege->code_insee;
         }
         return null;
+    }
+
+    public function getEmailTeledeclaration() {
+       return null;
     }
 }

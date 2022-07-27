@@ -30,8 +30,10 @@ all:
           19700101: 19.6
           20140101: 20.0
       export_shell: "%sf_root_dir%/bin/exportSage.sh"
-      export_relances: true
+      export_relances: "%sf_root_dir%/bin/exportRelanceFacture.sh"
       export_sv12: true
       teledeclaration: false
       seuil_minimum: 100
       code_journal: 'BQ1'
+      delai_relance1: '+45 days'
+      delai_relance2: '+65 days'
