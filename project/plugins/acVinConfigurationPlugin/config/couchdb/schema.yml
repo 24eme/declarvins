@@ -353,6 +353,7 @@ Configuration:
                     type: collection
                     definition:
                       fields:
+                        contrat_pluriannuel_actif: {  }
                         transaction_has_acheteur: {  }
                         clauses_complementaires:
                           type: collection
