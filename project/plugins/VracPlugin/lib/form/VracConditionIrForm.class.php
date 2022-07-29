@@ -10,7 +10,6 @@ class VracConditionIrForm extends VracConditionForm
         $this->setWidget('ramasseur_raisin', new sfWidgetFormChoice(array('choices' => array('vendeur' => 'ramassé par le vendeur', 'acheteur' => 'ramassé par l\'acheteur'),'expanded' => true)));
         $this->getWidget('ramasseur_raisin')->setLabel('Le raisin sera:');
         $this->setValidator('ramasseur_raisin', new sfValidatorChoice(array('required' => true, 'choices' => array('vendeur','acheteur'))));
-        $this->editablizeInputPluriannuel();
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);

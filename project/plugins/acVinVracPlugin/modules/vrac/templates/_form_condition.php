@@ -18,11 +18,13 @@
                 <?php echo $form['ramasseur_raisin']->render() ?>
             </div>
             <?php endif; ?>
-            <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel|#bloc_pluriannuel_campagne|#bloc_pluriannuel_prix|#bloc_pluriannuel_clause_indexation">
+            <?php if (isset($form['contrat_pluriannuel'])): ?>
+            <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel">
                 <?php echo $form['contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['contrat_pluriannuel']->render() ?>
             </div>
+            <?php endif; ?>
             <?php if (isset($form['reference_contrat_pluriannuel'])): ?>
             <div class="section_label_strong bloc_conditionner" id="bloc_reference_pluriannuel" data-condition-value="1">
                 <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
@@ -31,31 +33,17 @@
             </div>
             <?php endif; ?>
             <?php if (isset($form['pluriannuel_campagne_debut'])&&isset($form['pluriannuel_campagne_fin'])): ?>
-            <div class="bloc_conditionner" id="bloc_pluriannuel_campagne" data-condition-value="1">
-                <div class="section_label_strong">
-                    <?php echo $form['pluriannuel_campagne_debut']->renderLabel() ?>
-                    <?php echo $form['pluriannuel_campagne_debut']->render() ?>
-                </div>
-                <div class="section_label_strong">
-                    <?php echo $form['pluriannuel_campagne_fin']->renderLabel() ?>
-                    <?php echo $form['pluriannuel_campagne_fin']->render() ?>
-                </div>
+            <div class="section_label_strong">
+                <?php echo $form['pluriannuel_campagne_debut']->renderLabel() ?>
+                <?php echo $form['pluriannuel_campagne_debut']->render() ?>
             </div>
-            <?php endif; ?>
-            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])): ?>
-            <div class="bloc_conditionner" id="bloc_pluriannuel_prix" data-condition-value="1">
-                <div class="section_label_strong">
-                    <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
-                    <?php echo $form['pluriannuel_prix_plancher']->render() ?>
-                </div>
-                <div class="section_label_strong">
-                    <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
-                    <?php echo $form['pluriannuel_prix_plafond']->render() ?>
-                </div>
+            <div class="section_label_strong">
+                <?php echo $form['pluriannuel_campagne_fin']->renderLabel() ?>
+                <?php echo $form['pluriannuel_campagne_fin']->render() ?>
             </div>
             <?php endif; ?>
             <?php if (isset($form['pluriannuel_clause_indexation'])): ?>
-            <div class="bloc_conditionner section_label_strong" id="bloc_pluriannuel_clause_indexation" data-condition-value="1">
+            <div class="section_label_strong">
                 <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
                 <?php echo $form['pluriannuel_clause_indexation']->render() ?>
             </div>

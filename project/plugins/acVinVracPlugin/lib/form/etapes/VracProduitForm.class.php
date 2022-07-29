@@ -45,6 +45,10 @@ class VracProduitForm extends VracForm
 		      	$this->setWidget('produit', new sfWidgetFormInputHidden());
 		      }
 
+             if ($this->configuration->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
+                 unset($this['millesime']);
+             }
+
 
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());
     		$this->widgetSchema->setNameFormat('vrac_produit[%s]');

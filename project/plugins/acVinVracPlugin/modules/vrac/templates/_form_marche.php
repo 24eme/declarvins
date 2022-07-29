@@ -18,23 +18,33 @@
             <?php endif; ?>
 
         	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix</h1>
+            <?php if (isset($form['contractualisation'])): ?>
+            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_pourcentage_recolte|#bloc_surface|#bloc_volume_propose">
+                <?php echo $form['contractualisation']->renderError() ?>
+                <?php echo $form['contractualisation']->renderLabel() ?>
+                <?php echo $form['contractualisation']->render() ?>
+            </div>
+            <?php endif; ?>
             <?php if (isset($form['pourcentage_recolte'])): ?>
-            <div class="section_label_strong">
+            <div id="bloc_pourcentage_recolte" class="section_label_strong bloc_conditionner" data-condition-value="recolte">
                 <?php echo $form['pourcentage_recolte']->renderLabel() ?>
                 <?php echo $form['pourcentage_recolte']->render() ?>  <strong>%</strong>
+                <p style="padding: 10px 0 0 210px;"><em><strong>Un pourcentage de la récolte</strong> totale revendiquée dans l'appellation d’origine contrôlée objet du contrat, provenant de son exploitation et indiquée sur sa déclaration de récolte.</em></p>
             </div>
             <?php endif; ?>
             <?php if (isset($form['surface'])): ?>
-            <div class="section_label_strong">
+            <div id="bloc_surface" class="section_label_strong bloc_conditionner" data-condition-value="surface">
                 <?php echo $form['surface']->renderLabel() ?>
                 <?php echo $form['surface']->render() ?> <strong>HA</strong>
+                <p style="padding: 10px 0 0 210px;"><em>La production revendiquée dans l'appellation d’origine contrôlée objet du contrat, provenant de son exploitation et récoltés sur <strong>la surface</strong> en production mentionnées.</em></p>
             </div>
             <?php endif; ?>
-            <div class="section_label_strong">
+            <div id="bloc_volume_propose" class="section_label_strong bloc_conditionner" data-condition-value="volume">
                 <?php echo $form['volume_propose']->renderError() ?>
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
+            <?php if (isset($form['prix_unitaire'])&&isset($form['prix_unitaire'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
@@ -51,6 +61,17 @@
             	<label>Prix total HT:</label>
             	<strong><span id="prix_total_contrat">0.0</span> € HT</strong>
             </div>
+            <?php endif; ?>
+            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
+                <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+            </div>
+            <div class="section_label_strong">
+                <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
+                <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+            </div>
+            <?php endif; ?>
             <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                 <?php echo $form['type_prix_1']->renderError() ?>
                 <?php echo $form['type_prix_1']->renderLabel() ?>

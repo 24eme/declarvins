@@ -1,11 +1,12 @@
 <?php
 
 class VracMarcheValidator extends sfValidatorBase {
-    
+
     protected $ivse;
     protected $vrac;
-    
-    public function __construct($vrac, $options = array(), $messages = array())
+    protected $isPluriannuelActive;
+
+    public function __construct($vrac, $isPluriannuelActive, $options = array(), $messages = array())
     {
         if ($vrac) {
             $this->vrac = $vrac;
@@ -14,7 +15,8 @@ class VracMarcheValidator extends sfValidatorBase {
             $this->vrac = null;
             $this->ivse = null;
         }
-        
+        $this->isPluriannuelActive = $isPluriannuelActive;
+
         parent::__construct($options, $messages);
     }
 
@@ -61,18 +63,27 @@ class VracMarcheValidator extends sfValidatorBase {
     			$hasError = true;
     		}
     	}
-    	if (isset($values['volume_propose']) && $values['volume_propose'] <= 0) {
-    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
-    			$hasError = true;
-    	}
-    	if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0) {
-    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
-    			$hasError = true;
-    	}
-        
+        if ($this->isPluriannuelActive && $this->vrac->isPluriannuel()) {
+            	if ((isset($values['volume_propose']) && $values['volume_propose'] <= 0)&&(isset($values['pourcentage_recolte']) && $values['pourcentage_recolte'] <= 0)&&(isset($values['surface']) && $values['surface'] <= 0)) {
+            			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
+                        $errorSchema->addError(new sfValidatorError($this, 'required'), 'pourcentage_recolte');
+                        $errorSchema->addError(new sfValidatorError($this, 'required'), 'surface');
+            			$hasError = true;
+            	}
+        } else {
+        	if (isset($values['volume_propose']) && $values['volume_propose'] <= 0) {
+        			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
+        			$hasError = true;
+        	}
+        }
+        if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0) {
+                $errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
+                $hasError = true;
+        }
+
     	if (isset($values['conditions_paiement']) && $values['conditions_paiement'] == 'cadre_reglementaire') {
 
-    	    if (!$values['delai_paiement']) {
+    	    if (!$values['delai_paiement'] && (!$this->isPluriannuelActive || !$this->vrac->isPluriannuel())) {
     	        $errorSchema->addError(new sfValidatorError($this, 'required'), 'delai_paiement');
     	        $hasError = true;
     	    }

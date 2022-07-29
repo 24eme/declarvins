@@ -89,10 +89,44 @@ class VracMarcheForm extends VracForm
     	    unset($this['type_retiraison']);
     	}
 
+        if ($this->getConfiguration()->isContratPluriannuelActif()) {
+            $this->configurePluriannuel();
+        }
+
         $this->editablizeInputPluriannuel();
-  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
+  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject(), $this->getConfiguration()->isContratPluriannuelActif()));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
     }
+
+
+    public function configurePluriannuel() {
+        unset($this['prix_unitaire'], $this['prix_total_unitaire']);
+
+        $this->setWidget('contractualisation', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getContractualisationChoices(), 'multiple' => false)));
+        $this->getWidget('contractualisation')->setLabel('Contractualisation sur:');
+        $this->setValidator('contractualisation', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getContractualisationChoices()), 'multiple' => false)));
+		$this->setWidget('pourcentage_recolte', new sfWidgetFormInputFloat());
+		$this->setValidator('pourcentage_recolte', new sfValidatorNumber(array('required' => false)));
+		$this->getWidget('pourcentage_recolte')->setLabel('Pourcentage de la récolte');
+		$this->setWidget('surface', new sfWidgetFormInputFloat());
+		$this->setValidator('surface', new sfValidatorNumber(array('required' => false)));
+		$this->getWidget('surface')->setLabel('Surface concernée');
+        $this->setWidget('pluriannuel_prix_plancher', new sfWidgetFormInputFloat());
+        $this->setWidget('pluriannuel_prix_plafond', new sfWidgetFormInputFloat());
+        $this->getWidget('pluriannuel_prix_plancher')->setLabel('Prix plancher');
+        $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond');
+        $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => false)));
+        $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => false)));
+
+        $this->getValidator('volume_propose')->setOption('required', false);
+        $this->getValidator('date_limite_retiraison')->setOption('required', false);
+
+    }
+
+    public function getContractualisationChoices() {
+        return array('volume' => 'Un volume', 'surface' => 'Une surface', 'recolte' => 'Une récolte');
+    }
+
     protected function doUpdateObject($values) {
         if ($values['conditions_paiement'] != VracClient::ECHEANCIER_PAIEMENT) {
             $values['paiements'] = array();
@@ -160,8 +194,15 @@ class VracMarcheForm extends VracForm
           $this->setDefault('type_prix_1', 'definitif');
           $this->setDefault('type_prix_2', null);
       }
+      if ($this->getObject()->pourcentage_recolte) {
+          $this->setDefault('contractualisation', 'recolte');
+      } elseif ($this->getObject()->surface) {
+          $this->setDefault('contractualisation', 'surface');
+      } else {
+          $this->setDefault('contractualisation', 'volume');
+      }
     }
-    
+
     public function getCepages()
     {
     	return $this->getObject()->getCepagesProduit();
@@ -196,5 +237,14 @@ class VracMarcheForm extends VracForm
 
     public function hasAcompteInfo() {
       return true;
+    }
+
+    public function getDelaisPaiement()
+    {
+        $delais = parent::getDelaisPaiement();
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
+            $delais[null] = 'Les parties fixeront les délais de paiement dans chacun des contrats d\'application';
+        }
+    	return $delais;
     }
 }
