@@ -27,7 +27,7 @@
 				<a href="<?php echo url_for('@etablissement_login_daids') ?>">DAI/DS</a>
 			</li>
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('vrac_admin') ?>">Contrat interprofessionnel</a>
+				<a href="<?php echo url_for('vrac_admin') ?>">Contrat</a>
 			</li>
             <?php if ($configuration->isApplicationOuverte($interpro->_id, 'sv12')): ?>
 			<li<?php if ($subactive == 'sv12'): ?> class="actif"<?php endif; ?>>
