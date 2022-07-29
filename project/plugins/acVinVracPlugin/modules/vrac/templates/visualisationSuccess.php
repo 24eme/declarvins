@@ -56,7 +56,7 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 					</p>
 				<?php endif; ?>
                 <div id="titre">
-                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
+                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span><span class="pull-right"><?php $libelles = Vrac::getModeDeSaisieLibelles(); if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)&&$vrac->mode_de_saisie): echo $libelles[$vrac->mode_de_saisie]; endif; ?></span>
                     <?php if ($vrac->oioc->date_traitement): ?>
                     <br />Envoi Oco : <?php echo format_date($vrac->oioc->date_traitement, 'dd/MM/y') ?>
                     <?php endif; ?>

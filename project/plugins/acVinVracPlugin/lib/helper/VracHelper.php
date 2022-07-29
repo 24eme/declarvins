@@ -34,13 +34,13 @@ function isARechercheParam($actif,$label)
 
 function statusColor($status)
 {
-    
+
     if(is_null($status)) return '';
-    
+
     switch ($status)
     {
         case VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION:
-            return 'statut_annule';
+            return 'statut_att_annule';
         case VracClient::STATUS_CONTRAT_ANNULE:
             return 'statut_annule';
         case VracClient::STATUS_CONTRAT_SOLDE:
@@ -125,7 +125,23 @@ function showUnite($vrac)
     return '';
 }
 
-      
+function getTypeIcon($type)
+{
+    switch ($type) {
+        case VracClient::TYPE_TRANSACTION_VIN_BOUTEILLE :
+            return 'icon-bouteille';
+        case VracClient::TYPE_TRANSACTION_VIN_VRAC :
+            return 'icon-vrac';
+        case VracClient::TYPE_TRANSACTION_MOUTS :
+            return 'icon-mouts';
+        case VracClient::TYPE_TRANSACTION_RAISINS :
+            return 'icon-raisins';
+        default:
+            return '';
+    }
+}
+
+
 function typeProduit($type)
 {
     switch ($type) {

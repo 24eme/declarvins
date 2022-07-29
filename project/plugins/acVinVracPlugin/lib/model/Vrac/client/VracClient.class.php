@@ -1,16 +1,16 @@
 <?php
 
 class VracClient extends acCouchdbClient {
-   
+
 	/*
 	 * @todo Rendre generique les constantes de transaction
 	 */
-    const TYPE_TRANSACTION_RAISINS = 'raisins';
-    const TYPE_TRANSACTION_MOUTS = 'mouts';
-    const TYPE_TRANSACTION_VIN_VRAC = 'vin_vrac';
+    const TYPE_TRANSACTION_RAISINS = 'raisin';
+    const TYPE_TRANSACTION_MOUTS = 'mout';
+    const TYPE_TRANSACTION_VIN_VRAC = 'vrac';
     const TYPE_TRANSACTION_VIN_BOUTEILLE = 'vin_bouteille';
-    
-    
+
+
     const STATUS_CONTRAT_SOLDE = 'SOLDE';
     const STATUS_CONTRAT_ANNULE = 'ANNULE';
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
