@@ -1,0 +1,2 @@
+all:
+  stylesheets:    [bootstrap_ir.css, bootstrap_declarvins.css, bootstrap_declarvins_adapter.css, ../components/vins/vins.css]
