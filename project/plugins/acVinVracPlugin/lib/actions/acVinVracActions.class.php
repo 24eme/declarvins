@@ -26,6 +26,7 @@ class acVinVracActions extends sfActions
     	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		return $this->redirect('@acces_interdit');
     	}
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
         $this->etablissement = null;
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->statut = $request->getParameter('statut');
@@ -38,12 +39,12 @@ class acVinVracActions extends sfActions
         }
         $this->vracs = array();
         if ($this->statut === 'TOUS') {
-            $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro(0, $this->interpro->get('_id'));
+            $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro(0, $this->interpro->get('_id'), $this->pluriannuel);
             foreach(VracClient::getInstance()->getStatusContrat() as $stat) {
-                $contrats = array_merge($contrats, VracHistoryView::getInstance()->findLastByStatutAndInterpro($stat, $this->interpro->get('_id')));
+                $contrats = array_merge($contrats, VracHistoryView::getInstance()->findLastByStatutAndInterpro($stat, $this->interpro->get('_id'), $this->pluriannuel));
             }
         } else {
-                $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
+                $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'), $this->pluriannuel);
         }
         foreach ($contrats as $contrat) {
         		$this->vracs[$contrat->id] = $contrat;
@@ -66,6 +67,7 @@ class acVinVracActions extends sfActions
     public function executeEtablissement(sfWebRequest $request)
 	{
         $this->etablissement = $this->getRoute()->getEtablissement();
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
         $this->statut = $request->getParameter('statut');
         $this->statut = ($this->statut)? $this->statut : 0;
         $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0, 'TOUS'))));
@@ -75,7 +77,7 @@ class acVinVracActions extends sfActions
         	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
         }
 		$this->vracs = array();
-        $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant)->rows);
+        $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant, $this->pluriannuel)->rows);
         foreach ($contrats as $contrat) {
         	if (
                 ($this->statut === 'TOUS')||
@@ -93,14 +95,16 @@ class acVinVracActions extends sfActions
 	{
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
-		$vrac = $this->getNewVrac($this->etablissement);
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
+		$vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
 		$this->redirect(array('sf_route' => 'vrac_etape',
                               'sf_subject' => $vrac,
                               'step' => $this->configurationVracEtapes->next($vrac->etape),
-                              'etablissement' => $this->etablissement));
+                              'etablissement' => $this->etablissement,
+                              'pluriannuel' => $this->pluriannuel));
 	}
 
-	private function getNewVrac($etablissement)
+	private function getNewVrac($etablissement, $pluriannuel = 0)
 	{
 		$vrac = new Vrac();
 		$this->init($vrac, $etablissement);
@@ -108,6 +112,7 @@ class acVinVracActions extends sfActions
 		$vrac->numero_contrat = uniqid();
 		$vrac->add('referente', 1);
 		$vrac->add('version', null);
+		$vrac->contrat_pluriannuel = ($pluriannuel)? 1 : 0;
 		return $vrac;
 	}
 
@@ -221,6 +226,7 @@ class acVinVracActions extends sfActions
 		if (!$this->getUser()->getCompte()) {
 			throw new sfException('Compte required');
 		}
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
         $this->etablissement = $this->getRoute()->getEtablissement();
         if (!$this->etablissement) {
         	if ($etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'))) {
@@ -229,7 +235,7 @@ class acVinVracActions extends sfActions
         }
         $this->vrac = $this->getRoute()->getVrac();
         if ($this->vrac->isNew()) {
-        	$this->vrac = $this->getNewVrac($this->etablissement);
+        	$this->vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
         }
 		$this->init($this->vrac, $this->etablissement);
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->vrac->isValide() && !$this->vrac->hasVersion()) {

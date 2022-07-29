@@ -48,39 +48,39 @@ class VracHistoryView extends acCouchdbView
         return acCouchdbManager::getView('vrac', 'history', 'Vrac');
     }
 
-	public function findByStatutAndInterpro($statut, $interpro) {
-        return $this->client->startkey(array($statut, $interpro))
-                    		->endkey(array($statut, $interpro, array()))
+	public function findByStatutAndInterpro($statut, $interpro, $pluriannuel = 0) {
+        return $this->client->startkey(array($pluriannuel, $statut, $interpro))
+                    		->endkey(array($pluriannuel, $statut, $interpro, array()))
                             ->getView($this->design, $this->view);
     }
 
-	public function findLastByInterpro($interpro) {
+	public function findLastByInterpro($interpro, $pluriannuel = 0) {
 		$date_fin = date('c');
 		$date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
-        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))
-                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))
+        return $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))
+                    		->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))
                             ->getView($this->design, $this->view);
     }
 
 
-	public function findLastByStatutAndInterpro($statut, $interpro) {
+	public function findLastByStatutAndInterpro($statut, $interpro, $pluriannuel = 0) {
         $date_fin = date('c');
         $date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
 		if (!$statut||in_array($statut, array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION))) {
-            $enCours = $this->client->startkey(array($statut, $interpro))->endkey(array($statut, $interpro, array()))->getView($this->design, $this->view)->rows;
-            $attValidation = $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
-            $attAnnulation = $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_debut))->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
+            $enCours = $this->client->startkey(array($pluriannuel, $statut, $interpro))->endkey(array($pluriannuel, $statut, $interpro, array()))->getView($this->design, $this->view)->rows;
+            $attValidation = $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
+            $attAnnulation = $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_debut))->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
             return array_merge($enCours, $attValidation, $attAnnulation);
 		}
-        return $this->client->startkey(array($statut, $interpro, $date_debut))
-                    		->endkey(array($statut, $interpro, $date_fin, array()))
+        return $this->client->startkey(array($pluriannuel, $statut, $interpro, $date_debut))
+                    		->endkey(array($pluriannuel, $statut, $interpro, $date_fin, array()))
                             ->getView($this->design, $this->view)->rows;
     }
 
-	public function findLast() {
+	public function findLast($pluriannuel = 0) {
 
-        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))
-                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))
+        return $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))
+                    		->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))
                             ->getView($this->design, $this->view);
     }
 

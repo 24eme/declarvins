@@ -9,5 +9,5 @@
             </strong>
         </div>
     <?php endif; ?>
-    <?php include_partial('form_'.$etape, array('form' => $form, 'etape' => $etape, 'configurationVrac' => $configurationVrac, 'etablissement' => $etablissement)) ?>
+    <?php include_partial('form_'.$etape, array('form' => $form, 'etape' => $etape, 'configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'pluriannuel' => $pluriannuel)) ?>
 </section>
