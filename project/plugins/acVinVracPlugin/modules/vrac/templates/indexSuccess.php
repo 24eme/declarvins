@@ -19,7 +19,7 @@
 
         <ul class="nav nav-tabs text-center">
           <li class="<?php if(!$pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('sf_subject' => $etablissement)); ?>"><h3 style="margin:0;">Ponctuels</h3></a></li>
-          <li class="<?php if($pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('sf_subject' => $etablissement)); ?>?pluriannuel=1"><h3 style="margin:0;">Pluriannuels</h3></a></li>
+          <li class="<?php if($pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => 'TOUS')) : url_for('vrac_etablissement', array('sf_subject' => $etablissement, 'statut' => 'TOUS')); ?>?pluriannuel=1"><h3 style="margin:0;">Pluriannuels</h3></a></li>
         </ul>
 
 
