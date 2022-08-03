@@ -172,10 +172,13 @@
 				<span><?php echo $vrac->surface ?> HA</span>
 			</li>
             <?php endif; ?>
+            <?php if ($vrac->volume_propose): ?>
 			<li>
 				<span>Volume :</span>
 				<span><?php echo $vrac->volume_propose ?><?php if($vrac->type_transaction == 'raisin'): ?> Kg<?php else: ?> HL<?php endif; ?></span>
 			</li>
+            <?php endif; ?>
+            <?php if ($vrac->prix_unitaire): ?>
 			<li>
 				<span>Prix unitaire net :</span>
 				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
@@ -206,6 +209,7 @@
 				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
 			</li>
 			<?php endif; ?>
+            <?php endif; ?>
 			<li>
 				<span>Type de prix :</span>
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
