@@ -58,15 +58,20 @@
                     if($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
                         $validated = false;
                     }
+                    $isContratPluriannuelApplication = strpos($vracid, '-A') !== false;
 			?>
 			<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire || $isOperateur): ?>
-			<tr class="<?php echo $statusColor ?>" >
+			<tr class="<?php echo $statusColor ?><?php if ($pluriannuel && !$isContratPluriannuelApplication): ?> pluriannuel_application<?php endif; ?>" >
 			  <td class="text-center">
 			  	<?php if (!$validated && $isOperateur): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
-				<span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>" style="cursor: pointer;"></span>
-				<?php if($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT]): ?>
+                <?php if ($pluriannuel && !$isContratPluriannuelApplication): ?>
+                    <span style="font-size: 13px; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;"></span>
+                <?php else: ?>
+				    <span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>" style="cursor: pointer;"></span>
+                <?php endif; ?>
+                <?php if($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT]): ?>
 				<br />Envoi Oco : <?php echo format_date($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT], 'd/M/y') ?>
 				<?php endif; ?>
 			  </td>
@@ -150,10 +155,13 @@
 			    	<?php endif; ?>
 			    </td>
 			    <td class="text-center">
-			    	<?php if (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE])): ?>
+			    	<?php if (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]) && $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]): ?>
 			    	<?php echo $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] ?>&nbsp;<?php if($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'raisin'): ?>€/hl<?php else: ?>€/kg<?php endif;?>
 					<?php endif; ?>
-			    </td>
+                    <?php if ($pluriannuel && !$isContratPluriannuelApplication): ?>
+                    <a class="text-warning" style="color: #ec971f; font-size: 20px; position: absolute; right: 2px;" title="Créer un contrat d'application"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    <?php endif; ?>
+                </td>
 			</tr>
 			<?php endif; ?>
 	        <?php endforeach; ?>
