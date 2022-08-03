@@ -504,7 +504,7 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
         $application = clone $this->vrac;
         $application->reference_contrat_pluriannuel = $this->vrac->numero_contrat;
-        $application->numero_contrat = VracClient::getInstance()->getNextNoContrat();
+        $application->numero_contrat = VracClient::getInstance()->getNextNoContratApplication($this->vrac->numero_contrat);
         $application->constructId();
         $application->devalide();
         if ($this->etablissement) {
