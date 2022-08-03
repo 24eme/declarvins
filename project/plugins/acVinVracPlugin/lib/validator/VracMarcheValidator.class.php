@@ -63,7 +63,7 @@ class VracMarcheValidator extends sfValidatorBase {
     			$hasError = true;
     		}
     	}
-        if ($this->isPluriannuelActive && $this->vrac->isPluriannuel()) {
+        if ($this->isPluriannuelActive && $this->vrac->isPluriannuelInitial()) {
             	if ((isset($values['volume_propose']) && $values['volume_propose'] <= 0)&&(isset($values['pourcentage_recolte']) && $values['pourcentage_recolte'] <= 0)&&(isset($values['surface']) && $values['surface'] <= 0)) {
             			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
                         $errorSchema->addError(new sfValidatorError($this, 'required'), 'pourcentage_recolte');
@@ -83,7 +83,7 @@ class VracMarcheValidator extends sfValidatorBase {
 
     	if (isset($values['conditions_paiement']) && $values['conditions_paiement'] == 'cadre_reglementaire') {
 
-    	    if (!$values['delai_paiement'] && (!$this->isPluriannuelActive || !$this->vrac->isPluriannuel())) {
+    	    if (!$values['delai_paiement'] && (!$this->isPluriannuelActive || !$this->vrac->isPluriannuelInitial())) {
     	        $errorSchema->addError(new sfValidatorError($this, 'required'), 'delai_paiement');
     	        $hasError = true;
     	    }
