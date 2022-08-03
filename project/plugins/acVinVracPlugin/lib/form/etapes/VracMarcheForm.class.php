@@ -247,4 +247,14 @@ class VracMarcheForm extends VracForm
         }
     	return $delais;
     }
+
+    public function getConditionsPaiement()
+    {
+        $conditions = parent::getConditionsPaiement();
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuelInitial()) {
+            if (isset($conditions['echeancier_paiement']))
+                unset($conditions['echeancier_paiement']);
+        }
+    	return $conditions;
+    }
 }

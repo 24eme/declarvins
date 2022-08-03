@@ -39,7 +39,7 @@ class VracMarcheIrForm extends VracMarcheForm
 
     public function getConditionsPaiement()
     {
-      $conditions = $this->getConfiguration()->getConditionsPaiement()->toArray();
+      $conditions = parent::getConditionsPaiement();
       $hasEcheancier = false;
       if ($this->getObject()->contrat_pluriannuel) {
         $hasEcheancier = true;
