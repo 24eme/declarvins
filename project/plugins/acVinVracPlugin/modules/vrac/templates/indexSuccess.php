@@ -52,6 +52,7 @@
                     <?php endif; ?>
                 </strong>
             </p>
-        <?php else: include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement, 'configurationProduit' => $configurationProduit)); endif; ?>
+        <?php else: include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement, 'configurationProduit' => $configurationProduit, 'pluriannuel' => $pluriannuel)); endif; ?>
+
     </div>
 </section>
