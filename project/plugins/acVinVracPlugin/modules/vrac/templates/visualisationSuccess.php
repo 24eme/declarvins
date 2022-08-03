@@ -66,12 +66,12 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                 </div>
                 <?php if($vrac->isPluriannuel() && $configurationVrac->isContratPluriannuelActif()): ?>
                 <div class="titre" style="background-color: #eee; margin-top: 10px;">
-                    <strong style="font-size: 13px; margin-right: 50px;background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;">
+                    <strong style="text-align: center; font-size: 13px;background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;">
                         Contrat <?php if($vrac->isPluriannuelAdosse()): ?>adossé au contrat pluriannuel n°<a href="<?php echo url_for('vrac_visualisation', array('contrat' => $vrac->reference_contrat_pluriannuel)) ?>"><?php echo $vrac->reference_contrat_pluriannuel ?></a><?php else: ?>pluriannuel<?php endif; ?>
+                        <?php if($vrac->isPluriannuelInitial()): ?>
+                        <a href="<?php echo url_for('vrac_pluriannuel', array('contrat' => ($vrac->isPluriannuelAdosse())? $vrac->reference_contrat_pluriannuel : $vrac->numero_contrat, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Créer une application</a>
+                        <?php endif; ?>
                     </strong>
-                    <?php if($vrac->isCreateur($etablissement)): ?>
-                    <a href="<?php echo url_for('vrac_pluriannuel', array('contrat' => ($vrac->isPluriannuelAdosse())? $vrac->reference_contrat_pluriannuel : $vrac->numero_contrat, 'etablissement' => $etablissement)) ?>">[+] nouvelle application</a>
-                <?php endif; ?>
                 </div>
                 <?php endif; ?>
                 <div id="vrac_condition">
