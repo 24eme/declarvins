@@ -2579,6 +2579,12 @@ p#date_drm {
   border-color: #dbdbdb;
   text-align: center;
 }
+#principal .tableau_ajouts_liquidations table tbody  tr.pluriannuel_application td,
+#principal .tableau_resultats table tbody tr.pluriannuel_application td {
+  background: #f7f7f7;
+  border-color: #f2f2f2;
+  text-align: center;
+}
 #principal .tableau_ajouts_liquidations table tbody td:first-child,
 #principal .tableau_resultats table tbody td:first-child {
   text-align: left;
