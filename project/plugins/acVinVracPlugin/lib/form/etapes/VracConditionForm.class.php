@@ -49,7 +49,7 @@ class VracConditionForm extends VracForm
     }
 
     public function configurePluriannuel() {
-        unset($this['reference_contrat_pluriannuel'], $this['contrat_pluriannuel'], $this['type_transaction']);
+        unset($this['reference_contrat_pluriannuel'], $this['contrat_pluriannuel']);
 
         $this->setWidget('pluriannuel_campagne_debut', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoices())));
         $this->setWidget('pluriannuel_campagne_fin', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoices())));
