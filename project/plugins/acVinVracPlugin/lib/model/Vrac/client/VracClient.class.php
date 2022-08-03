@@ -102,8 +102,13 @@ class VracClient extends acCouchdbClient {
 
       return sprintf('%s%03d', $date, $numero);
     }
-    
-    public function findLastByDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
+
+    public function getNextNoContratApplication($numeroPluriannuel) {
+        $items = $this->startkey('VRAC-'.$numeroPluriannuel.'-A00')->endkey('VRAC-'.$numeroPluriannuel.'-A99')->execute(acCouchdbClient::HYDRATE_JSON);
+        return sprintf('%s-A%02d', $numeroPluriannuel, count($items)+1);
+    }
+
+    public function findLastByDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
     {
         $vracs = $this->startkey('VRAC-'.$date.'000')->endkey('VRAC-'.$date.'999')->execute($hydrate)->getDocs();
         krsort($vracs);
