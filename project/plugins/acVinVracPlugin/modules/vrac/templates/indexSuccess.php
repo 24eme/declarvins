@@ -17,10 +17,12 @@
             <?php endif; ?>
         </h1>
 
+        <?php if ($configurationVrac->isContratPluriannuelActif()): ?>
         <ul class="nav nav-tabs text-center">
           <li class="<?php if(!$pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('sf_subject' => $etablissement)); ?>"><h3 style="margin:0;">Ponctuels</h3></a></li>
           <li class="<?php if($pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => 'TOUS')) : url_for('vrac_etablissement', array('sf_subject' => $etablissement, 'statut' => 'TOUS')); ?>?pluriannuel=1"><h3 style="margin:0;">Pluriannuels</h3></a></li>
         </ul>
+        <?php endif; ?>
 
 
         <ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">

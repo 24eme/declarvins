@@ -29,6 +29,7 @@ class acVinVracActions extends sfActions
 		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
         $this->etablissement = null;
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->statut = $request->getParameter('statut');
         $this->statut = ($this->statut)? $this->statut : 0;
         $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0, 'TOUS'))));
@@ -76,6 +77,7 @@ class acVinVracActions extends sfActions
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
         	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
         }
+		$this->configurationVrac = $this->getConfigurationVrac($interpro->_id);
 		$this->vracs = array();
         $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant, $this->pluriannuel)->rows);
         foreach ($contrats as $contrat) {
