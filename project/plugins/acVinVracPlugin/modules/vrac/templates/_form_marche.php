@@ -39,7 +39,11 @@
                 <p style="padding: 10px 0 0 210px;"><em>La production revendiquée dans l'appellation d’origine contrôlée objet du contrat, provenant de son exploitation et récoltés sur <strong>la surface</strong> en production mentionnées.</em></p>
             </div>
             <?php endif; ?>
-            <div id="bloc_volume_propose" class="section_label_strong bloc_conditionner" data-condition-value="volume">
+            <?php if (isset($form['contractualisation'])): ?>
+                <div id="bloc_volume_propose" class="section_label_strong bloc_conditionner" data-condition-value="volume">
+            <?php else: ?>
+                <div class="section_label_strong">
+            <?php endif; ?>
                 <?php echo $form['volume_propose']->renderError() ?>
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
