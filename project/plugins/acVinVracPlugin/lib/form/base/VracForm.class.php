@@ -29,7 +29,8 @@ class VracForm extends acCouchdbObjectForm
     	'conditions_paiement',
     	'type_retiraison',
     	'vin_livre',
-    	'date_limite_retiraison'
+    	'date_limite_retiraison',
+    	'volume_propose'
     );
 
     public function editablizeInputPluriannuel() {
