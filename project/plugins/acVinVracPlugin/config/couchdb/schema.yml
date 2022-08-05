@@ -20,10 +20,11 @@ Vrac:
       numero_contrat: {  }
       etape: {  }
       vous_etes: {  }
-      vendeur_type: {  }  
-      vendeur_identifiant: {  }   
-      version: {  required: false; }   
-      referente: {  required: false; }   
+      vendeur_type: {  }
+      vendeur_identifiant: {  }
+      dispense_acompte: {  }
+      version: {  required: false; }
+      referente: {  required: false; }
       enlevements:
         required: false
         type: collection

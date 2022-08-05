@@ -18,6 +18,10 @@ class VracMarcheIvseForm extends VracMarcheForm
 		$this->getWidget('delai_paiement_autre')->setLabel('Précisez le délai*:');
 		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
 
+        $this->setWidget('dispense_acompte', new sfWidgetFormInputCheckbox());
+        $this->setValidator('dispense_acompte', new sfValidatorBoolean(array('required' => false)));
+        $this->getWidget('dispense_acompte')->setLabel('Dérogation pour dispense d\'acompte selon accord interprofessionnel');
+
         unset($this['clause_reserve_retiraison'], $this['vin_livre']);
 		if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche) {
 		   unset($this['prix_total_unitaire']);

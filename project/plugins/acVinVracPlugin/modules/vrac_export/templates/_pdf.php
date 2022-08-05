@@ -147,8 +147,12 @@
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
 		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && ($vrac->isConditionneIr()||$vrac->isConditionneIvse())): ?>
-			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
-		<?php endif; ?>
+            <?php if (!$vrac->dispense_acompte): ?>
+                <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+            <?php else: ?>
+                <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
+            <?php endif; ?>
+        <?php endif; ?>
 	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
 	<p>Echéancier de paiements : </p>
@@ -172,8 +176,12 @@
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
 	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
-		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
-	<?php endif; ?>
+        <?php if (!$vrac->dispense_acompte): ?>
+            <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+        <?php else: ?>
+            <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
+        <?php endif; ?>
+    <?php endif; ?>
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
 	<?php if (!$vrac->isConditionneIvse()): ?><p>Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><?php if($vrac->type_retiraison): ?> : <?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?><?php endif; ?></p><?php endif; ?>
