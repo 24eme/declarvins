@@ -14,6 +14,10 @@ class VracMarcheIvseForm extends VracMarcheForm
 		$this->getWidget('conditions_paiement')->setOption('multiple', true);
         $this->getValidator('conditions_paiement')->setOption('multiple', true);
 
+		$this->setWidget('delai_paiement_autre', new sfWidgetFormInputText());
+		$this->getWidget('delai_paiement_autre')->setLabel('Précisez le délai*:');
+		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
+
         unset($this['clause_reserve_retiraison'], $this['vin_livre']);
 		if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche) {
 		   unset($this['prix_total_unitaire']);
@@ -32,7 +36,21 @@ class VracMarcheIvseForm extends VracMarcheForm
 
     }
 
+    public function getDelaisPaiement()
+    {
+      $delais = parent::getDelaisPaiement();
+      if ($this->getObject()->type_transaction == 'vrac') {
+        unset($delais['30_jours']);
+      }
+      return $delais;
+    }
+
     public function conditionneIVSE() {
       return true;
+    }
+
+    public function isConditionneDelaiPaiement()
+    {
+        return true;
     }
 }
