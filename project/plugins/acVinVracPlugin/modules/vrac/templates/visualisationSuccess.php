@@ -55,6 +55,16 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 					Celui-ci reste donc effectif et valable.'
 					</p>
 				<?php endif; ?>
+                <?php if($vrac->isPluriannuel() && $configurationVrac->isContratPluriannuelActif()): ?>
+                <div class="titre" style="background-color: #eee; margin-bottom: 10px;">
+                    <span class="style_label" style="text-align: center; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;">
+                        Contrat <?php if($vrac->isPluriannuelAdosse()): ?>adossé au contrat pluriannuel n°<a href="<?php echo url_for('vrac_visualisation', array('contrat' => $vrac->reference_contrat_pluriannuel)) ?>"><?php echo $vrac->reference_contrat_pluriannuel ?></a><?php else: ?>pluriannuel<?php endif; ?>
+                        <?php if($vrac->isPluriannuelInitial()): ?>
+                        <a href="<?php echo url_for('vrac_pluriannuel', array('contrat' => $vrac->numero_contrat, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Créer un contrat d'application</a>
+                        <?php endif; ?>
+                    </span>
+                </div>
+                <?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span><span class="pull-right"><?php $libelles = Vrac::getModeDeSaisieLibelles(); if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)&&$vrac->mode_de_saisie): echo $libelles[$vrac->mode_de_saisie]; endif; ?></span>
                     <?php if ($vrac->oioc->date_traitement): ?>
@@ -64,16 +74,6 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                     <br />Chargement Oco : <?php echo format_date($vrac->oioc->date_reception, 'dd/MM/y') ?>
                     <?php endif; ?>
                 </div>
-                <?php if($vrac->isPluriannuel() && $configurationVrac->isContratPluriannuelActif()): ?>
-                <div class="titre" style="background-color: #eee; margin-top: 10px;">
-                    <strong style="text-align: center; font-size: 13px;background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;">
-                        Contrat <?php if($vrac->isPluriannuelAdosse()): ?>adossé au contrat pluriannuel n°<a href="<?php echo url_for('vrac_visualisation', array('contrat' => $vrac->reference_contrat_pluriannuel)) ?>"><?php echo $vrac->reference_contrat_pluriannuel ?></a><?php else: ?>pluriannuel<?php endif; ?>
-                        <?php if($vrac->isPluriannuelInitial()): ?>
-                        <a href="<?php echo url_for('vrac_pluriannuel', array('contrat' => ($vrac->isPluriannuelAdosse())? $vrac->reference_contrat_pluriannuel : $vrac->numero_contrat, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Créer une application</a>
-                        <?php endif; ?>
-                    </strong>
-                </div>
-                <?php endif; ?>
                 <div id="vrac_condition">
                     <div class="legende" id="ss_titre">
                         <span class="style_label">Etat du contrat</span>
