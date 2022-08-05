@@ -59,15 +59,19 @@
                         $validated = false;
                     }
                     $isContratPluriannuelApplication = strpos($vracid, '-A') !== false;
+					$numContratPluriannuelApplication = ($isContratPluriannuelApplication && $vracid)? substr($vracid, -3) : '';
+					if ($pluriannuel && $isContratPluriannuelApplication) {
+						$vraclibelle = '<p style="margin: 0;margin-top: 5px;"><svg style="padding-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/></svg><span title="Contrat d\'application du contrat pluriannuel cadre ci-dessus">'.$numContratPluriannuelApplication.'</span></p>';
+					}
 			?>
 			<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire || $isOperateur): ?>
 			<tr class="<?php echo $statusColor ?><?php if ($pluriannuel && !$isContratPluriannuelApplication): ?> pluriannuel_application<?php endif; ?>" >
-			  <td class="text-center">
+			  <td class="text-center" style="padding: 0;">
 			  	<?php if (!$validated && $isOperateur): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
                 <?php if ($pluriannuel && !$isContratPluriannuelApplication): ?>
-                    <span style="font-size: 13px; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;"></span>
+                    <span style="font-size: 13px; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;" title="Contrat pluriannuel cadre"></span>
                 <?php else: ?>
 				    <span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>" style="cursor: pointer;"></span>
                 <?php endif; ?>
@@ -93,10 +97,15 @@
 			    	<?php endif; ?>
 			    <?php else: ?>
 			    	<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isOperateur): ?>
-			      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
+			      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">
+					<?php if ($pluriannuel && $isContratPluriannuelApplication): ?>
+						<p style="margin: 0;margin-top: 5px;"><svg style="padding-top: 5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/></svg><span title="Contrat d\'application du contrat pluriannuel cadre ci-dessus">Accéder</span></p>
+					<?php else: ?>
+						Accéder
+					<?php endif; ?>
+					</a>
 			      	<?php endif; ?>
 			    <?php endif; ?>
-
 			  </td>
 			 <td class="text-left">
                  <span class="glyphicon glyphicon-minus"></span> Acheteur :
@@ -159,7 +168,7 @@
 			    	<?php echo $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] ?>&nbsp;<?php if($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'raisin'): ?>€/hl<?php else: ?>€/kg<?php endif;?>
 					<?php endif; ?>
                     <?php if ($pluriannuel && !$isContratPluriannuelApplication): ?>
-                    <a class="text-warning" style="color: #ec971f; font-size: 20px; position: absolute; right: 2px;" title="Créer un contrat d'application"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    <a class="text-warning" style="color: #ec971f; font-size: 20px; position: absolute; right: 2px;" title="Créer un contrat d'application" href="<?php echo url_for('vrac_pluriannuel', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
                     <?php endif; ?>
                 </td>
 			</tr>
