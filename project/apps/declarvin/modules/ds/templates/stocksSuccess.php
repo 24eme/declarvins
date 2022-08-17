@@ -56,7 +56,7 @@
               ?>
 
               <div class="col_recolte" data-all-active="1">
-                      <h2 style="height: 20px;margin:0;font-size:15px;"><?php echo $libelle ?></h2>
+                      <h2 style="height: 20px;margin:0;font-size:15px;"><?php echo $libelle ?><?php if ($detail !== "DEFAUT") echo " (".$detail.")"; ?></h2>
                       <div class="col_cont">
                           <p style="font-size: 12px; text-align: center; height: 20px;"><?php echoFloat($stocks->stock_initial_millesime_courant) ?>&nbsp;hl</p>
                           <p class="groupe" style="height: 23px;">&nbsp;</p>
