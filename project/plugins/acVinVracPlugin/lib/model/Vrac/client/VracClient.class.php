@@ -311,11 +311,14 @@ class VracClient extends acCouchdbClient {
         }
 
         foreach ($vracs as $c) {
-            if ($mustActive && $c->value[VracAllView::VRAC_VIEW_STATUT] == self::STATUS_CONTRAT_NONSOLDE) {
-                $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
-                if($contrat->millesime == $millesime){
-                    $contrats[] = $contrat;
-                }
+            if ($mustActive && $c->value[VracAllView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
+                continue;
+            }
+            if($contrat->millesime != $millesime){
+                continue;
+            }
+            $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
+            $contrats[] = $contrat;
            }
         }
         return $contrats;
