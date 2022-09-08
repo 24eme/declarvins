@@ -320,7 +320,6 @@ class VracClient extends acCouchdbClient {
             $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
             $contrats[] = $contrat;
            }
-        }
         return $contrats;
     }
 
