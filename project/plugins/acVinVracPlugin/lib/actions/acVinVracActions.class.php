@@ -552,6 +552,26 @@ class acVinVracActions extends sfActions
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
 
+    public function executeContrats(sfWebRequest $request){
+
+        $cvi = $request->getParameter('cvi');
+        $millesime = $request->getParameter('millesime');
+
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi,$millesime);
+        $data = array();
+        foreach($contrats as $c){
+            $data[] = $c["_id"];
+        }
+
+        $result[$cvi][$millesime] = $data;
+
+        $this->data = json_encode($result);
+
+        $this->setLayout(false);
+
+        $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+    }
+
 	protected function saisieTerminee($vrac, $interpro) {
 		return;
 	}

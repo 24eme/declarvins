@@ -146,7 +146,8 @@ class VracRouting {
 //                                                        array('module' => 'vrac','action' => 'modificationPost'),
 //                                                        array('sf_method' => array('post')),
 //                                                        array('model' => 'Vrac', 'type' => 'object')));
-      
+        $r->prependRoute('vrac_par_cvi_api', new sfRoute('/vrac/api/:cvi/:millesime', array('module' => 'vrac', 'action' => 'contrats', 'cvi' => null,'millesime'=>null)));
+        // /:epoch/:md5
     }
 
 }
