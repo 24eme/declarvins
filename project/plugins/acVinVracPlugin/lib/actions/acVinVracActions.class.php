@@ -552,6 +552,38 @@ class acVinVracActions extends sfActions
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
 
+    public function executeContrats(sfWebRequest $request){
+
+        $secret = sfConfig::get('app_api_contrats_secret');
+
+        $cvi = $request->getParameter('cvi');
+        $millesime = $request->getParameter('millesime');
+        $epoch = $request->getParameter('epoch');
+
+        if(abs(time() - $epoch) > 30) {
+            http_response_code(403);
+            die('Forbidden');
+        }
+
+        $md5 = $request->getParameter('md5');
+
+        if ($md5 != md5($secret."/".$cvi."/".$millesime."/".$epoch)) {
+            http_response_code(401);
+            die("Unauthorized");
+        }
+
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi,$millesime);
+        $result[$cvi][$millesime] = array();
+        foreach($contrats as $c){
+            $result[$cvi][$millesime][$c["_id"]] = $c["acheteur"]->nom;
+        }
+
+        $this->getResponse()->setContentType('application/json');
+        $data_json=json_encode($result);
+        return $this->renderText($data_json);
+
+    }
+
 	protected function saisieTerminee($vrac, $interpro) {
 		return;
 	}

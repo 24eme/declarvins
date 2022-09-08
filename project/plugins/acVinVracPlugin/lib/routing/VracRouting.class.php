@@ -136,17 +136,18 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'getCvo'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));*/
- 
+
 //        $r->prependRoute('vrac_nouveau_modificationPost', new VracRoute('/vrac/modificationPost',
 //                                                        array('module' => 'vrac','action' => 'modificationPost'),
 //                                                        array('sf_method' => array('post')),
 //                                                        array('model' => 'Vrac', 'type' => 'object')));
-//        
+//
 //        $r->prependRoute('vrac_soussigne_modificationPost', new VracRoute('/vrac/:contrat/modificationPost',
 //                                                        array('module' => 'vrac','action' => 'modificationPost'),
 //                                                        array('sf_method' => array('post')),
 //                                                        array('model' => 'Vrac', 'type' => 'object')));
-      
+        $r->prependRoute('vrac_par_cvi_api', new sfRoute('/vrac/api/:cvi/:millesime/:epoch/:md5', array('module' => 'vrac', 'action' => 'contrats')));
+        // /:epoch/:md5
     }
 
 }

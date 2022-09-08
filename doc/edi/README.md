@@ -225,7 +225,7 @@ VRAC_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.
 32. Mentions : Libellés des mentions (Domaine, autre terme règlementé, Primeur, Marque, Autre ou Libellé précisé à la saisie), cumulables à l'aide du séparateur « | » (pipe)
 33. Codes DeclarVins Mentions : Codes des labels (chdo, prim, marque, autre), cumulables à l'aide du séparateur « | » (pipe)
 34. Condition Particulière : aucune (Aucune) / union (Apport contractuel à une union) / interne (Contrat interne entre deux entreprises liées)
-35. Première Mise en Marché : 0 ou 1
+35. Première Mise en Marché : 0 ou 1 (1 si le vendeur est un producteur)
 36. Annexes: 0 ou 1
 37. Volume ou quantité total du contrat : en HL pour le vrac et mout, en KG pour le raisin
 38. Prix Unitaire : Prix unitaire net HT hors cotisation en HL pour le vrac et mout, en KG pour le raisin
