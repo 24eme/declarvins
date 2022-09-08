@@ -554,22 +554,34 @@ class acVinVracActions extends sfActions
 
     public function executeContrats(sfWebRequest $request){
 
+        $secret = sfConfig::get('app_api_contrats_secret');
+
         $cvi = $request->getParameter('cvi');
         $millesime = $request->getParameter('millesime');
+        $epoch = $request->getParameter('epoch');
 
-        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi,$millesime);
-        $data = array();
-        foreach($contrats as $c){
-            $data[] = $c["_id"];
+        if(abs(time() - $epoch) > 30) {
+            http_response_code(403);
+            die('Forbidden');
         }
 
-        $result[$cvi][$millesime] = $data;
+        $md5 = $request->getParameter('md5');
 
-        $this->data = json_encode($result);
+        if ($md5 != md5($secret."/".$cvi."/".$millesime."/".$epoch)) {
+            http_response_code(401);
+            die("Unauthorized");
+        }
 
-        $this->setLayout(false);
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi,$millesime);
+        $result[$cvi][$millesime] = array();
+        foreach($contrats as $c){
+            $result[$cvi][$millesime][] = $c["_id"];
+        }
 
-        $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+        $this->getResponse()->setContentType('application/json');
+        $data_json=json_encode($result);
+        return $this->renderText($data_json);
+
     }
 
 	protected function saisieTerminee($vrac, $interpro) {

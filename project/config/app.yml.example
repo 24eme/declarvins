@@ -39,3 +39,5 @@ all:
         keypath: "/absolute/path/to/private/key.pem"
   viticonnect:
     secret: "SECRET"
+  api_contrats:
+    secret: "SECRET"
