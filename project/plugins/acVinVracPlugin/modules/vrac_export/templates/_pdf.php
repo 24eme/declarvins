@@ -254,22 +254,21 @@
 	<?php foreach ($vrac->clauses as $k => $clause): ?>
 		<?php if ($vrac->isConditionneIvse() && ($k=='resiliation'||$k=='force_majeure')): continue; endif; ?>
     <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?></p>
+    <p>
+        <?= $clause['description'] ?>
+        <?php if ($k == 'liberte_contractuelle' && $vrac->isConditionneIvse()): ?>
+			<?php if (!$vrac->clause_initiative_contractuelle_producteur): ?>
+			Non mais le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses propositions préalablement à la signature du contrat et n\'ayant pas souhaité effectuer une proposition de contrat.
+			<?php else: ?>
+			Oui
+			<?php endif ?>
+		<?php endif ?>
+    </p>
     <?php if ($k == 'resiliation'): ?>
     <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
     <?php if($vrac->clause_resiliation_preavis||$vrac->isConditionneIvse()): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
     <?php if($vrac->clause_resiliation_indemnite||$vrac->isConditionneIvse()): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
     <?php endif ?>
-    <?php if ($k == '5' && $vrac->isConditionneIvse()): ?>
-			<?php $complements = explode(',', $vrac->clauses_complementaires) ?>
-			<p>En cochant la case ci-contre, les Parties renoncent expressément au bénéfice de cette clause&nbsp;
-			<?php if (!in_array('transfert_propriete', $complements)): ?>
-			<input type="checkbox" checked="checked" />
-			<?php else: ?>
-			<input type="checkbox" />
-			<?php endif ?>
-			</p>
-		<?php endif ?>
 	<?php endforeach; ?>
 	</div>
 	<?php if($vrac->clauses_complementaires): ?>
@@ -277,7 +276,16 @@
 	<div class="clauses">
 	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
     <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?></p>
+    <p><?= $clause['description'] ?>
+    <?php if ($cc == 'transfert_propriete' && $vrac->isConditionneIvse()): ?>
+        <?php $complements = explode(',', $vrac->clauses_complementaires) ?>
+        <?php if (!in_array('transfert_propriete', $complements)): ?>
+        <input type="checkbox" checked="checked" />
+        <?php else: ?>
+        <input type="checkbox" />
+        <?php endif ?>
+    <?php endif ?>
+    </p>
 	<?php endforeach; ?>
 	</div>
 	<?php endif; ?>
