@@ -45,7 +45,9 @@ class VracMarcheIvseForm extends VracMarcheForm
       $delais = parent::getDelaisPaiement();
       if ($this->getObject()->type_transaction == 'vrac') {
         unset($delais['30_jours']);
-      }
+    } else {
+        unset($delais['60_jours']);
+    }
       return $delais;
     }
 
