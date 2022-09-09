@@ -573,11 +573,11 @@ class acVinVracActions extends sfActions
         }
 
         $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi,$millesime);
-        $result[$cvi][$millesime] = array();
+        $result= array();
         foreach($contrats as $c){
-            $result[$cvi][$millesime][$c["_id"]] = $c["acheteur"]->nom;
+			$result[$c["_id"]]['numero'] = $c->numero_contrat;
+            $result[$c["_id"]]['acheteur'] = $c["acheteur"]->nom;
         }
-
         $this->getResponse()->setContentType('application/json');
         $data_json=json_encode($result);
         return $this->renderText($data_json);
