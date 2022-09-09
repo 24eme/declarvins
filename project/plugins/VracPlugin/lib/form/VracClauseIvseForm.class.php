@@ -55,7 +55,7 @@ class VracClauseIvseForm extends VracClauseForm
 
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject();
-      if (is_null($this->getObject()->export)) {
+      if (is_null($this->getObject()->clause_initiative_contractuelle_producteur)) {
           $this->setDefault('clause_initiative_contractuelle_producteur', 0);
       }
     }
