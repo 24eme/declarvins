@@ -314,7 +314,13 @@ class VracClient extends acCouchdbClient {
             if ($mustActive && $c->value[VracAllView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
                 continue;
             }
+
             $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
+
+            if(!preg_match("/IGP/",$contrat->produit)){
+                continue;
+            }
+
             if($contrat->millesime != $millesime){
                 continue;
             }
