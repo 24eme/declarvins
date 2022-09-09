@@ -257,6 +257,7 @@ Vrac:
       clause_resiliation_cas: {  }
       clause_resiliation_preavis: {  }
       clause_resiliation_indemnite: {  }
+      clause_initiative_contractuelle_producteur: {  }
       export: {  }
       lots:
         type: array_collection
