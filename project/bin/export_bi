@@ -54,7 +54,7 @@ fi
 
 php symfony export:facture $SYMFONYTASKOPTIONS --factureid=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_factures.csv
 php symfony export:facture-paiements $SYMFONYTASKOPTIONS --factureid=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_factures_paiements.csv
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/facture/_view/etablissement?reduce=false | awk -F '"' '{print $4}' | while read facture ; do
+curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/facture/_view/etablissement?reduce=false |grep "\[\"FACTURE\"\,"|sed -f bin/unicode2alpha | awk -F '"' '{print $4}' | while read facture ; do
 	php symfony export:facture $SYMFONYTASKOPTIONS --factureid="$facture" --entete=0 --env=prod >> $TMPI/export_bi_factures.csv
   php symfony export:facture-paiements $SYMFONYTASKOPTIONS --factureid="$facture" --entete=0 --env=prod >> $TMPI/export_bi_factures_paiements.csv
 done
