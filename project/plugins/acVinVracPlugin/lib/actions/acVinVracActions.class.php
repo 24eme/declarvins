@@ -552,7 +552,7 @@ class acVinVracActions extends sfActions
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
 
-    public function executeContrats(sfWebRequest $request){
+    public function executeApiContrats(sfWebRequest $request){
 
         $secret = sfConfig::get('app_api_contrats_secret');
 
