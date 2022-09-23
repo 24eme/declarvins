@@ -33,10 +33,8 @@ class Etablissement extends BaseEtablissement {
         return $this->_compte;
     }
 
-    public function getRegion()
-    {
-
-    	return sfConfig::get('app_facturation_region');
+    public function getRegion() {
+    	return ($this->exist('region'))? $this->_get('region') : EtablissementClient::REGION_CVO;
     }
 
     public function getInterproObject() {

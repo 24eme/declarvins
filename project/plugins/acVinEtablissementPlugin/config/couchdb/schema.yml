@@ -46,6 +46,7 @@ Etablissement:
       telephone: {  }
       fax: {  }
       mois_stock_debut: { required: false }
+      region: { required: false }
       droits:
         type: array_collection
         required: false

@@ -533,7 +533,12 @@ class DRMDetail extends BaseDRMDetail {
             $mouvement->type_drm_libelle = ucfirst(strtolower($type));
             $mouvement->facture = 0;
             $mouvement->interpro = $this->interpro;
-            $mouvement->region = $this->interpro;
+            $etablissement = $this->getDocument()->getEtablissementObject();
+            if ($etablissement && ($societe = $etablissement->getSociete())) {
+                $mouvement->region = $societe->getRegionViticole();
+            } else {
+                $mouvement->region = EtablissementClient::REGION_CVO;
+            }
             $mouvement->cvo = $this->getCVOTaux();
             if (!$this->getDocument()->isProducteur()) {
               $mouvement->facturable = 0;
