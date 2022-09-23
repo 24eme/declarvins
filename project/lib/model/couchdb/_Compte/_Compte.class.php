@@ -35,7 +35,7 @@ abstract class _Compte extends acVinCompte {
         return $this->gerant_interpro;
     }
 
-    public function getRegionViticole() {
+    public function getInterproFacturable() {
         $interpro = $this->getGerantInterpro();
         if (!$interpro) {
             throw new Exception('Pas d\'interpro pour le compte '.$this->_id);
