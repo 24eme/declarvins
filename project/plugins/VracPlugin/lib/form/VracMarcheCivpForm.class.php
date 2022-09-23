@@ -34,4 +34,16 @@ class VracMarcheCivpForm extends VracMarcheForm
       $this->setDefault('has_cotisation_cvo', 1);
 
     }
+
+
+    public function getDelaisPaiement()
+    {
+      $delais = parent::getDelaisPaiement();
+      if ($this->getObject()->type_transaction == 'vrac') {
+        unset($delais['30_jours']);
+    } else {
+        unset($delais['60_jours'], $delais['45_jours']);
+    }
+      return $delais;
+    }
 }
