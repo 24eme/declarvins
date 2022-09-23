@@ -9,21 +9,26 @@ class DRMAllView extends acCouchdbView
 	const KEY_DATE_SAISIE = 5;
 	const KEY_DATE_DOUANE_ENVOI = 6;
 	const KEY_DATE_DOUANE_ACCUSE = 7;
-	
 
-	public static function getInstance() 
+
+	public static function getInstance()
 	{
         return acCouchdbManager::getView('drm', 'all', 'DRM');
     }
 
-    public function findByEtablissement($identifiant) 
+    public function findAll()
+    {
+      	return $this->client->reduce(false)->getView($this->design, $this->view);
+    }
+
+    public function findByEtablissement($identifiant)
     {
       	return $this->client->startkey(array($identifiant))
                     		->endkey(array($identifiant, array()))
                     		->reduce(false)
                     		->getView($this->design, $this->view);
     }
-    
+
     public function getFirstDrmPeriodeByEtablissement($identifiant, $defaut = null)
     {
     	$drms = $this->findByEtablissement($identifiant)->rows;
