@@ -538,7 +538,7 @@ class DRMDetail extends BaseDRMDetail {
             if ($etablissement && ($societe = $etablissement->getSociete())) {
                 $mouvement->region = $societe->getRegionViticole();
             } else {
-                $mouvement->region = EtablissementClient::REGION_CVO;
+                $mouvement->region = EtablissementClient::REGION_HORS_CVO;
             }
             $mouvement->cvo = $this->getCVOTaux();
             if (!$this->getDocument()->isProducteur()) {
