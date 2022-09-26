@@ -546,6 +546,9 @@ class DRMDetail extends BaseDRMDetail {
             } else {
               $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
             }
+            if (!in_array($mouvement->interpro, ['INTERPRO-IR','INTERPRO-CIVP','INTERPRO-IVSE'])) {
+                $mouvement->region = EtablissementClient::REGION_HORS_CVO;
+            }
             $mouvement->version = $this->getDocument()->getVersion();
             $mouvement->date_version = ($this->getDocument()->valide->date_saisie) ? ($this->getDocument()->valide->date_saisie) : date('Y-m-d');
             $mouvement->categorie = FactureClient::FACTURE_LIGNE_MOUVEMENT_TYPE_PROPRIETE;
