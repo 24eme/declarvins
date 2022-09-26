@@ -7,6 +7,7 @@
 class DRMDetail extends BaseDRMDetail {
 
     protected $_config = null;
+    const START_FACTURATION_MVT_AT = "2022-01-31";
 
     public function getConfig() {
         if (!$this->_config) {
@@ -551,6 +552,9 @@ class DRMDetail extends BaseDRMDetail {
             $mouvement = $this->createMouvement(clone $mouvement, $hash . '/' . $key, $volume);
             if (!$mouvement) {
                 continue;
+            }
+            if ($mouvement->facturable && ($mouvement->date < self::START_FACTURATION_MVT_AT)) {
+                $mouvement->facture = 1;
             }
             if (is_array($mouvement)) {
                 foreach ($mouvement as $mouvement_vrac) {
