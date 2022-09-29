@@ -572,7 +572,7 @@ class acVinVracActions extends sfActions
             die("Unauthorized");
         }
 
-        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi,$millesime);
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/AOP/');
         $result= array();
         foreach($contrats as $c){
 			$result[$c["_id"]]['numero'] = $c->numero_contrat;

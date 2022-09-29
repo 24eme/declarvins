@@ -297,7 +297,7 @@ class VracClient extends acCouchdbClient {
         return self::$types_transaction;
     }
 
-    public function retrieveByCVIAndMillesime($cvi, $millesime, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveByCVIAndMillesime($cvi, $millesime, $hash = null, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         $contrats = array();
         $ids= array();
         $vracs=array();
@@ -317,7 +317,7 @@ class VracClient extends acCouchdbClient {
 
             $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
 
-            if(!preg_match("/IGP/",$contrat->produit)){
+            if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
                 continue;
             }
 
