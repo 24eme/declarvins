@@ -316,8 +316,7 @@ class VracClient extends acCouchdbClient {
             if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
                 continue;
             }
-
-            if($contrat->millesime != $millesime){
+            if($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != $millesime){
                 continue;
             }
             $contrats[] = $c;
