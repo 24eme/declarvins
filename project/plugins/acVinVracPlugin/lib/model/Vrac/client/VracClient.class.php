@@ -311,7 +311,7 @@ class VracClient extends acCouchdbClient {
         }
 
         foreach ($vracs as $c) {
-            if ($mustActive && $c->value[VracAllView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
+            if ($mustActive && $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
                 continue;
             }
             if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
