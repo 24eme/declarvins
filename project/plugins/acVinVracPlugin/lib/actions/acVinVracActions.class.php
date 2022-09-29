@@ -575,8 +575,8 @@ class acVinVracActions extends sfActions
         $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/AOP/');
         $result= array();
         foreach($contrats as $c){
-			$result[$c["_id"]]['numero'] = $c->numero_contrat;
-            $result[$c["_id"]]['acheteur'] = $c["acheteur"]->nom;
+			$result[$c->id]['numero'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_NUM];
+            $result[$c->id]['acheteur'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_ACHETEUR_NOM];
         }
         $this->getResponse()->setContentType('application/json');
         $data_json=json_encode($result);

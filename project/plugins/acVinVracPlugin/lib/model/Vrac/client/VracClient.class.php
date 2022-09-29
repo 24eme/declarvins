@@ -314,9 +314,6 @@ class VracClient extends acCouchdbClient {
             if ($mustActive && $c->value[VracAllView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
                 continue;
             }
-
-            $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
-
             if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
                 continue;
             }
@@ -324,7 +321,7 @@ class VracClient extends acCouchdbClient {
             if($contrat->millesime != $millesime){
                 continue;
             }
-            $contrats[] = $contrat;
+            $contrats[] = $c;
         }
         return $contrats;
     }
