@@ -13,4 +13,4 @@ all:
     subject:    "DéclarVins - Redéfinition de votre mot de passe"
   compte_synchro: false
   societe_no_multi_etablissement: true
-  facturation_region: INTERPRO-IVSE
+  facturation_region: REGION_CVO
