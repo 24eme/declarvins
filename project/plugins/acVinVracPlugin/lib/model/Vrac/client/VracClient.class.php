@@ -299,7 +299,6 @@ class VracClient extends acCouchdbClient {
 
     public function retrieveByCVIAndMillesime($cvi, $millesime, $hash = null, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         $contrats = array();
-        $ids= array();
         $vracs=array();
 
         $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi);
