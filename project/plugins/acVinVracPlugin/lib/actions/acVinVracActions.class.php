@@ -572,7 +572,7 @@ class acVinVracActions extends sfActions
             die("Unauthorized");
         }
 
-        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/AOP/');
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/IGP/genres/TRANQ/appellations/MED/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose');
         $result= array();
         foreach($contrats as $c){
 			$result[$c->id]['numero'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_NUM];
