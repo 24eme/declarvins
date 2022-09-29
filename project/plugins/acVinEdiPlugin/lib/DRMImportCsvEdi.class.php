@@ -143,7 +143,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
 
       		$libellePerso = null;
-      		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
+      		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%g% %a% %l% %co% %ce%");
 
             $s = strpos($libelle, '(');
             $e = strpos($libelle, ')');
@@ -165,6 +165,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     if (in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
                         $label = $complement;
                         $libellePerso = trim($libelle);
+                        if (!$libellePerso) {
+                            $libellePerso = trim($libelleConfig);
+                        }
                         $complement_libelle = $libellePerso.' '.$label;
                     } else {
                         $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);

@@ -325,7 +325,7 @@ class VracClient extends acCouchdbClient {
                 continue;
             }
             $contrats[] = $contrat;
-           }
+        }
         return $contrats;
     }
 

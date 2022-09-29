@@ -39,6 +39,10 @@ sys.stderr.write("export_bi_factures_paiements.csv\n")
 csv = pd.read_csv("export_bi_factures_paiements.csv", encoding='iso-8859-1', delimiter=";", index_col=False)
 csv.to_sql('paiements', con=engine, if_exists='replace')
 
+sys.stderr.write("export_bi_sv12.csv\n")
+csv = pd.read_csv("export_bi_sv12.csv", encoding='iso-8859-1', delimiter=";", index_col=False)
+csv.to_sql('sv12', con=engine, if_exists='replace')
+
 sys.stderr.write("export_bi_daes.csv\n")
 csv = pd.read_csv("export_bi_daes.csv", encoding='iso-8859-1', delimiter=";", index_col=False).rename(columns={"#ID": "id stock"})
 csv.to_sql('DAE', con=engine, if_exists='replace')

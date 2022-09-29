@@ -39,6 +39,16 @@
     <?php endif; ?>
 
     <?php endif; ?>
+    <?php if ($k == 'liberte_contractuelle'): ?>
+
+    <?php if (isset($form['clause_initiative_contractuelle_producteur'])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_initiative_contractuelle_producteur']->renderError() ?>
+        <?php echo $form['clause_initiative_contractuelle_producteur']->render() ?>
+    </div>
+    <?php endif; ?>
+
+    <?php endif; ?>
 <?php endforeach; ?>
 <?php if (count($clauses_complementaires) > 0): ?>
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
