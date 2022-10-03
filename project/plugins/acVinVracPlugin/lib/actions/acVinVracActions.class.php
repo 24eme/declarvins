@@ -577,6 +577,7 @@ class acVinVracActions extends sfActions
         foreach($contrats as $c){
 			$result[$c->id]['numero'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_NUM];
             $result[$c->id]['acheteur'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_ACHETEUR_NOM];
+			$result[$c->id]['volume'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_VOLPROP];
         }
         $this->getResponse()->setContentType('application/json');
         $data_json=json_encode($result);
