@@ -47,12 +47,12 @@ class VracMarcheCivpForm extends VracMarcheForm
         return $delais;
     }
 
-    public function isConditionneDelaiPaiement()
+    public function hasAcompteInfo()
     {
         if ($this->getObject()->type_transaction == 'vrac') {
             return false;
         } else {
-            return parent::isConditionneDelaiPaiement();
+            return parent::hasAcompteInfo();
         }
     }
 }
