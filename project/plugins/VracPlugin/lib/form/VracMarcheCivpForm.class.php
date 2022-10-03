@@ -1,5 +1,5 @@
 <?php
-class VracMarcheCivpForm extends VracMarcheForm 
+class VracMarcheCivpForm extends VracMarcheForm
 {
 
     public function configure() {
@@ -38,12 +38,21 @@ class VracMarcheCivpForm extends VracMarcheForm
 
     public function getDelaisPaiement()
     {
-      $delais = parent::getDelaisPaiement();
-      if ($this->getObject()->type_transaction == 'vrac') {
-        unset($delais['30_jours']);
-    } else {
-        unset($delais['60_jours'], $delais['45_jours']);
+        $delais = parent::getDelaisPaiement();
+        if ($this->getObject()->type_transaction == 'vrac') {
+            unset($delais['30_jours'], $delais['45_jours']);
+        } else {
+            unset($delais['60_jours'], $delais['45_jours']);
+        }
+        return $delais;
     }
-      return $delais;
+
+    public function hasAcompteInfo()
+    {
+        if ($this->getObject()->type_transaction == 'vrac') {
+            return false;
+        } else {
+            return parent::hasAcompteInfo();
+        }
     }
 }
