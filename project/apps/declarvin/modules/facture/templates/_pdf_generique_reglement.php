@@ -11,9 +11,9 @@ use_helper('Float');
 \begin{minipage}[b]{0.75\textwidth}
 \begin{tiny}
 <?php if ($facture->isAvoir()): ?>
-   <?php echo FactureConfiguration::getInstance()->getReglementAvoir(); ?>
+   <?php echo $factureConfiguration->getReglementAvoir(); ?>
 <?php else: ?>
-   <?php echo FactureConfiguration::getInstance()->getReglement(); ?>
+   <?php echo $factureConfiguration->getReglement(); ?>
 <?php endif; ?>
 \end{tiny}
 \end{minipage}
