@@ -77,6 +77,25 @@ class VracHistoryView extends acCouchdbView
                             ->getView($this->design, $this->view)->rows;
     }
 
+	public function findByStatutAndEtablissement($statut, $etablissement, $pluriannuel = 0) {
+		if (!$statut||in_array($statut, array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION))) {
+            $enCours = $this->client->startkey(array($etablissement, $pluriannuel, $statut))->endkey(array($etablissement, $pluriannuel, $statut, array()))->getView($this->design, $this->view)->rows;
+            $attValidation = $this->client->startkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))->endkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))->getView($this->design, $this->view)->rows;
+            $attAnnulation = $this->client->startkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION))->endkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, array()))->getView($this->design, $this->view)->rows;
+            return array_merge($enCours, $attValidation, $attAnnulation);
+		}
+        return $this->client->startkey(array($etablissement, $pluriannuel, $statut))
+                    		->endkey(array($etablissement, $pluriannuel, $statut, array()))
+                            ->getView($this->design, $this->view)->rows;
+    }
+
+    public function findForListingMode($etablissement = null, $interpro = null, $statut, $pluriannuel = 0) {
+        if ($etablissement)
+            return $this->findByStatutAndEtablissement($statut, $etablissement->identifiant, $pluriannuel);
+        else
+            return $this->findLastByStatutAndInterpro($statut, $interpro, $pluriannuel);
+    }
+
 	public function findLast($pluriannuel = 0) {
 
         return $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))

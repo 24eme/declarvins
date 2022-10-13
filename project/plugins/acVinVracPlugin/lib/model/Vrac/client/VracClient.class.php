@@ -187,7 +187,12 @@ class VracClient extends acCouchdbClient {
     	return $this->_status_contrat_css_class;
     }
 
-    public function getStatusContrat() {
+    public function getStatusContrat($withZero = false) {
+        if ($withZero) {
+            $statuts = $this->_status_contrat;
+            $statuts[] = 0;
+            return $statuts;
+        }
     	return $this->_status_contrat;
     }
 
@@ -251,17 +256,19 @@ class VracClient extends acCouchdbClient {
 
         return Vrac::buildModificative($version);
     }
-    
 
-    
-    public static function sortVracId($a, $b) 
+
+
+    public static function sortVracId($a, $b)
     {
-    	preg_match('/VRAC-([0-9a-zA-Z]*)/', $a, $ma1);
-    	preg_match('/VRAC-([0-9a-zA-Z]*)/', $b, $mb1);
-    	$hasVersionA = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $a, $ma);
-    	$hasVersionB = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $b, $mb);
-    	
-    	if ((!$hasVersionA && !$hasVersionB) || $ma1[1] != $mb1[1]) {
+    	$ma1 = $a->value[VracHistoryView::VRAC_VIEW_NUM];
+    	$mb1 = $b->value[VracHistoryView::VRAC_VIEW_NUM];
+    	$versionA = $a->value[VracHistoryView::VRAC_VERSION];
+    	$versionB = $b->value[VracHistoryView::VRAC_VERSION];
+        $ma = substr($versionA, 1);
+        $mb = substr($versionB, 1);
+
+    	if ((!$versionA && !$versionB) || $ma1[1] != $mb1[1]) {
     		if ($ma1[1] > $mb1[1]) {
                         return -1;
             }
@@ -270,16 +277,16 @@ class VracClient extends acCouchdbClient {
             }
             return 0;
     	}
-    	
-    	if (!$hasVersionA) {
+
+    	if (!$versionA) {
     		return 1;
     	}
-    	
-    	if (!$hasVersionB) {
+
+    	if (!$versionB) {
     		return -1;
     	}
-    	
-    	return ($ma[3] < $mb[3])? 1 : -1;
+
+    	return ($ma < $mb)? 1 : -1;
 
     }
 
