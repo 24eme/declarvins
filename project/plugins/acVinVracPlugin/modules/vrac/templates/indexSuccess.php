@@ -34,7 +34,13 @@
             <li style="padding: 0 5px; width: 120px;" class="<?php if($statut == 'TOUS'): ?>active<?php endif; ?>"><a href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => 'TOUS')) : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant, 'statut' => 'TOUS')); ?>?pluriannuel=<?php echo $pluriannuel ?>">Tous</a></li>
             <?php endif; ?>
             <?php if (!$etablissement || $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
-            <li style="padding: 0 5px; width: 220px;"><a style="background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>?pluriannuel=<?php echo $pluriannuel ?>"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat <?php if(!$pluriannuel): ?>ponctuel<?php else: ?>pluriannuel<?php endif; ?></a></li>
+            <li style="padding: 0 5px; width: 235px;">
+                <?php if($pluriannuel): ?>
+                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>?pluriannuel=1"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat cadre pluriannuel</a>
+                <?php else: ?>
+                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" class="btn_popup" data-popup="#popup_vrac_ponctuel_nouveau" href=""><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat ponctuel</a>
+                <?php endif; ?>
+            </li>
             <?php endif; ?>
         </ul>
 
@@ -58,3 +64,33 @@
 
     </div>
 </section>
+<div id="popup_vrac_ponctuel_nouveau" class="popup_contenu popup_form" style="display:none;">
+    <div class="bloc_condition" data-condition-cible="#bloc_vrac_pluriannuel_choices|#bloc_vrac_ponctuel">
+        <ul class="radio_list">
+            <li><input name="creation_type" type="radio" value="vierge" id="creation_type_vierge" checked="checked">&nbsp;<label for="creation_type_vierge" style="font-weight:normal;">Création vierge</label></li>
+            <li><input name="creation_type" type="radio" value="pluriannuel" id="creation_type_pluriannuel">&nbsp;<label for="creation_type_pluriannuel" style="font-weight:normal;">Création à partir d'un <strong>contrat pluriannuel cadre</strong></label></li>
+        </ul>
+    </div>
+    <div id="bloc_vrac_pluriannuel_choices" class="bloc_conditionner" data-condition-value="pluriannuel">
+        <form action="<?php echo url_for('vrac_pluriannuel', array('identifiant' => ($etablissement)? $etablissement->identifiant : VracRoute::ETABLISSEMENT_IDENTIFIANT_ADMIN)) ?>" method="post">
+            <select name="contrat" required>
+                <option value="">Selectionner un contrat</option>
+                <?php foreach($pluriannuels as $pluriannuel): ?>
+                <option value="<?php echo $pluriannuel->id ?>"><?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_NUM] ?> - <?php echo substr($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' ')) ?> <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_MILLESIME] ?> - <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_VOLPROP]; echo ($pluriannuel->value[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] == 'raisin')? 'kg' : 'hl'; ?></option>
+            <?php endforeach; ?>
+            </select>
+    		<ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">
+                <li style="padding: 0 5px; width: 235px;">
+    			    <button style="color: #fff; width:100%; padding: 5px; background-color:#ec971f; font-weight: bold;" type="submit"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat ponctuel</button>
+                </li>
+    		</ul>
+        </form>
+    </div>
+    <div id="bloc_vrac_ponctuel" class="bloc_conditionner" data-condition-value="vierge">
+        <ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">
+            <li style="padding: 0 5px; width: 235px;">
+                <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat ponctuel</a>
+            </li>
+        </ul>
+    </div>
+</div>

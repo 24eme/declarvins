@@ -41,6 +41,9 @@ class acVinVracActions extends sfActions
         }
         usort($this->vracs, array('VracClient', 'sortVracId'));
 
+        $this->pluriannuels = VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), VracClient::STATUS_CONTRAT_SOLDE, 1);
+        usort($this->pluriannuels, array('VracClient', 'sortVracId'));
+
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
     	    if ($request->isMethod(sfWebRequest::POST)) {
