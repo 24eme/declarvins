@@ -39,7 +39,7 @@ class VracConditionForm extends VracForm
             unset($this['type_transaction']);
         }
 
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuelInitial()) {
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
 

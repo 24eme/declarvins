@@ -10,7 +10,7 @@
 <form method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>" enctype="multipart/form-data">
  <?php echo $form->renderHiddenFields() ?>
  <?php echo $form->renderGlobalErrors() ?>
-<h1 style="margin: 0px 0px 0px 0px">Clauses<?php if ($form->getObject()->isPluriannuelAdosse() && $form->configuration->isContratPluriannuelActif()): ?> prédéfinies dans le contrat pluriannuel cadre<?php endif; ?></h1>
+<h1 style="margin: 0px 0px 0px 0px">Clauses<?php if ($form->getObject()->isAdossePluriannuel() && $form->configuration->isContratPluriannuelActif()): ?> prédéfinies dans le contrat pluriannuel cadre<?php endif; ?></h1>
 <?php foreach ($clauses as $k => $clause): ?>
     <h2><?= $clause['nom'] ?></h2>
     <p><?= $clause['description'] ?></p>

@@ -89,7 +89,7 @@ class VracMarcheForm extends VracForm
     	    unset($this['type_retiraison']);
     	}
 
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuelInitial()) {
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
 
@@ -242,7 +242,7 @@ class VracMarcheForm extends VracForm
     public function getDelaisPaiement()
     {
         $delais = parent::getDelaisPaiement();
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuelInitial()) {
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $delais[null] = 'Les parties fixeront les délais de paiement dans chacun des contrats d\'application';
         }
     	return $delais;
@@ -251,7 +251,7 @@ class VracMarcheForm extends VracForm
     public function getConditionsPaiement()
     {
         $conditions = parent::getConditionsPaiement();
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuelInitial()) {
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             if (isset($conditions['echeancier_paiement']))
                 unset($conditions['echeancier_paiement']);
         }

@@ -1,7 +1,7 @@
 <div class="bloc_adresse">
     <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_<?php echo $field ?>_form">
         <label style="float:none;" for="cb_adresse_differente_<?php echo $field ?>">
-        	<input <?php if($form->configuration->isContratPluriannuelActif() && $form->getObject()->isPluriannuel() && $form->getObject()->isPluriannuelAdosse()): ?>readonly="readonly"<?php endif; ?> type="checkbox" value="1" id="cb_adresse_differente_<?php echo $field ?>" <?php if($form[$field]['siret']->getValue() || $form[$field]['adresse']->getValue() || $form[$field]['libelle']->getValue() || $form[$field]['code_postal']->getValue() || $form[$field]['commune']->getValue() || $form[$field]['pays']->getValue()): echo 'checked="checked"'; endif; ?> />
+        	<input <?php if($form->configuration->isContratPluriannuelActif() && $form->getObject()->isPluriannuel() && $form->getObject()->isAdossePluriannuel()): ?>readonly="readonly"<?php endif; ?> type="checkbox" value="1" id="cb_adresse_differente_<?php echo $field ?>" <?php if($form[$field]['siret']->getValue() || $form[$field]['adresse']->getValue() || $form[$field]['libelle']->getValue() || $form[$field]['code_postal']->getValue() || $form[$field]['commune']->getValue() || $form[$field]['pays']->getValue()): echo 'checked="checked"'; endif; ?> />
             <?php echo $label_adresse ?>
         </label>
     </div>

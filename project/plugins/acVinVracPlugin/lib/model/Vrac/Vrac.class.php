@@ -457,7 +457,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     				$this->valide->{$validateur} = $this->date_signature;
     			}
     		}
-    		$this->valide->statut = ($this->isPluriannuelInitial())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
+    		$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : $this->date_signature;
     		if (!$this->mandataire_exist) {
     			$this->remove('mandataire');
@@ -491,7 +491,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$this->vous_etes = 'vendeur';
     	$this->date_signature = date('c');
-    	$this->valide->statut = ($this->isPluriannuelInitial())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
+    	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_saisie = $this->date_signature;
     	$this->valide->date_validation = $this->date_signature;
     	$this->valide->date_validation_vendeur = $this->date_signature;
@@ -558,7 +558,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	}
       }
       if ($statut_valide) {
-      	$this->valide->statut = ($this->isPluriannuelInitial())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
+      	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_validation = date('c');
     	$this->date_signature = $this->valide->date_validation;
     	if (!$this->hasVersion()) {
@@ -622,7 +622,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     protected function updateStatutSolde() {
         if ($this->volume_propose > 0 && $this->volume_enleve >= $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
-        } elseif (!$this->isPluriannuelInitial() && $this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
+        } elseif (!$this->isPluriannuel() && $this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
         }
     }
@@ -1065,11 +1065,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 		return ($this->contrat_pluriannuel == 1);
 	}
 
-	public function isPluriannuelAdosse() {
+	public function isAdossePluriannuel() {
 		return ($this->reference_contrat_pluriannuel)? true : false;
-	}
-
-	public function isPluriannuelInitial() {
-		return ($this->isPluriannuel() && !$this->isPluriannuelAdosse());
 	}
 }
