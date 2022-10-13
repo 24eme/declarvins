@@ -268,11 +268,11 @@ class VracClient extends acCouchdbClient {
         $ma = substr($versionA, 1);
         $mb = substr($versionB, 1);
 
-    	if ((!$versionA && !$versionB) || $ma1[1] != $mb1[1]) {
-    		if ($ma1[1] > $mb1[1]) {
-                        return -1;
+    	if ((!$versionA && !$versionB) || $ma1 != $mb1) {
+    		if ($ma1 > $mb1) {
+                return -1;
             }
-            if ($ma1[1] < $mb1[1]) {
+            if ($ma1 < $mb1) {
             	return 1;
             }
             return 0;
