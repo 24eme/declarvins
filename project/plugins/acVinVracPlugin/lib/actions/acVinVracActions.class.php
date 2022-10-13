@@ -463,10 +463,11 @@ class acVinVracActions extends sfActions
     }
 
     public function executePluriannuel(sfWebRequest $request) {
-        $this->vrac = $this->getRoute()->getVrac();
-        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->forward404Unless($this->vrac = VracClient::getInstance()->find($request->getParameter('contrat')));
+        $this->etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'));
         $this->init($this->vrac, $this->etablissement);
         $application = clone $this->vrac;
+        $application->contrat_pluriannuel = 0;
         $application->reference_contrat_pluriannuel = $this->vrac->numero_contrat;
         $application->numero_contrat = VracClient::getInstance()->getNextNoContratApplication($this->vrac->numero_contrat);
         $application->constructId();

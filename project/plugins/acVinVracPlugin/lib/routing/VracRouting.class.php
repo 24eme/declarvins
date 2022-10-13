@@ -36,6 +36,11 @@ class VracRouting {
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Etablissement', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
 
+        $r->prependRoute('vrac_pluriannuel', new sfRoute('/vrac/:identifiant/creation-adosse-pluriannuel',
+                                                        array('module' => 'vrac','action' => 'pluriannuel'),
+                                                        array('sf_method' => array('get','post')),
+                                                        ));
+
         $r->prependRoute('vrac_supprimer', new VracRoute('/vrac/:identifiant/:contrat/supprimer',
                                                         array('module' => 'vrac', 'action' => 'supprimer'),
                                                         array('sf_method' => array('get')),
@@ -66,11 +71,6 @@ class VracRouting {
 
         $r->prependRoute('vrac_modificative', new VracRoute('/vrac/:identifiant/:contrat/modificatif',
                                                         array('module' => 'vrac','action' => 'modificative'),
-                                                        array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/'))));
-
-        $r->prependRoute('vrac_pluriannuel', new VracRoute('/vrac/:identifiant/:contrat/pluriannuel',
-                                                        array('module' => 'vrac','action' => 'pluriannuel'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/'))));
 
