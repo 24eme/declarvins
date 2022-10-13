@@ -47,7 +47,7 @@
 
         <?php if (!count($vracs)): ?>
             <p style="padding-top: 20px;">
-                Aucun contrat
+                Aucun contrat <?php if ($configurationVrac->isContratPluriannuelActif()) echo ($pluriannuel)? 'cadre pluriannuel' : 'ponctuel';  ?>
                 <strong>
                     <?php if(!$statut||$statut === VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION||$statut === VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION): ?>
                         En attente
