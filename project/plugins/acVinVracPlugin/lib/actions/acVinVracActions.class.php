@@ -480,7 +480,7 @@ class acVinVracActions extends sfActions
         $application->save(false);
         return $this->redirect(array('sf_route' => 'vrac_etape',
                               'sf_subject' => $application,
-                              'step' =>$this->configurationVracEtapes->next($this->configurationVracEtapes->getFirst()),
+                              'step' => $this->configurationVracEtapes->next($this->configurationVracEtapes->getFirst()),
                               'etablissement' => $this->etablissement));
     }
 
