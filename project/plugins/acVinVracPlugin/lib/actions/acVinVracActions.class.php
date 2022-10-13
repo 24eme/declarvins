@@ -93,7 +93,7 @@ class acVinVracActions extends sfActions
             $this->redirect('vrac_admin');
         }
 
-		$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
+		$this->redirect('vrac_etablissement', array('identifiant' => $this->etablissement->identifiant));
 	}
 
 	public function executeAnnexe(sfWebRequest $request)
