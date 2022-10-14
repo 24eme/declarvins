@@ -25,16 +25,18 @@ class VracForm extends acCouchdbObjectForm
     protected static $_editable_input_pluriannuel = array(
     	'millesime',
     	'prix_unitaire',
-    	'delai_paiement',
-    	'conditions_paiement',
+		'delai_paiement',
     	'type_retiraison',
     	'vin_livre',
+    	'date_debut_retiraison',
     	'date_limite_retiraison',
-    	'volume_propose'
+    	'volume_propose',
+        'agreage_vins',
+        'autres_conditions'
     );
 
     public function editablizeInputPluriannuel() {
-        if ($this->configuration->isContratPluriannuelActif() && $this->getObject()->isPluriannuel() && $this->getObject()->isAdossePluriannuel()) {
+        if ($this->configuration->isContratPluriannuelActif() && $this->getObject()->isAdossePluriannuel()) {
             foreach ($this->getWidgetSchema()->getPositions() as $field)
             {
                 if (in_array($field, self::$_editable_input_pluriannuel)) continue;
