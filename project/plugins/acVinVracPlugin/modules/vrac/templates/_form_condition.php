@@ -18,11 +18,11 @@
                 <?php echo $form['ramasseur_raisin']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['contrat_pluriannuel'])): ?>
+            <?php if (isset($form['is_contrat_pluriannuel'])): ?>
             <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel">
-                <?php echo $form['contrat_pluriannuel']->renderError() ?>
-                <?php echo $form['contrat_pluriannuel']->renderLabel() ?>
-                <?php echo $form['contrat_pluriannuel']->render() ?>
+                <?php echo $form['is_contrat_pluriannuel']->renderError() ?>
+                <?php echo $form['is_contrat_pluriannuel']->renderLabel() ?>
+                <?php echo $form['is_contrat_pluriannuel']->render() ?>
             </div>
             <?php endif; ?>
             <?php if (isset($form['reference_contrat_pluriannuel'])): ?>
@@ -34,18 +34,14 @@
             <?php endif; ?>
             <?php if (isset($form['pluriannuel_campagne_debut'])&&isset($form['pluriannuel_campagne_fin'])): ?>
             <div class="section_label_strong">
+                <?php echo $form['pluriannuel_campagne_debut']->renderError() ?>
                 <?php echo $form['pluriannuel_campagne_debut']->renderLabel() ?>
                 <?php echo $form['pluriannuel_campagne_debut']->render() ?>
             </div>
             <div class="section_label_strong">
+                <?php echo $form['pluriannuel_campagne_fin']->renderError() ?>
                 <?php echo $form['pluriannuel_campagne_fin']->renderLabel() ?>
                 <?php echo $form['pluriannuel_campagne_fin']->render() ?>
-            </div>
-            <?php endif; ?>
-            <?php if (isset($form['pluriannuel_clause_indexation'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
-                <?php echo $form['pluriannuel_clause_indexation']->render() ?>
             </div>
             <?php endif; ?>
         	<h1>Spécificités</h1>
@@ -88,8 +84,8 @@
             <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'produit', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
-        
+
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
-        </div> 
+        </div>
     </form>
