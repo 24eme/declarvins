@@ -1,3 +1,7 @@
+
+<?php if ($configurationVrac->isContratPluriannuelActif()): ?>
+<h1 style="margin:0px;">Nouveau contrat <?php if ($pluriannuel): ?>pluriannuel cadre<?php elseif($referenceContratPluriannuel): ?>adossé au contrat pluriannuel cadre n°<a target="_blank" href="<?php echo url_for('vrac_visualisation', array('contrat' => $referenceContratPluriannuel)) ?>"><?php echo $referenceContratPluriannuel ?></a><?php else: ?>ponctuel<?php endif; ?></h1>
+<?php endif; ?>
 <div id="contrats_etapes">
     <ol id="rail_etapes">
             <?php 

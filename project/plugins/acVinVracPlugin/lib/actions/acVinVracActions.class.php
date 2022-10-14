@@ -202,6 +202,8 @@ class acVinVracActions extends sfActions
         	$this->vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
         }
 		$this->init($this->vrac, $this->etablissement);
+		$this->pluriannuel = $this->vrac->isPluriannuel();
+        $this->referenceContratPluriannuel = $this->vrac->reference_contrat_pluriannuel;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->vrac->isValide() && !$this->vrac->hasVersion()) {
             return $this->redirect('vrac_valide_admin');
         }
