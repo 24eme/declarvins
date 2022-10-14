@@ -1068,4 +1068,13 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	public function isAdossePluriannuel() {
 		return ($this->reference_contrat_pluriannuel)? true : false;
 	}
+
+    public function cleanPluriannuel() {
+        $this->pluriannuel_campagne_debut = null;
+        $this->pluriannuel_campagne_fin = null;
+        $this->contrat_pluriannuel = 0;
+        $this->pluriannuel_prix_plancher = null;
+        $this->pluriannuel_prix_plafond = null;
+        $this->pluriannuel_clause_indexation = null;
+    }
 }
