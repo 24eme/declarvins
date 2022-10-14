@@ -1,13 +1,13 @@
-<?php 
+<?php
     use_helper('Float');
 	$warningMiseEnMarche = false;
 	$warningExport = false;
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
 		$warningMiseEnMarche = true;
-	} 
+	}
 	if (!$form->getObject()->isValide() && $form->getObject()->acheteur->pays && !preg_match("/^fr/i", $form->getObject()->acheteur->pays)) {
 		$warningExport = true;
-	} 
+	}
 ?>
 				<?php if($warningMiseEnMarche || $warningExport): ?>
             	<div class="vigilance_list">
@@ -21,7 +21,7 @@
 	<form class="popup_form" id="recap_saisie" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
-		
+
 		<div class="bloc_form_commentaire bloc_form ">
 	        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	        	<?php if ($form->getObject()->exist('observations') && $form->getObject()->observations): ?>
@@ -62,7 +62,7 @@
 	    <br />
 	    <h2>Récapitulatif de la saisie</h2>
 	    <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true, 'hasClauses' => $form->hasClauses())); ?>
-		<?php 
+		<?php
 		if ($form->getObject()->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 		?>
 		<div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;text-align: left;margin: 10px 0 10px 0;padding: 5px 10px;">
@@ -77,10 +77,10 @@
 	            		<?php echo $form['transaction']->render() ?>
 	            		<?php echo $form['transaction']->renderLabel() ?>
 	        		</div>
-		<?php 
+		<?php
 			}
 		?>
-		<?php 
+		<?php
 		if ($form->getObject()->has_transaction && !$form->getObject()->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)):
 		?>
 		<div style="border: 1px solid #ff9f00;color: #3e3e3e;font-weight: bold;text-align: left;margin: 10px 0 10px 0;padding: 5px 10px;">
@@ -101,7 +101,7 @@
 		</div>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
-        </div> 
+        </div>
 	</form>
 	<script type="text/javascript">
 		var showConfirme = true;
@@ -126,10 +126,14 @@
 
 		$('#recap_saisie').submit(function() {
 			if (showConfirme)
+            <?php if ($form->getObject()->isPluriannuel()): ?>
+		    	return confirm("Vous êtes sur le point de valider un contrat de <?php echo $form->getObject()->type_transaction ?> pluriannuel cadre");
+            <?php else: ?>
 		    	return confirm("Vous êtes sur le point de valider un contrat <?php echo $form->getObject()->type_transaction ?>\n\nde <?php echoArialFloat($form->getObject()->getTotalUnitaire()) ?> € HT / <?php if($form->getObject()->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif; ?> pour <?php echoArialFloat($form->getObject()->volume_propose) ?> <?php if($form->getObject()->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif; ?> proposé\n\nSoit un prix total de <?php echoArialFloat($form->getObject()->getPrixTotalCalc()) ?> € HT");
+            <?php endif; ?>
 			else
 				return true;
 		});
 
-				
+
 	</script>
