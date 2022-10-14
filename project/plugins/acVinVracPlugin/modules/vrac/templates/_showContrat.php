@@ -98,24 +98,12 @@
         <ul>
 			<li>
 				<span>Type de contrat :</span>
-				<span><?php if ($vrac->reference_contrat_pluriannuel): ?>Adossé au contrat pluriannuel n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
+				<span><?php if ($vrac->isAdossePluriannuel()): ?>Adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->isPluriannuel()): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
 			</li>
             <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?>
 			<li>
 				<span>Campagnes d'application :</span>
 				<span>de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></span>
-			</li>
-            <?php endif; ?>
-            <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?>
-			<li>
-				<span>Fourchette de prix :</span>
-				<span>entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?></span>
-			</li>
-            <?php endif; ?>
-            <?php if ($vrac->pluriannuel_clause_indexation): ?>
-			<li>
-				<span>Indexation du prix :</span>
-				<span><?php echo $vrac->pluriannuel_clause_indexation ?></span>
 			</li>
             <?php endif; ?>
 		</ul>
@@ -210,10 +198,24 @@
 			</li>
 			<?php endif; ?>
             <?php endif; ?>
+            <?php if(!$vrac->isPluriannuel()): ?>
 			<li>
 				<span>Type de prix :</span>
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
 			</li>
+            <?php endif; ?>
+            <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?>
+			<li>
+				<span>Fourchette de prix :</span>
+				<span>entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> €/HL</span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->pluriannuel_clause_indexation): ?>
+			<li>
+				<span>Clause d'indexation des prix :</span>
+				<span><?php echo $vrac->pluriannuel_clause_indexation ?></span>
+			</li>
+            <?php endif; ?>
 			<?php if ($vrac->determination_prix_date): ?>
 			<li>
 				<span>Date de détermination du prix :</span>
@@ -237,7 +239,7 @@
 						<span>Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</span>
 					</li>
 				<?php endif; ?>
-				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
+				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER && !$vrac->isPluriannuel()): ?>
 				<li>
 					<span>Echéancier :</span>
 					<span>
@@ -294,10 +296,12 @@
 				<span><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?></span>
 			</li>
 			<?php endif; ?>
+            <?php if($vrac->date_limite_retiraison): ?>
 			<li>
 				<span>Date limite de retiraison:</span>
 				<span><?php echo Date::francizeDate($vrac->date_limite_retiraison) ?></span>
 			</li>
+			<?php endif; ?>
 			<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 			<li>
 				<span>Clause de reserve de propriété:</span>
