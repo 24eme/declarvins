@@ -638,6 +638,7 @@
 		 $('select[readonly="readonly"] option:not(:selected)').attr('disabled', 'disabled');
 		 $(':radio[readonly="readonly"]:not(:checked)').attr('disabled', 'disabled');
 		 $(':checkbox[readonly="readonly"]:not(:checked)').attr('disabled', 'disabled');
+		 $(':checkbox[readonly="readonly"]:checked').click(function(){return false;});
 
  		 $('select[readonly="readonly"] option:not(:selected)').addClass('input-disabled');
  		 $(':radio[readonly="readonly"]:not(:checked)').addClass('input-disabled');
