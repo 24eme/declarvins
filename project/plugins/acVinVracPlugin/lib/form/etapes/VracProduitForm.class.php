@@ -99,7 +99,7 @@ class VracProduitForm extends VracForm
         	preg_match('/([0-9a-zA-Z\/]+)\/cepages\/[0-9a-zA-Z\/]+/', $this->getObject()->produit, $matches);
         	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $matches[1]));
         }
-      	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
+      	if (!$this->getObject()->millesime && $this->getObject()->volume_propose && !$this->getObject()->isAdossePluriannuel()) {
         		$this->setDefault('non_millesime', true);
         }
         if (!(count($this->getObject()->labels_arr->toArray()) > 0)) {
