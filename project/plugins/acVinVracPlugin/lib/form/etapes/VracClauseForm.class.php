@@ -27,7 +27,16 @@ class VracClauseForm extends VracForm
             'agreage_vins' => $this->text,
             'transfert_propriete' => $this->text
         ]);
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
+            $this->configurePluriannuel();
+        }
         $this->widgetSchema->setNameFormat('vrac_clause[%s]');
+    }
+
+    public function configurePluriannuel() {
+        if (isset($this['agreage_vins'])) {
+            unset($this['agreage_vins']);
+        }
     }
 
     protected function doUpdateObject($values)
@@ -53,7 +62,7 @@ class VracClauseForm extends VracForm
         $vrac->update();
     }
     protected function updateDefaultsFromObject() {
-      parent::updateDefaultsFromObject(); 
+      parent::updateDefaultsFromObject();
       $clauses_complementaires = $this->getConfiguration()->clauses_complementaires;
       $complements = explode(',', $this->getObject()->clauses_complementaires);
         foreach ($clauses_complementaires as $key => $value) {

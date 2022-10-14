@@ -54,6 +54,7 @@
     $clausesMask = $configurationVrac->getClausesMask($form->getObject()->getClausesMaskConf())->getRawValue();
     foreach ($clauses_complementaires as $key => $clause):
         if (in_array($key, $clausesMask)) continue;
+        if (!isset($form[$key])) continue;
     ?>
 
     <h2><?= $clause['nom'] ?></h2>
