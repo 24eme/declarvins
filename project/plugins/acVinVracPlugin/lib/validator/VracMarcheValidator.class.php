@@ -4,9 +4,8 @@ class VracMarcheValidator extends sfValidatorBase {
 
     protected $ivse;
     protected $vrac;
-    protected $isPluriannuelActive;
 
-    public function __construct($vrac, $isPluriannuelActive, $options = array(), $messages = array())
+    public function __construct($vrac, $options = array(), $messages = array())
     {
         if ($vrac) {
             $this->vrac = $vrac;
@@ -15,7 +14,6 @@ class VracMarcheValidator extends sfValidatorBase {
             $this->vrac = null;
             $this->ivse = null;
         }
-        $this->isPluriannuelActive = $isPluriannuelActive;
 
         parent::__construct($options, $messages);
     }
@@ -30,25 +28,21 @@ class VracMarcheValidator extends sfValidatorBase {
         $this->addMessage('impossible_date_retiraison', "La date limite doit être supérieur ou égale à la date de debut de retiraison");
         $this->addMessage('echeancier_date', "Vous devez saisir les dates de votre échéancier");
         $this->addMessage('echeancier_montant', "Vous devez saisir les montants de votre échéancier");
-        if ($this->vrac->contrat_pluriannuel) {
-            $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 15/12/$annee");
-            $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée au 30/06/$annee");
-        } else {
-            $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09/$annee");
-            $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée à la moitié de la période d'aujourd'hui au 30/09/$annee");
-        }
+        $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09/$annee");
+        $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée à la moitié de la période d'aujourd'hui au 30/09/$annee");
         $this->addMessage('echeancier_montant_total', "Le prix total de l'échéancier ne correspond pas au montant total du contrat");
+        $this->addMessage('impossible_tranche_prix', "Incohérence dans la fourchette de prix déclarée");
     }
-    
+
 	protected function getTypePrixNeedDetermination() {
 
       return array("objectif", "acompte");
     }
-    
+
     protected function doClean($values) {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
-    	
+
     	if ($values['type_prix_1'] == 'non_definitif') {
     		if (!isset($values['type_prix_2']) || !$values['type_prix_2']) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'type_prix_2');
@@ -63,7 +57,7 @@ class VracMarcheValidator extends sfValidatorBase {
     			$hasError = true;
     		}
     	}
-        if ($this->isPluriannuelActive && $this->vrac->isPluriannuel()) {
+        if ($this->vrac->isPluriannuel()) {
             	if ((isset($values['volume_propose']) && $values['volume_propose'] <= 0)&&(isset($values['pourcentage_recolte']) && $values['pourcentage_recolte'] <= 0)&&(isset($values['surface']) && $values['surface'] <= 0)) {
             			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
                         $errorSchema->addError(new sfValidatorError($this, 'required'), 'pourcentage_recolte');
@@ -83,7 +77,7 @@ class VracMarcheValidator extends sfValidatorBase {
 
     	if (isset($values['conditions_paiement']) && $values['conditions_paiement'] == 'cadre_reglementaire') {
 
-    	    if (!$values['delai_paiement'] && (!$this->isPluriannuelActive || !$this->vrac->isPluriannuel())) {
+    	    if (!$values['delai_paiement'] && !$this->vrac->isPluriannuel()) {
     	        $errorSchema->addError(new sfValidatorError($this, 'required'), 'delai_paiement');
     	        $hasError = true;
     	    }
@@ -92,7 +86,7 @@ class VracMarcheValidator extends sfValidatorBase {
     	        $hasError = true;
     	    }
     	}
-        if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
+        if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT && !$this->vrac->isPluriannuel()) {
             $montantTotal = 0;
             if (is_array($values['paiements'])) {
                 if (!$values['paiements']) {
@@ -102,7 +96,7 @@ class VracMarcheValidator extends sfValidatorBase {
                 if (!$this->ivse) {
                     $maxd = null;
                     $today = date('Y-m-d');
-                    
+
                     if ($this->vrac->contrat_pluriannuel) {
                         $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-12-15' : date('Y').'-12-15';
                     } else {
@@ -126,7 +120,7 @@ class VracMarcheValidator extends sfValidatorBase {
                         }
                         $montantTotal += $paiement['montant'];
                     }
-                    
+
                     $date1 = new DateTime();
                     if ($this->vrac->contrat_pluriannuel) {
                         $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-06-30' : date('Y').'-06-30';
@@ -137,7 +131,7 @@ class VracMarcheValidator extends sfValidatorBase {
                         $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
                     }
                     $date1->modify("+$nbJour day");
-                    
+
                     $moitie = $date1->format('Y-m-d');
                     $montantMoitie = 0;
                     foreach ($values['paiements'] as $key => $paiement) {
@@ -145,13 +139,13 @@ class VracMarcheValidator extends sfValidatorBase {
                             $montantMoitie += $paiement['montant'];
                         }
                     }
-                    
+
                     if ($montantMoitie < round($montantTotal/2, 2)) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
                         $hasError = true;
                     }
                 }
-                
+
             }
             $vol = (isset($values['volume_propose']))? $values['volume_propose'] : 0;
             $cvo = (isset($values['part_cvo']))? $values['part_cvo'] : 0;
@@ -173,7 +167,13 @@ class VracMarcheValidator extends sfValidatorBase {
                 }
             }
         }
-        
+        if (isset($values['pluriannuel_prix_plancher']) && isset($values['pluriannuel_prix_plafond'])) {
+            if ($values['pluriannuel_prix_plancher'] >= $values['pluriannuel_prix_plafond']) {
+                $errorSchema->addError(new sfValidatorError($this, 'impossible_tranche_prix'), 'pluriannuel_prix_plancher');
+                $hasError = true;
+            }
+        }
+
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}

@@ -17,7 +17,7 @@
             </div>
             <?php endif; ?>
 
-        	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix</h1>
+        	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix applicables</h1>
             <?php if (isset($form['contractualisation'])): ?>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_pourcentage_recolte|#bloc_surface|#bloc_volume_propose">
                 <?php echo $form['contractualisation']->renderError() ?>
@@ -27,6 +27,7 @@
             <?php endif; ?>
             <?php if (isset($form['pourcentage_recolte'])): ?>
             <div id="bloc_pourcentage_recolte" class="section_label_strong bloc_conditionner" data-condition-value="recolte">
+                <?php echo $form['pourcentage_recolte']->renderError() ?>
                 <?php echo $form['pourcentage_recolte']->renderLabel() ?>
                 <?php echo $form['pourcentage_recolte']->render() ?>  <strong>%</strong>
                 <p style="padding: 10px 0 0 210px;"><em><strong>Un pourcentage de la récolte</strong> totale revendiquée dans l'appellation d’origine contrôlée objet du contrat, provenant de son exploitation et indiquée sur sa déclaration de récolte.</em></p>
@@ -66,16 +67,31 @@
             	<strong><span id="prix_total_contrat">0.0</span> € HT</strong>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])): ?>
+            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
             <div class="section_label_strong">
+                <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
                 <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
                 <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <div class="section_label_strong">
+                <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
                 <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
                 <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                <p style="padding: 10px 0 0 210px;">Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
+            </div>
+            <div class="section_label_strong">
+                <?php echo $form['pluriannuel_clause_indexation']->renderError() ?>
+                <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
+                <?php echo $form['pluriannuel_clause_indexation']->render() ?>
+                <p style="padding: 10px 0 0 210px;"><em>Les indicateurs pouvant être pris en compte sont ceux relatifs aux coûts pertinents de production en agriculture et à l’évolution de ces coûts, ceux relatifs aux prix des produits agricoles et alimentaires constatés sur le ou les marchés où opère l’acheteur et à l’évolution de ces prix ou encore ceux relatifs aux quantités, à la composition, à la qualité, à la traçabilité des produits ou au respect d’un cahier des charges.</em></p>
+            </div>
+            <div class="section_label_strong">
+                <label>Prix applicable</label>
+                <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
+                <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
             </div>
             <?php endif; ?>
+            <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
             <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                 <?php echo $form['type_prix_1']->renderError() ?>
                 <?php echo $form['type_prix_1']->renderLabel() ?>
@@ -86,6 +102,7 @@
                 <?php echo $form['type_prix_2']->renderLabel() ?>
                 <?php echo $form['type_prix_2']->render() ?>
             </div>
+            <?php endif; ?>
             <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix_date']->renderError() ?>
                 <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
@@ -102,6 +119,7 @@
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
+            <?php if (!$form->getObject()->isPluriannuel()): ?>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
             	<p>Nombre d'échéances prévues : <input type="text" name="echeances" id="echeances" /> <input id="generateur" type="button" value="générer" /></p>
 
@@ -146,6 +164,7 @@
                     </tfoot>
                 </table>
             </div>
+            <?php endif; ?>
             <?php if ($form->isConditionneDelaiPaiement()): ?>
             <div id="bloc_vrac_delai" class="section_label_strong bloc_conditionner bloc_condition" data-condition-value="<?php echo $form->getCgpDelaiNeedDetermination() ?>" data-condition-cible="#bloc_vrac_delai_autre">
             <?php else: ?>
@@ -155,7 +174,7 @@
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
-                <?php if ($form->hasAcompteInfo()): ?>
+                <?php if ($form->hasAcompteInfo()&&!$form->getObject()->isPluriannuel()&&!$form->getObject()->isAdossePluriannuel()): ?>
                 <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
                 <?php endif; ?>
             <?php endif; ?>
@@ -190,12 +209,14 @@
                     &nbsp;(jj/mm/aaaa)
                 </div>
                 <?php endif; ?>
+                <?php if(isset($form['date_limite_retiraison'])): ?>
                 <div class="section_label_strong">
                     <?php echo $form['date_limite_retiraison']->renderError() ?>
                     <?php echo $form['date_limite_retiraison']->renderLabel() ?>
                     <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
                     &nbsp;(jj/mm/aaaa)
                 </div>
+                <?php endif; ?>
                 <?php if(isset($form['clause_reserve_retiraison'])): ?>
                 <div class="section_label_strong">
                     <?php echo $form['clause_reserve_retiraison']->renderError() ?>

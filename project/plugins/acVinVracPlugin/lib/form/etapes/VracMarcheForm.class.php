@@ -1,11 +1,11 @@
 <?php
-class VracMarcheForm extends VracForm 
+class VracMarcheForm extends VracForm
 {
    	public function configure()
-    {   		
+    {
    	    $typePrix1 = array('definitif' => 'Définitif', 'non_definitif' => 'Prix non définitif');
    	    $typePrix2 = array('objectif' => 'D\'objectif', 'acompte' => 'D\'acompte');
-   	    
+
     		$this->setWidgets(array(
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
         	'volume_propose' => new sfWidgetFormInputFloat(),
@@ -66,10 +66,10 @@ class VracMarcheForm extends VracForm
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
         	'type_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixTypeRetiraison()))),
          ));
-        
+
         $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
         $this->embedForm('paiements', $paiements);
-        
+
         $cepages = $this->getCepages();
     	if (count($cepages) > 0) {
     		$cepages = array_merge(array('' => ''), $this->getCepages());
@@ -92,21 +92,25 @@ class VracMarcheForm extends VracForm
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isAdossePluriannuel() && $this->getObject()->volume_propose) {
+            $widget = $this->getWidget('volume_propose');
+            $widget->setAttribute('readonly', 'readonly');
+        }
 
         $this->editablizeInputPluriannuel();
-  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject(), $this->getConfiguration()->isContratPluriannuelActif()));
+  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
     }
 
 
     public function configurePluriannuel() {
-        unset($this['prix_unitaire'], $this['prix_total_unitaire']);
+        unset($this['prix_unitaire'], $this['prix_total_unitaire'], $this['type_prix_1'], $this['type_prix_2'], $this['date_limite_retiraison']);
 
         $this->setWidget('contractualisation', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getContractualisationChoices(), 'multiple' => false)));
         $this->getWidget('contractualisation')->setLabel('Contractualisation sur:');
         $this->setValidator('contractualisation', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getContractualisationChoices()), 'multiple' => false)));
 		$this->setWidget('pourcentage_recolte', new sfWidgetFormInputFloat());
-		$this->setValidator('pourcentage_recolte', new sfValidatorNumber(array('required' => false)));
+		$this->setValidator('pourcentage_recolte', new sfValidatorNumber(array('required' => false, 'max' => 100), array('max' => 'Vous ne pouvez pas dépasser 100%')));
 		$this->getWidget('pourcentage_recolte')->setLabel('Pourcentage de la récolte');
 		$this->setWidget('surface', new sfWidgetFormInputFloat());
 		$this->setValidator('surface', new sfValidatorNumber(array('required' => false)));
@@ -115,11 +119,14 @@ class VracMarcheForm extends VracForm
         $this->setWidget('pluriannuel_prix_plafond', new sfWidgetFormInputFloat());
         $this->getWidget('pluriannuel_prix_plancher')->setLabel('Prix plancher');
         $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond');
-        $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => false)));
-        $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => false)));
+        $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => true)));
+        $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => true)));
+
+        $this->setWidget('pluriannuel_clause_indexation', new sfWidgetFormTextarea());
+        $this->getWidget('pluriannuel_clause_indexation')->setLabel('Clause d\'indexation des prix');
+        $this->setValidator('pluriannuel_clause_indexation', new sfValidatorString(array('required' => false)));
 
         $this->getValidator('volume_propose')->setOption('required', false);
-        $this->getValidator('date_limite_retiraison')->setOption('required', false);
 
     }
 
@@ -135,7 +142,7 @@ class VracMarcheForm extends VracForm
         }
         $this->getObject()->conditions_paiement_libelle = $this->getConfiguration()->formatConditionsPaiementLibelle(array($this->getObject()->conditions_paiement));
         parent::doUpdateObject($values);
-        
+
         if (isset($values['cepages']) && $values['cepages']) {
         	$this->getObject()->produit = $values['cepages'];
         	$configuration = ConfigurationClient::getCurrent();
@@ -148,9 +155,9 @@ class VracMarcheForm extends VracForm
         	$this->getObject()->produit = $configurationProduit->getCouleur()->getHash().'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
-        	
+
         }
-        
+
         $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : 'definitif';
 
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
@@ -159,18 +166,18 @@ class VracMarcheForm extends VracForm
         }
     	if ($this->getObject()->type_transaction == 'raisin') {
     		$this->getObject()->poids = $this->getObject()->volume_propose;
-    	} 
+    	}
     	if (is_null($this->getObject()->type_retiraison)) {
     	    $this->getObject()->type_retiraison = 'vrac';
     	}
-        
+
         $this->getObject()->update();
     }
     protected function updateDefaultsFromObject() {
-      parent::updateDefaultsFromObject();    
-      
+      parent::updateDefaultsFromObject();
+
       $this->setDefault('cepages', $this->getObject()->produit);
-      
+
       if (is_null($this->getObject()->type_prix)) {
         $this->setDefault('type_prix', VracClient::PRIX_DEFAUT);
       }
@@ -180,11 +187,11 @@ class VracMarcheForm extends VracForm
       }
       if (is_null($this->getObject()->clause_reserve_retiraison)) {
         $this->setDefault('clause_reserve_retiraison', 0);
-      }   
+      }
       if (is_null($this->getObject()->vin_livre)) {
         $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
-      }  
-      if (is_null($this->getObject()->type_retiraison) && $this->getObject()->type_transaction == 'vrac') {
+      }
+      if (is_null($this->getObject()->type_retiraison) && $this->getObject()->type_transaction == 'vrac' && !$this->getObject()->isPluriannuel()) {
         $this->setDefault('type_retiraison', 'vrac');
       }
       if (in_array($this->getObject()->type_prix, array('objectif', 'acompte'))) {
@@ -225,7 +232,7 @@ class VracMarcheForm extends VracForm
     public function getCgpDelaiNeedDetermination() {
       return 'cadre_reglementaire';
     }
-    
+
     public function isConditionneDelaiPaiement()
     {
         return false;
@@ -248,13 +255,11 @@ class VracMarcheForm extends VracForm
     	return $delais;
     }
 
-    public function getConditionsPaiement()
-    {
-        $conditions = parent::getConditionsPaiement();
+    public function getChoixTypeRetiraison() {
+        $choices = parent::getChoixTypeRetiraison();
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
-            if (isset($conditions['echeancier_paiement']))
-                unset($conditions['echeancier_paiement']);
+            $choices[null] = 'Les parties fixeront le type de retiraison dans chacun des contrats d\'application';
         }
-    	return $conditions;
+        return $choices;
     }
 }
