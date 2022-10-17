@@ -28,7 +28,10 @@ class acVinVracActions extends sfActions
     		return $this->redirect('@acces_interdit');
     	}
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
-        $this->statut = $request->getParameter('statut', 0);
+        $this->statut = $request->getParameter('statut');
+        if (!$this->statut) {
+            $this->statut = 0;
+        }
         $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(true), array('TOUS'))));
 		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
