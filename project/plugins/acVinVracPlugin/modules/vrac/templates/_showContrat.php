@@ -204,7 +204,7 @@
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
 			</li>
             <?php endif; ?>
-            <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?>
+            <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond && $vrac->isPluriannuel()): ?>
 			<li>
 				<span>Fourchette de prix :</span>
 				<span>entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> €/HL</span>
