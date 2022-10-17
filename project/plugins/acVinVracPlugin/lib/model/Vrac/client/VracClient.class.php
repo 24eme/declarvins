@@ -261,8 +261,8 @@ class VracClient extends acCouchdbClient {
 
     public static function sortVracId($a, $b)
     {
-    	$ma1 = $a->value[VracHistoryView::VRAC_VIEW_NUM];
-    	$mb1 = $b->value[VracHistoryView::VRAC_VIEW_NUM];
+    	$ma1 = substr($a->value[VracHistoryView::VRAC_VIEW_NUM], 0, 11);
+    	$mb1 = substr($b->value[VracHistoryView::VRAC_VIEW_NUM], 0, 11);
     	$versionA = $a->value[VracHistoryView::VRAC_VERSION];
     	$versionB = $b->value[VracHistoryView::VRAC_VERSION];
         $ma = substr($versionA, 1);
