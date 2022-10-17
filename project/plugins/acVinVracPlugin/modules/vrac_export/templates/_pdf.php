@@ -106,7 +106,7 @@
 	<?php endif; ?>
 	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) : '-'; ?></p>
 	<h2>Type de contrat</h2>
-	<p><?php if ($vrac->reference_contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Contrat ponctuel<?php endif; ?></p>
+	<p><?php if ($vrac->isAdossePluriannuel()): ?>Contrat adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Contrat ponctuel<?php endif; ?></p>
     <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?><p>Campagnes d'application de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></p><?php endif; ?>
     <?php if ($vrac->isPluriannuel() && $vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?><p>Fourchette de prix entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> €/HL</p><?php endif; ?>
     <?php if ($vrac->pluriannuel_clause_indexation): ?><p>Indexation du prix : <?php echo $vrac->pluriannuel_clause_indexation ?></p><?php endif; ?>
@@ -133,7 +133,9 @@
                 <th>Surface concernée</th>
                 <?php endif; ?>
 				<th><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?></th>
-				<th>Prix unitaire net HT hors cotisation</th>
+                <?php if ($vrac->prix_unitaire): ?>
+                <th>Prix unitaire net HT hors cotisation</th>
+                <?php endif; ?>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<th>Part cotisation payée par l'acheteur</th>
 				<?php endif; ?>
@@ -149,7 +151,9 @@
                 <td><?php echoFloat($vrac->surface) ?>&nbsp;HA</td>
                 <?php endif; ?>
 				<td><?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></td>
+                <?php if ($vrac->prix_unitaire): ?>
 				<td><?php echoFloat($vrac->prix_unitaire) ?> € HT / <?php if($vrac->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif;?></td>
+                <?php endif; ?>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  € HT / HL</td>
 				<?php endif; ?>
@@ -161,7 +165,7 @@
 	<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
-		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && ($vrac->isConditionneIr()||$vrac->isConditionneIvse())): ?>
+		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->hasAcompteInfo()): ?>
 			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
 		<?php endif; ?>
 	<?php endif; ?>
@@ -186,7 +190,7 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
-	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
+	<?php if ($vrac->hasAcompteInfo()): ?>
 		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
 	<?php endif; ?>
 	<?php endif; ?>
@@ -195,7 +199,9 @@
 	<?php if($vrac->date_debut_retiraison): ?>
 	<p>Date de début de retiraison : <?php echo Date::francizeDate($vrac->date_debut_retiraison) ?></p>
 	<?php endif; ?>
+    <?php if($vrac->date_limite_retiraison): ?>
 	<p>Date limite de retiraison : <?php echo Date::francizeDate($vrac->date_limite_retiraison) ?></p>
+    <?php endif; ?>
 	<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 	<p>Clause de reserve de propriété : <?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></p>
 	<?php endif; ?>

@@ -4,13 +4,13 @@
 	</div>
 	<center>
 		<h1>
-			<?php if ($vrac->numero_contrat): ?>Contrat<?php else: ?>Proposition<?php endif; ?> de vente interprofessionnel
+			<?php if ($vrac->numero_contrat): ?>Contrat<?php else: ?>Proposition<?php endif; ?><?php if ($vrac->isPluriannuel()): ?> pluriannuel cadre<?php endif; ?> de <?php echo strtolower($configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction))); ?><?php if ($vrac->type_transaction == 'vrac'): ?> en vrac<?php endif; ?>
 			<?php if($vrac->isRectificative()): ?>
  			- <span class="rectificative">Rectificatif <?php echo sprintf('%02d', $vrac->rectificative) ?></span>
 			<?php endif; ?>
 		</h1>
 	</center>
-	
+
 	<table>
 		<tr>
 			<td width="50%"><?php if ($vrac->premiere_mise_en_marche): ?>Première mise en marché<?php endif; ?></td>
