@@ -2,6 +2,7 @@
     use_helper('Float');
 	$warningMiseEnMarche = false;
 	$warningExport = false;
+	$warningFourchette = false;
     $errorMentions = false;
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
 		$warningMiseEnMarche = true;
