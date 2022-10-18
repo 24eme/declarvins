@@ -127,6 +127,7 @@ class VracMarcheForm extends VracForm
         $this->setValidator('pluriannuel_clause_indexation', new sfValidatorString(array('required' => false)));
 
         $this->getValidator('volume_propose')->setOption('required', false);
+        $this->getValidator('type_retiraison')->setOption('required', false);
 
     }
 
