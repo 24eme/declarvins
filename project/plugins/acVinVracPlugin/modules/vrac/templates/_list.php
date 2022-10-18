@@ -21,7 +21,7 @@
 	        	$isOperateur = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
 	        	foreach ($vracs as $value):
 	        		$elt = $value->value;
-	        		if ($isOperateur && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
+	        		if ($isOperateur && $elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID] && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
 	        			continue;
 	        		}
 					$acteur = null;
