@@ -168,7 +168,7 @@ class VracMarcheValidator extends sfValidatorBase {
             }
         }
         if (isset($values['pluriannuel_prix_plancher']) && isset($values['pluriannuel_prix_plafond'])) {
-            if ($values['pluriannuel_prix_plancher'] >= $values['pluriannuel_prix_plafond']) {
+            if ($values['pluriannuel_prix_plancher'] > $values['pluriannuel_prix_plafond']) {
                 $errorSchema->addError(new sfValidatorError($this, 'impossible_tranche_prix'), 'pluriannuel_prix_plancher');
                 $hasError = true;
             }
