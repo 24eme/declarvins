@@ -19,7 +19,7 @@
 
         <?php if ($configurationVrac->isContratPluriannuelActif()): ?>
         <ul class="nav nav-tabs text-center">
-          <li class="<?php if(!$pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant)); ?>"><h3 style="margin:0;">Ponctuels</h3></a></li>
+          <li class="<?php if(!$pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant)); ?>"><h3 style="margin:0;">Ponctuels et contrats d'application</h3></a></li>
           <li class="<?php if($pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => 'TOUS')) : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant, 'statut' => 'TOUS')); ?>?pluriannuel=1"><h3 style="margin:0;">Pluriannuels cadres</h3></a></li>
         </ul>
         <?php endif; ?>
@@ -35,9 +35,9 @@
             <?php if (!$etablissement || $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
             <li style="padding: 0 5px; width: 235px;">
                 <?php if($pluriannuel): ?>
-                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>?pluriannuel=1"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat cadre pluriannuel</a>
+                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>?pluriannuel=1"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat pluriannuel cadre</a>
                 <?php else: ?>
-                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" class="btn_popup" data-popup="#popup_vrac_ponctuel_nouveau" href=""><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat ponctuel</a>
+                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" class="btn_popup" data-popup="#popup_vrac_ponctuel_nouveau" href=""><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat</a>
                 <?php endif; ?>
             </li>
             <?php endif; ?>
@@ -66,7 +66,7 @@
 <div id="popup_vrac_ponctuel_nouveau" class="popup_contenu popup_form" style="display:none;">
     <div class="bloc_condition" data-condition-cible="#bloc_vrac_pluriannuel_choices|#bloc_vrac_ponctuel">
         <ul class="radio_list">
-            <li><input name="creation_type" type="radio" value="vierge" id="creation_type_vierge" checked="checked">&nbsp;<label for="creation_type_vierge" style="font-weight:normal;">Création vierge</label></li>
+            <li><input name="creation_type" type="radio" value="vierge" id="creation_type_vierge" checked="checked">&nbsp;<label for="creation_type_vierge" style="font-weight:normal;">Création d'un contrat ponctuel</label></li>
             <li><input name="creation_type" type="radio" value="pluriannuel" id="creation_type_pluriannuel">&nbsp;<label for="creation_type_pluriannuel" style="font-weight:normal;">Création à partir d'un <strong>contrat pluriannuel cadre</strong></label></li>
         </ul>
     </div>
@@ -88,7 +88,7 @@
     <div id="bloc_vrac_ponctuel" class="bloc_conditionner" data-condition-value="vierge">
         <ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">
             <li style="padding: 0 5px; width: 235px;">
-                <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat ponctuel</a>
+                <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat</a>
             </li>
         </ul>
     </div>
