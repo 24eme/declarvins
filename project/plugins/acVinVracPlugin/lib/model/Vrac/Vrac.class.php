@@ -1078,13 +1078,14 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function prixIsInFourchette() {
         if (
-            $this->prix_unitaire &&
-            $this->pluriannuel_prix_plafond &&
-            $this->pluriannuel_prix_plancher &&
-            ($this->prix_unitaire > $this->pluriannuel_prix_plafond)||($this->prix_unitaire < $this->pluriannuel_prix_plancher)
+            $this->prix_unitaire > 0 &&
+            $this->pluriannuel_prix_plafond > 0 &&
+            $this->pluriannuel_prix_plancher > 0 &&
+            (($this->prix_unitaire > $this->pluriannuel_prix_plafond)||($this->prix_unitaire < $this->pluriannuel_prix_plancher))
         ) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 }
