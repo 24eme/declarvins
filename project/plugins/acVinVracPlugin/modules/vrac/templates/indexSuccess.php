@@ -75,7 +75,16 @@
             <select name="contrat" required>
                 <option value="">Selectionner un contrat</option>
                 <?php foreach($pluriannuels as $pluriannuel): ?>
-                <option value="<?php echo $pluriannuel->id ?>"><?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_NUM] ?> - <?php echo substr($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' ')) ?> <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_MILLESIME] ?> - <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_VOLPROP]; echo ($pluriannuel->value[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] == 'raisin')? 'kg' : 'hl'; ?></option>
+                    <?php
+                        $acteurs = '';
+                        if (!$etablissement||$etablissement->identifiant != $pluriannuel->value[VracHistoryView::VRAC_VIEW_ACHETEUR_ID])
+                            $acteurs .= ($pluriannuel->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM])? $pluriannuel->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM].' ' : $pluriannuel->value[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE].' ';
+                        if (!$etablissement)
+                            $acteurs .= '/ ';
+                        if (!$etablissement||$etablissement->identifiant != $pluriannuel->value[VracHistoryView::VRAC_VIEW_VENDEUR_ID])
+                            $acteurs .= ($pluriannuel->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM])? $pluriannuel->value[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] : $pluriannuel->value[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE];
+                     ?>
+                <option value="<?php echo $pluriannuel->id ?>"><?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_NUM] ?> - <?php echo trim($acteurs) ?> - <?php echo trim(substr($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' '))) ?> <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_MILLESIME] ?> - <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_VOLPROP]; echo ($pluriannuel->value[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] == 'raisin')? 'kg' : 'hl'; ?></option>
             <?php endforeach; ?>
             </select>
     		<ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">
