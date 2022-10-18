@@ -23,7 +23,7 @@
 	    <ol>
 	    	<?php if ($warningMiseEnMarche): ?><li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li><?php endif; ?>
 	    	<?php if ($warningExport): ?><li>Attention, vous êtes sur le point de valider un contrat pour le marché français (étape &laquo;Marché&raquo;, champs &laquo;Expédition export&raquo;).</li><?php endif; ?>
-            <?php if ($warningFourchette): ?><li>Attention, le prix indiqué ne respecte pas la fourchette de prix définit dans le contrat cadre.</li><?php endif; ?>
+            <?php if ($warningFourchette): ?><li>Attention, le prix indiqué ne respecte pas la fourchette de prix défini dans le contrat cadre.</li><?php endif; ?>
 	    </ol>
 	</div>
 	<?php endif; ?>
