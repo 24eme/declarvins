@@ -104,7 +104,7 @@ class VracMarcheForm extends VracForm
 
 
     public function configurePluriannuel() {
-        unset($this['prix_unitaire'], $this['prix_total_unitaire'], $this['type_prix_1'], $this['type_prix_2'], $this['date_limite_retiraison']);
+        unset($this['prix_unitaire'], $this['prix_total_unitaire'], $this['type_prix_1'], $this['type_prix_2'], $this['date_debut_retiraison'], $this['date_limite_retiraison']);
 
         $this->setWidget('contractualisation', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getContractualisationChoices(), 'multiple' => false)));
         $this->getWidget('contractualisation')->setLabel('Contractualisation sur:');
