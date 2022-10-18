@@ -135,11 +135,11 @@
 				<th><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?></th>
                 <?php if ($vrac->prix_unitaire): ?>
                 <th>Prix unitaire net HT hors cotisation</th>
-                <?php endif; ?>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<th>Part cotisation payée par l'acheteur</th>
 				<?php endif; ?>
 				<th>Type de prix</th>
+                <?php endif; ?>
         	</tr>
         </thead>
         <tbody>
@@ -153,11 +153,11 @@
 				<td><?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></td>
                 <?php if ($vrac->prix_unitaire): ?>
 				<td><?php echoFloat($vrac->prix_unitaire) ?> € HT / <?php if($vrac->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif;?></td>
-                <?php endif; ?>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  € HT / HL</td>
 				<?php endif; ?>
-				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
+				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>+
+				<?php endif; ?>
 			</tr>
         </tbody>
     </table>
