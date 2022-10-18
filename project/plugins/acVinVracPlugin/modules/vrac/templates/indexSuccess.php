@@ -87,18 +87,23 @@
                 <option value="<?php echo $pluriannuel->id ?>"><?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_NUM] ?> - <?php echo trim($acteurs) ?> - <?php echo trim(substr($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($pluriannuel->value[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' '))) ?> <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_MILLESIME] ?> - <?php echo $pluriannuel->value[VracHistoryView::VRAC_VIEW_VOLPROP]; echo ($pluriannuel->value[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] == 'raisin')? 'kg' : 'hl'; ?></option>
             <?php endforeach; ?>
             </select>
-    		<ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">
+    		<ul class="nav nav-pills text-center" style="margin: 20px 40px 20px 0; justify-content: right; display: flex;">
                 <li style="padding: 0 5px; width: 235px;">
-    			    <button style="color: #fff; width:100%; padding: 5px; background-color:#ec971f; font-weight: bold;" type="submit"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat ponctuel</button>
+    			    <button style="color: #fff; width:100%; padding: 5px; background-color:#ec971f; font-weight: bold;" type="submit"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat</button>
                 </li>
     		</ul>
         </form>
     </div>
     <div id="bloc_vrac_ponctuel" class="bloc_conditionner" data-condition-value="vierge">
-        <ul class="nav nav-pills text-center" style="margin: 20px 0; justify-content: right; display: flex;">
+        <ul class="nav nav-pills text-center" style="margin: 20px 40px 20px 0; justify-content: right; display: flex;">
             <li style="padding: 0 5px; width: 235px;">
                 <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat</a>
             </li>
         </ul>
     </div>
 </div>
+<style>
+.ui-widget-content {
+    width: 980px !important;
+}
+</style>
