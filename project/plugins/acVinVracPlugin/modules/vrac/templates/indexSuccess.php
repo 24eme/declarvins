@@ -36,8 +36,10 @@
             <li style="padding: 0 5px; width: 235px;">
                 <?php if($pluriannuel): ?>
                     <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>?pluriannuel=1"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat pluriannuel cadre</a>
-                <?php else: ?>
+                <?php elseif($configurationVrac->isContratPluriannuelActif()): ?>
                     <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" class="btn_popup" data-popup="#popup_vrac_ponctuel_nouveau" href=""><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat</a>
+                <?php else: ?>
+                    <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau contrat</a>
                 <?php endif; ?>
             </li>
             <?php endif; ?>
