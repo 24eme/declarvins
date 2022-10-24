@@ -54,6 +54,30 @@ function statusColor($status)
     }
 }
 
+function statusLibelle($status, $pluriannuel = null)
+{
+
+    if(is_null($status)) return '';
+
+    if ($status == VracClient::STATUS_CONTRAT_SOLDE && $pluriannuel) return 'Validé';
+
+    switch ($status)
+    {
+        case VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION:
+            return 'En attente d\'annulation';
+        case VracClient::STATUS_CONTRAT_ANNULE:
+            return 'Annulé';
+        case VracClient::STATUS_CONTRAT_SOLDE:
+            return 'Soldé';
+        case VracClient::STATUS_CONTRAT_NONSOLDE:
+            return 'Non soldé';
+        case VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION:
+            return 'En attente de validation';
+        default :
+            return $status;
+    }
+}
+
 function showRecapPrixUnitaire($vrac)
 {
     if($type = $vrac->type_transaction)

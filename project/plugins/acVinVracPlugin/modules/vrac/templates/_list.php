@@ -29,6 +29,7 @@
 					$isProprietaire = false;
                     $isAdossePluriannuel = false;
 					$statusColor = statusColor($elt[VracHistoryView::VRAC_VIEW_STATUT]);
+					$statusLibelle = statusLibelle($elt[VracHistoryView::VRAC_VIEW_STATUT], $pluriannuel);
 					$vracid = $elt[VracHistoryView::VRAC_VIEW_NUM];
 					$vraclibelle = $elt[VracHistoryView::VRAC_VIEW_NUM];
                     if (($pos = strpos($vraclibelle, '-')) !== false)
@@ -72,7 +73,7 @@
 			  	<?php if (!$validated && $isOperateur): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
-				<span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>" style="cursor: pointer;"></span>
+				<span class="statut <?php echo $statusColor ?>" title="<?php echo $statusLibelle; ?>" style="cursor: pointer;"></span>
                 <?php if($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT]): ?>
 				<br />Envoi Oco : <?php echo format_date($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT], 'd/M/y') ?>
 				<?php endif; ?>
