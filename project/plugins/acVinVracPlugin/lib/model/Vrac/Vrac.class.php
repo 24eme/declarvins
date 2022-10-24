@@ -754,14 +754,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       return ($this->valide->statut)? true : false;
     }
 
-    public function getStatutCssClass() {
-    	$statuts = VracClient::getInstance()->getStatusContratCssClass();
-    	if ($this->valide->statut && isset($statuts[$this->valide->statut])) {
-    		return $statuts[$this->valide->statut];
-    	} else {
-    		return null;
-    	}
-    }
     public function getEuSaisieDate() {
 		return strftime('%d/%m/%Y', strtotime($this->valide->date_saisie));
     }

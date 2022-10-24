@@ -37,13 +37,7 @@ class VracClient extends acCouchdbClient {
                                                    self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE),
                                                    self::STATUS_CONTRAT_ATTENTE_VALIDATION => array(self::STATUS_CONTRAT_NONSOLDE, self::STATUS_CONTRAT_ANNULE),
                                                    self::STATUS_CONTRAT_ATTENTE_ANNULATION => array(self::STATUS_CONTRAT_NONSOLDE));
-    
-    protected $_status_contrat_css_class = array(self::STATUS_CONTRAT_SOLDE => 'solde', 
-                                                   self::STATUS_CONTRAT_ANNULE => 'annule',
-                                                   self::STATUS_CONTRAT_NONSOLDE => 'non-solde',
-                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => 'attente-validation',
-                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION => 'annule');
-    
+
 
     const STATUS_VIN_RETIRE = 'retire';
     const STATUS_VIN_LIVRE = 'livre';
@@ -181,10 +175,6 @@ class VracClient extends acCouchdbClient {
       if (!preg_match("|^$hash|", $vrac->produit))
        throw new sfException('Le hash du produit ne correpond pas au hash initial ('.$vrac->produit.'<->'.$hash.')');
       return $vrac;
-    }
-
-    public function getStatusContratCssClass() {
-    	return $this->_status_contrat_css_class;
     }
 
     public function getStatusContrat($withZero = false) {
