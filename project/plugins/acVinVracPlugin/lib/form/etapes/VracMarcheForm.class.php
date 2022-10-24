@@ -96,6 +96,10 @@ class VracMarcheForm extends VracForm
             $widget = $this->getWidget('volume_propose');
             $widget->setAttribute('readonly', 'readonly');
         }
+        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isAdossePluriannuel() && $this->getObject()->type_retiraison) {
+            $widget = $this->getWidget('type_retiraison');
+            $widget->setAttribute('readonly', 'readonly');
+        }
 
         $this->editablizeInputPluriannuel();
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
