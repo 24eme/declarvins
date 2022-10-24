@@ -89,7 +89,7 @@
 			  <td class="text-center" id="num_contrat">
                   <span style="font-size: 22px; cursor: pointer;" class="<?php echo getTypeIcon($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]) ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] ?>"></span><br />
                   <?php if ($isAdossePluriannuel): ?>
-                  <a href="<?php echo url_for('vrac_visualisation', array('contrat' => $elt[VracHistoryView::VRAC_REF_PLURIANNUEL])) ?>"><span title="Contrat d'application n°<?php echo substr($elt[VracHistoryView::VRAC_VIEW_NUM], -2); ?> adossé au contrat pluriannuel cadre n°<?php echo $elt[VracHistoryView::VRAC_REF_PLURIANNUEL] ?>" class="style_label" style="text-align: center; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 5px 0 20px;"></span></a>
+                  <a href="<?php echo url_for('vrac_visualisation', array('contrat' => $elt[VracHistoryView::VRAC_REF_PLURIANNUEL])) ?>"><span title="Contrat d'application n°<?php echo substr($elt[VracHistoryView::VRAC_VIEW_NUM], -2); ?> adossé au contrat pluriannuel cadre n°<?php echo $elt[VracHistoryView::VRAC_REF_PLURIANNUEL] ?>" class="style_label" style="display: inline-block; height: 21px; width: 16px; text-align: center; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;margin: 0px 5px 0 0px; vertical-align: middle;"></span></a>
                   <?php endif; ?>
 			    <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT]): ?>
 			    	<?php if ($validated): ?>
