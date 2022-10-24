@@ -44,10 +44,11 @@ class VracConditionForm extends VracForm
             if ($this->getObject()->isPluriannuel()) {
                 $this->configurePluriannuel();
             }
-        }
-
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
-            $this->configurePluriannuel();
+            if ($this->getObject()->isAdossePluriannuel()) {
+                $this->setWidget('campagne_courante', new sfWidgetFormInputText());
+                $this->getWidget('campagne_courante')->setLabel('Campagne d\'application');
+                $this->setValidator('campagne_courante', new sfValidatorString());
+            }
         }
 
         $this->editablizeInputPluriannuel();
@@ -126,6 +127,7 @@ class VracConditionForm extends VracForm
       if (is_null($this->getObject()->type_transaction)) {
         $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
       }
+      $this->setDefault('campagne_courante', (new CampagneManager('08-01'))->getCurrent());
     }
 
     public function conditionneIVSE() {

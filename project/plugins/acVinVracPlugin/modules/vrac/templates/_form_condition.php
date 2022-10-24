@@ -44,6 +44,13 @@
                 <?php echo $form['pluriannuel_campagne_fin']->render() ?>
             </div>
             <?php endif; ?>
+            <?php if (isset($form['campagne_courante'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['campagne_courante']->renderError() ?>
+                <?php echo $form['campagne_courante']->renderLabel() ?>
+                <?php echo $form['campagne_courante']->render() ?>
+            </div>
+            <?php endif; ?>
         	<h1>Spécificités</h1>
 			<?php if (isset($form['cas_particulier'])): ?>
             <div class="section_label_strong_bloc">
