@@ -308,31 +308,11 @@ class ImportEtablissementsCsv {
   				throw new sfException('has errors');
   			}
         }
-		
+
         return $etab;
     }
-    
-    public function getEtablissementByIdentifiant($identifiant)
-    {
-    	$etab = new Etablissement();
-    	$ligne = 1;
-    	foreach ($this->_csv as $line) {
-      		$ligne++;
-    		if (trim($line[EtablissementCsv::COL_ID]) == $identifiant) {
-	    		$etab = EtablissementClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_ID]));
-	            if (!$etab) {
-	                $etab = new Etablissement();
-	                $etab->set('_id', 'ETABLISSEMENT-' . trim($line[EtablissementCsv::COL_ID]));
-	            	$etab->interpro = $this->_interpro->get('_id');
-	            }
-	            $etab = $this->bind($ligne, $etab, $line);
-	            break;
-    		}
-    	}
-    	return $etab;
-    }
-    
-    
+
+
     public function getEtablissementsByContrat(Contrat $contrat)
     {
     	return EtablissementClient::getInstance()->getEtablissementsByContrat($contrat->_id);
