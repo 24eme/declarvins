@@ -320,14 +320,25 @@ class ImportEtablissementsCsv {
 
     public function update() {
       return $this->updateOrCreate();
-    }  
+    }
 
-	public function updateOrCreate() 
+    public function isEtablissementIdFormatChecked($identifiant) {
+        if ($this->_interpro->identifiant == 'IR') {
+            return (($identifiant[0] == 'C'||$identifiant[0] == 'T') && substr($identifiant, -3, 1) == '-')? true : false;
+        }
+        return true;
+    }
+
+	public function updateOrCreate()
     {
     	$cpt = 0;
     	$ligne = 0;
       	foreach ($this->_csv as $line) {
       		$ligne++;
+            if (!$this->isEtablissementIdFormatChecked(trim($line[EtablissementCsv::COL_ID]))) {
+                $this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_ID + 1).') le format d\'identifiant de l\'etablissement est incorrect');
+                continue;
+            }
 	  		$etab = EtablissementClient::getInstance()->retrieveOrCreateById(trim($line[EtablissementCsv::COL_ID]));
 	  		$contrat = (trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]))? ContratClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_NUMERO_CONTRAT])) : null;
 			if ($etab) {
