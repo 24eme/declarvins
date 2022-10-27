@@ -3479,6 +3479,16 @@ fieldset[disabled] .btn-link {
   text-decoration: underline;
   background-color: transparent;
 }
+
+th .btn-link,
+th .btn-link:hover,
+th .btn-link:focus,
+th .btn-link:active,
+th .btn-link:hover,
+th .btn-link:focus {
+  color: #fff !important;
+}
+
 .btn-link[disabled]:hover,
 fieldset[disabled] .btn-link:hover,
 .btn-link[disabled]:focus,
