@@ -268,6 +268,7 @@ class Etablissement extends BaseEtablissement {
       $societe->add('contacts');
       $societe->contacts->getOrAdd($this->compte);
       $this->societe = $societe->_id;
+      $societe->add('codes_comptables_client');
       return $societe;
     }
 

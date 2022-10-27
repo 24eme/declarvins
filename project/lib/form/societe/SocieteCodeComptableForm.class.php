@@ -6,22 +6,18 @@
 
 class SocieteCodeComptableForm extends acCouchdbObjectForm {
 
-    public function configure()
-    {
-        $this->setWidget('code_comptable_client', new sfWidgetFormInputText());
-        $this->setValidator('code_comptable_client', new sfValidatorString(array('required' => true)));
-        $this->widgetSchema->setNameFormat('societe[%s]');
+    public $interpro;
+
+    public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
+        $this->interpro = $interpro;
+        parent::__construct($object, $options, $CSRFSecret);
     }
 
-
-
-    protected function updateDefaultsFromObject() {
-        parent::updateDefaultsFromObject();
-        $defaults = $this->getDefaults();
-        if (!$this->getObject()->code_comptable_client) {
-            $defaults['code_comptable_client'] = null;
-        }
-        $this->setDefaults($defaults);
+    public function configure()
+    {
+        $this->setWidget($this->interpro, new sfWidgetFormInputText());
+        $this->setValidator($this->interpro, new sfValidatorString(array('required' => true)));
+        $this->widgetSchema->setNameFormat('societe_codes_comptables_client[%s]');
     }
 
 }

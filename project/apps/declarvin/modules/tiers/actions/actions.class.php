@@ -182,7 +182,8 @@ class tiersActions extends sfActions
   	      }
   	  }
   	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->societe) {
-  	      $this->formSociete = new SocieteCodeComptableForm($this->societe);
+          $interpro = $this->getUser()->getCompte()->getGerantInterpro()->_id;
+  	      $this->formSociete = new SocieteCodeComptableForm($this->societe->getOrAdd('codes_comptables_client'), $interpro);
   	      if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formSociete->getName())) {
   	          $this->formSociete->bind($request->getParameter($this->formSociete->getName()));
   	          if ($this->formSociete->isValid()) {
