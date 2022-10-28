@@ -12,6 +12,7 @@ class generateSocieteByEtablissementTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('code-comptable', null, sfCommandOption::PARAMETER_OPTIONAL, 'Numero de code comptable'),
+      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_OPTIONAL, 'Interpro'),
       // add your own options here
     ));
 
@@ -31,8 +32,12 @@ EOF;
 
   	$etablissement = EtablissementClient::getInstance()->find($arguments['identifiant']);
     $cc = null;
+    $interpro = null;
     if (isset($options['code-comptable']) && $options['code-comptable'] && !in_array($options['code-comptable'], ['4110000C0', '4110000C'])) {
       $cc = $options['code-comptable'];
+    }
+    if (isset($options['interpro']) && $options['interpro']) {
+      $interpro = $options['interpro'];
     }
 
     if (!$etablissement) {
@@ -40,14 +45,14 @@ EOF;
       return;
     }
 
-    if ($s = SocieteClient::getInstance()->find($etablissement->identifiant)) {
-      if ($s->code_comptable_client) {
-        $this->logSection("generate:societe-by-etablissement", "Société ".$arguments['identifiant']." ($cc) existante avec le code comptable : ".$s->code_comptable_client, null, 'WARNING');
+    if (($s = SocieteClient::getInstance()->find($etablissement->identifiant)) && $cc) {
+      if ($ccExistant = $s->getCodeComtableClient($interpro)) {
+        $this->logSection("generate:societe-by-etablissement", "Société ".$arguments['identifiant']." ($cc) existante avec le code comptable : ".$ccExistant, null, 'WARNING');
         return;
       } else {
-        $s->code_comptable_client = $cc;
+        $s->addCodeComptableClient($cc, $interpro);
         $s->save();
-        $this->logSection("debug", "Affectation du code comptable $cc pour la societe déjà existante ".$s->_id, null, 'SUCCESS');
+        $this->logSection("generate:societe-by-etablissement", "Affectation du code comptable $cc pour la societe déjà existante ".$s->_id, null, 'SUCCESS');
         return;
       }
     }
@@ -60,11 +65,11 @@ EOF;
     }
 
     if ($cc) {
-      $societe->code_comptable_client = $cc;
+      $societe->addCodeComptableClient($cc, $interpro);
     }
 
     $societe->save();
-    $this->logSection("debug", "Société créée avec succès ".$societe->_id." (".$societe->code_comptable_client.")", null, 'SUCCESS');
+    $this->logSection("generate:societe-by-etablissement", "Société créée avec succès ".$societe->_id." (".$societe->getCodeComtableClient($interpro).")", null, 'SUCCESS');
 
   }
 }
