@@ -62,7 +62,6 @@
                 <footer id="footer">
 					<div class="copyright">
 						<p>Copyright <?php echo date('Y') ?></p>
-						<img src="/images/visuels/logo_franceagrimer.png" alt="France Agrimer" />
 					</div>
 					<ul id="logos_footer">
 						<li><img src="/images/visuels/logo_interpro-ir.png" alt="Inter Rhône" /></li>
