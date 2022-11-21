@@ -479,16 +479,21 @@ class DRMClient extends acCouchdbClient {
                 }
                 return 0;
         }
-        
+
         if (!$hasVersionA) {
                 return 1;
         }
-        
+
         if (!$hasVersionB) {
                 return -1;
         }
         return ($ma[3] < $mb[3])? 1 : -1;
-    	
+
+    }
+
+    public static function hasActiveReserveInterpro() {
+        $desactive = sfConfig::get('app_drm_desactive_reserve_interpro');
+        return ($desactive === true)? false : true;
     }
 
 }
