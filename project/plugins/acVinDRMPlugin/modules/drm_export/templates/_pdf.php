@@ -235,6 +235,28 @@
 		<?php endwhile; ?>
 	<?php endforeach; ?>
 
+    <?php
+    $produits = $drm->getProduitsReserveInterpro();
+    if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
+    <h2>Réserve interprofessionnelle</h2>
+    <table class="recap droits_douane bloc_bottom">
+        <thead>
+            <tr>
+                <th style="width: 330px;">Produits</th>
+                <th style="width: 120px;">Volumes en réserve</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($produits as $p) : ?>
+                        <tr>
+                            <td style="text-align: left;"><?php echo $p->getLibelle(); ?></td>
+                            <td style="text-align: right;"><strong><?php echoLongFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
+                        </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php endif; ?>
+
 	<?php if ($drm->exist('crds') && count($drm->crds) > 0): ?>
 	<h2>Comptabilité capsules CRD</h2>
 
