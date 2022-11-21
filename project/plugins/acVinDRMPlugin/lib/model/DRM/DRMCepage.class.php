@@ -25,6 +25,11 @@ class DRMCepage extends BaseDRMCepage {
     	return $this->getCouleur()->getLieu()->getGenre();
   	}
 
+	public function getLieu() {
+
+    	return $this->getCouleur()->getLieu();
+  	}
+
   	public function getProduits($interpro = null) {
         $produits = array();
         if ($interpro && !is_array($interpro)) {
@@ -135,6 +140,29 @@ class DRMCepage extends BaseDRMCepage {
 
 		return null;
 	}
+
+    public function hasReserveInterpro() {
+        return $this->exist('reserve_interpro');
+    }
+
+    public function getReserveInterpro() {
+        if ($this->hasReserveInterpro()) {
+            return $this->_get('reserve_interpro');
+        }
+        return 0;
+    }
+
+    public function getVolumeCommercialisable() {
+        return $this->total - $this->getReserveInterpro();
+    }
+
+    public function getIdentifiantHTML() {
+        return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));
+    }
+
+    public function makeFormattedLibelle($format = "%g% %a% %l% %co% %ce%", $label_separator = ", ") {
+        return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getLibelles(), array(), $format);
+    }
 
 
 }
