@@ -43,6 +43,7 @@ class VracHistoryView extends acCouchdbView
     const VRAC_OIOC_DATETRAITEMENT = 38;
     const VRAC_POIDS = 39;
     const VRAC_REF_PLURIANNUEL = 40;
+    const VRAC_QUANTITE_LIBELLE = 41;
 
 	public static function getInstance() {
 
