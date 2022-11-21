@@ -283,7 +283,7 @@
     <h3><?= $clause['nom'] ?></h3>
     <p>
         <?= $clause['description'] ?>
-        <?php if ($k == 'liberte_contractuelle' && $vrac->isConditionneIvse()): ?>
+        <?php if ($k == 'liberte_contractuelle'): ?>
 			<?php if (!$vrac->clause_initiative_contractuelle_producteur): ?>
 			Non mais le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses propositions préalablement à la signature du contrat et n\'ayant pas souhaité effectuer une proposition de contrat.
 			<?php else: ?>

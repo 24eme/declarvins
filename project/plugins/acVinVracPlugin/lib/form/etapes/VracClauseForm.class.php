@@ -30,7 +30,25 @@ class VracClauseForm extends VracForm
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
+
+        $this->setWidget('clause_initiative_contractuelle_producteur', new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNonClauseInitiativeContractuelleProducteur(),'expanded' => true, 'renderer_options' => array('formatter' => array('VracClauseForm', 'radioClausesFormatter')))));
+        $this->setValidator('clause_initiative_contractuelle_producteur', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNonClauseInitiativeContractuelleProducteur()))));
+
         $this->widgetSchema->setNameFormat('vrac_clause[%s]');
+    }
+
+    public function getChoixOuiNonClauseInitiativeContractuelleProducteur()
+    {
+    	return array('1' => 'Oui', '0' =>'Non mais le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses propositions préalablement à la signature du contrat et n\'ayant pas souhaité effectuer une proposition de contrat.');
+    }
+
+    public static function radioClausesFormatter($widget, $inputs) {
+        $result = '<ul>';
+        foreach ($inputs as $k => $input) {
+            $result .= '<li>' . $input ['input'] . '   ' . $input ['label'] . '</li>';
+        }
+        $result .= '</ul>';
+        return $result;
     }
 
     public function configurePluriannuel() {
@@ -69,6 +87,9 @@ class VracClauseForm extends VracForm
             if (!in_array($key, $complements)) {
               $this->setDefault($key, 0);
           }
+        }
+        if (is_null($this->getObject()->clause_initiative_contractuelle_producteur)) {
+            $this->setDefault('clause_initiative_contractuelle_producteur', 0);
         }
     }
 
