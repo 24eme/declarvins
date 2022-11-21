@@ -10,6 +10,11 @@ class updateDrmMvtsTask extends sfBaseTask {
                 // add your own options here
         ));
 
+
+    	$this->addArguments(array(
+            new sfCommandArgument('drmid', sfCommandArgument::OPTIONAL, 'Identifiant DRM'),
+    	));
+
         $this->namespace = 'update';
         $this->name = 'drmMvts';
         $this->briefDescription = '';
@@ -24,7 +29,7 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-        $items = DRMAllView::getInstance()->findAll()->rows;
+        $items = ($arguments['drmid'])? array((object) array('id' => $arguments['drmid'])) : DRMAllView::getInstance()->findAll()->rows;
         foreach ($items as $item) {
         	if ($drm = DRMClient::getInstance()->find($item->id)) {
                 foreach($drm->getMouvements() as $mouvements) {
