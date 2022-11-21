@@ -575,6 +575,24 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       }
     }
 
+	public function getCampagne() {
+		$dateForCampagne = $this->date_stats;
+		if (!$dateForCampagne) {
+			$dateForCampagne = $this->valide->date_validation;
+		}
+		if (!$dateForCampagne) {
+			$dateForCampagne = $this->date_signature;
+		}
+		if (!$dateForCampagne) {
+			$dateForCampagne = $this->valide->date_saisie;
+		}
+		if (!$dateForCampagne) {
+			throw new sfException('Impossible de determiner la campagne pour le contrat '.$this->_id);
+		}
+		$cc = new CampagneManager('08-01');
+        return $cc->getCampagneByDate($dateForCampagne);
+	}
+
     public function updateReferente()
     {
     	$this->referente = 1;

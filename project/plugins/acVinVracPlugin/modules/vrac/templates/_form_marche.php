@@ -178,6 +178,13 @@
                 <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
                 <?php endif; ?>
             <?php endif; ?>
+            <?php if(isset($form['dispense_acompte'])): ?>
+            <div class="vracs_ligne_form" style="margin: 10px 0 0 208px;">
+                <?php echo $form['dispense_acompte']->renderError() ?>
+                <?php echo $form['dispense_acompte']->render() ?>
+                <?php echo $form['dispense_acompte']->renderLabel() ?>
+            </div>
+            <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
             <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre">
                 <?php echo $form['delai_paiement_autre']->renderError() ?>

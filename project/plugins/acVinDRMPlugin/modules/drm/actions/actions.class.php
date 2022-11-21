@@ -14,6 +14,8 @@ class drmActions extends sfActions {
   	{
   		try {
   			$etablissement = $this->getRoute()->getEtablissement();
+        } catch (Error $e) {
+            $etablissement = null;
   		} catch (Exeption $e) {
   			$etablissement = null;
   		}

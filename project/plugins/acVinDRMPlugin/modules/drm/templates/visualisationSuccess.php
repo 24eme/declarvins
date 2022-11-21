@@ -181,7 +181,7 @@
   	<div id="popup_ds" class="popup_contenu popup_form" style="display:none;">
   		<p>Nous sommes en fin de campagne.</p>
   		<br />
-  		<p>Suite aux difficultés de commercialisation de 2020, notamment au sein de la restauration, le Conseil Interprofessionnel des Vins de Provence (CIVP) recueille des indicateurs sur le stock restant, notamment l’ancien millésime libre à la vente. Nous espérons pouvoir compter sur votre réponse à ce rapide questionnaire.</p>
+  		<p>Comme l'année dernière, et suite aux difficultés de commercialisation de 2021, le CIVP souhaite recueillir des indicateurs sur le stock restant à la production, notamment les anciens millésimes, encore libre à la vente.</p>
   		<br />
   		<p>Pour ce faire, nous vous invitons à saisir l'état de vos stocks d'AOP Provence Rosé en cliquant sur le lien ci-dessous.</p>
   		<br />

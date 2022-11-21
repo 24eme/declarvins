@@ -298,4 +298,33 @@ class VracClient extends acCouchdbClient {
     public static function getTypes() {
         return self::$types_transaction;
     }
+
+    public function retrieveByCVIAndMillesime($cvi, $millesime, $hash = null, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+        $contrats = array();
+        $vracs=array();
+
+        $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi);
+
+        foreach($etablissements->rows as $e){
+            $id = str_replace('ETABLISSEMENT-', '', $e->id);
+            $vracs = array_merge($vracs,VracSoussigneIdentifiantView::getInstance()->findByEtablissement($id)->rows);
+
+        }
+
+        foreach ($vracs as $c) {
+            if ($mustActive && $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
+                continue;
+            }
+            if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
+                continue;
+            }
+            if(($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != null) && ($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != $millesime)){
+                continue;
+            }
+            $contrats[] = $c;
+        }
+        return $contrats;
+    }
+
+
  }

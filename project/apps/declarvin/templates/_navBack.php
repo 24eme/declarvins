@@ -9,9 +9,15 @@
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
-		 <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'statistiques'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Rapports</a>
+		</li>
+		<li>
+			<a href="/exports/<?php echo str_replace('INTERPRO-', '', $sf_user->getCompte()->getGerantInterpro()->_id) ?>/">Exports</a>
+		</li>
+        <li>
+			<a href="/metabase/">Métabase</a>
 		</li>
 		<?php endif; ?>
 	</ul>

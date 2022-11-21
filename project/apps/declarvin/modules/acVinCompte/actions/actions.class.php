@@ -148,7 +148,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
             return $this->redirect('login');
         }
 
-        $url = 'http://'.$request->getHost();
+        $url = 'https://'.$request->getHost();
         acPhpCas::client();
         phpCAS::logoutWithRedirectService($url);
         

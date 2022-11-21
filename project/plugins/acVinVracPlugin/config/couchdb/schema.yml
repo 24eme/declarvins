@@ -20,10 +20,11 @@ Vrac:
       numero_contrat: {  }
       etape: {  }
       vous_etes: {  }
-      vendeur_type: {  }  
-      vendeur_identifiant: {  }   
-      version: {  required: false; }   
-      referente: {  required: false; }   
+      vendeur_type: {  }
+      vendeur_identifiant: {  }
+      dispense_acompte: {  }
+      version: {  required: false; }
+      referente: {  required: false; }
       enlevements:
         required: false
         type: collection
@@ -34,10 +35,10 @@ Vrac:
               definition:
                 fields:
                   volume: { type: float }
-      vendeur:        
+      vendeur:
         type: collection
         definition:
-          fields:            
+          fields:
             nom: {  }
             raison_sociale: {  }
             siret: {  }
@@ -69,12 +70,12 @@ Vrac:
             code_postal: {  }
             commune: {  }
             pays: {  }
-      acheteur_type: {  }  
-      acheteur_identifiant: {  }      
-      acheteur:        
+      acheteur_type: {  }
+      acheteur_identifiant: {  }
+      acheteur:
         type: collection
         definition:
-          fields:            
+          fields:
             nom: {  }
             raison_sociale: {  }
             siret: {  }
@@ -107,12 +108,12 @@ Vrac:
             commune: {  }
             pays: {  }
       mandataire_exist: {  }
-      mandatant: 
+      mandatant:
         type: array_collection
         definition:
           fields:
             '*': {  }
-      mandataire_identifiant: {  }     
+      mandataire_identifiant: {  }
       mandataire:
         type: collection
         definition:
@@ -258,6 +259,7 @@ Vrac:
       clause_resiliation_preavis: {  }
       clause_resiliation_indemnite: {  }
       clause_revision_prix: { }
+      clause_initiative_contractuelle_producteur: {  }
       export: {  }
       lots:
         type: array_collection

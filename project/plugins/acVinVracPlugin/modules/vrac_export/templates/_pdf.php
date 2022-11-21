@@ -165,9 +165,13 @@
 	<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
-		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->hasAcompteInfo()): ?>
-			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
-		<?php endif; ?>
+		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && ($vrac->isConditionneIr()||$vrac->isConditionneIvse())): ?>
+            <?php if (!$vrac->dispense_acompte): ?>
+                <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+            <?php else: ?>
+                <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
+            <?php endif; ?>
+        <?php endif; ?>
 	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
 	<p>Echéancier de paiements : </p>
@@ -190,9 +194,19 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
+<<<<<<< HEAD
 	<?php if ($vrac->hasAcompteInfo()): ?>
 		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
 	<?php endif; ?>
+=======
+	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
+        <?php if (!$vrac->dispense_acompte): ?>
+            <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+        <?php else: ?>
+            <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
+        <?php endif; ?>
+    <?php endif; ?>
+>>>>>>> prod
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
 	<?php if (!$vrac->isConditionneIvse()): ?><p>Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><?php if($vrac->type_retiraison): ?> : <?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?><?php endif; ?></p><?php endif; ?>
@@ -267,22 +281,21 @@
 	<?php foreach ($vrac->clauses as $k => $clause): ?>
 		<?php if ($vrac->isConditionneIvse() && ($k=='resiliation'||$k=='force_majeure')): continue; endif; ?>
     <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?></p>
+    <p>
+        <?= $clause['description'] ?>
+        <?php if ($k == 'liberte_contractuelle' && $vrac->isConditionneIvse()): ?>
+			<?php if (!$vrac->clause_initiative_contractuelle_producteur): ?>
+			Non mais le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses propositions préalablement à la signature du contrat et n\'ayant pas souhaité effectuer une proposition de contrat.
+			<?php else: ?>
+			Oui
+			<?php endif ?>
+		<?php endif ?>
+    </p>
     <?php if ($k == 'resiliation'): ?>
     <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
     <?php if($vrac->clause_resiliation_preavis||$vrac->isConditionneIvse()): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
     <?php if($vrac->clause_resiliation_indemnite||$vrac->isConditionneIvse()): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
     <?php endif ?>
-    <?php if ($k == '5' && $vrac->isConditionneIvse()): ?>
-			<?php $complements = explode(',', $vrac->clauses_complementaires) ?>
-			<p>En cochant la case ci-contre, les Parties renoncent expressément au bénéfice de cette clause&nbsp;
-			<?php if (!in_array('transfert_propriete', $complements)): ?>
-			<input type="checkbox" checked="checked" />
-			<?php else: ?>
-			<input type="checkbox" />
-			<?php endif ?>
-			</p>
-		<?php endif ?>
 	<?php endforeach; ?>
 	</div>
 	<?php if($vrac->clauses_complementaires): ?>
@@ -290,7 +303,16 @@
 	<div class="clauses">
 	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
     <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?></p>
+    <p><?= $clause['description'] ?>
+    <?php if ($cc == 'transfert_propriete' && $vrac->isConditionneIvse()): ?>
+        <?php $complements = explode(',', $vrac->clauses_complementaires) ?>
+        <?php if (!in_array('transfert_propriete', $complements)): ?>
+        <input type="checkbox" checked="checked" />
+        <?php else: ?>
+        <input type="checkbox" />
+        <?php endif ?>
+    <?php endif ?>
+    </p>
 	<?php endforeach; ?>
 	</div>
 	<?php endif; ?>

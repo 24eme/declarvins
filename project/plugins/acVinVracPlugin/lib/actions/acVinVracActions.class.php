@@ -549,6 +549,39 @@ class acVinVracActions extends sfActions
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
 
+    public function executeApiContrats(sfWebRequest $request){
+
+        $secret = sfConfig::get('app_api_contrats_secret');
+
+        $cvi = $request->getParameter('cvi');
+        $millesime = $request->getParameter('millesime');
+        $epoch = $request->getParameter('epoch');
+
+        if(abs(time() - $epoch) > 30) {
+            http_response_code(403);
+            die('Forbidden');
+        }
+
+        $md5 = $request->getParameter('md5');
+
+        if ($md5 != md5($secret."/".$cvi."/".$millesime."/".$epoch)) {
+            http_response_code(401);
+            die("Unauthorized");
+        }
+
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/IGP/genres/TRANQ/appellations/MED/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose');
+        $result= array();
+        foreach($contrats as $c){
+			$result[$c->id]['numero'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_NUM];
+            $result[$c->id]['acheteur'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_ACHETEUR_NOM];
+			$result[$c->id]['volume'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_VOLPROP];
+        }
+        $this->getResponse()->setContentType('application/json');
+        $data_json=json_encode($result);
+        return $this->renderText($data_json);
+
+    }
+
 	protected function saisieTerminee($vrac, $interpro) {
 		return;
 	}

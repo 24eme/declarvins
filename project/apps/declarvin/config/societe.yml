@@ -1,0 +1,4 @@
+all:
+  configuration:
+    societe:
+      elastic_disabled:  true
