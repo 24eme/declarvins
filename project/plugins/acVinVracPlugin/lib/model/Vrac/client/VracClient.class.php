@@ -297,28 +297,29 @@ class VracClient extends acCouchdbClient {
         return self::$types_transaction;
     }
 
-    public function retrieveByCVIAndMillesime($cvi, $millesime, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveByCVIAndMillesime($cvi, $millesime, $hash = null, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         $contrats = array();
-        $ids= array();
         $vracs=array();
 
         $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi);
 
         foreach($etablissements->rows as $e){
-            $id = EtablissementClient::getInstance()->find($e->id)->getIdentifiant();
+            $id = str_replace('ETABLISSEMENT-', '', $e->id);
             $vracs = array_merge($vracs,VracSoussigneIdentifiantView::getInstance()->findByEtablissement($id)->rows);
 
         }
 
         foreach ($vracs as $c) {
-            if ($mustActive && $c->value[VracAllView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
+            if ($mustActive && $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
                 continue;
             }
-            $contrat = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
-            if($contrat->millesime != $millesime){
+            if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
                 continue;
             }
-            $contrats[] = $contrat;
+            if(($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != null) && ($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != $millesime)){
+                continue;
+            }
+            $contrats[] = $c;
         }
         return $contrats;
     }

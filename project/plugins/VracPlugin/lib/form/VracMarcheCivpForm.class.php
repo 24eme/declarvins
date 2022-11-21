@@ -1,5 +1,5 @@
 <?php
-class VracMarcheCivpForm extends VracMarcheForm 
+class VracMarcheCivpForm extends VracMarcheForm
 {
 
     public function configure() {
@@ -33,5 +33,26 @@ class VracMarcheCivpForm extends VracMarcheForm
       parent::updateDefaultsFromObject();
       $this->setDefault('has_cotisation_cvo', 1);
 
+    }
+
+
+    public function getDelaisPaiement()
+    {
+        $delais = parent::getDelaisPaiement();
+        if ($this->getObject()->type_transaction == 'vrac') {
+            unset($delais['30_jours'], $delais['45_jours']);
+        } else {
+            unset($delais['60_jours'], $delais['45_jours']);
+        }
+        return $delais;
+    }
+
+    public function hasAcompteInfo()
+    {
+        if (in_array($this->getObject()->type_transaction, ['vrac', 'raisin', 'mout']) === true) {
+            return false;
+        } else {
+            return parent::hasAcompteInfo();
+        }
     }
 }

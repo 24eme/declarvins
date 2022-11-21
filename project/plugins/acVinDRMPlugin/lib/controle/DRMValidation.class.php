@@ -132,6 +132,16 @@ class DRMValidation
 				$this->errors['droits_frequence'] = new DRMControleError('droits_frequence', $this->generateUrl('drm_declaratif', $this->drm));
 			}
 		}
+
+        foreach ($this->drm->getProduitsCepages() as $produit) {
+            if ($produit->exist('reserve_interpro')) {
+                if ($produit->getVolumeCommercialisable() < 0) {
+                    $this->errors['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleError('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
+                } elseif (($produit->total / $produit->getReserveInterpro()) < 1.2) {
+                    $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
+                }
+            }
+        }
 	}
 
 	public function isValide() {

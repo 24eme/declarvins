@@ -269,6 +269,7 @@ DRM:
                                                                                                 total_entrees_interpro: { type: float }
                                                                                                 total_sorties_interpro: { type: float }
                                                                                                 total_interpro: { type: float }
+                                                                                                reserve_interpro: { required: false }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DRMDetails
