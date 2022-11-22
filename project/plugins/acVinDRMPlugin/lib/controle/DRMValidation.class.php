@@ -7,7 +7,6 @@ class DRMValidation
 	private $engagements;
 	private $warnings;
 	private $errors;
-	private $isAdmin;
 	private $isCiel;
 	private $etablissement;
 	const VINSSANSIG_KEY = 'VINSSANSIG';
@@ -27,7 +26,6 @@ class DRMValidation
 		$this->warnings = array();
 		$this->errors = array();
 		$this->etablissement = $drm->getEtablissementObject();
-		$this->isAdmin = (in_array($this->drm->mode_de_saisie, array(DRMClient::MODE_DE_SAISIE_PAPIER, DRMClient::MODE_DE_SAISIE_EDI)))? true : false;
 		$this->isCiel = ($this->etablissement->isTransmissionCiel() || $drm->isNegoce());
 		if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
 			$this->isCiel = false;
@@ -99,12 +97,12 @@ class DRMValidation
 					$totalSortiVci += $detail->sorties->vci;
 				}
 			}
-			if (round($totalEntreeRepli,5) != round($totalSortiRepli,5) && !$this->isAdmin) {
+			if (round($totalEntreeRepli,5) != round($totalSortiRepli,5)) {
 				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification));
 			}
 		}
-		if (round($totalEntreeDeclassement,5) > round($totalSortiDeclassement,5) && !$this->isAdmin) {
-			$this->errors['declassement_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
+		if (round($totalEntreeDeclassement,5) != round($totalSortiDeclassement,5)) {
+			$this->errors['declassement_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement', $this->generateUrl('drm_recap', ($certificationVinssansig)? $certificationVinssansig : $certificationFirst));
 		}
 		if (round($totalVciEntree,5) != round($totalSortiVci,5) || round($totalVciSorti,5) != round($totalEntreeVci,5)) {
 			if ($certificationVci) {
@@ -217,7 +215,7 @@ class DRMValidation
 		}
 		if ($drmPrecedente = $this->drmPrecedente) {
 			if ($drmPrecedente->exist($detail->getHash()) && !$this->drm->isDebutCampagne()) {
-				if (!$this->drm->hasVersion() && !$this->isAdmin) {
+				if (!$this->drm->hasVersion()) {
 					$d = $drmPrecedente->get($detail->getHash());
 					if (!$this->drm->canSetStockDebutMois() && round($d->total,5) != round($detail->total_debut_mois,5)) {
 						$this->errors['stock_deb_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock_deb', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
