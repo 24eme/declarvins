@@ -993,6 +993,7 @@ class ediActions extends sfActions
   		$squeeze = null;
 		$numberValues = DRMDateView::numberValues();
   		foreach ($items as $item) {
+            $item->value[DRMDateView::VALUE_DETAIL_HASH_PRODUIT_GENERATED] = '/'.$item->key[DRMDateView::KEY_DETAIL_HASH];
             if ($interpro == 'INTERPRO-IR' && $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]) {
                 $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT];
             }
