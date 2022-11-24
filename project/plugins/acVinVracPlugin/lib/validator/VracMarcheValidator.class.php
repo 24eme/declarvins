@@ -1,20 +1,23 @@
 <?php
 
 class VracMarcheValidator extends sfValidatorBase {
-    
+
     protected $ivse;
+    protected $civp;
     protected $vrac;
-    
+
     public function __construct($vrac, $options = array(), $messages = array())
     {
         if ($vrac) {
             $this->vrac = $vrac;
             $this->ivse = $vrac->isConditionneIvse();
+            $this->civp = $vrac->isConditionneCivp();
         } else {
             $this->vrac = null;
             $this->ivse = null;
+            $this->civp = null;
         }
-        
+
         parent::__construct($options, $messages);
     }
 
@@ -28,6 +31,7 @@ class VracMarcheValidator extends sfValidatorBase {
         $this->addMessage('impossible_date_retiraison', "La date limite doit être supérieur ou égale à la date de debut de retiraison");
         $this->addMessage('echeancier_date', "Vous devez saisir les dates de votre échéancier");
         $this->addMessage('echeancier_montant', "Vous devez saisir les montants de votre échéancier");
+        $this->addMessage('echeancier_max_date_generique', "Vos échéances ne peuvent s'étaler au dela du cadre légal (date limite de retiraison + delai de paiement)");
         if ($this->vrac->contrat_pluriannuel) {
             $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 15/12/$annee");
             $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée au 30/06/$annee");
@@ -81,41 +85,42 @@ class VracMarcheValidator extends sfValidatorBase {
     	        $hasError = true;
     	    }
     	}
-        if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
+        if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT||(is_array($values['conditions_paiement']) && in_array(VracClient::ECHEANCIER_PAIEMENT, $values['conditions_paiement']))) {
             $montantTotal = 0;
+            $maxd = null;
             if (is_array($values['paiements'])) {
                 if (!$values['paiements']) {
                     $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
                     $hasError = true;
                 }
-                if (!$this->ivse) {
-                    $maxd = null;
+                foreach ($values['paiements'] as $key => $paiement) {
+                    if (!$paiement['date']) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
+                        $hasError = true;
+                    }
+                    if (!$paiement['montant']) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant'), 'conditions_paiement');
+                        $hasError = true;
+                    }
+                    if (!$maxd || $paiement['date'] > $maxd) {
+                        $maxd = $paiement['date'];
+                    }
+                    $montantTotal += $paiement['montant'];
+                }
+                if (!$this->ivse&&!$this->civp) {
                     $today = date('Y-m-d');
-                    
+
                     if ($this->vrac->contrat_pluriannuel) {
                         $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-12-15' : date('Y').'-12-15';
                     } else {
                         $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
                     }
-                    foreach ($values['paiements'] as $key => $paiement) {
-                        if (!$paiement['date']) {
-                            $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
-                            $hasError = true;
-                        }
-                        if (!$paiement['montant']) {
-                            $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant'), 'conditions_paiement');
-                            $hasError = true;
-                        }
-                        if ($paiement['date'] > $limite) {
-                            $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
-                            $hasError = true;
-                        }
-                        if (!$maxd || $paiement['date'] > $maxd) {
-                            $maxd = $paiement['date'];
-                        }
-                        $montantTotal += $paiement['montant'];
+
+                    if ($maxd > $limite) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
+                        $hasError = true;
                     }
-                    
+
                     $date1 = new DateTime();
                     if ($this->vrac->contrat_pluriannuel) {
                         $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-06-30' : date('Y').'-06-30';
@@ -134,13 +139,22 @@ class VracMarcheValidator extends sfValidatorBase {
                             $montantMoitie += $paiement['montant'];
                         }
                     }
-                    
+
                     if ($montantMoitie < round($montantTotal/2, 2)) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
                         $hasError = true;
                     }
                 }
-                
+                if ($this->civp) {
+                    $limite =  (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison'])? $values['date_limite_retiraison'] : null;
+                    $delai =  (isset($values['delai_paiement']) && $values['delai_paiement'])? str_replace('_jours', '', $values['delai_paiement']) : null;
+                    $limite = ($limite && $delai && ctype_digit(strval($delai)))? date('Y-m-d', strtotime($limite. "+$delai days")) : null;
+                    if ($limite && $maxd && $maxd > $limite) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date_generique'), 'conditions_paiement');
+                        $hasError = true;
+                    }
+                }
+
             }
             $vol = (isset($values['volume_propose']))? $values['volume_propose'] : 0;
             $cvo = (isset($values['part_cvo']))? $values['part_cvo'] : 0;
