@@ -998,7 +998,8 @@ class ediActions extends sfActions
                 $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT] = null;
             }
             $libelle = '';
-            if ($confProduit = $conf->getConfigurationProduit($item->key[DRMDateView::KEY_DETAIL_HASH])) {
+            $hash = substr($item->key[DRMDateView::KEY_DETAIL_HASH], 0, strpos($item->key[DRMDateView::KEY_DETAIL_HASH], '/details/'));
+            if ($hash && ($confProduit = $conf->getConfigurationProduit($hash))) {
                 $libelle = $confProduit->getLibelleFormat(array(), "%format_libelle%");
                 if ($item->value[DRMDateView::VALUE_LABELS_CODE]) {
                     $libelle .= ' '.str_replace('|', ', ', $item->value[DRMDateView::VALUE_LABELS_CODE]);
