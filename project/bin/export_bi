@@ -60,7 +60,7 @@ curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/facture/_view/etablissem
 done
 
 php symfony export:sv12 $SYMFONYTASKOPTIONS --sv12id=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_sv12.csv
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/sv12/_view/all?reduce=false | awk -F '"' '{print $4}' | while read facture ; do
+curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/sv12/_view/all?reduce=false |grep "\[\"SV12\"\," | awk -F '"' '{print $4}' | while read facture ; do
 	php symfony export:sv12 $SYMFONYTASKOPTIONS --sv12id="$facture" --entete=0 --env=prod >> $TMPI/export_bi_sv12.csv
 done
 
