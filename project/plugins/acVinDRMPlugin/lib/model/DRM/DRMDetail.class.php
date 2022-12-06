@@ -625,6 +625,9 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function hasVracs() {
+        if (isset($this->vrac[null])) {
+            unset($this->vrac[null]);
+        }
         return count($this->vrac);
     }
 
