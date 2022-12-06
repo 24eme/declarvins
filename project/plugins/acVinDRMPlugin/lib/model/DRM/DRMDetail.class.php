@@ -584,32 +584,6 @@ class DRMDetail extends BaseDRMDetail {
 
         $mouvement->type_libelle = $stocksLibelles[$hash];
 
-        if (in_array($hash, array("sorties/vrac", "sorties/vrac_export")) && $this->hasVracs()) {
-            $mouvements_vrac = array();
-            foreach ( $this->vrac as $vrac_numero => $vrac) {
-                $mouvement_vrac = clone $mouvement;
-                $hash_vrac = "sorties/vrac_contrat";
-                $mouvement_vrac->type_hash = $hash_vrac;
-                $volume_vrac = $configCoeffMouvement [$hash_vrac] * $vrac->volume;
-                $mouvement_vrac->type_libelle = $stocksLibelles[$hash_vrac];
-
-                if ($volume_vrac == 0) {
-                    return null;
-                }
-                $mouvement_vrac->volume = $volume_vrac;
-                $mouvement_vrac->date = $this->getDocument()->getDate();
-                $mouvement_vrac->vrac_numero = $vrac_numero;
-                $mouvement_vrac->facturable = 0;
-                $mouvements_vrac[] = $mouvement_vrac;
-
-                $mouvement->volume -= $volume_vrac;
-            }
-            $mouvement->volume = $volume;
-            $mouvement->date = $this->getDocument()->getDate();
-            $mouvements_vrac[] = $mouvement;
-            return $mouvements_vrac;
-        }
-
         $mouvement->volume = $volume;
         $mouvement->date = $this->getDocument()->getDate();
 
