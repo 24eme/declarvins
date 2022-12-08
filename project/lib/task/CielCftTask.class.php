@@ -126,7 +126,7 @@ EOF;
     			    if ($generate) {
     			        $rapport[self::RAPPORT_GENERATE_KEY][] = 'La DRM '.$drmGeneree->_id.' a été générée avec succès';
     			    } else {
-    				    $rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$this->getPeriode($xmlIn).' de l\'établissement '.$this->getEA($xmlIn).' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$ea.'" target="_blank">Information SEED</a>';
+    				    $rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$this->getPeriode($xmlIn).' de l\'établissement '.$this->getEA($xmlIn).' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$this->getEA($xmlIn).'" target="_blank">Information SEED</a>';
     				    $files[] = $item;
     			    }
     			}
