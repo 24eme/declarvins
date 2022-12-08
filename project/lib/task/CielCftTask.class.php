@@ -138,7 +138,7 @@ EOF;
 		$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible d\'interroger le service : '.$target;
     }
     if ($checkingMode||!$sendInterproEmailRapport)
-    	$this->printRapport($interpro, $rapport, $files);
+    	$this->printRapport($rapport);
     else
 		$this->sendRapport($interpro, $rapport, $files);
   }
