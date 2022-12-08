@@ -136,7 +136,7 @@ EOF;
     	}
     } else {
 		$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible d\'interroger le service : '.$target;
-    }exit;
+    }
     if ($checkingMode||!$sendInterproEmailRapport)
     	$this->printRapport($interpro, $rapport, $files);
     else
