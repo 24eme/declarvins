@@ -178,6 +178,14 @@ class Configuration extends BaseConfiguration {
             $stocks_libelles['fins/' . $key] = 'Fin ' . $value;
         }
 
+        foreach (self::$stocks_entree_acq as $key => $value) {
+            $stocks_libelles['entrees/' . $key] = 'Entrée Acq. ' . $value;
+        }
+
+        foreach (self::$stocks_sortie_acq as $key => $value) {
+            $stocks_libelles['sorties/' . $key] = 'Sortie Acq. ' . $value;
+        }
+
         return $stocks_libelles;
     }
 
