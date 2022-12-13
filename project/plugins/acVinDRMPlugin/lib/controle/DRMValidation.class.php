@@ -100,7 +100,7 @@ class DRMValidation
 				}
 			}
 			if (round(abs($totalEntreeRepli - $totalSortiRepli),5) > 0.0001 && !$this->isAdmin) {
-				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification), $certification->makeFormattedLibelle().': %message% (entrée: '.$totalEntreeRepli.' / sortie: '.$totalSortiRepli.')');
+				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification), $certification->getLibelleEtape().': %message% (entrée: '.$totalEntreeRepli.' / sortie: '.$totalSortiRepli.')');
 			}
 		}
 		if (round($totalEntreeDeclassement,5) > round($totalSortiDeclassement,5) && !$this->isAdmin) {
