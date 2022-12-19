@@ -105,4 +105,20 @@ class VracHistoryView extends acCouchdbView
                             ->getView($this->design, $this->view);
     }
 
+    public function findCadreEtApplications($soussigne, $vracID)
+    {
+        $vracCourant = $this->client->find($vracID);
+
+        if ($vracCourant->isPluriannuel() === false && $vracCourant->isAdossePluriannuel() === false) {
+            return null;
+        }
+
+        $id = ($vracCourant->reference_contrat_pluriannuel) ?: $vracCourant->numero_contrat;
+
+        $vracs = $this->client->startkey([$soussigne])->endkey([$soussigne.'ZZZ'])->getView($this->design, $this->view)->rows;
+
+        return array_values(array_filter($vracs, function ($v) use ($id) {
+            return strpos($v->id, $id) !== false;
+        }));
+    }
 }

@@ -18,7 +18,8 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 ?>
 <div id="contenu" class="vracs">
     <div id="rub_contrats">
-        <section id="principal"> 
+        <section id="principal">
+            <?php include_component('vrac', 'ongletsPluriannuel', ['vrac' => $vrac, 'etablissement' => $etablissement]) ?>
             <div id="recap_saisie" class="popup_form visualisation_contrat">
                 <?php if ($sf_user->hasFlash('termine')): ?>
 					<h2>La saisie est terminée !</h2>
