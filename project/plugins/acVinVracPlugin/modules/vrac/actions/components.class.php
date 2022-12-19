@@ -21,7 +21,7 @@ class vracComponents extends sfComponents
         $this->contrats = VracHistoryView::getInstance()->findCadreEtApplications($this->vrac->acheteur_identifiant, $this->vrac->_id);
 
         if ($this->contrats === null) {
-            return null;
+            return sfView::NONE;
         }
 
         usort($this->contrats, function ($a, $b) {
