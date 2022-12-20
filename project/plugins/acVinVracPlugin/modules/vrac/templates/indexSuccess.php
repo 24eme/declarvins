@@ -1,5 +1,4 @@
-<?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac')); ?>
-
+<?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac', 'with_etablissement' => ($etablissement)? 1 : 0)); ?>
 
 <section id="contenu" class="vracs">
     <div id="principal" class="produit">
