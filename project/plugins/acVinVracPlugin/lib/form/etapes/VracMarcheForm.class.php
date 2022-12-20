@@ -121,8 +121,8 @@ class VracMarcheForm extends VracForm
 		$this->getWidget('surface')->setLabel('Surface concernée');
         $this->setWidget('pluriannuel_prix_plancher', new sfWidgetFormInputFloat());
         $this->setWidget('pluriannuel_prix_plafond', new sfWidgetFormInputFloat());
-        $this->getWidget('pluriannuel_prix_plancher')->setLabel('Prix plancher');
-        $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond');
+        $this->getWidget('pluriannuel_prix_plancher')->setLabel('Prix plancher (minimum)');
+        $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond (maximum)');
         $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => true)));
         $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => true)));
 
