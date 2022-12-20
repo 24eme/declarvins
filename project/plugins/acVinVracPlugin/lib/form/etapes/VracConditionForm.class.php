@@ -61,8 +61,8 @@ class VracConditionForm extends VracForm
         $this->setWidget('pluriannuel_campagne_debut', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoicesDebut())));
         $this->setWidget('pluriannuel_campagne_fin', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoicesFin())));
 
-        $this->getWidget('pluriannuel_campagne_debut')->setLabel('Conclu de la campagne');
-        $this->getWidget('pluriannuel_campagne_fin')->setLabel('à la campagne');
+        $this->getWidget('pluriannuel_campagne_debut')->setLabel('Conclu à partir de la campagne');
+        $this->getWidget('pluriannuel_campagne_fin')->setLabel('Pour une durée de');
 
         $this->setValidator('pluriannuel_campagne_debut', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoicesDebut()))));
         $this->setValidator('pluriannuel_campagne_fin', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoicesFin()))));
@@ -78,11 +78,12 @@ class VracConditionForm extends VracForm
     }
 
     public function getCampagneChoicesFin() {
-        $campagnes = array();
-        for($d=date('Y'),$i=$d;$i<$d+3;$i++) {
-            $campagnes[$i.'-'.($i+1)] = $i.'-'.($i+1);
-        }
-        return $campagnes;
+        $keys = range(2, 5);
+        $values = array_map(function ($v) {
+            return $v." ans";
+        }, $keys);
+
+        return array_combine($keys, $values);
     }
 
     protected function doUpdateObject($values) {
@@ -102,6 +103,14 @@ class VracConditionForm extends VracForm
         $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
         $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
         $this->getObject()->initClauses();
+
+        if ($this->getObject()->isPluriannuel()) {
+            $campagne_debut = $this->getObject()->pluriannuel_campagne_debut;
+            $annees = explode('-', $campagne_debut);
+            $campagne_fin = implode('-', [$annees[0] + +$values['pluriannuel_campagne_fin'], $annees[1] + +$values['pluriannuel_campagne_fin']]);
+            $this->getObject()->pluriannuel_campagne_fin = $campagne_fin;
+        }
+
     }
 
     protected function updateDefaultsFromObject() {
@@ -121,8 +130,10 @@ class VracConditionForm extends VracForm
           if (!$this->getObject()->pluriannuel_campagne_debut) {
               $this->setDefault('pluriannuel_campagne_debut', $cm->getCurrent());
           }
-          if (!$this->getObject()->pluriannuel_campagne_fin) {
-              $this->setDefault('pluriannuel_campagne_fin', $cm->getCampagneByDate(date('Y-m-d', strtotime('+2 years'))));
+          if ($this->getObject()->pluriannuel_campagne_fin) {
+              $this->setDefault('pluriannuel_campagne_fin', intval($this->getObject()->pluriannuel_campagne_fin) - intval($this->getObject()->pluriannuel_campagne_debut));
+          } else {
+              $this->setDefault('pluriannuel_campagne_fin', 2);
           }
       }
 
