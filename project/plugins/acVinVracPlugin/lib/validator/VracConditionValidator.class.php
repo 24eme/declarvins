@@ -20,7 +20,7 @@ class VracConditionValidator extends sfValidatorBase {
     	}
 
         if (isset($values['pluriannuel_campagne_debut']) && isset($values['pluriannuel_campagne_fin'])) {
-            if ((substr($values['pluriannuel_campagne_fin'], 0, 4) - substr($values['pluriannuel_campagne_debut'], 0, 4)) < 1) {
+            if ($values['pluriannuel_campagne_fin'] < 2) {
                 $errorSchema->addError(new sfValidatorError($this, 'impossible_campagne'), 'pluriannuel_campagne_debut');
         	    $hasError = true;
             }
