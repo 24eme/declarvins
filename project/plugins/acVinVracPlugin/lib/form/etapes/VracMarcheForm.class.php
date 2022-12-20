@@ -85,10 +85,6 @@ class VracMarcheForm extends VracForm
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT*:');
     	}
 
-    	if ($this->getObject()->type_transaction != 'vrac') {
-    	    unset($this['type_retiraison']);
-    	}
-
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
@@ -102,6 +98,11 @@ class VracMarcheForm extends VracForm
         }
 
         $this->editablizeInputPluriannuel();
+
+
+    	if ($this->getObject()->type_transaction != 'vrac') {
+    	    unset($this['type_retiraison']);
+    	}
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
     }
