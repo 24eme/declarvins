@@ -58,18 +58,26 @@ class VracConditionForm extends VracForm
 
     public function configurePluriannuel() {
 
-        $this->setWidget('pluriannuel_campagne_debut', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoices())));
-        $this->setWidget('pluriannuel_campagne_fin', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoices())));
+        $this->setWidget('pluriannuel_campagne_debut', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoicesDebut())));
+        $this->setWidget('pluriannuel_campagne_fin', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoicesFin())));
 
         $this->getWidget('pluriannuel_campagne_debut')->setLabel('Conclu de la campagne');
         $this->getWidget('pluriannuel_campagne_fin')->setLabel('à la campagne');
 
-        $this->setValidator('pluriannuel_campagne_debut', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoices()))));
-        $this->setValidator('pluriannuel_campagne_fin', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoices()))));
+        $this->setValidator('pluriannuel_campagne_debut', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoicesDebut()))));
+        $this->setValidator('pluriannuel_campagne_fin', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoicesFin()))));
 
     }
 
-    public function getCampagneChoices() {
+    public function getCampagneChoicesDebut() {
+        $campagnes = array();
+        for($d=date('Y'),$i=$d-2;$i<$d+2;$i++) {
+            $campagnes[$i.'-'.($i+1)] = $i.'-'.($i+1);
+        }
+        return $campagnes;
+    }
+
+    public function getCampagneChoicesFin() {
         $campagnes = array();
         for($d=date('Y'),$i=$d;$i<$d+3;$i++) {
             $campagnes[$i.'-'.($i+1)] = $i.'-'.($i+1);
