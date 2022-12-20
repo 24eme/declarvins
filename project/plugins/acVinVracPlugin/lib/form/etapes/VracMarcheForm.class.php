@@ -88,10 +88,6 @@ class VracMarcheForm extends VracForm
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isAdossePluriannuel() && $this->getObject()->volume_propose) {
-            $widget = $this->getWidget('volume_propose');
-            $widget->setAttribute('readonly', 'readonly');
-        }
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isAdossePluriannuel() && $this->getObject()->type_retiraison) {
             $widget = $this->getWidget('type_retiraison');
             $widget->setAttribute('readonly', 'readonly');
