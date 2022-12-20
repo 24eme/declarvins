@@ -14,8 +14,8 @@
 						<?php echo $vrac->vendeur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->vendeur->num_accise)? ' ('.$vrac->vendeur->num_accise.')' : ''; ?>
-					<?php echo ($vrac->vendeur->famille)? ' - '.ucfirst(($vrac->vendeur->famille)) : ''; ?>
-					<?php echo ($vrac->vendeur->sous_famille)? ' '.ucfirst(($vrac->vendeur->sous_famille)) : ''; ?>
+					<?php echo ($vrac->vendeur->famille)? ' - '.EtablissementFamilles::getFamilleLibelle($vrac->vendeur->famille) : ''; ?>
+					<?php echo ($vrac->vendeur->sous_famille)? ' '.EtablissementFamilles::getSousFamilleLibelle($vrac->vendeur->famille, $vrac->vendeur->sous_famille) : ''; ?>
 					<?php echo ($vrac->vendeur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>
@@ -29,8 +29,8 @@
 						<?php echo $vrac->acheteur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->acheteur->num_accise)? ' ('.$vrac->acheteur->num_accise.')' : ''; ?>
-					<?php echo ($vrac->acheteur->famille)? ' - '.ucfirst(($vrac->acheteur->famille)) : ''; ?>
-					<?php echo ($vrac->acheteur->sous_famille)? ' '.ucfirst(($vrac->acheteur->sous_famille)) : ''; ?>
+					<?php echo ($vrac->acheteur->famille)? ' - '.EtablissementFamilles::getFamilleLibelle($vrac->acheteur->famille) : ''; ?>
+					<?php echo ($vrac->acheteur->sous_famille)? ' '.EtablissementFamilles::getSousFamilleLibelle($vrac->acheteur->famille, $vrac->acheteur->sous_famille) : ''; ?>
 					<?php echo ($vrac->acheteur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>

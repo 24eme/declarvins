@@ -15,7 +15,20 @@ class vracComponents extends sfComponents
 			unset($this->etapes['transaction']);
 		}
     }
-	
+
+    public function executeOngletsPluriannuel()
+    {
+        $this->contrats = VracHistoryView::getInstance()->findCadreEtApplications($this->vrac->acheteur_identifiant, $this->vrac->_id);
+
+        if ($this->contrats === null) {
+            return sfView::NONE;
+        }
+
+        usort($this->contrats, function ($a, $b) {
+            return $a->id > $b->id;
+        });
+    }
+
 	public function getInterpro($etablissement)
 	{
         if($etablissement) {
