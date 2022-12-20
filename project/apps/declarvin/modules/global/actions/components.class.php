@@ -3,7 +3,7 @@
 class globalComponents extends sfComponents {
 
     public function executeNav() {
-        $this->with_etablissement = ($this->with_etablissement || ($this->getRoute() instanceof InterfaceEtablissementRoute && $this->getRoute()->getEtablissement()));
+        $this->with_etablissement = $this->with_etablissement || ($this->getRoute() instanceof InterfaceEtablissementRoute && $this->getRoute()->getEtablissement());
     }
 
     public function executeNavBack() {
