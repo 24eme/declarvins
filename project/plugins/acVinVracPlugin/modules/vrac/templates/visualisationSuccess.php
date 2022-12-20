@@ -58,7 +58,7 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 					</p>
 				<?php endif; ?>
                 <?php if(($vrac->isPluriannuel()||$vrac->isAdossePluriannuel()) && $configurationVrac->isContratPluriannuelActif()): ?>
-                <div class="titre" style="background-color: #eee; margin-bottom: 10px;">
+                <div class="titre" style="background-color: #fff; margin: 10px 0;">
                     <span class="style_label" style="text-align: center; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 10px 0 20px;min-height:21px;display:inline-block;vertical-align: middle;">
                         Contrat <?php if($vrac->isAdossePluriannuel()): ?>adossé au contrat pluriannuel cadre n°<a href="<?php echo url_for('vrac_visualisation', array('contrat' => $vrac->reference_contrat_pluriannuel)) ?>"><?php echo $vrac->reference_contrat_pluriannuel ?></a><?php else: ?>pluriannuel cadre<?php endif; ?>
                     </span>
