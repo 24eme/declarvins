@@ -71,7 +71,7 @@ class VracConditionForm extends VracForm
 
     public function getCampagneChoices() {
         $campagnes = array();
-        for($d=date('Y'),$i=$d-2;$i<$d+8;$i++) {
+        for($d=date('Y'),$i=$d;$i<$d+3;$i++) {
             $campagnes[$i.'-'.($i+1)] = $i.'-'.($i+1);
         }
         return $campagnes;
