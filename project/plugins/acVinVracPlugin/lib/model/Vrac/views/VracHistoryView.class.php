@@ -118,7 +118,15 @@ class VracHistoryView extends acCouchdbView
         $vracs = $this->client->startkey([$soussigne])->endkey([$soussigne.'ZZZ'])->getView($this->design, $this->view)->rows;
 
         return array_values(array_filter($vracs, function ($v) use ($id) {
-            return strpos($v->id, $id) !== false;
+            if (strpos($v->id, $id) === false) {
+                return false;
+            }
+
+            if (in_array($v->value[VracHistoryView::VRAC_VIEW_STATUT], [null, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION]) === true) {
+                return false;
+            }
+
+            return true;
         }));
     }
 }
