@@ -49,6 +49,15 @@
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
+            <?php if($form->getObject()->isAdossePluriannuel()): ?>
+                <p style="padding-left: 210px;">
+                    <svg style="vertical-align: -.35em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
+                    le prix doit être compris entre <?php echo round($form->getObject()->pluriannuel_prix_plancher,2) ?> € HT / HL et <?php echo round($form->getObject()->pluriannuel_prix_plafond,2) ?> € HT / HL<?php if($form->getObject()->exist('pluriannuel_clause_indexation') && $form->getObject()->pluriannuel_clause_indexation): ?> (il faudra tenir compte de la clause d'indexation des prix, à savoir :  <?php echo $form->getObject()->pluriannuel_clause_indexation ?>).<?php endif; ?>
+                </p>
+            <?php endif; ?>
             <?php if (isset($form['prix_unitaire'])&&isset($form['prix_unitaire'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
