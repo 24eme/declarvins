@@ -18,12 +18,12 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 
     private static $clausesMask = array(
         'INTERPRO-IR' => array(
-            '000' => array('agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
-            '010' => array('avenant', 'conciliation_arbitrage', 'revision_prix'),
-            '100' => array('agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle', 'report_numero_contrat'),
-            '110' => array('report_numero_contrat'),
-            '101' => array('agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
-            '111' => array('avenant', 'conciliation_arbitrage', 'revision_prix'),
+            '000' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
+            '010' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
+            '100' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle', 'report_numero_contrat'),
+            '110' => array('champ_application_raisin', 'report_numero_contrat'),
+            '101' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
+            '111' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
         )
     );
 
