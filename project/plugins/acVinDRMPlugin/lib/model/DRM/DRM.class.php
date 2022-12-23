@@ -84,10 +84,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function isNegoce() {
+        if (!$this->declarant->famille) {
+            $this->setEtablissementInformations();
+        }
         return $this->declarant->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $this->declarant->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR;
     }
 
     public function isProducteur() {
+        if (!$this->declarant->famille) {
+            $this->setEtablissementInformations();
+        }
         return $this->declarant->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR;
     }
 
