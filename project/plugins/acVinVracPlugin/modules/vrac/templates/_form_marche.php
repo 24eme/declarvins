@@ -126,6 +126,9 @@
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
                 <?php echo $form['conditions_paiement']->renderError() ?>
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
+                <?php if ($form->getObject()->isPluriannuel()): ?>
+                <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_conditions_paiement" href="" style="margin: 0 10px 0 -30px;"></a>
+                <?php endif; ?>
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
             <?php if (!$form->getObject()->isPluriannuel()): ?>
