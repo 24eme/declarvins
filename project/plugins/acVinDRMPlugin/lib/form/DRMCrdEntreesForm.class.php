@@ -12,7 +12,10 @@ class DRMCrdEntreesForm  extends acCouchdbObjectForm {
 
     	$this->setWidget('retours', new sfWidgetFormInput());
     	$this->setValidator('retours', new sfValidatorInteger(array('required' => false)));
-    	
+
+    	$this->setWidget('autres', new sfWidgetFormInput());
+    	$this->setValidator('autres', new sfValidatorInteger(array('required' => false)));
+
         $this->widgetSchema->setNameFormat('drm_crd_entrees[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
