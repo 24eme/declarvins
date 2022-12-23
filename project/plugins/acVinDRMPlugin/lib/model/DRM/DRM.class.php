@@ -1855,4 +1855,44 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       }
       return $produits;
   }
+
+  protected function getFactureCalculeeParameters($interpro = null) {
+      $filters_parameters = [];
+      $filters_parameters['date_mouvement'] = date('Y-m-d');
+      $filters_parameters['date_facturation'] = date('Y-m-d');
+      $filters_parameters['message_communication'] = "";
+      $filters_parameters['type_document'] = GenerationClient::TYPE_DOCUMENT_FACTURES;
+      $filters_parameters['modele'] = "DRM";
+      $filters_parameters['seuil'] = FactureConfiguration::getInstance($interpro)->getSeuilMinimum();
+      $filters_parameters['interpro'] = $interpro;
+      return $filters_parameters;
+  }
+
+  public function getFactureCalculee($factured = 0, $interpro = null, $seuil = null) {
+      $parameters = $this->getFactureCalculeeParameters($interpro);
+      if ($seuil) {
+          $parameters['seuil'] = $seuil;
+      }
+      try {
+          $etablissement = $this->getEtablissement();
+      } catch (Exception $e) {
+          return null;
+      }
+      $societe = $etablissement->getSociete();
+      if (!$societe) {
+          return null;
+      }
+      $facture = $societe->getGlobalFactureCalculee($parameters, $factured);
+      if (!$facture) {
+          return null;
+      }
+      $drmids = array_keys($facture->origines->toArray(true,false));
+      if (isset($drmids[$this->_id])) unset($drmids[$this->_id]);
+      foreach ($drmids as $drmid) {
+          if ($facture->origines->exist($drmid)) $facture->origines->remove($drmid);
+          if ($facture->lignes->exist($drmid)) $facture->lignes->remove($drmid);
+      }
+      $facture->updateTotaux();
+      return $facture;
+  }
 }
