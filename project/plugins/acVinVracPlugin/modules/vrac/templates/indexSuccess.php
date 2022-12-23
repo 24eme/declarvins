@@ -15,11 +15,18 @@
             <a class="btn_ajouter" href="<?php echo url_for('interpro_upload_csv_vrac_prix') ?>">Mise à jours des prix</a>
             <?php endif; ?>
         </h1>
-
         <?php if ($configurationVrac->isContratPluriannuelActif()): ?>
         <ul class="nav nav-tabs text-center">
-          <li class="<?php if(!$pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant)); ?>"><h3 style="margin:0;">Ponctuels et contrats d'application</h3></a></li>
-          <li class="<?php if($pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => 'TOUS')) : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant, 'statut' => 'TOUS')); ?>?pluriannuel=1"><h3 style="margin:0;">Pluriannuels cadres</h3></a></li>
+          <li class="<?php if(!$pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;"><a href="<?php echo (!$etablissement)? url_for('vrac_admin') : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant)); ?>"><h3 style="margin:0;">Ponctuels et <br />contrats d'application</h3></a></li>
+          <li class="<?php if($pluriannuel): ?>active<?php endif; ?>" style="float:none;display:inline-block;">
+              <span style="color:blue;">
+                  Nouveau
+                  <svg style="vertical-align: -.35em;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                    </svg>
+              </span>
+              <a href="<?php echo (!$etablissement)? url_for('vrac_admin', array('statut' => 'TOUS')) : url_for('vrac_etablissement', array('identifiant' => $etablissement->identifiant, 'statut' => 'TOUS')); ?>?pluriannuel=1"><h3 style="margin:0;">Pluriannuels <br />cadres</h3></a>
+          </li>
         </ul>
         <?php endif; ?>
 
