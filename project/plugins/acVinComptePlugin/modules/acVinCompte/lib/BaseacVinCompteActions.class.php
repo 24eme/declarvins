@@ -186,32 +186,40 @@ class BaseacVinCompteActions extends sfActions
             }
         }
     }
-    
-    public function executeMotDePasseOublieConfirm(sfWebRequest $request) 
+
+    public function executeMotDePasseOublieConfirm(sfWebRequest $request)
     {
-        
+
     }
 
-    public function executeViticonnect(sfWebRequest $request)
-    {
-        $secret = sfConfig::get('app_viticonnect_secret');;
-
+    private function checkApiAccess(sfWebRequest $request) {
+        $secret = sfConfig::get('app_viticonnect_secret');
         $login = $request->getParameter('login');
-
         $epoch = $request->getParameter('epoch');
+        if(empty($secret)) {
+            http_response_code(403);
+            die('Forbidden');
+        }
         if(abs(time() - $epoch) > 30) {
             http_response_code(403);
             die('Forbidden');
         }
-
         $md5 = $request->getParameter('md5');
-
         if ($md5 != md5($secret."/".$login."/".$epoch)) {
             http_response_code(401);
             die("Unauthorized");
         }
+    }
 
+    public function executeViticonnectApi(sfWebRequest $request)
+    {
+        $this->checkApiAccess($request);
+        $login = $request->getParameter('login');
         $compte = acCouchdbManager::getClient('Compte')->retrieveByLogin($login);
+        if (!$compte) {
+            http_response_code(401);
+            die("Unauthorized $login");
+        }
         $this->entities = array('raison_sociale' => [], 'cvi' => [], 'siret' => [], 'ppm' => [], 'accise' => [], 'tva' => []);
         $this->entities_number = 0;
         if ($compte->exist("tiers") && $compte->tiers) {

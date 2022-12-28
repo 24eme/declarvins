@@ -162,6 +162,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 97. Stock acquitté théorique fin de mois
 98. Montant de l'avoir (Volume entrée Replacement en suspension CRD x CVO Taux)
 99. Volume sortie Vrac Export
+100. Hash produit
 
 ### Format d'export des DRM orienté CIEL
 
