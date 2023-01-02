@@ -35,10 +35,10 @@ Vrac:
               definition:
                 fields:
                   volume: { type: float }
-      vendeur:        
+      vendeur:
         type: collection
         definition:
-          fields:            
+          fields:
             nom: {  }
             raison_sociale: {  }
             siret: {  }
@@ -70,12 +70,12 @@ Vrac:
             code_postal: {  }
             commune: {  }
             pays: {  }
-      acheteur_type: {  }  
-      acheteur_identifiant: {  }      
-      acheteur:        
+      acheteur_type: {  }
+      acheteur_identifiant: {  }
+      acheteur:
         type: collection
         definition:
-          fields:            
+          fields:
             nom: {  }
             raison_sociale: {  }
             siret: {  }
@@ -108,12 +108,12 @@ Vrac:
             commune: {  }
             pays: {  }
       mandataire_exist: {  }
-      mandatant: 
+      mandatant:
         type: array_collection
         definition:
           fields:
             '*': {  }
-      mandataire_identifiant: {  }     
+      mandataire_identifiant: {  }
       mandataire:
         type: collection
         definition:
@@ -144,6 +144,7 @@ Vrac:
       original: {  }
       type_transaction: {  }
       type_transaction_libelle: {  }
+      ramasseur_raisin: {  }
       produit: {  }
       produit_libelle: {  }
       produit_detail:
@@ -257,6 +258,7 @@ Vrac:
       clause_resiliation_cas: {  }
       clause_resiliation_preavis: {  }
       clause_resiliation_indemnite: {  }
+      clause_revision_prix: { }
       clause_initiative_contractuelle_producteur: {  }
       export: {  }
       lots:
@@ -343,6 +345,13 @@ Vrac:
       observations: {  }
       mode_de_saisie: {  }
       versement_fa: { required: false }
+      pourcentage_recolte: { }
+      surface: { }
+      pluriannuel_campagne_debut: { }
+      pluriannuel_campagne_fin: { }
+      pluriannuel_prix_plancher: { }
+      pluriannuel_prix_plafond: { }
+      pluriannuel_clause_indexation: { }
       clauses:
         type: collection
         definition:

@@ -11,11 +11,10 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->setWidget('delai_paiement_autre', new sfWidgetFormInputText());
 		$this->getWidget('delai_paiement_autre')->setLabel('Précisez le délai*:');
 		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
-		unset($this['clause_reserve_retiraison'], $this['date_debut_retiraison']);
+		unset($this['clause_reserve_retiraison']);
 		if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche) {
 		   unset($this['prix_total_unitaire']);
 		}
-        $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
@@ -40,9 +39,9 @@ class VracMarcheIrForm extends VracMarcheForm
 
     public function getConditionsPaiement()
     {
-      $conditions = $this->getConfiguration()->getConditionsPaiement()->toArray();
+      $conditions = parent::getConditionsPaiement();
       $hasEcheancier = false;
-      if ($this->getObject()->contrat_pluriannuel) {
+      if ($this->getObject()->isPluriannuel()||$this->getObject()->isAdossePluriannuel()) {
         $hasEcheancier = true;
       }
       if (!$hasEcheancier && isset($conditions['echeancier_paiement'])) {
@@ -53,7 +52,7 @@ class VracMarcheIrForm extends VracMarcheForm
 
     public function getDelaisPaiement()
     {
-      $delais = $this->getConfiguration()->getDelaisPaiement()->toArray();
+      $delais = parent::getDelaisPaiement();
       if ($this->getObject()->type_transaction == 'raisin') {
         if (isset($delais['45_jours']))
           unset($delais['45_jours']);

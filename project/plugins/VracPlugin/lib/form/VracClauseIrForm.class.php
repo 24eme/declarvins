@@ -2,6 +2,8 @@
 
 class VracClauseIrForm extends VracClauseForm
 {
+    const COMPLEMENTS_TITLE = 'Conditions particulières liées à l\'enregistrement du contrat';
+
     public function configure() {
         parent::configure();
 
@@ -16,9 +18,15 @@ class VracClauseIrForm extends VracClauseForm
         $this->setWidget('clause_resiliation_indemnite', new sfWidgetFormInputText());
         $this->getWidget('clause_resiliation_indemnite')->setLabel('Indemnité:');
         $this->setValidator('clause_resiliation_indemnite', new sfValidatorString(array('required' => false)));
-        
+
+        $this->setWidget('clause_revision_prix', new sfWidgetFormInputText());
+        $this->getWidget('clause_revision_prix')->setLabel('Critères et modalités :');
+        $this->setValidator('clause_revision_prix', new sfValidatorString(array('required' => false)));
+
         $this->setWidget('annexe_file', new sfWidgetFormInputFile(array('label' => 'fichier PDF:')));
         $this->setValidator('annexe_file', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
+
+        $this->editablizeInputPluriannuel();
     }
     
     public function processValues($values) {
@@ -57,5 +65,9 @@ class VracClauseIrForm extends VracClauseForm
             unlink($file->getSavedName());
         }
     }
-    
+
+    public function getComplementsTitle() {
+        return self::COMPLEMENTS_TITLE;
+    }
+
 }

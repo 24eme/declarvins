@@ -1,16 +1,16 @@
 <?php
 
 class VracClient extends acCouchdbClient {
-   
+
 	/*
 	 * @todo Rendre generique les constantes de transaction
 	 */
-    const TYPE_TRANSACTION_RAISINS = 'raisins';
-    const TYPE_TRANSACTION_MOUTS = 'mouts';
-    const TYPE_TRANSACTION_VIN_VRAC = 'vin_vrac';
+    const TYPE_TRANSACTION_RAISINS = 'raisin';
+    const TYPE_TRANSACTION_MOUTS = 'mout';
+    const TYPE_TRANSACTION_VIN_VRAC = 'vrac';
     const TYPE_TRANSACTION_VIN_BOUTEILLE = 'vin_bouteille';
-    
-    
+
+
     const STATUS_CONTRAT_SOLDE = 'SOLDE';
     const STATUS_CONTRAT_ANNULE = 'ANNULE';
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
@@ -37,13 +37,7 @@ class VracClient extends acCouchdbClient {
                                                    self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE),
                                                    self::STATUS_CONTRAT_ATTENTE_VALIDATION => array(self::STATUS_CONTRAT_NONSOLDE, self::STATUS_CONTRAT_ANNULE),
                                                    self::STATUS_CONTRAT_ATTENTE_ANNULATION => array(self::STATUS_CONTRAT_NONSOLDE));
-    
-    protected $_status_contrat_css_class = array(self::STATUS_CONTRAT_SOLDE => 'solde', 
-                                                   self::STATUS_CONTRAT_ANNULE => 'annule',
-                                                   self::STATUS_CONTRAT_NONSOLDE => 'non-solde',
-                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => 'attente-validation',
-                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION => 'annule');
-    
+
 
     const STATUS_VIN_RETIRE = 'retire';
     const STATUS_VIN_LIVRE = 'livre';
@@ -102,8 +96,13 @@ class VracClient extends acCouchdbClient {
 
       return sprintf('%s%03d', $date, $numero);
     }
-    
-    public function findLastByDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
+
+    public function getNextNoContratApplication($numeroPluriannuel) {
+        $items = $this->startkey('VRAC-'.$numeroPluriannuel.'-A00')->endkey('VRAC-'.$numeroPluriannuel.'-A99')->execute(acCouchdbClient::HYDRATE_JSON);
+        return sprintf('%s-A%02d', $numeroPluriannuel, count($items)+1);
+    }
+
+    public function findLastByDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
     {
         $vracs = $this->startkey('VRAC-'.$date.'000')->endkey('VRAC-'.$date.'999')->execute($hydrate)->getDocs();
         krsort($vracs);
@@ -178,11 +177,12 @@ class VracClient extends acCouchdbClient {
       return $vrac;
     }
 
-    public function getStatusContratCssClass() {
-    	return $this->_status_contrat_css_class;
-    }
-
-    public function getStatusContrat() {
+    public function getStatusContrat($withZero = false) {
+        if ($withZero) {
+            $statuts = $this->_status_contrat;
+            $statuts[] = 0;
+            return $statuts;
+        }
     	return $this->_status_contrat;
     }
 
@@ -246,35 +246,37 @@ class VracClient extends acCouchdbClient {
 
         return Vrac::buildModificative($version);
     }
-    
 
-    
-    public static function sortVracId($a, $b) 
+
+
+    public static function sortVracId($a, $b)
     {
-    	preg_match('/VRAC-([0-9a-zA-Z]*)/', $a, $ma1);
-    	preg_match('/VRAC-([0-9a-zA-Z]*)/', $b, $mb1);
-    	$hasVersionA = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $a, $ma);
-    	$hasVersionB = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $b, $mb);
-    	
-    	if ((!$hasVersionA && !$hasVersionB) || $ma1[1] != $mb1[1]) {
-    		if ($ma1[1] > $mb1[1]) {
-                        return -1;
+    	$ma1 = substr($a->value[VracHistoryView::VRAC_VIEW_NUM], 0, 11);
+    	$mb1 = substr($b->value[VracHistoryView::VRAC_VIEW_NUM], 0, 11);
+    	$versionA = $a->value[VracHistoryView::VRAC_VERSION];
+    	$versionB = $b->value[VracHistoryView::VRAC_VERSION];
+        $ma = substr($versionA, 1);
+        $mb = substr($versionB, 1);
+
+    	if ((!$versionA && !$versionB) || $ma1 != $mb1) {
+    		if ($ma1 > $mb1) {
+                return -1;
             }
-            if ($ma1[1] < $mb1[1]) {
+            if ($ma1 < $mb1) {
             	return 1;
             }
             return 0;
     	}
-    	
-    	if (!$hasVersionA) {
+
+    	if (!$versionA) {
     		return 1;
     	}
-    	
-    	if (!$hasVersionB) {
+
+    	if (!$versionB) {
     		return -1;
     	}
-    	
-    	return ($ma[3] < $mb[3])? 1 : -1;
+
+    	return ($ma < $mb)? 1 : -1;
 
     }
 

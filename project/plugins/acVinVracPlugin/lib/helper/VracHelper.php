@@ -34,13 +34,13 @@ function isARechercheParam($actif,$label)
 
 function statusColor($status)
 {
-    
+
     if(is_null($status)) return '';
-    
+
     switch ($status)
     {
         case VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION:
-            return 'statut_annule';
+            return 'statut_att_annule';
         case VracClient::STATUS_CONTRAT_ANNULE:
             return 'statut_annule';
         case VracClient::STATUS_CONTRAT_SOLDE:
@@ -51,6 +51,30 @@ function statusColor($status)
             return 'statut_attente-validation';
         default :
             return '';
+    }
+}
+
+function statusLibelle($status, $pluriannuel = null)
+{
+
+    if(is_null($status)) return '';
+
+    if ($status == VracClient::STATUS_CONTRAT_SOLDE && $pluriannuel) return 'Validé';
+
+    switch ($status)
+    {
+        case VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION:
+            return 'En attente d\'annulation';
+        case VracClient::STATUS_CONTRAT_ANNULE:
+            return 'Annulé';
+        case VracClient::STATUS_CONTRAT_SOLDE:
+            return 'Soldé';
+        case VracClient::STATUS_CONTRAT_NONSOLDE:
+            return 'Non soldé';
+        case VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION:
+            return 'En attente de validation';
+        default :
+            return $status;
     }
 }
 
@@ -125,7 +149,23 @@ function showUnite($vrac)
     return '';
 }
 
-      
+function getTypeIcon($type)
+{
+    switch ($type) {
+        case VracClient::TYPE_TRANSACTION_VIN_BOUTEILLE :
+            return 'icon-bouteille';
+        case VracClient::TYPE_TRANSACTION_VIN_VRAC :
+            return 'icon-vrac';
+        case VracClient::TYPE_TRANSACTION_MOUTS :
+            return 'icon-mouts';
+        case VracClient::TYPE_TRANSACTION_RAISINS :
+            return 'icon-raisins';
+        default:
+            return '';
+    }
+}
+
+
 function typeProduit($type)
 {
     switch ($type) {

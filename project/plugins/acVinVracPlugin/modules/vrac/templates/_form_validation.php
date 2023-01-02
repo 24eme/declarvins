@@ -1,27 +1,44 @@
-<?php 
+<?php
     use_helper('Float');
 	$warningMiseEnMarche = false;
 	$warningExport = false;
+	$warningFourchette = false;
+    $errorMentions = false;
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
 		$warningMiseEnMarche = true;
-	} 
+	}
 	if (!$form->getObject()->isValide() && $form->getObject()->acheteur->pays && !preg_match("/^fr/i", $form->getObject()->acheteur->pays)) {
 		$warningExport = true;
-	} 
+	}
+    if ($form->getObject()->type_transaction != 'vrac' && in_array('chdo', $form->getObject()->mentions->toArray(true,false))) {
+        $errorMentions = true;
+    }
+    if (!$form->getObject()->prixIsInFourchette()) {
+        $warningFourchette = true;
+    }
 ?>
-				<?php if($warningMiseEnMarche || $warningExport): ?>
-            	<div class="vigilance_list">
-				    <h3>Points de vigilance</h3>
-				    <ol>
-				    	<?php if ($warningMiseEnMarche): ?><li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li><?php endif; ?>
-				    	<?php if ($warningExport): ?><li>Attention, vous êtes sur le point de valider un contrat pour le marché français (étape &laquo;Marché&raquo;, champs &laquo;Expédition export&raquo;).</li><?php endif; ?>
-				    </ol>
-				</div>
-				<?php endif; ?>
+	<?php if($warningMiseEnMarche || $warningExport || $warningFourchette): ?>
+	<div class="vigilance_list">
+	    <h3>Points de vigilance</h3>
+	    <ol>
+	    	<?php if ($warningMiseEnMarche): ?><li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li><?php endif; ?>
+	    	<?php if ($warningExport): ?><li>Attention, vous êtes sur le point de valider un contrat pour le marché français (étape &laquo;Marché&raquo;, champs &laquo;Expédition export&raquo;).</li><?php endif; ?>
+            <?php if ($warningFourchette): ?><li>Attention, le prix indiqué ne respecte pas la fourchette de prix défini dans le contrat cadre.</li><?php endif; ?>
+	    </ol>
+	</div>
+	<?php endif; ?>
+	<?php if($errorMentions): ?>
+	<div class="error_list">
+	    <h3>Points bloquants</h3>
+	    <ol>
+	    	<li>Vous ne pouvez pas mentionner de domaine et autre terme règlementé pour un contrat de type raisin ou moûts : <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'produit', 'etablissement' => $etablissement)) ?>">Rectifier</a></li>
+	    </ol>
+	</div>
+	<?php endif; ?>
 	<form class="popup_form" id="recap_saisie" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
-		
+
 		<div class="bloc_form_commentaire bloc_form ">
 	        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	        	<?php if ($form->getObject()->exist('observations') && $form->getObject()->observations): ?>
@@ -62,7 +79,7 @@
 	    <br />
 	    <h2>Récapitulatif de la saisie</h2>
 	    <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true, 'hasClauses' => $form->hasClauses())); ?>
-		<?php 
+		<?php
 		if ($form->getObject()->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 		?>
 		<div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;text-align: left;margin: 10px 0 10px 0;padding: 5px 10px;">
@@ -77,10 +94,10 @@
 	            		<?php echo $form['transaction']->render() ?>
 	            		<?php echo $form['transaction']->renderLabel() ?>
 	        		</div>
-		<?php 
+		<?php
 			}
 		?>
-		<?php 
+		<?php
 		if ($form->getObject()->has_transaction && !$form->getObject()->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)):
 		?>
 		<div style="border: 1px solid #ff9f00;color: #3e3e3e;font-weight: bold;text-align: left;margin: 10px 0 10px 0;padding: 5px 10px;">
@@ -94,14 +111,16 @@
 		<div class="ligne_form_btn">
 			<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
 			<button id="brouillon" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #989898; border: 1px solid  #ECEBEB;" type="submit"><span>Sauvegarder le brouillon</span></button>
+            <?php if(!$errorMentions): ?>
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$form->getObject()->isRectificative()): ?>
 				<button id="no_mail" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #FF9F00; border: 1px solid #D68500;" type="submit"><span>Valider sans e-mail</span></button>
 			<?php endif; ?>
 			<button id="btnSubmit" class="valider_etape" type="submit"><span>Terminer la saisie</span></button>
+            <?php endif; ?>
 		</div>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
-        </div> 
+        </div>
 	</form>
 	<script type="text/javascript">
 		var showConfirme = true;
@@ -126,10 +145,14 @@
 
 		$('#recap_saisie').submit(function() {
 			if (showConfirme)
+            <?php if ($form->getObject()->isPluriannuel()): ?>
+		    	return confirm("Vous êtes sur le point de valider un contrat de <?php echo $form->getObject()->type_transaction ?> pluriannuel cadre");
+            <?php else: ?>
 		    	return confirm("Vous êtes sur le point de valider un contrat <?php echo $form->getObject()->type_transaction ?>\n\nde <?php echoArialFloat($form->getObject()->getTotalUnitaire()) ?> € HT / <?php if($form->getObject()->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif; ?> pour <?php echoArialFloat($form->getObject()->volume_propose) ?> <?php if($form->getObject()->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif; ?> proposé\n\nSoit un prix total de <?php echoArialFloat($form->getObject()->getPrixTotalCalc()) ?> € HT");
+            <?php endif; ?>
 			else
 				return true;
 		});
 
-				
+
 	</script>

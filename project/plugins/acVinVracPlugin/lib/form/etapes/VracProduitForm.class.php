@@ -34,7 +34,7 @@ class VracProduitForm extends VracForm
         		'mentions_libelle_chdo' => new sfValidatorString(array('required' => false)),
         		'mentions_libelle_marque' => new sfValidatorString(array('required' => false)),
 	        ));
-
+            $this->editablizeInputPluriannuel();
 	        $this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
 	        $this->widgetSchema->setLabel('non_millesime', '&nbsp;');
 	        $this->setValidator('non_millesime', new ValidatorPass());
@@ -44,6 +44,10 @@ class VracProduitForm extends VracForm
 		    if ($this->getObject()->hasVersion() && $this->getObject()->volume_enleve > 0) {
 		      	$this->setWidget('produit', new sfWidgetFormInputHidden());
 		      }
+
+             if ($this->configuration->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
+                 unset($this['millesime']);
+             }
 
 
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());
@@ -95,7 +99,7 @@ class VracProduitForm extends VracForm
         	preg_match('/([0-9a-zA-Z\/]+)\/cepages\/[0-9a-zA-Z\/]+/', $this->getObject()->produit, $matches);
         	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $matches[1]));
         }
-      	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
+      	if (!$this->getObject()->millesime && $this->getObject()->volume_propose && !$this->getObject()->isAdossePluriannuel()) {
         		$this->setDefault('non_millesime', true);
         }
         if (!(count($this->getObject()->labels_arr->toArray()) > 0)) {

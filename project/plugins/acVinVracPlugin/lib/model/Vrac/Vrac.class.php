@@ -40,6 +40,31 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         $this->remove('clauses_complementaires');
         $this->add('clauses');
         $this->add('clauses_complementaires');
+        $configuration = $this->getVracConfiguration();
+        if (!$configuration) return;
+        $clausesMask = $configuration->getClausesMask($this->getClausesMaskConf());
+        $this->clauses = $configuration->get('clauses');
+        foreach($clausesMask as $mask) {
+            if ($this->clauses->exist($mask)) {
+                $this->clauses->remove($mask);
+            }
+        }
+        $cc = array();
+        foreach ($configuration->get('clauses_complementaires') as $k => $v) {
+            $cc[$k] = $k;
+        }
+        $this->clauses_complementaires = implode(',', $cc);
+    }
+
+    public function getClausesMaskConf() {
+        $conf = '';
+        $conf .= ($this->contrat_pluriannuel)? '1' : '0';
+        $conf .= ($this->type_transaction == 'vrac')? '1' : '0';
+        $conf .= ($this->reference_contrat_pluriannuel)? '1' : '0';
+        return $conf;
+    }
+
+    public function getVracConfiguration() {
         $interpro = $this->getProduitInterpro();
         if (!$interpro) {
             $interpro = ($this->interpro)? InterproClient::getInstance()->find($this->interpro) : null;
@@ -50,13 +75,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         if (!ConfigurationClient::getCurrent()->vrac->interpro->exist($interpro->_id)) {
             return;
         }
-        $configuration = ConfigurationClient::getCurrent()->vrac->interpro->get($interpro->_id);
-        $this->clauses = $configuration->get('clauses');
-        $cc = array();
-        foreach ($configuration->get('clauses_complementaires') as $k => $v) {
-            $cc[$k] = $k;
-        }
-        $this->clauses_complementaires = implode(',', $cc);
+        return ConfigurationClient::getCurrent()->vrac->interpro->get($interpro->_id);
     }
 
     public function getLibellesMentions()
@@ -191,6 +210,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return null;
     }
+
+	public function isCreateur($etablissement = null) {
+		return ($etablissement && $etablissement->identifiant ==  $this->get($this->vous_etes.'_identifiant'))? true : false;
+	}
 
     public function getVendeurInterpro()
     {
@@ -434,7 +457,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     				$this->valide->{$validateur} = $this->date_signature;
     			}
     		}
-    		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+    		$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : $this->date_signature;
     		if (!$this->mandataire_exist) {
     			$this->remove('mandataire');
@@ -468,7 +491,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$this->vous_etes = 'vendeur';
     	$this->date_signature = date('c');
-    	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+    	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_saisie = $this->date_signature;
     	$this->valide->date_validation = $this->date_signature;
     	$this->valide->date_validation_vendeur = $this->date_signature;
@@ -535,7 +558,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	}
       }
       if ($statut_valide) {
-      	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+      	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_validation = date('c');
     	$this->date_signature = $this->valide->date_validation;
     	if (!$this->hasVersion()) {
@@ -617,7 +640,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     protected function updateStatutSolde() {
         if ($this->volume_propose > 0 && $this->volume_enleve >= $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
-        } elseif ($this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
+        } elseif (!$this->isPluriannuel() && $this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
         }
     }
@@ -749,14 +772,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       return ($this->valide->statut)? true : false;
     }
 
-    public function getStatutCssClass() {
-    	$statuts = VracClient::getInstance()->getStatusContratCssClass();
-    	if ($this->valide->statut && isset($statuts[$this->valide->statut])) {
-    		return $statuts[$this->valide->statut];
-    	} else {
-    		return null;
-    	}
-    }
     public function getEuSaisieDate() {
 		return strftime('%d/%m/%Y', strtotime($this->valide->date_saisie));
     }
@@ -1054,5 +1069,33 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
             }
         }
         return false;
+    }
+
+	public function isPluriannuel() {
+		return ($this->contrat_pluriannuel == 1);
+	}
+
+	public function isAdossePluriannuel() {
+		return ($this->reference_contrat_pluriannuel)? true : false;
+	}
+
+    public function cleanPluriannuel() {
+        $this->pluriannuel_campagne_debut = null;
+        $this->pluriannuel_campagne_fin = null;
+        $this->contrat_pluriannuel = 0;
+        $this->pluriannuel_clause_indexation = null;
+    }
+
+    public function prixIsInFourchette() {
+        if (
+            $this->prix_unitaire > 0 &&
+            $this->pluriannuel_prix_plafond > 0 &&
+            $this->pluriannuel_prix_plancher > 0 &&
+            (($this->prix_unitaire > $this->pluriannuel_prix_plafond)||($this->prix_unitaire < $this->pluriannuel_prix_plancher))
+        ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
