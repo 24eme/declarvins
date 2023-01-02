@@ -88,6 +88,7 @@ class VracSoussigneForm extends VracForm
 		if ($this->etablissementIsCourtier()) {
 			unset($this['mandataire_exist']);
 		}
+        $this->editablizeInputPluriannuel();
 		$this->widgetSchema->setNameFormat('vrac_soussigne[%s]');
 		$this->validatorSchema->setPostValidator(new VracSoussigneValidator());
 	}

@@ -61,14 +61,18 @@
 			select = this.element.hide(),
 			selected = select.find( "option:selected" ),
 			value = selected.text() ? selected.text() : "";
-			
+
 			var newValueAllowed  = select.hasClass('permissif');
 			if(newValueAllowed) {
 				var newValueOption = $('<option class="new_value" value=""></option>');
 				select.append(newValueOption);
 			}
-			
+
 			var url_ajax = select.attr('data-ajax');
+			var is_readonly = false;
+			if (select.attr('readonly')) {
+				is_readonly = true;
+			}
 			var limit = 20;
 			//var prev_term = "";
 			var minLength = (url_ajax) ? 4 : 0;
@@ -83,7 +87,7 @@
 				source: function( request, response ) {
 
 					if(select.attr('data-ajax')) {
-					  	
+
 						//prev_term = request.term;
 						$.getJSON(select.attr('data-ajax'), {q:request.term,limit:limit+1}, function(data) {
 							//if (prev_term != request.term) {
@@ -108,7 +112,7 @@
 							$(input).parent().find('button').button( "option", "disabled", select.children("option").length > limit);
 						});
 						return;
-					} 
+					}
 					if ($(input).val()) {
 						$(input).parent().find('button').hide();
 						$(input).parent().find('a.remove_autocomplete').show();
@@ -151,7 +155,7 @@
 							}
 						});
 						if ( !valid ) {
-							
+
 							select.val('');
 							$(input).parent().find('a.remove_autocomplete').hide();
 							if (select.attr('data-ajax') || (select.children("option").length > 1)) {
@@ -161,7 +165,7 @@
 							if(newValueAllowed)
 							{
 								var newValue = $( this ).val();
-								
+
 								select.find(':selected').removeAttr('selected');
 								newValueOption.attr('selected','selected').val(newValue); //.text(newValue);
 							}
@@ -175,26 +179,31 @@
 							}
 						}
 					});
-					var removeLink  = $( "<a href=\"#\" class=\"remove_autocomplete\">X</a>" ).insertAfter(input);
-					removeLink.click(function() {
-						if (select.children("option").length == 1) {
-							select.prepend($( "<option value=\"\"></option>" ));
-						}
-						select.val("");
-						input.val("");
-						$(this).hide();
 
-						if (select.attr('data-ajax') || (select.children("option").length > 1)) {
-							$(input).parent().find('button').show();
-						}
-						if (select.attr('data-remove-inputs')) {
-							var content = select.attr('data-remove-inputs');
-							$(content+' input').each(function() { $(this).val(''); });
-							$(content+' textarea').each(function() { $(this).val(''); });
-						}
-						return false;
-					});
-					//.addClass( "ui-widget ui-widget-content ui-corner-left" );
+					if (is_readonly) {
+						input.attr('readonly', true);
+					} else {
+						var removeLink  = $( "<a href=\"#\" class=\"remove_autocomplete\">X</a>" ).insertAfter(input);
+						removeLink.click(function() {
+							if (select.children("option").length == 1) {
+								select.prepend($( "<option value=\"\"></option>" ));
+							}
+							select.val("");
+							input.val("");
+							$(this).hide();
+
+							if (select.attr('data-ajax') || (select.children("option").length > 1)) {
+								$(input).parent().find('button').show();
+							}
+							if (select.attr('data-remove-inputs')) {
+								var content = select.attr('data-remove-inputs');
+								$(content+' input').each(function() { $(this).val(''); });
+								$(content+' textarea').each(function() { $(this).val(''); });
+							}
+							return false;
+						});
+						//.addClass( "ui-widget ui-widget-content ui-corner-left" );
+					}
 
 					input.data( "autocomplete" )._renderItem = function( ul, item ) {
 						return $( "<li></li>" )

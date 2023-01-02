@@ -4,7 +4,7 @@ class VracConditionForm extends VracForm
    	public function configure()
     {
   		$this->setWidgets(array(
-  		    'contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel'),'expanded' => true)),
+  		    'is_contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel cadre'),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
   		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
         	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -14,8 +14,8 @@ class VracConditionForm extends VracForm
         	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
     	));
         $this->widgetSchema->setLabels(array(
-        	'contrat_pluriannuel' => 'Type de contrat:',
-        	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel adossé à ce contrat*:',
+        	'is_contrat_pluriannuel' => 'Type de contrat:',
+        	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel cadre adossé à ce contrat*:',
             'cas_particulier' => 'Condition particulière*:',
         	'export' => 'Expédition export*:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
@@ -24,7 +24,7 @@ class VracConditionForm extends VracForm
         	'type_transaction' => 'Type de produit:',
         ));
         $this->setValidators(array(
-            'contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array('0','1'))),
+            'is_contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array('0','1'))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
@@ -39,12 +39,55 @@ class VracConditionForm extends VracForm
             unset($this['type_transaction']);
         }
 
+        if ($this->getConfiguration()->isContratPluriannuelActif()) {
+            unset($this['reference_contrat_pluriannuel'], $this['is_contrat_pluriannuel']);
+            if ($this->getObject()->isPluriannuel()) {
+                $this->configurePluriannuel();
+            }
+            if ($this->getObject()->isAdossePluriannuel()) {
+                $this->setWidget('campagne_courante', new sfWidgetFormInputText());
+                $this->getWidget('campagne_courante')->setLabel('Campagne d\'application');
+                $this->setValidator('campagne_courante', new sfValidatorString());
+            }
+        }
+
+        $this->editablizeInputPluriannuel();
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
 
+    public function configurePluriannuel() {
+
+        $this->setWidget('pluriannuel_campagne_debut', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoicesDebut())));
+        $this->setWidget('pluriannuel_campagne_fin', new sfWidgetFormChoice(array('choices' => $this->getCampagneChoicesFin())));
+
+        $this->getWidget('pluriannuel_campagne_debut')->setLabel('Conclu à partir de la campagne');
+        $this->getWidget('pluriannuel_campagne_fin')->setLabel('Pour une durée de');
+
+        $this->setValidator('pluriannuel_campagne_debut', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoicesDebut()))));
+        $this->setValidator('pluriannuel_campagne_fin', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCampagneChoicesFin()))));
+
+    }
+
+    public function getCampagneChoicesDebut() {
+        $campagnes = array();
+        for($d=date('Y'),$i=$d-2;$i<$d+2;$i++) {
+            $campagnes[$i.'-'.($i+1)] = $i.'-'.($i+1);
+        }
+        return $campagnes;
+    }
+
+    public function getCampagneChoicesFin() {
+        $keys = range(2, 5);
+        $values = array_map(function ($v) {
+            return $v." ans";
+        }, $keys);
+
+        return array_combine($keys, $values);
+    }
+
     protected function doUpdateObject($values) {
-      if (!$values['contrat_pluriannuel']) {
+      if (isset($values['is_contrat_pluriannuel']) && !$values['is_contrat_pluriannuel']) {
           $values['reference_contrat_pluriannuel'] = null;
       }
       parent::doUpdateObject($values);
@@ -59,6 +102,15 @@ class VracConditionForm extends VracForm
         }
         $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
         $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
+        $this->getObject()->initClauses();
+
+        if ($this->getObject()->isPluriannuel()) {
+            $campagne_debut = $this->getObject()->pluriannuel_campagne_debut;
+            $annees = explode('-', $campagne_debut);
+            $campagne_fin = implode('-', [$annees[0] + +$values['pluriannuel_campagne_fin'], $annees[1] + +$values['pluriannuel_campagne_fin']]);
+            $this->getObject()->pluriannuel_campagne_fin = $campagne_fin;
+        }
+
     }
 
     protected function updateDefaultsFromObject() {
@@ -73,15 +125,28 @@ class VracConditionForm extends VracForm
       if (is_null($this->getObject()->bailleur_metayer)) {
         $this->setDefault('bailleur_metayer', 0);
       }
-      if (!$this->getObject()->contrat_pluriannuel) {
-        $this->setDefault('contrat_pluriannuel', '0');
+      if ($this->getObject()->isPluriannuel()) {
+          $cm = new CampagneManager('08-01');
+          if (!$this->getObject()->pluriannuel_campagne_debut) {
+              $this->setDefault('pluriannuel_campagne_debut', $cm->getCurrent());
+          }
+          if ($this->getObject()->pluriannuel_campagne_fin) {
+              $this->setDefault('pluriannuel_campagne_fin', intval($this->getObject()->pluriannuel_campagne_fin) - intval($this->getObject()->pluriannuel_campagne_debut));
+          } else {
+              $this->setDefault('pluriannuel_campagne_fin', 2);
+          }
+      }
+
+      if (!$this->getObject()->isAdossePluriannuel()) {
+        $this->setDefault('is_contrat_pluriannuel', '0');
       } else {
-          $this->setDefault('contrat_pluriannuel', '1');
+          $this->setDefault('is_contrat_pluriannuel', '1');
       }
 
       if (is_null($this->getObject()->type_transaction)) {
         $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
       }
+      $this->setDefault('campagne_courante', (new CampagneManager('08-01'))->getCurrent());
     }
 
     public function conditionneIVSE() {

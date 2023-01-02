@@ -13,7 +13,7 @@ use_helper('Text');
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'vrac')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>">Contrat interprofessionnel</a>
+            <a href="<?php echo url_for('vrac_etablissement', ['identifiant' => $etablissement->identifiant]) ?>">Contrat</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>

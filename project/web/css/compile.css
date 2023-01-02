@@ -2561,10 +2561,28 @@ p#date_drm {
   text-align: left;
   width: 180px;
 }
+#principal .visualisation_contrat th:first-child {
+  width: auto !important;
+}
+#principal .visualisation_contrat tbody td.text-left {
+    text-align: left !important;
+}
+#principal .visualisation_contrat tbody td.text-center {
+    text-align: center !important;
+}
+#principal .visualisation_contrat tbody td.text-right {
+    text-align: right !important;
+}
 #principal .tableau_ajouts_liquidations table tbody td,
 #principal .tableau_resultats table tbody td {
   background: #e9e9e9;
   border-color: #dbdbdb;
+  text-align: center;
+}
+#principal .tableau_ajouts_liquidations table tbody  tr.pluriannuel_application td,
+#principal .tableau_resultats table tbody tr.pluriannuel_application td {
+  background: #f7f7f7;
+  border-color: #f2f2f2;
   text-align: center;
 }
 #principal .tableau_ajouts_liquidations table tbody td:first-child,
@@ -3924,6 +3942,7 @@ p#date_drm {
 .vracs .radio_list li label,
 .vracs .checkbox_list li label {
   font-weight: normal !important;
+  display: inline !important;
 }
 .vracs .checkbox_list li {
   width: 200px;
@@ -4465,12 +4484,12 @@ p#date_drm {
   text-align: center;
   text-decoration: underline;
 }
-.vracs .visualisation_contrat #titre {
+.vracs .visualisation_contrat #titre, .vracs .visualisation_contrat .titre {
   background-color: #E3E2E2;
   padding: 10px;
   text-align: center;
 }
-.vracs .visualisation_contrat #titre .style_label {
+.vracs .visualisation_contrat #titre .style_label, .vracs .visualisation_contrat .titre .style_label {
   font-size: 15px;
   font-weight: bold;
   padding: 10px 0;
@@ -4514,6 +4533,9 @@ p#date_drm {
 }
 .vracs .visualisation_contrat .statut_annule {
   background-color: #e42c2c;
+}
+.vracs .visualisation_contrat .statut_att_annule {
+  background-color: #c582af;
 }
 .vracs .visualisation_contrat .statut_attente-validation {
   background-color: #999;
@@ -4989,4 +5011,11 @@ p#date_drm {
 #contenu.statistiques table.statistiques td {
   background: #e9e9e9;
   border: 1px solid #dbdbdb;
+}
+input[type=checkbox]:disabled + label,
+input[type=radio]:disabled + label,
+input[type="text"]:read-only,
+.input-disabled {
+    background-color: #dddddd;
+    opacity: 50%;
 }

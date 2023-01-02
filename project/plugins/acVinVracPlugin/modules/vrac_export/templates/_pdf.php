@@ -106,7 +106,10 @@
 	<?php endif; ?>
 	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) : '-'; ?></p>
 	<h2>Type de contrat</h2>
-	<p><?php if ($vrac->contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?>, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php endif; ?><?php else: ?>Contrat ponctuel<?php endif; ?></p>
+	<p><?php if ($vrac->isAdossePluriannuel()): ?>Contrat adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Contrat ponctuel<?php endif; ?></p>
+    <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?><p>Campagnes d'application de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></p><?php endif; ?>
+    <?php if ($vrac->isPluriannuel() && $vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?><p>Fourchette de prix entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> €/HL</p><?php endif; ?>
+    <?php if ($vrac->pluriannuel_clause_indexation): ?><p>Indexation du prix : <?php echo $vrac->pluriannuel_clause_indexation ?></p><?php endif; ?>
 	<h2>Spécificités du contrat</h2>
 	<p>Condition particulière : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></p>
 	<p>Expédition export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
@@ -123,22 +126,38 @@
 	<table class="tableau_simple">
 		<thead>
 			<tr>
+                <?php if($vrac->pourcentage_recolte): ?>
+                <th>Pourcentage de récolte</th>
+                <?php endif; ?>
+                <?php if($vrac->surface): ?>
+                <th>Surface concernée</th>
+                <?php endif; ?>
 				<th><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?></th>
-				<th>Prix unitaire net HT hors cotisation</th>
+                <?php if ($vrac->prix_unitaire): ?>
+                <th>Prix unitaire net HT hors cotisation</th>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<th>Part cotisation payée par l'acheteur</th>
 				<?php endif; ?>
 				<th>Type de prix</th>
+                <?php endif; ?>
         	</tr>
         </thead>
         <tbody>
 			<tr>
+                <?php if($vrac->pourcentage_recolte): ?>
+                <td><?php echo $vrac->pourcentage_recolte ?>%</td>
+                <?php endif; ?>
+                <?php if($vrac->surface): ?>
+                <td><?php echoFloat($vrac->surface) ?>&nbsp;HA</td>
+                <?php endif; ?>
 				<td><?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></td>
+                <?php if ($vrac->prix_unitaire): ?>
 				<td><?php echoFloat($vrac->prix_unitaire) ?> € HT / <?php if($vrac->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif;?></td>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
 				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  € HT / HL</td>
 				<?php endif; ?>
-				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
+				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>+
+				<?php endif; ?>
 			</tr>
         </tbody>
     </table>
@@ -175,6 +194,11 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
+<<<<<<< HEAD
+	<?php if ($vrac->hasAcompteInfo()): ?>
+		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+	<?php endif; ?>
+=======
 	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
         <?php if (!$vrac->dispense_acompte): ?>
             <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
@@ -182,13 +206,16 @@
             <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
         <?php endif; ?>
     <?php endif; ?>
+>>>>>>> prod
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
 	<?php if (!$vrac->isConditionneIvse()): ?><p>Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><?php if($vrac->type_retiraison): ?> : <?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?><?php endif; ?></p><?php endif; ?>
 	<?php if($vrac->date_debut_retiraison): ?>
 	<p>Date de début de retiraison : <?php echo Date::francizeDate($vrac->date_debut_retiraison) ?></p>
 	<?php endif; ?>
+    <?php if($vrac->date_limite_retiraison): ?>
 	<p>Date limite de retiraison : <?php echo Date::francizeDate($vrac->date_limite_retiraison) ?></p>
+    <?php endif; ?>
 	<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 	<p>Clause de reserve de propriété : <?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></p>
 	<?php endif; ?>
@@ -256,7 +283,7 @@
     <h3><?= $clause['nom'] ?></h3>
     <p>
         <?= $clause['description'] ?>
-        <?php if ($k == 'liberte_contractuelle' && $vrac->isConditionneIvse()): ?>
+        <?php if ($k == 'liberte_contractuelle'): ?>
 			<?php if (!$vrac->clause_initiative_contractuelle_producteur): ?>
 			Non mais le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses propositions préalablement à la signature du contrat et n\'ayant pas souhaité effectuer une proposition de contrat.
 			<?php else: ?>

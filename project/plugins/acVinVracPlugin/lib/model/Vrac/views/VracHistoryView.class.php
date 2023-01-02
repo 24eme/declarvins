@@ -42,46 +42,91 @@ class VracHistoryView extends acCouchdbView
     const VRAC_OIOC_DATERECEPTION = 37;
     const VRAC_OIOC_DATETRAITEMENT = 38;
     const VRAC_POIDS = 39;
+    const VRAC_REF_PLURIANNUEL = 40;
+    const VRAC_QUANTITE_LIBELLE = 41;
 
 	public static function getInstance() {
 
         return acCouchdbManager::getView('vrac', 'history', 'Vrac');
     }
 
-	public function findByStatutAndInterpro($statut, $interpro) {
-        return $this->client->startkey(array($statut, $interpro))
-                    		->endkey(array($statut, $interpro, array()))
+	public function findByStatutAndInterpro($statut, $interpro, $pluriannuel = 0) {
+        return $this->client->startkey(array($pluriannuel, $statut, $interpro))
+                    		->endkey(array($pluriannuel, $statut, $interpro, array()))
                             ->getView($this->design, $this->view);
     }
 
-	public function findLastByInterpro($interpro) {
+	public function findLastByInterpro($interpro, $pluriannuel = 0) {
 		$date_fin = date('c');
 		$date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
-        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))
-                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))
+        return $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))
+                    		->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))
                             ->getView($this->design, $this->view);
     }
 
 
-	public function findLastByStatutAndInterpro($statut, $interpro) {
+	public function findLastByStatutAndInterpro($statut, $interpro, $pluriannuel = 0) {
         $date_fin = date('c');
         $date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
-		if (!$statut||in_array($statut, array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION))) {
-            $enCours = $this->client->startkey(array($statut, $interpro))->endkey(array($statut, $interpro, array()))->getView($this->design, $this->view)->rows;
-            $attValidation = $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
-            $attAnnulation = $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_debut))->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
+		if ($statut === null) {
+            $enCours = $this->client->startkey(array($pluriannuel, 0, $interpro))->endkey(array($pluriannuel, 0, $interpro, array()))->getView($this->design, $this->view)->rows;
+            $attValidation = $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
+            $attAnnulation = $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_debut))->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, $interpro, $date_fin, array()))->getView($this->design, $this->view)->rows;
             return array_merge($enCours, $attValidation, $attAnnulation);
 		}
-        return $this->client->startkey(array($statut, $interpro, $date_debut))
-                    		->endkey(array($statut, $interpro, $date_fin, array()))
+        return $this->client->startkey(array($pluriannuel, $statut, $interpro, $date_debut))
+                    		->endkey(array($pluriannuel, $statut, $interpro, $date_fin, array()))
                             ->getView($this->design, $this->view)->rows;
     }
 
-	public function findLast() {
+	public function findByStatutAndEtablissement($statut, $etablissement, $pluriannuel = 0) {
+		if ($statut === null) {
+            $enCours = $this->client->startkey(array($etablissement, $pluriannuel, 0))->endkey(array($etablissement, $pluriannuel, 0, array()))->getView($this->design, $this->view)->rows;
+            $attValidation = $this->client->startkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))->endkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))->getView($this->design, $this->view)->rows;
+            $attAnnulation = $this->client->startkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION))->endkey(array($etablissement, $pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, array()))->getView($this->design, $this->view)->rows;
+            return array_merge($enCours, $attValidation, $attAnnulation);
+		}
+        return $this->client->startkey(array($etablissement, $pluriannuel, $statut))
+                    		->endkey(array($etablissement, $pluriannuel, $statut, array()))
+                            ->getView($this->design, $this->view)->rows;
+    }
 
-        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))
-                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))
+    public function findForListingMode($etablissement = null, $interpro = null, $statut, $pluriannuel = 0) {
+        if ($etablissement)
+            return $this->findByStatutAndEtablissement($statut, $etablissement->identifiant, $pluriannuel);
+        else
+            return $this->findLastByStatutAndInterpro($statut, $interpro, $pluriannuel);
+    }
+
+	public function findLast($pluriannuel = 0) {
+
+        return $this->client->startkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))
+                    		->endkey(array($pluriannuel, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))
                             ->getView($this->design, $this->view);
     }
 
+    public function findCadreEtApplications($soussigne, $vracID)
+    {
+        $vracCourant = $this->client->find($vracID);
+
+        if ($vracCourant->isPluriannuel() === false && $vracCourant->isAdossePluriannuel() === false) {
+            return null;
+        }
+
+        $id = ($vracCourant->reference_contrat_pluriannuel) ?: $vracCourant->numero_contrat;
+
+        $vracs = $this->client->startkey([$soussigne])->endkey([$soussigne.'ZZZ'])->getView($this->design, $this->view)->rows;
+
+        return array_values(array_filter($vracs, function ($v) use ($id) {
+            if (strpos($v->id, $id) === false) {
+                return false;
+            }
+
+            if (in_array($v->value[VracHistoryView::VRAC_VIEW_STATUT], [null, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION]) === true) {
+                return false;
+            }
+
+            return true;
+        }));
+    }
 }
