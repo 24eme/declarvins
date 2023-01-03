@@ -119,7 +119,7 @@ class tiersActions extends sfActions
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'vrac')) {
 
-        return $this->redirect("vrac_etablissement", $this->etablissement);
+        return $this->redirect("vrac_etablissement", ['identifiant' => $this->etablissement->identifiant]);
     }
 
   	return $this->redirect("profil", $this->etablissement); // solution temporaire
