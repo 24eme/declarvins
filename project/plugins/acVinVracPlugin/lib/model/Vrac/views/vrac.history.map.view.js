@@ -5,7 +5,7 @@ function(doc) {
 	var vrac_version = (doc.version)? doc.version : null;
 	var vrac_referente = (doc.referente)? doc.referente : null;
 	var date_contrat = (doc.valide.date_validation)? doc.valide.date_validation : doc.valide.date_saisie;
-	var statut = (doc.valide.statut)? doc.valide.statut : 0;
+	var statut = (doc.valide.statut)? doc.valide.statut : "ATTENTE_VALIDATION";
 	var vrac_oioc_date_reception = (doc.oioc && doc.oioc.date_reception)? doc.oioc.date_reception : null;
 	var vrac_oioc_date_traitement = (doc.oioc && doc.oioc.date_traitement)? doc.oioc.date_traitement : null;
 	var vrac_oioc_identifiant = (doc.oioc && doc.oioc.identifiant)? doc.oioc.identifiant : null;
