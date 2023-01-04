@@ -31,6 +31,9 @@
 					$statusColor = statusColor($elt[VracHistoryView::VRAC_VIEW_STATUT]);
 					$statusLibelle = statusLibelle($elt[VracHistoryView::VRAC_VIEW_STATUT], $pluriannuel);
 					$vracid = $elt[VracHistoryView::VRAC_VIEW_NUM];
+                    if ($elt[VracHistoryView::VRAC_VERSION]) {
+                        $vracid .= '-'.$elt[VracHistoryView::VRAC_VERSION];
+                    }
 					$vraclibelle = $elt[VracHistoryView::VRAC_VIEW_NUM];
                     if (($pos = strpos($vraclibelle, '-')) !== false)
                         $vraclibelle = substr($vraclibelle, 0, $pos);
