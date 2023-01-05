@@ -1882,17 +1882,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       if (!$societe) {
           return null;
       }
-      $facture = $societe->getGlobalFactureCalculee($parameters, $factured);
-      if (!$facture) {
+
+      $mvtsCalcules = $this->getMvtsViewCalcules($interpro);
+      if (!$mvtsCalcules) {
           return null;
       }
-      $drmids = array_keys($facture->origines->toArray(true,false));
-      if (isset($drmids[$this->_id])) unset($drmids[$this->_id]);
-      foreach ($drmids as $drmid) {
-          if ($facture->origines->exist($drmid)) $facture->origines->remove($drmid);
-          if ($facture->lignes->exist($drmid)) $facture->lignes->remove($drmid);
+
+      $mvtsCalcules = MouvementfactureFacturationView::getInstance()->buildMouvements($mvtsCalcules);
+
+      $mvts = FactureClient::getInstance()->filterWithParameters([$this->identifiant => $mvtsCalcules], $parameters);
+
+      $mvts = $mvts[$this->identifiant];
+
+      if(!$mvts || !count($mvts)) {
+          return null;
       }
-      $facture->updateTotaux();
+
+      $facture = FactureClient::getInstance()->createDocFromMouvements($mvts, $societe, $parameters['modele'], $parameters['date_facturation'], $parameters['message_communication']);
       return $facture;
   }
 
