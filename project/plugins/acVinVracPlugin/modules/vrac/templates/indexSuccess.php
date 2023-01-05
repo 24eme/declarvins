@@ -75,8 +75,8 @@
     <div class="bloc_condition" data-condition-cible="#bloc_vrac_application_choices|#bloc_vrac_ponctuel|#bloc_vrac_pluriannuel">
         <ul class="radio_list">
             <li><input name="creation_type" type="radio" value="vierge" id="creation_type_vierge" checked="checked">&nbsp;<label for="creation_type_vierge" style="font-weight:normal;">Création d'un contrat ponctuel</label></li>
-            <li><input name="creation_type" type="radio" value="pluriannuel" id="creation_type_pluriannuel">&nbsp;<label for="creation_type_vierge" style="font-weight:normal;">Création d'un contrat <strong>pluriannuel</strong> cadre</label></li>
-            <li><input name="creation_type" type="radio" value="application" id="creation_type_application">&nbsp;<label for="creation_type_pluriannuel" style="font-weight:normal;">Création d'un contrat d'application adossé au contrat contrat <strong>pluriannuel</strong> cadre :</label></li>
+            <li><input name="creation_type" type="radio" value="pluriannuel" id="creation_type_pluriannuel">&nbsp;<label for="creation_type_pluriannuel" style="font-weight:normal;">Création d'un contrat <strong>pluriannuel</strong> cadre</label></li>
+            <li><input name="creation_type" type="radio" value="application" id="creation_type_application">&nbsp;<label for="creation_type_application" style="font-weight:normal;">Création d'un contrat d'application adossé au contrat contrat <strong>pluriannuel</strong> cadre :</label></li>
         </ul>
     </div>
     <div id="bloc_vrac_application_choices" class="bloc_conditionner" data-condition-value="application">
