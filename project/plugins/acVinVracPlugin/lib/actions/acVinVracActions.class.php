@@ -39,8 +39,13 @@ class acVinVracActions extends sfActions
 
         $this->vracs = array();
 
-        $statuts = ($this->statut === 'TOUS') ? VracClient::getInstance()->getStatusContrat(true)
-                                              : [$this->statut];
+		if ($this->statut === 'TOUS') {
+			$statuts = VracClient::getInstance()->getStatusContrat(true);
+		} elseif($this->statut === VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION) {
+			$statuts = [$this->statut, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION];
+		} else {
+			$statuts = [$this->statut];
+		}
 
         foreach ($statuts as $statut) {
                 $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, $this->pluriannuel));
