@@ -1868,9 +1868,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       return $filters_parameters;
   }
 
-  public function getFactureCalculee($factured = 0, $interpro = null, $seuil = null) {
-      $parameters = $this->getFactureCalculeeParameters($interpro);
-      if ($seuil) {
+  public function getFactureCalculee($interpro = null, $seuil = null) {
+      $parameters = self::getFactureCalculeeParameters($interpro);
+      if ($seuil !== null) {
           $parameters['seuil'] = $seuil;
       }
       try {
