@@ -30,8 +30,8 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
 
-    $vracs = VracHistoryView::getInstance()->findLast();
-    foreach ($vracs->rows as $vrac) {
+    $vracs = array_merge(VracHistoryView::getInstance()->findLast()->rows, VracHistoryView::getInstance()->findLast(1)->rows);
+    foreach ($vracs as $vrac) {
     	$values = $vrac->value;
     	$this->sendRelance($values);
     }
