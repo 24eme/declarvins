@@ -57,7 +57,7 @@ EOF;
       		}
         } catch(Exception $e) {
             $this->logSection('vrac-relance', 'Relance échouée pour le contrat '.$vrac->_id);
-            continue;
+            return;
         }
   		$vrac->date_relance = date('c');
   		$vrac->save();
