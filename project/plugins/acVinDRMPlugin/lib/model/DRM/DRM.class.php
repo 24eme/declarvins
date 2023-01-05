@@ -1895,4 +1895,27 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       $facture->updateTotaux();
       return $facture;
   }
+
+  public function getMvtsViewCalcules($interpro = null) {
+      $items = [];
+      $drmMvts = $this->getMouvements();
+      if (isset($drmMvts[$this->identifiant])) {
+          foreach($drmMvts[$this->identifiant] as $key => $mvt) {
+              if (!$mvt->facturable) continue;
+              if ($interpro && $interpro != $mvt->interpro) continue;
+              if (isset($items[$mvt->produit_libelle])) {
+                  $mvtValue = $items[$mvt->produit_libelle]->value;
+                  $mvtValue[2] += $mvt->volume*-1;
+                  $mvtValue[7][] = $this->_id.':'.$key;
+                  $items[$mvt->produit_libelle]->value = $mvtValue;
+                  continue;
+              }
+              $item = new stdClass();
+              $item->key = [$mvt->facture, $mvt->facturable, $mvt->region, $this->identifiant, $this->type, $mvt->categorie, $mvt->produit_hash, $this->periode, $mvt->date, $mvt->vrac_numero, $mvt->vrac_destinataire, $mvt->type_hash, $mvt->detail_identifiant, $mvt->type_drm];
+              $item->value = [$mvt->produit_libelle, $mvt->type_libelle, $mvt->volume*-1, $mvt->cvo, $mvt->vrac_destinataire, $mvt->detail_libelle, $this->_id, [$this->_id.':'.$key]];
+              $items[$mvt->produit_libelle] = $item;
+          }
+      }
+      return $items;
+  }
 }
