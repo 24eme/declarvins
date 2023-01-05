@@ -33,6 +33,7 @@ EOF;
     $vracs = array_merge(VracHistoryView::getInstance()->findLast()->rows, VracHistoryView::getInstance()->findLast(1)->rows);
     foreach ($vracs as $vrac) {
     	$values = $vrac->value;
+        if (!$values[VracHistoryView::VRAC_VIEW_STATUT]) continue;
     	$this->sendRelance($values);
     }
   }
