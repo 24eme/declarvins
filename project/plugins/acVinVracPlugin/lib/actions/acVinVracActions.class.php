@@ -49,11 +49,17 @@ class acVinVracActions extends sfActions
 
         foreach ($statuts as $statut) {
                 $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, $this->pluriannuel));
+                if(!$this->configurationVrac->isContratPluriannuelActif()) {
+                    $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, 1));
+                }
         }
         usort($this->vracs, array('VracClient', 'sortVracId'));
 
-        $this->pluriannuels = VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), VracClient::STATUS_CONTRAT_SOLDE, 1);
-        usort($this->pluriannuels, array('VracClient', 'sortVracId'));
+        $this->pluriannuels = [];
+        if($this->configurationVrac->isContratPluriannuelActif()) {
+            $this->pluriannuels = VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), VracClient::STATUS_CONTRAT_SOLDE, 1);
+            usort($this->pluriannuels, array('VracClient', 'sortVracId'));
+        }
 
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));

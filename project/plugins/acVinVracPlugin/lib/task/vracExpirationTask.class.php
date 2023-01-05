@@ -30,10 +30,15 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
 
-    $vracs = VracHistoryView::getInstance()->findLast();
-    foreach ($vracs->rows as $vrac) {
+    $vracs = array_merge(VracHistoryView::getInstance()->findLast()->rows, VracHistoryView::getInstance()->findLast(1)->rows);
+    foreach ($vracs as $vrac) {
     	$values = $vrac->value;
-    	$this->sendExpiration($values);
+        if (!$values[VracHistoryView::VRAC_VIEW_STATUT]) continue;
+        try {
+    	       $this->sendExpiration($values);
+        } catch(Exception $e) {
+            continue;
+        }
     }
   }
 
