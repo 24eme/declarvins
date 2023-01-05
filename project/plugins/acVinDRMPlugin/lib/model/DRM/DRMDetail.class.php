@@ -525,10 +525,11 @@ class DRMDetail extends BaseDRMDetail {
             $mouvement = DRMMouvement::freeInstance($this->getDocument());
             $mouvement->produit_hash = $this->getHash();
             $mouvement->produit_libelle = trim($mouvement->produit_libelle);
-            if (count($this->labels) > 0) {
+            if (count($this->labels) > 0 && $this->labels[0] !== null) {
                 $mouvement->denomination_complementaire = implode(', ', $this->labels->toArray());
                 $mouvement->produit_libelle .= ' '.$mouvement->denomination_complementaire;
             }
+            $mouvement->produit_libelle = trim($mouvement->produit_libelle);
             $mouvement->type_drm = $type;
             $mouvement->type_drm_libelle = ucfirst(strtolower($type));
             $mouvement->facture = 0;
