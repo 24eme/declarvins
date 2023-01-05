@@ -3,7 +3,7 @@
 class FloatHelper
 {
     protected $defaultDecimalFormat = 2;
-    protected $maxDecimalAuthorized = 2;
+    protected $maxDecimalAuthorized = 5;
     protected static $self = null;
 
     public function __construct() {
