@@ -45,15 +45,20 @@ EOF;
 	$ecart = $interval->format('%a');
   	if ($ecart >= self::NB_JOUR_RELANCE && !$values[VracHistoryView::VRAC_VIEW_DATERELANCE]) {
   		$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
-  		if ($values[VracHistoryView::VRAC_VIEW_ACHETEURID] && !$values[VracHistoryView::VRAC_VIEW_ACHETEURVAL]) {
-  			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_ACHETEURID], VracClient::VRAC_TYPE_ACHETEUR);
-  		}
-  		if ($values[VracHistoryView::VRAC_VIEW_MANDATAIREID] && !$values[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]) {
-  			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_MANDATAIREID], VracClient::VRAC_TYPE_COURTIER);
-  		}
-  		if ($values[VracHistoryView::VRAC_VIEW_VENDEURID] && !$values[VracHistoryView::VRAC_VIEW_VENDEURVAL]) {
-  			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_VENDEURID], VracClient::VRAC_TYPE_VENDEUR);
-  		}
+        try {
+      		if ($values[VracHistoryView::VRAC_VIEW_ACHETEURID] && !$values[VracHistoryView::VRAC_VIEW_ACHETEURVAL]) {
+      			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_ACHETEURID], VracClient::VRAC_TYPE_ACHETEUR);
+      		}
+      		if ($values[VracHistoryView::VRAC_VIEW_MANDATAIREID] && !$values[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]) {
+      			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_MANDATAIREID], VracClient::VRAC_TYPE_COURTIER);
+      		}
+      		if ($values[VracHistoryView::VRAC_VIEW_VENDEURID] && !$values[VracHistoryView::VRAC_VIEW_VENDEURVAL]) {
+      			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_VENDEURID], VracClient::VRAC_TYPE_VENDEUR);
+      		}
+        } catch(Exception $e) {
+            $this->logSection('vrac-relance', 'Relance échouée pour le contrat '.$vrac->_id);
+            continue;
+        }
   		$vrac->date_relance = date('c');
   		$vrac->save();
   		$this->logSection('vrac-relance', 'Relance envoyée pour le contrat '.$vrac->_id);

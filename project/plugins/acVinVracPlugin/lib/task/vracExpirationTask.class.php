@@ -34,7 +34,11 @@ EOF;
     foreach ($vracs as $vrac) {
     	$values = $vrac->value;
         if (!$values[VracHistoryView::VRAC_VIEW_STATUT]) continue;
-    	$this->sendExpiration($values);
+        try {
+    	       $this->sendExpiration($values);
+        } catch(Exception $e) {
+            continue;
+        }
     }
   }
 
