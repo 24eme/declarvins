@@ -1072,7 +1072,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
 	public function isPluriannuel() {
-		return ($this->contrat_pluriannuel == 1);
+        $configuration = $this->getVracConfiguration();
+		return ($this->contrat_pluriannuel == 1 && $configuration && $configuration->isContratPluriannuelActif());
 	}
 
 	public function isAdossePluriannuel() {
