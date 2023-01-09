@@ -307,18 +307,18 @@ class VracClient extends acCouchdbClient {
 
         foreach($etablissements->rows as $e){
             $id = str_replace('ETABLISSEMENT-', '', $e->id);
-            $vracs = array_merge($vracs,VracSoussigneIdentifiantView::getInstance()->findByEtablissement($id)->rows);
+            $vracs = array_merge($vracs,VracHistoryView::getInstance()->findByEtablissement($id)->rows);
 
         }
 
         foreach ($vracs as $c) {
-            if ($mustActive && $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
+            if ($mustActive && $c->value[VracHistoryView::VRAC_VIEW_STATUT] != self::STATUS_CONTRAT_NONSOLDE) {
                 continue;
             }
-            if($hash && strpos($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
+            if($hash && strpos($c->value[VracHistoryView::VRAC_VIEW_PRODUIT_ID], $hash) === false) {
                 continue;
             }
-            if(($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != null) && ($c->value[VracSoussigneIdentifiantView::VRAC_VIEW_MILLESIME] != $millesime)){
+            if(($c->value[VracHistoryView::VRAC_VIEW_MILLESIME] != null) && ($c->value[VracHistoryView::VRAC_VIEW_MILLESIME] != $millesime)){
                 continue;
             }
             $contrats[] = $c;
