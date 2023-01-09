@@ -79,6 +79,12 @@ class VracHistoryView extends acCouchdbView
                             ->getView($this->design, $this->view)->rows;
     }
 
+	public function findByEtablissement($etablissement) {
+        return $this->client->startkey(array($etablissement))
+                    		->endkey(array($etablissement, array()))
+                            ->getView($this->design, $this->view)->rows;
+    }
+
     public function findForListingMode($etablissement = null, $interpro = null, $statut, $pluriannuel = 0) {
         if ($etablissement)
             return $this->findByStatutAndEtablissement($statut, $etablissement->identifiant, $pluriannuel);
