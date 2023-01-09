@@ -307,7 +307,7 @@ class VracClient extends acCouchdbClient {
 
         foreach($etablissements->rows as $e){
             $id = str_replace('ETABLISSEMENT-', '', $e->id);
-            $vracs = array_merge($vracs,VracHistoryView::getInstance()->findByEtablissement($id)->rows);
+            $vracs = array_merge($vracs,VracHistoryView::getInstance()->findByEtablissement($id));
 
         }
 
