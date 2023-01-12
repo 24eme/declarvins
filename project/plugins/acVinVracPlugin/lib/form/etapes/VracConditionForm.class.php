@@ -91,7 +91,9 @@ class VracConditionForm extends VracForm
           $values['reference_contrat_pluriannuel'] = null;
       }
       parent::doUpdateObject($values);
-      $this->getObject()->contrat_pluriannuel = (isset($values['is_contrat_pluriannuel']) && $values['is_contrat_pluriannuel'])? 1 : 0;
+      if (isset($values['is_contrat_pluriannuel'])) {
+          $this->getObject()->contrat_pluriannuel = $values['is_contrat_pluriannuel'];
+      }
       if (!$this->getObject()->annexe) {
           $this->getObject()->annexe = 0;
       }
