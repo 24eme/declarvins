@@ -112,7 +112,7 @@ EOF;
     			    $generate = false;
     			    if ($drmPrecedente = CielDrmView::getInstance()->findByAccisesPeriode($this->getEA($xmlIn), $this->getPrevPeriode($xmlIn))) {
     			        if($drmPrecedente->hasStocksEpuise() && $this->hasStocksEpuise($xmlIn)) {
-    			            if ($drmGeneree = $this->genereDRM($drmPrecedente)) {
+    			            if ($drmGeneree = $this->genereDRM($drmPrecedente, $xmlIn)) {
                                 if (!$checkingMode)
     							    $drmGeneree->save();
                                 if ($sendVigneronEmailNotification)
@@ -171,7 +171,7 @@ EOF;
       $this->getMailer()->sendNextImmediately()->send($message);
   }
 
-  private function genereDRM($drmPrecedente)
+  private function genereDRM($drmPrecedente, $xmlIn)
   {
       $drm = $drmPrecedente->generateSuivante();
       $drm->constructId();
