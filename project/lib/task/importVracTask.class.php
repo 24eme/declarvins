@@ -71,8 +71,11 @@ EOF;
 		    		$vrac->numero_contrat = $visa;
 	    		}
 		    	$vracCsvEdi = new VracImportCsvEdi($file, $vrac);
+                if (!$vracCsvEdi->needTraitement()) {
+                    continue;
+                }
 		    	$vracCsvEdi->checkCSV();
-		    		
+
 		    	if($vracCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
 		    		foreach($vracCsvEdi->getCsvDoc()->erreurs as $erreur) {
 		    			if ($erreur->num_ligne > 0) {
