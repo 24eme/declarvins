@@ -91,6 +91,7 @@ class VracConditionForm extends VracForm
           $values['reference_contrat_pluriannuel'] = null;
       }
       parent::doUpdateObject($values);
+      $this->getObject()->contrat_pluriannuel = (isset($values['is_contrat_pluriannuel']) && $values['is_contrat_pluriannuel'])? 1 : 0;
       if (!$this->getObject()->annexe) {
           $this->getObject()->annexe = 0;
       }
@@ -125,22 +126,26 @@ class VracConditionForm extends VracForm
       if (is_null($this->getObject()->bailleur_metayer)) {
         $this->setDefault('bailleur_metayer', 0);
       }
-      if ($this->getObject()->isPluriannuel()) {
-          $cm = new CampagneManager('08-01');
-          if (!$this->getObject()->pluriannuel_campagne_debut) {
-              $this->setDefault('pluriannuel_campagne_debut', $cm->getCurrent());
+      if ($this->getConfiguration()->isContratPluriannuelActif()) {
+          if ($this->getObject()->isPluriannuel()) {
+              $cm = new CampagneManager('08-01');
+              if (!$this->getObject()->pluriannuel_campagne_debut) {
+                  $this->setDefault('pluriannuel_campagne_debut', $cm->getCurrent());
+              }
+              if ($this->getObject()->pluriannuel_campagne_fin) {
+                  $this->setDefault('pluriannuel_campagne_fin', intval($this->getObject()->pluriannuel_campagne_fin) - intval($this->getObject()->pluriannuel_campagne_debut));
+              } else {
+                  $this->setDefault('pluriannuel_campagne_fin', 2);
+              }
           }
-          if ($this->getObject()->pluriannuel_campagne_fin) {
-              $this->setDefault('pluriannuel_campagne_fin', intval($this->getObject()->pluriannuel_campagne_fin) - intval($this->getObject()->pluriannuel_campagne_debut));
-          } else {
-              $this->setDefault('pluriannuel_campagne_fin', 2);
-          }
-      }
 
-      if (!$this->getObject()->isAdossePluriannuel()) {
-        $this->setDefault('is_contrat_pluriannuel', '0');
+          if (!$this->getObject()->isAdossePluriannuel()) {
+            $this->setDefault('is_contrat_pluriannuel', '0');
+          } else {
+              $this->setDefault('is_contrat_pluriannuel', '1');
+          }
       } else {
-          $this->setDefault('is_contrat_pluriannuel', '1');
+          $this->setDefault('is_contrat_pluriannuel', ($this->getObject()->contrat_pluriannuel)? 1 : 0);
       }
 
       if (is_null($this->getObject()->type_transaction)) {

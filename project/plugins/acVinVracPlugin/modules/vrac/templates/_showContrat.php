@@ -98,7 +98,7 @@
         <ul>
 			<li>
 				<span>Type de contrat :</span>
-				<span><?php if ($vrac->isAdossePluriannuel()): ?>Adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->isPluriannuel()): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
+				<span><?php if ($vrac->isAdossePluriannuel()): ?>Adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
 			</li>
             <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?>
 			<li>
@@ -198,7 +198,7 @@
 			</li>
 			<?php endif; ?>
             <?php endif; ?>
-            <?php if(!$vrac->isPluriannuel()): ?>
+            <?php if(!$vrac->contrat_pluriannuel): ?>
 			<li>
 				<span>Type de prix :</span>
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
