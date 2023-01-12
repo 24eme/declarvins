@@ -175,7 +175,7 @@ EOF;
   {
       $drm = $drmPrecedente->generateSuivante();
       $drm->constructId();
-      if (!DRMClient::getInstance()->find($drm->_id))
+      if (DRMClient::getInstance()->find($drm->_id))
         return null;
       $drm->validateAutoCiel($xmlIn->asXML());
       $drm->validate();
