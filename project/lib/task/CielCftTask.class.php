@@ -75,8 +75,6 @@ EOF;
     		if ($xmlIn !== FALSE) {
     			if ($drm = $this->getMasterDRM($xmlIn)) {
     				$drmCiel = $drm->getOrAdd('ciel');
-                    if ($drmCiel->valide)
-                        continue;
     				$export = new DRMExportCsvEdi($drm);
     				if ($xml = $export->exportEDI('xml', $contextInstance)) {
     					$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
