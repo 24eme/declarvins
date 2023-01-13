@@ -105,9 +105,9 @@
 			    			<a class="highlight_link" href="<?php echo url_for('vrac_annulation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>"><?php echo $vraclibelle ?></a>
 			    		<?php else: ?>
 							<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE)): ?>
-				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>"><?php echo $vraclibelle ?></a>
+				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
 							<?php elseif ($isOperateur): ?>
-							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser</a>
+							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
 							<?php endif; ?>
 						<?php endif; ?>
 			    	<?php endif; ?>
