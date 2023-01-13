@@ -743,7 +743,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function isValide() {
-    	return ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)? true : false;
+    	return ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION)? true : false;
     }
 
     public function isEditable() {
