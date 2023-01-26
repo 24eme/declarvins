@@ -1868,7 +1868,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       return $filters_parameters;
   }
 
-  public function getFactureCalculee($interpro = null, $seuil = null) {
+  public function getFactureCalculee($interpro = null, $withSeuil = false, $onlyMvts = []) {
       $parameters = self::getFactureCalculeeParameters($interpro);
       if ($seuil !== null) {
           $parameters['seuil'] = $seuil;
@@ -1883,7 +1883,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
           return null;
       }
 
-      $mvtsCalcules = $this->getMvtsViewCalcules($interpro);
+      $mvtsCalcules = $this->getMvtsViewCalcules($interpro, $onlyMvts);
+
       if (!$mvtsCalcules) {
           return null;
       }
@@ -1902,13 +1903,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       return $facture;
   }
 
-  public function getMvtsViewCalcules($interpro = null) {
+  public function getMvtsViewCalcules($interpro = null, $onlyMvts = []) {
       $items = [];
       $drmMvts = $this->getMouvements();
       if (isset($drmMvts[$this->identifiant])) {
           foreach($drmMvts[$this->identifiant] as $key => $mvt) {
               if (!$mvt->facturable) continue;
               if ($interpro && $interpro != $mvt->interpro) continue;
+              if ($onlyMvts && !in_array($key, $onlyMvts)) continue;
               if (isset($items[$mvt->produit_libelle])) {
                   $mvtValue = $items[$mvt->produit_libelle]->value;
                   $mvtValue[2] += $mvt->volume*-1;
