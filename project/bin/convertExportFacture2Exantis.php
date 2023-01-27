@@ -1,0 +1,90 @@
+<?php
+
+function initFactureTab($tabLine) {
+    return [
+      "NumeroDocument" => $tabLine[3],
+      "DomaineDocument" => "V",
+      "TypeDocument" => 7,
+      "Devise" =>"EUR",
+      "DateDocument" => date('d/m/Y', strtotime($tabLine[1])),
+      "NumeroClientOrigine" => $tabLine[16],
+      "NumeroClientDestination" => null,
+      "NomClientDestination" => $tabLine[15],
+      "Addresse1ClientDestination" => null,
+      "Addresse2ClientDestination" => null,
+      "CodePostalClientDestination" => null,
+      "VilleClientDestination" => null,
+      "CompteGeneralClientDestination" => null,
+      "NumeroPayeurClientDestination" => null,
+      "CodeDepotDepartMarchandises" => null,
+      "CodeDepotClientDestination" => substr($tabLine[19], 4, -8),
+      "DateLivraison" => null,
+      "CodeAffaire" => null,
+      "NomTransporteur" => null,
+      "ModeExpedition" => null,
+      "ReferenceDocument" => "DRM",
+      "TarifDocument" => null,
+      "TauxEscompteDocument" => null,
+      "CategorieComptable" => null,
+      "NomCommercial" => null,
+      "PrenomCommercial" => null,
+      "TotalHTDocument" => 0,
+      "TotalTTCDocument" => 0,
+      "NombreLignesDocument" => 0,
+      "DocumentLigne" => [],
+      "NombreEcheance" => 1,
+  	  "Echeances" => [[
+          "DateEcheance" => null,
+          "LibelleModeReglement" => "Cheque",
+  		  "MontantEcheance" => 0
+  	  ]]
+    ];
+}
+
+function getDetail($tabLine) {
+    return [
+        "CodeArticle" => getCodeArticle($tabLine[4]),
+        "Designation" => $tabLine[4],
+        "CodeAffaire" => null,
+        "QteColisee" => null,
+        "LibelleColisage" => null,
+        "Qte" => floatval($tabLine[20]),
+        "PrixUnitaireHT" => round(floatval($tabLine[10]) / 1.2, 2),
+        "TauxRemise" => 0,
+        "TauxTaxe" => 20,
+        "PoidsBrut" => null,
+        "PoidsNet" => null,
+        "Lot" => null,
+        "PeremptionLot" => null,
+    ];
+}
+
+function getCodeArticle($designation) {
+    //TODO faire la correspondance
+    return null;
+}
+
+
+
+$factures = [];
+while($line = fgets(STDIN)) {
+    if (substr($line, 0, 3) != 'VEN') continue;
+    $tabLine = explode(';', $line);
+    if (!isset($factures[$tabLine[3]])) $factures[$tabLine[3]] = initFactureTab($tabLine);
+    if ($tabLine[14] == 'TVA') {
+        $factures[$tabLine[3]]["TotalHTDocument"] = round($factures[$tabLine[3]]["TotalHTDocument"] - floatval($tabLine[10]), 2);
+        continue;
+    }
+    if ($tabLine[14] == 'ECHEANCE') {
+        $factures[$tabLine[3]]["TotalHTDocument"] = round($factures[$tabLine[3]]["TotalHTDocument"] + floatval($tabLine[10]), 2);
+        $factures[$tabLine[3]]["TotalTTCDocument"] = round($factures[$tabLine[3]]["TotalTTCDocument"] + floatval($tabLine[10]), 2);
+        $factures[$tabLine[3]]["Echeances"]["MontantEcheance"] = round($factures[$tabLine[3]]["Echeances"]["MontantEcheance"] + floatval($tabLine[10]), 2);
+        continue;
+    }
+    if ($tabLine[14] == 'LIGNE') {
+        $factures[$tabLine[3]]["NombreLignesDocument"]++;
+        $factures[$tabLine[3]]["DocumentLigne"][] = getDetail($tabLine);
+    }
+}
+
+echo json_encode($factures, JSON_PRETTY_PRINT)."\n";
