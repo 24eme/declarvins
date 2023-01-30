@@ -42,9 +42,10 @@ function initFactureTab($tabLine) {
 }
 
 function getDetail($tabLine) {
+    $pos = strpos($tabLine[4], '-');
     return [
         "CodeArticle" => getCodeArticle($tabLine[4]),
-        "Designation" => $tabLine[4],
+        "Designation" => ($pos === false)? $tabLine[4] : trim(substr($tabLine[4], $pos+1)),
         "CodeAffaire" => null,
         "QteColisee" => null,
         "LibelleColisage" => null,
