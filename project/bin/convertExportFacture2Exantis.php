@@ -88,4 +88,4 @@ while($line = fgets(STDIN)) {
     }
 }
 
-echo json_encode($factures, JSON_PRETTY_PRINT)."\n";
+echo json_encode(array_values($factures), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)."\n";
