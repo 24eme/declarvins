@@ -30,9 +30,13 @@ EOF;
         $items = SocieteAllView::getInstance()->findByInterpro('INTERPRO-declaration');
         foreach($items as $item) {
             $societe = SocieteClient::getInstance()->find($item->id);
-            if ($societe->code_comptable_client) {
-                $codes = $societe->getOrAdd('codes_comptables_client');
-                $codes->add('INTERPRO-IVSE', $societe->code_comptable_client);
+            if ($societe->code_comptable_client && $societe->code_comptable_client != Societe::REFERENCE_INTERPROS_METAS) {
+                $societe->setMetasForInterpro('INTERPRO-IVSE', ['code_comptable_client' => $societe->code_comptable_client]);
+                $societe->setMetasForInterpro('INTERPRO-IR', ['code_comptable_client' => substr($societe->identifiant, 0, -3)]);
+                if ($societe->exist('codes_comptables_client')) {
+                    $societe->remove('codes_comptables_client');
+                }
+                $societe->code_comptable_client = Societe::REFERENCE_INTERPROS_METAS;
                 $societe->save();
                 echo $societe->_id." updated\n";
             }
