@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlParser.php');
 
 function initFactureTab($tabLine) {
     return [
@@ -74,12 +75,44 @@ function getDetail($tabLine) {
 }
 
 function getCodeArticle($designation) {
-    //TODO faire la correspondance
+    global $appellations;
+    if (!$appellations) return null;
+    foreach($appellations as $appellation => $code) {
+        if (strpos($designation, $appellation) !== false) return $code;
+    }
     return null;
 }
 
+function getAppellations() {
+    $appellations = [];
+    $databases = file_get_contents(dirname(__FILE__).'/../config/databases.yml');
+    if ($databases) {
+        $ymlParser = new sfYamlParser();
+        $db = null;
+        try {
+            $db = $ymlParser->parse($databases);
+        } catch(Exception $e) {
+            return null;
+        }
+        if ($conf = file_get_contents($db['all']['default']['param']['dsn'].$db['all']['default']['param']['dbname'].'/CONFIGURATION-PRODUITS-IR-20200801')) {
+            $confObj = json_decode($conf);
+            if (!is_object($confObj)) return null;
+            $certifications = $confObj->declaration->certifications;
+            foreach($certifications as $certification) {
+                foreach($certification->genres as $genre) {
+                    foreach($genre->appellations as $appellation) {
+                        $appellations[$appellation->libelle] = $appellation->code;
+                    }
+                }
+            }
+        }
+    }
+    return $appellations;
+}
 
 
+$appellations = getAppellations();
+global $appellations;
 $factures = [];
 while($line = fgets(STDIN)) {
     if (substr($line, 0, 3) != 'VEN') continue;
