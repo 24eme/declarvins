@@ -17,7 +17,7 @@ function initFactureTab($tabLine) {
       "CompteGeneralClientDestination" => null,
       "NumeroPayeurClientDestination" => null,
       "CodeDepotDepartMarchandises" => null,
-      "CodeDepotClientDestination" => substr($tabLine[19], 4, -8),
+      "CodeDepotClientDestination" => (substr($tabLine[19], -3, 1) == '-')? substr($tabLine[19], 4, -8) : substr($tabLine[19], 4, -12),
       "DateLivraison" => null,
       "CodeAffaire" => null,
       "NomTransporteur" => null,
@@ -43,6 +43,15 @@ function initFactureTab($tabLine) {
 
 function getDetail($tabLine) {
     $pos = strpos($tabLine[4], '-');
+    if (substr($tabLine[19], -3, 1) == '-') {
+        $annee = substr($tabLine[19], -7, 4);
+        $mois = substr($tabLine[19], -2);
+        $version = "000";
+    } else {
+        $annee = substr($tabLine[19], -11, 4);
+        $mois = substr($tabLine[19], -6, 2);
+        $version = substr($tabLine[19], -3);
+    }
     return [
         "CodeArticle" => getCodeArticle($tabLine[4]),
         "Designation" => ($pos === false)? $tabLine[4] : trim(substr($tabLine[4], $pos+1)),
@@ -50,7 +59,11 @@ function getDetail($tabLine) {
         "QteColisee" => null,
         "LibelleColisage" => null,
         "Qte" => floatval($tabLine[20]),
-        "PrixUnitaireHT" => round(floatval($tabLine[10]) / 1.2, 2),
+        "MontantHT" => round(floatval($tabLine[10]), 2),
+        "TXcvo" => floatval($tabLine[21]),
+        "AnneeDRM" => $annee,
+        "MoisDRM" => $mois,
+        "RectifModif" => $version,
         "TauxRemise" => 0,
         "TauxTaxe" => 20,
         "PoidsBrut" => null,
