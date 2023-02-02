@@ -126,6 +126,7 @@ while($line = fgets(STDIN)) {
         $factures[$tabLine[3]]["TotalHTDocument"] = round($factures[$tabLine[3]]["TotalHTDocument"] + floatval($tabLine[10]), 2);
         $factures[$tabLine[3]]["TotalTTCDocument"] = round($factures[$tabLine[3]]["TotalTTCDocument"] + floatval($tabLine[10]), 2);
         $factures[$tabLine[3]]["Echeances"][0]["MontantEcheance"] = round($factures[$tabLine[3]]["Echeances"][0]["MontantEcheance"] + floatval($tabLine[10]), 2);
+        $factures[$tabLine[3]]["Echeances"][0]["DateEcheance"] = date('d/m/Y', strtotime($tabLine[8]));
         continue;
     }
     if ($tabLine[14] == 'LIGNE') {
