@@ -546,6 +546,9 @@ class DRMDetail extends BaseDRMDetail {
             } else {
               $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
             }
+            if ($mouvement->cvo <= 0) {
+                $mouvement->facturable = 0;
+            }
             if (!in_array($mouvement->interpro, ['INTERPRO-IR','INTERPRO-CIVP','INTERPRO-IVSE'])) {
                 $mouvement->region = EtablissementClient::REGION_HORS_CVO;
             }
