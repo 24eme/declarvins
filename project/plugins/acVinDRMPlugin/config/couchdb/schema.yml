@@ -607,7 +607,6 @@ DRM:
                         facturable: { type: integer }
                         region: { }
                         interpro: { }
-                        region: { }
                         date: {  }
                         date_version: {  }
                         version: {  }
