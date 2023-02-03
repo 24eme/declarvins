@@ -94,3 +94,11 @@ tr.filters {
 #header p {
 	margin: 0;
 }
+
+.nav-tabs {
+   border-bottom: 1px solid #7f0048;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border-color: #7f0048;
+    border-bottom-color: transparent;
+}

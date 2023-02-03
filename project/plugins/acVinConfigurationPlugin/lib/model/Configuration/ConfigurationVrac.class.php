@@ -15,7 +15,18 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 	const CAS_PARTICULIER_DEFAULT_KEY = 'aucune';
 	const CONDITION_PAIEMENT_ECHEANCIER = 'echeancier_paiement';
 	const CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE = 'cadre_reglementaire';
-	
+
+    private static $clausesMask = array(
+        'INTERPRO-IR' => array(
+            '000' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
+            '010' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
+            '100' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle', 'report_numero_contrat'),
+            '110' => array('champ_application_raisin', 'report_numero_contrat'),
+            '101' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
+            '111' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
+        )
+    );
+
     public function getVendeurs() {
     	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_VENDEUR)->rows;
     }
@@ -138,5 +149,13 @@ class ConfigurationVrac extends BaseConfigurationVrac {
         }
         return $this->getConfig()->getFormattedCouleurs(null, $zones, false, "%g% %a% %m% %l% %co%", false,  $date, $exception);
     }
-    
+
+	public function isContratPluriannuelActif() {
+		return ($this->contrat_pluriannuel_actif == 1);
+	}
+
+    public function getClausesMask($conf) {
+        return (isset(self::$clausesMask[$this->getInterproId()]) && isset(self::$clausesMask[$this->getInterproId()][$conf]))? self::$clausesMask[$this->getInterproId()][$conf] : array();
+    }
+
 }

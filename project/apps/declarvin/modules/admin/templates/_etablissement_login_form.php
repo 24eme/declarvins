@@ -7,10 +7,7 @@
         <?php echo $form['identifiant']->renderLabel() ?>
         <?php echo $form['identifiant']->render() ?>
         <?php echo $form['identifiant']->renderError() ?>
-    </div>
-	<br />
-    <div class="btnValidation">
-    	<span>&nbsp;</span>
+
         <input class="btn_valider" type="submit" value="Valider" />
     </div>
 </form>

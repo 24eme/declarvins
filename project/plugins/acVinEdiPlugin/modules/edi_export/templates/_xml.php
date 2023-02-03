@@ -92,7 +92,7 @@
 <?php foreach($gcrds as $crd) : ?>
       		<centilisation volume="<?php echo $crd->centilisation->code ?>"<?php if ($crd->centilisation->centilitre): ?> volumePersonnalise="<?php echo $crd->centilisation->centilitre ?>" bib="<?php echo ($crd->centilisation->bib)? 1 : 0; ?>"<?php endif; ?>>
         		<stock-debut-periode><?php echo $crd->total_debut_mois ?></stock-debut-periode>
-<?php if ($crd->entrees->achats || $crd->entrees->excedents || $crd->entrees->retours): ?>
+<?php if ($crd->entrees->achats || $crd->entrees->excedents || $crd->entrees->retours || $crd->entrees->autres): ?>
         		<entrees-capsules>
 <?php if ($crd->entrees->achats): ?>
 				<achats><?php echo $crd->entrees->achats ?></achats>
@@ -103,9 +103,12 @@
 <?php if ($crd->entrees->retours): ?>
 				<retours><?php echo $crd->entrees->retours ?></retours>
 <?php endif; ?>
+<?php if ($crd->entrees->autres): ?>
+				<autres-entrees><?php echo $crd->entrees->autres ?></autres-entrees>
+<?php endif; ?>
         		</entrees-capsules>
 <?php endif; ?>
-<?php if ($crd->sorties->utilisees || $crd->sorties->detruites || $crd->sorties->manquantes): ?>
+<?php if ($crd->sorties->utilisees || $crd->sorties->detruites || $crd->sorties->manquantes || $crd->sorties->autres): ?>
         		<sorties-capsules>
 <?php if ($crd->sorties->utilisees): ?>
 				<utilisations><?php echo $crd->sorties->utilisees ?></utilisations>
@@ -115,6 +118,9 @@
 <?php endif; ?>
 <?php if ($crd->sorties->manquantes): ?>
 				<manquants><?php echo $crd->sorties->manquantes ?></manquants>
+<?php endif; ?>
+<?php if ($crd->sorties->autres): ?>
+				<autres-sorties><?php echo $crd->sorties->autres ?></autres-sorties>
 <?php endif; ?>
         		</sorties-capsules>
 <?php endif; ?>

@@ -1,6 +1,7 @@
 <?php use_helper('Date') ?>
+<?php use_helper('Vrac'); ?>
 <?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac')); ?>
-<?php 
+<?php
 $rectif = $vrac->generateRectificative();
 $rectif->constructId();
 $modif = $vrac->generateModificative();
@@ -17,7 +18,15 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 ?>
 <div id="contenu" class="vracs">
     <div id="rub_contrats">
-        <section id="principal"> 
+        <section id="principal">
+            <div class="ligne_form_btn" style="margin:0 0 30px 0;text-align:left;">
+                <?php if ($etablissement): ?>
+                    <a style="float:none;" href="<?php echo url_for("vrac_etablissement", array('identifiant' => $etablissement->identifiant)) ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
+                <?php else: ?>
+                    <a style="float:none;" href="<?php echo url_for("vrac_admin") ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
+                <?php endif; ?>
+            </div>
+            <?php include_component('vrac', 'ongletsPluriannuel', ['vrac' => $vrac, 'etablissement' => $etablissement]) ?>
             <div id="recap_saisie" class="popup_form visualisation_contrat">
                 <?php if ($sf_user->hasFlash('termine')): ?>
 					<h2>La saisie est terminée !</h2>
@@ -55,8 +64,18 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 					Celui-ci reste donc effectif et valable.'
 					</p>
 				<?php endif; ?>
+                <?php if(($vrac->isPluriannuel()||$vrac->isAdossePluriannuel()) && $configurationVrac->isContratPluriannuelActif()): ?>
+                <div class="titre" style="background-color: #fff; margin: 10px 0;">
+                    <span class="style_label" style="text-align: center; background: url('/images/pictos/pi_pluriannuel.png') left 0 no-repeat;padding: 0px 10px 0 20px;min-height:21px;display:inline-block;vertical-align: middle;">
+                        Contrat <?php if($vrac->isAdossePluriannuel()): ?>adossé au contrat pluriannuel cadre n°<a href="<?php echo url_for('vrac_visualisation', array('contrat' => $vrac->reference_contrat_pluriannuel)) ?>"><?php echo $vrac->reference_contrat_pluriannuel ?></a><?php else: ?>pluriannuel cadre<?php endif; ?>
+                    </span>
+                    <?php if($vrac->isPluriannuel()): ?>
+                    <a href="<?php echo url_for('vrac_pluriannuel', array('contrat' => $vrac->_id, 'identifiant' => ($etablissement)? $etablissement->identifiant : VracRoute::ETABLISSEMENT_IDENTIFIANT_ADMIN)) ?>" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Créer un contrat d'application</a>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
                 <div id="titre">
-                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
+                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span><span class="pull-right"><?php $libelles = Vrac::getModeDeSaisieLibelles(); if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)&&$vrac->mode_de_saisie): echo $libelles[$vrac->mode_de_saisie]; endif; ?></span>
                     <?php if ($vrac->oioc->date_traitement): ?>
                     <br />Envoi Oco : <?php echo format_date($vrac->oioc->date_traitement, 'dd/MM/y') ?>
                     <?php endif; ?>
@@ -64,19 +83,19 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                     <br />Chargement Oco : <?php echo format_date($vrac->oioc->date_reception, 'dd/MM/y') ?>
                     <?php endif; ?>
                 </div>
-                <div id="vrac_condition">  
+                <div id="vrac_condition">
                     <div class="legende" id="ss_titre">
                         <span class="style_label">Etat du contrat</span>
                     	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	                        <?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_SOLDE, 'etablissement' => $etablissement)) ?>" id="solder_contrat">Solder le contrat</a>
-	                        <?php elseif ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE): ?>
+                            <?php elseif ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE && !$vrac->isPluriannuel()): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_NONSOLDE, 'etablissement' => $etablissement)) ?>" id="solder_contrat">Désolder le contrat</a>
 	                        <?php endif; ?>
                         <?php endif; ?>
                         <div>
-                            <span class="statut statut_<?php echo $vrac->getStatutCssClass() ?>"></span><span class="legende_statut_texte"><?php echo $vrac->valide->statut ?></span>
-                        </div>                            
+                            <span class="statut <?php echo statusColor($vrac->valide->statut) ?>"></span><span class="legende_statut_texte"><?php echo statusLibelle($vrac->valide->statut, $vrac->isPluriannuel()) ?></span>
+                        </div>
                     </div>
                     <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				        
@@ -92,42 +111,42 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 				            <?php endif; ?>
                             <?php if($vrac->isEditable() && !$hasNextVersion): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" style="font-size: 12px;" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
-                            <?php endif; ?>  
+                            <?php endif; ?>
 				        </div>
 				    <?php endif; ?>
                 </div>
-            
+
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>
-                
-    
+
+
 			    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE)): ?>
 			        <div class="ligne_form_btn" style="margin: 0;">
-			        	
+
 				        		<?php if($hasNextVersion): ?>
 				        			<button id="btn_editer_contrat"  class="modifier" style="font-size: 12px; float: none; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</button>
 				        		<?php else: ?>
 			            <form method="get" action="<?php echo url_for('vrac_modificative', $vrac) ?>">
 			                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size:12px; float: none;">Soumettre un contrat modificatif</button>
 						</form>
-						
+
 			    			<?php endif; ?>
 			        </div>
 			    <?php endif; ?>
-    
+
                 <div class="ligne_form_btn">
 					<?php if ($etablissement): ?>
 						<a href="<?php echo url_for("vrac_etablissement", array('identifiant' => $etablissement->identifiant)) ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
 					<?php else: ?>
 						<a href="<?php echo url_for("vrac_admin") ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
 					<?php endif; ?>
-					<?php if ($vrac->isValide()): ?>
+					<?php if ($vrac->isValide() && $vrac->valide->statut != VracClient::STATUS_CONTRAT_ANNULE): ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Contrat</span></a>
 					<?php if ($vrac->has_transaction): ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf_transaction', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Transaction</span></a>
 					<?php endif; ?>
 					<?php endif; ?>
 				</div>
-            </div> 
+            </div>
         </section>
     </div>
 </div>

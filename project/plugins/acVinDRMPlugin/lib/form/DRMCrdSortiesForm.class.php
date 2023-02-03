@@ -12,7 +12,10 @@ class DRMCrdSortiesForm  extends acCouchdbObjectForm {
 
     	$this->setWidget('manquantes', new sfWidgetFormInput());
     	$this->setValidator('manquantes', new sfValidatorInteger(array('required' => false)));
-    	
+
+    	$this->setWidget('autres', new sfWidgetFormInput());
+    	$this->setValidator('autres', new sfValidatorInteger(array('required' => false)));
+
         $this->widgetSchema->setNameFormat('drm_crd_sorties[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }

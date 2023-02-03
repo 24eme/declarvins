@@ -84,10 +84,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function isNegoce() {
+        if (!$this->declarant->famille) {
+            $this->setEtablissementInformations();
+        }
         return $this->declarant->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $this->declarant->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR;
     }
 
     public function isProducteur() {
+        if (!$this->declarant->famille) {
+            $this->setEtablissementInformations();
+        }
         return $this->declarant->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR;
     }
 
@@ -189,7 +195,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
-            if (($d->getTotalVrac() && $d->canHaveVrac()) || count($d->vrac->toArray()) > 0) {
+            if (($d->getTotalVrac() && $d->canHaveVrac()) || ($d->hasVracs())) {
                 $details[] = $d;
             }
         }
@@ -1833,7 +1839,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       foreach ($this->getDetails($interpro) as $detail) {
           foreach(self::$mvtsSurveilles as $mvtLibelle => $mvtHash) {
               if ($detail->get($mvtHash) > 0) {
-                  $volumes[$detail->getLibelle().' - '.$mvtLibelle] = $detail->get($mvtHash);
+                  $volumes[$detail->getFormattedLibelle().' - '.$mvtLibelle] = $detail->get($mvtHash);
               }
           }
       }
@@ -1848,5 +1854,76 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
           }
       }
       return $produits;
+  }
+
+  public static function getFactureCalculeeParameters($interpro = null) {
+      $filters_parameters = [];
+      $filters_parameters['date_mouvement'] = date('Y-m-d');
+      $filters_parameters['date_facturation'] = date('Y-m-d');
+      $filters_parameters['message_communication'] = "";
+      $filters_parameters['type_document'] = GenerationClient::TYPE_DOCUMENT_FACTURES;
+      $filters_parameters['modele'] = "DRM";
+      $filters_parameters['seuil'] = FactureConfiguration::getInstance($interpro)->getSeuilMinimum();
+      $filters_parameters['interpro'] = $interpro;
+      return $filters_parameters;
+  }
+
+  public function getFactureCalculee($interpro = null, $withSeuil = false, $onlyMvts = []) {
+      $parameters = self::getFactureCalculeeParameters($interpro);
+      if (!$withSeuil && isset($parameters['seuil'])) {
+          unset($parameters['seuil']);
+      }
+      try {
+          $etablissement = $this->getEtablissement();
+      } catch (Exception $e) {
+          return null;
+      }
+      $societe = $etablissement->getSociete();
+      if (!$societe) {
+          return null;
+      }
+
+      $mvtsCalcules = $this->getMvtsViewCalcules($interpro, $onlyMvts);
+
+      if (!$mvtsCalcules) {
+          return null;
+      }
+
+      $mvtsCalcules = MouvementfactureFacturationView::getInstance()->buildMouvements($mvtsCalcules);
+
+      $mvts = FactureClient::getInstance()->filterWithParameters([$this->identifiant => $mvtsCalcules], $parameters);
+
+      $mvts = $mvts[$this->identifiant];
+
+      if(!$mvts || !count($mvts)) {
+          return null;
+      }
+
+      $facture = FactureClient::getInstance()->createDocFromMouvements($mvts, $societe, $parameters['modele'], $parameters['date_facturation'], $parameters['message_communication']);
+      return $facture;
+  }
+
+  public function getMvtsViewCalcules($interpro = null, $onlyMvts = []) {
+      $items = [];
+      $drmMvts = $this->getMouvements();
+      if (isset($drmMvts[$this->identifiant])) {
+          foreach($drmMvts[$this->identifiant] as $key => $mvt) {
+              if (!$mvt->facturable) continue;
+              if ($interpro && $interpro != $mvt->interpro) continue;
+              if ($onlyMvts && !in_array($key, $onlyMvts)) continue;
+              if (isset($items[$mvt->produit_libelle])) {
+                  $mvtValue = $items[$mvt->produit_libelle]->value;
+                  $mvtValue[2] += $mvt->volume*-1;
+                  $mvtValue[7][] = $this->_id.':'.$key;
+                  $items[$mvt->produit_libelle]->value = $mvtValue;
+                  continue;
+              }
+              $item = new stdClass();
+              $item->key = [$mvt->facture, $mvt->facturable, $mvt->region, $this->identifiant, $this->type, $mvt->categorie, $mvt->produit_hash, $this->periode, $mvt->date, $mvt->vrac_numero, $mvt->vrac_destinataire, $mvt->type_hash, $mvt->detail_identifiant, $mvt->type_drm];
+              $item->value = [$mvt->produit_libelle, $mvt->type_libelle, $mvt->volume*-1, $mvt->cvo, $mvt->vrac_destinataire, $mvt->detail_libelle, $this->_id, [$this->_id.':'.$key]];
+              $items[$mvt->produit_libelle] = $item;
+          }
+      }
+      return $items;
   }
 }

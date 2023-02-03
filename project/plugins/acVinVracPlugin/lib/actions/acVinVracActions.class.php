@@ -23,84 +23,69 @@ class acVinVracActions extends sfActions
 
 	public function executeIndex(sfWebRequest $request)
     {
-    	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        $this->etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'));
+    	if (!$this->etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		return $this->redirect('@acces_interdit');
     	}
-        $this->etablissement = null;
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->statut = $request->getParameter('statut');
-        $this->statut = ($this->statut)? $this->statut : 0;
-        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0, 'TOUS'))));
-        $this->configurationProduit = null;
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
+        if (!$this->statut) {
+            $this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
         }
+        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(true), array('TOUS'))));
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
+        $this->configurationProduit = ConfigurationProduitClient::getInstance()->find($this->interpro->configuration_produits);
+
         $this->vracs = array();
-        if ($this->statut === 'TOUS') {
-            $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro(0, $this->interpro->get('_id'));
-            foreach(VracClient::getInstance()->getStatusContrat() as $stat) {
-                $contrats = array_merge($contrats, VracHistoryView::getInstance()->findLastByStatutAndInterpro($stat, $this->interpro->get('_id')));
-            }
-        } else {
-                $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
-        }
-        foreach ($contrats as $contrat) {
-        		$this->vracs[$contrat->id] = $contrat;
-        }
-        uksort($this->vracs, array('VracClient', 'sortVracId'));
-        $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
-	    if ($request->isMethod(sfWebRequest::POST)) {
-	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
-	    		$this->form->bind($request->getParameter('etablissement_selection_nav'));
-	    	} else {
-	      	$this->form->bind($request->getParameter($this->form->getName()));
-	    	}
 
-	      if ($this->form->isValid()) {
-	        return $this->redirect("vrac_etablissement", $this->form->getEtablissement());
-	      }
-	    }
-    }
+		if ($this->statut === 'TOUS') {
+			$statuts = VracClient::getInstance()->getStatusContrat(true);
+		} elseif($this->statut === VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION) {
+			$statuts = [$this->statut, VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION];
+		} else {
+			$statuts = [$this->statut];
+		}
 
-    public function executeEtablissement(sfWebRequest $request)
-	{
-        $this->etablissement = $this->getRoute()->getEtablissement();
-        $this->statut = $request->getParameter('statut');
-        $this->statut = ($this->statut)? $this->statut : 0;
-        $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0, 'TOUS'))));
-        $this->configurationProduit = null;
+        foreach ($statuts as $statut) {
+                $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, $this->pluriannuel));
+                if(!$this->configurationVrac->isContratPluriannuelActif()) {
+                    $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, 1));
+                }
+        }
+        usort($this->vracs, array('VracClient', 'sortVracId'));
+
+        $this->pluriannuels = [];
+        if($this->configurationVrac->isContratPluriannuelActif()) {
+            $this->pluriannuels = VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), VracClient::STATUS_CONTRAT_SOLDE, 1);
+            usort($this->pluriannuels, array('VracClient', 'sortVracId'));
+        }
+
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
+            $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+    	    if ($request->isMethod(sfWebRequest::POST)) {
+    	      	$this->form->bind($request->getParameter($this->form->getName()));
+    	        if ($this->form->isValid()) {
+    	            return $this->redirect("vrac_etablissement", ['identifiant' => $this->form->getEtablissement()->identifiant]);
+    	        }
+    	    }
         }
-		$this->vracs = array();
-        $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant)->rows);
-        foreach ($contrats as $contrat) {
-        	if (
-                ($this->statut === 'TOUS')||
-                (!$this->statut && (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT]||in_array($contrat->value[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION, VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))))||
-                ($this->statut === $contrat->value[VracHistoryView::VRAC_VIEW_STATUT])
-            ) {
-        		$this->vracs[$contrat->id] = $contrat;
-        	}
-        }
-        uksort($this->vracs, array('VracClient', 'sortVracId'));
-        $this->setTemplate('index');
-	}
+    }
 
 	public function executeNouveau(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
-		$vrac = $this->getNewVrac($this->etablissement);
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
+		$vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
 		$this->redirect(array('sf_route' => 'vrac_etape',
                               'sf_subject' => $vrac,
                               'step' => $this->configurationVracEtapes->next($vrac->etape),
-                              'etablissement' => $this->etablissement));
+                              'etablissement' => $this->etablissement,
+                              'pluriannuel' => $this->pluriannuel));
 	}
 
-	private function getNewVrac($etablissement)
+	private function getNewVrac($etablissement, $pluriannuel = 0)
 	{
 		$vrac = new Vrac();
 		$this->init($vrac, $etablissement);
@@ -108,6 +93,7 @@ class acVinVracActions extends sfActions
 		$vrac->numero_contrat = uniqid();
 		$vrac->add('referente', 1);
 		$vrac->add('version', null);
+		$vrac->contrat_pluriannuel = ($pluriannuel)? 1 : 0;
 		return $vrac;
 	}
 
@@ -127,7 +113,7 @@ class acVinVracActions extends sfActions
             $this->redirect('vrac_admin');
         }
 
-		$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
+		$this->redirect('vrac_etablissement', array('identifiant' => $this->etablissement->identifiant));
 	}
 
 	public function executeAnnexe(sfWebRequest $request)
@@ -221,6 +207,7 @@ class acVinVracActions extends sfActions
 		if (!$this->getUser()->getCompte()) {
 			throw new sfException('Compte required');
 		}
+		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
         $this->etablissement = $this->getRoute()->getEtablissement();
         if (!$this->etablissement) {
         	if ($etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'))) {
@@ -229,9 +216,11 @@ class acVinVracActions extends sfActions
         }
         $this->vrac = $this->getRoute()->getVrac();
         if ($this->vrac->isNew()) {
-        	$this->vrac = $this->getNewVrac($this->etablissement);
+        	$this->vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
         }
 		$this->init($this->vrac, $this->etablissement);
+		$this->pluriannuel = $this->vrac->isPluriannuel();
+        $this->referenceContratPluriannuel = $this->vrac->reference_contrat_pluriannuel;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->vrac->isValide() && !$this->vrac->hasVersion()) {
             return $this->redirect('vrac_valide_admin');
         }
@@ -492,6 +481,29 @@ class acVinVracActions extends sfActions
                               'etablissement' => $this->etablissement));
     }
 
+    public function executePluriannuel(sfWebRequest $request) {
+        $this->forward404Unless($this->vrac = VracClient::getInstance()->find($request->getParameter('contrat')));
+        $this->etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'));
+        $this->init($this->vrac, $this->etablissement);
+        $application = clone $this->vrac;
+        $application->cleanPluriannuel();
+        $application->etape = $this->configurationVracEtapes->next($this->configurationVracEtapes->getFirst());
+        $application->reference_contrat_pluriannuel = $this->vrac->numero_contrat;
+        $application->numero_contrat = VracClient::getInstance()->getNextNoContratApplication($this->vrac->numero_contrat);
+        $application->constructId();
+        $application->devalide();
+        if ($this->etablissement) {
+        	$application->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
+        } else {
+        	$application->vous_etes = null;
+        }
+        $application->save(false);
+        return $this->redirect(array('sf_route' => 'vrac_etape',
+                              'sf_subject' => $application,
+                              'step' => $this->configurationVracEtapes->next($this->configurationVracEtapes->getFirst()),
+                              'etablissement' => $this->etablissement));
+    }
+
 	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $user, $vrac)
 	{
 		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $user, $vrac);
@@ -575,9 +587,9 @@ class acVinVracActions extends sfActions
         $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/IGP/genres/TRANQ/appellations/MED/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose');
         $result= array();
         foreach($contrats as $c){
-			$result[$c->id]['numero'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_NUM];
-            $result[$c->id]['acheteur'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_ACHETEUR_NOM];
-			$result[$c->id]['volume'] = $c->value[VracSoussigneIdentifiantView::VRAC_VIEW_VOLPROP];
+			$result[$c->id]['numero'] = $c->value[VracHistoryView::VRAC_VIEW_NUM];
+            $result[$c->id]['acheteur'] = $c->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM];
+			$result[$c->id]['volume'] = $c->value[VracHistoryView::VRAC_VIEW_VOLPROP];
         }
         $this->getResponse()->setContentType('application/json');
         $data_json=json_encode($result);

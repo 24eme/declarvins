@@ -1,5 +1,5 @@
-function(doc) { 
-	if (doc.type == "Vrac" && doc.valide.date_validation) { 
+function(doc) {
+	if (doc.type == "Vrac" && doc.valide.date_validation) {
 
 		var dateEnglishFormat = function(date) {
 			if (!date) {
@@ -38,7 +38,6 @@ function(doc) {
 			return d[0];
 		}
 
-		var vrac_campagne = getCampagne(doc.valide.date_validation);		
 		var vrac_id = doc.numero_contrat;
 		var vrac_version = (doc.version)? doc.version : null;
 		var vrac_referente = (doc.referente === null || doc.referente === undefined)? 1 : doc.referente;
@@ -46,6 +45,7 @@ function(doc) {
 		var vrac_date_stat = (doc.date_stats)? doc.date_stats : doc.valide.date_validation;
 		var vrac_date_stat_mois = getMois(vrac_date_stat);
 		var vrac_date_stat_annee = getAnnee(vrac_date_stat);
+		var vrac_campagne = getCampagne(vrac_date_stat);
 		var vrac_date_signature = (doc.date_signature)? doc.date_signature : doc.valide.date_validation;
 		var vrac_mode = doc.mode_de_saisie;
 		var vrac_date_validation = doc.valide.date_validation;
@@ -103,16 +103,18 @@ function(doc) {
 		}
 		var vrac_mentions_libelle = doc.mentions_libelle;
 		var vrac_cas_particulier = doc.cas_particulier;
-		var vrac_premiere_mise_en_marche = (doc.premiere_mise_en_marche)? 1 : 0;
-		var vrac_annexe = (doc.annexe)? 1 : 0;
+		var vrac_premiere_mise_en_marche = (doc.premiere_mise_en_marche && doc.premiere_mise_en_marche != "0")? 1 : 0;
+		var vrac_annexe = (doc.annexe && doc.annexe != "0")? 1 : 0;
 		var vrac_volume_propose = doc.volume_propose;
+		var vrac_volume_enleve = doc.volume_enleve;
 		var vrac_prix_unitaire = doc.prix_unitaire;
 		var vrac_type_prix = doc.type_prix;
 		var vrac_determination_prix = doc.determination_prix;
 		var vrac_determination_prix_date = doc.determination_prix_date;
-		var vrac_export = (doc.export)? 1 : 0;
+		var vrac_export = (doc.export && doc.export != "0")? 1 : 0;
 		var vrac_conditions_paiement = doc.conditions_paiement;
 		var vrac_reference_contrat_pluriannuel = doc.reference_contrat_pluriannuel;
+		var vrac_contrat_pluriannuel = (doc.contrat_pluriannuel && doc.contrat_pluriannuel==1)? 1 : 0;
 		var vrac_vin_livre = doc.vin_livre;
 		var vrac_date_debut_retiraison = doc.date_debut_retiraison;
 		var vrac_date_limite_retiraison = doc.date_limite_retiraison;
@@ -139,14 +141,14 @@ function(doc) {
 		var vrac_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
 		var vrac_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
 
-		var vrac_bailleur_metayer = (doc.bailleur_metayer)? 1 : 0;
+		var vrac_bailleur_metayer = (doc.bailleur_metayer && doc.bailleur_metayer != "0")? 1 : 0;
 		var vrac_oioc_date_reception = null;
 		var vrac_oioc_date_traitement = null;
 		if (doc.oioc) {
 			vrac_oioc_date_reception = (doc.oioc.date_reception)? doc.oioc.date_reception : null;
 			vrac_oioc_date_traitement = (doc.oioc.date_traitement)? doc.oioc.date_traitement : null;
 		}
-		
+
 		var vrac_addr_stockage_siret = doc.adresse_stockage.siret;
 		var vrac_addr_stockage_libelle = doc.adresse_stockage.libelle;
 		var vrac_addr_stockage_adresse = doc.adresse_stockage.adresse;
@@ -158,19 +160,27 @@ function(doc) {
 		if (vrac_addr_stockage_adresse || vrac_addr_stockage_code_postal || vrac_addr_stockage_commune) {
 			vrac_addr_stockage_has = 1;
 		}
-		
+
 		var vrac_prix_total = (vrac_prix_unitaire * vrac_volume_propose).toFixed(2);
-		
+
+
+		var vrac_prix_unitaire_hl = vrac_prix_unitaire;
+		var vrac_volume_total_hl = vrac_volume_propose;
+		if (doc.type_transaction == 'raisin') {
+			vrac_prix_unitaire_hl = (vrac_prix_unitaire_hl / 0.00778).toFixed(2);
+			vrac_volume_total_hl = (vrac_volume_total_hl * 0.00778).toFixed(2);
+		}
+
 		var nbItem = doc.lots.length;
-		
+
 		if (nbItem > 0) {
 			for (l in doc.lots) {
 				var vrac_lot_numero = doc.lots[l].numero;
-				var vrac_lot_assemblage = (doc.lots[l].assemblage)? 1 : 0;
+				var vrac_lot_assemblage = (doc.lots[l].assemblage && doc.lots[l].assemblage != "0")? 1 : 0;
 				var vrac_lot_degre = doc.lots[l].degre;
-				var vrac_lot_presence_allergenes = (doc.lots[l].presence_allergenes)? 1 : 0;
+				var vrac_lot_presence_allergenes = (doc.lots[l].presence_allergenes && doc.lots[l].presence_allergenes != "0")? 1 : 0;
 				var vrac_lot_bailleur = doc.lots[l].bailleur;
-				
+
 				var nbItem = doc.lots[l].cuves.length;
 				var vrac_lot_cuves_numero = '';
 				var vrac_lot_cuves_volume = '';
@@ -204,8 +214,8 @@ function(doc) {
 						}
 					}
 				}
-				
-				emit([doc.interpro, doc.valide.date_validation, doc._id, doc.produit], 
+
+				emit([doc.interpro, doc.valide.date_validation, doc._id, doc.produit],
                 		[vrac_id,
                 		 vrac_date_stat,
                 		 vrac_date_signature,
@@ -291,11 +301,15 @@ function(doc) {
 						 vrac_date_stat_mois,
 						 vrac_date_stat_annee,
 						 doc.type_retiraison,
-						 doc.delai_paiement
+						 doc.delai_paiement,
+						 vrac_prix_unitaire_hl,
+						 vrac_volume_total_hl,
+						 vrac_volume_enleve,
+						 vrac_contrat_pluriannuel
                 		 ]);
 			}
 		} else {
-			emit([doc.interpro, doc.valide.date_validation, doc._id, doc.produit], 
+			emit([doc.interpro, doc.valide.date_validation, doc._id, doc.produit],
             		[vrac_id,
             		 vrac_date_stat,
             		 vrac_date_signature,
@@ -381,8 +395,12 @@ function(doc) {
 					 vrac_date_stat_mois,
 					 vrac_date_stat_annee,
 					 doc.type_retiraison,
-					 doc.delai_paiement
+					 doc.delai_paiement,
+					 vrac_prix_unitaire_hl,
+					 vrac_volume_total_hl,
+					 vrac_volume_enleve,
+					 vrac_contrat_pluriannuel
             		 ]);
-		}                              
-	} 
+		}
+	}
 }

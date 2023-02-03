@@ -30,30 +30,32 @@
                     <?php endif; ?>
 	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
 	            </div>
-	            
+
 		        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés <a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_centilisations" href=""></a>:</p>
 		        <br />
-	            
+
 				<table id="lignes_crd" class="tableau_recap">
 					<thead>
                     	<tr>
                         	<th rowspan="2">Catégorie fiscale</th>
                             <th rowspan="2" style="width: 115px">Stock théorique Début de mois</th>
-                            <th colspan="3" style="width: 250px">Entrées</th>
-                            <th colspan="3" style="width: 250px">Sorties</th>
+                            <th colspan="4" style="width: 250px">Entrées</th>
+                            <th colspan="4" style="width: 250px">Sorties</th>
                             <th rowspan="2" style="width: 115px">Stock théorique Fin de mois</th>
                        </tr>
                     	<tr>
-                        	<th style="width: 70px; text-align: center;">Achats<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_achats" href=""></a></th>
-                            <th style="width: 70px">Excédents<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_excedents" href=""></a></th>
-                            <th style="width: 70px">Retours<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_retours" href=""></a></th>
-                            <th style="width: 70px">Utilisées<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_utilisees" href=""></a></th>
-                            <th style="width: 70px">Détruites<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_detruites" href=""></a></th>
-                            <th style="width: 70px">Manquantes<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_manquantes" href=""></a></th>
+                        	<th style="width: 70px; text-align: center; padding:0;">Achats<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_achats" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Excédents<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_excedents" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Retours<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_retours" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Autres<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_entreeautres" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Utilisées<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_utilisees" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Détruites<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_detruites" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Manquantes<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_manquantes" href=""></a></th>
+                            <th style="width: 70px;padding:0;">Autres<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_sortieautres" href=""></a></th>
                        </tr>
                    </thead>
                    <tbody>
-                   		
+
                        <?php $i=0; foreach ($form['crds'] as $key => $subform): ?>
                    		<tr<?php if ($i%2): ?> class="alt"<?php endif; ?>>
                    			<td>
@@ -62,14 +64,16 @@
                    				<?php endif; ?>
                    				<?php echo $drm->crds->get($key)->libelle; ?>
                    			</td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo $form['crds'][$key]['total_debut_mois'] ?></td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'achats') ?>"><?php echo $form['crds'][$key]['entrees']['achats']->render(array('class' => 'entrees')) ?></td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'excedents') ?>"><?php echo $form['crds'][$key]['entrees']['excedents']->render(array('class' => 'entrees')) ?></td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'retours') ?>"><?php echo $form['crds'][$key]['entrees']['retours']->render(array('class' => 'entrees')) ?></td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'utilisees') ?>"><?php echo $form['crds'][$key]['sorties']['utilisees']->render(array('class' => 'sorties')) ?></td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'detruites') ?>"><?php echo $form['crds'][$key]['sorties']['detruites']->render(array('class' => 'sorties')) ?></td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'manquantes') ?>"><?php echo $form['crds'][$key]['sorties']['manquantes']->render(array('class' => 'sorties')) ?></td>
-                   			<td class="total_crd <?php echo isVersionnerCssClass($drm->crds->get($key), 'total_fin_mois') ?>"><?php echo $drm->crds->get($key)->total_fin_mois; ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo $form['crds'][$key]['total_debut_mois'] ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'achats') ?>"><?php echo $form['crds'][$key]['entrees']['achats']->render(array('class' => 'entrees')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'excedents') ?>"><?php echo $form['crds'][$key]['entrees']['excedents']->render(array('class' => 'entrees')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'retours') ?>"><?php echo $form['crds'][$key]['entrees']['retours']->render(array('class' => 'entrees')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'autres') ?>"><?php echo $form['crds'][$key]['entrees']['autres']->render(array('class' => 'entrees')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'utilisees') ?>"><?php echo $form['crds'][$key]['sorties']['utilisees']->render(array('class' => 'sorties')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'detruites') ?>"><?php echo $form['crds'][$key]['sorties']['detruites']->render(array('class' => 'sorties')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'manquantes') ?>"><?php echo $form['crds'][$key]['sorties']['manquantes']->render(array('class' => 'sorties')) ?></td>
+                   			<td style="padding:0;" class="<?php echo isVersionnerCssClass($drm->crds->get($key)->sorties, 'autres') ?>"><?php echo $form['crds'][$key]['sorties']['autres']->render(array('class' => 'sorties')) ?></td>
+                   			<td style="padding:0;" class="total_crd <?php echo isVersionnerCssClass($drm->crds->get($key), 'total_fin_mois') ?>"><?php echo $drm->crds->get($key)->total_fin_mois; ?></td>
                    		</tr>
                    		<?php $i++; endforeach; ?>
 				   </tbody>

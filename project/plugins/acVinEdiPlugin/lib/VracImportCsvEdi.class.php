@@ -34,7 +34,19 @@ class VracImportCsvEdi extends VracCsvEdi {
     {
         return $this->getCsv($this->csvDoc->getFileContent());
     }
-    
+
+    public function needTraitement() {
+        if ($this->vrac->isNew()) return true;
+    	foreach ($this->getDocRows() as $csvRow) {
+            if (preg_match('/^#/', $csvRow[self::CSV_VISA])) {
+                continue;
+            }
+        	$volume_propose = ($csvRow[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($csvRow[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
+        	$volume_enleve = ($csvRow[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($csvRow[self::CSV_CAVE_VOLRETIRE]), 2) : 0;
+    	}
+        return ($this->vrac->volume_propose == $volume_propose && $this->vrac->volume_enleve == $volume_enleve)? false : true;
+    }
+
     public function checkCSV() {
         $this->csvDoc->clearErreurs();
         $this->checkCSVIntegrity();

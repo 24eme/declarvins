@@ -10,7 +10,7 @@
 <form method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>" enctype="multipart/form-data">
  <?php echo $form->renderHiddenFields() ?>
  <?php echo $form->renderGlobalErrors() ?>
-<h1 style="margin: 0px 0px 0px 0px">Clauses</h1>
+<h1 style="margin: 0px 0px 0px 0px">Clauses<?php if ($form->getObject()->isAdossePluriannuel() && $form->configuration->isContratPluriannuelActif()): ?> prédéfinies dans le contrat pluriannuel cadre<?php endif; ?></h1>
 <?php foreach ($clauses as $k => $clause): ?>
     <h2><?= $clause['nom'] ?></h2>
     <p><?= $clause['description'] ?></p>
@@ -37,7 +37,15 @@
         <?php echo $form['clause_resiliation_indemnite']->render() ?>
     </div>
     <?php endif; ?>
-
+    <?php endif; ?>
+    <?php if ($k == 'revision_prix'): ?>
+    <?php if (isset($form['clause_revision_prix'])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_revision_prix']->renderError() ?>
+        <?php echo $form['clause_revision_prix']->renderLabel() ?>
+        <?php echo $form['clause_revision_prix']->render() ?>
+    </div>
+    <?php endif; ?>
     <?php endif; ?>
     <?php if ($k == 'liberte_contractuelle'): ?>
 
@@ -53,8 +61,10 @@
 <?php if (count($clauses_complementaires) > 0): ?>
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
 	<?php
+    $clausesMask = $configurationVrac->getClausesMask($form->getObject()->getClausesMaskConf())->getRawValue();
     foreach ($clauses_complementaires as $key => $clause):
-        if ($key == 'transfert_propriete' && $form->getObject()->type_transaction != 'vrac') continue;
+        if (in_array($key, $clausesMask)) continue;
+        if (!isset($form[$key])) continue;
     ?>
 
     <h2><?= $clause['nom'] ?></h2>
@@ -67,7 +77,7 @@
 <?php endforeach; ?>
 <?php endif; ?>
 <?php if ($configurationVrac->informations_complementaires): ?>
-<h1 style="margin: 20px 0 20px 0;">Informations complémentaires</h1>
+<h1 style="margin: 15px 0 0 0;"><?php echo $form->getComplementsTitle() ?></h1>
 <div id="informations_complementaires">
 <?= html_entity_decode($configurationVrac->informations_complementaires); ?>
 </div>

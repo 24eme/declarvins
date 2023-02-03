@@ -162,6 +162,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 97. Stock acquitté théorique fin de mois
 98. Montant de l'avoir (Volume entrée Replacement en suspension CRD x CVO Taux)
 99. Volume sortie Vrac Export
+100. Hash produit
 
 ### Format d'export des DRM orienté CIEL
 
@@ -280,6 +281,7 @@ VRAC_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.
 86. Prix Unitaire HL : Prix unitaire net HT hors cotisation en HL estimé pour le raisin (= prix unitaire pour le vrac et mout)
 87. Volume total du contrat en HL : Volume total du contrat en HL pour le raisin (= volume total du contrat pour le vrac et mout)
 88. Volume enlevé du contrat en HL : Volume enlevé du contrat en HL
+89. Contrat pluriannuel : 0 ou 1
 
 
    [1]: https://fr.wikipedia.org/wiki/Authentification_HTTP

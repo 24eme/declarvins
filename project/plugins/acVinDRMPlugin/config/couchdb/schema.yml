@@ -649,6 +649,7 @@ DRM:
                         achats: { type: float }
                         excedents: { type: float }
                         retours: { type: float }
+                        autres: { type: float }
                   sorties:
                     type: collection
                     definition:
@@ -656,3 +657,4 @@ DRM:
                         utilisees: { type: float }
                         detruites: { type: float }
                         manquantes: { type: float }
+                        autres: { type: float }

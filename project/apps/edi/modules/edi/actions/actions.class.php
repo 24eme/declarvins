@@ -992,7 +992,20 @@ class ediActions extends sfActions
   		$drms = array();
   		$squeeze = null;
 		$numberValues = DRMDateView::numberValues();
+        $conf = ConfigurationClient::getCurrent();
   		foreach ($items as $item) {
+            if ($item->value[DRMDateView::VALUE_TYPE] != 'DETAIL') {
+                $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT] = null;
+            }
+            $libelle = '';
+            $hash = substr($item->key[DRMDateView::KEY_DETAIL_HASH], 0, strpos($item->key[DRMDateView::KEY_DETAIL_HASH], '/details/'));
+            if ($hash && ($confProduit = $conf->getConfigurationProduit($hash))) {
+                $libelle = $confProduit->getLibelleFormat(array(), "%format_libelle%");
+                if ($item->value[DRMDateView::VALUE_LABELS_CODE]) {
+                    $libelle .= ' '.str_replace('|', ', ', $item->value[DRMDateView::VALUE_LABELS_CODE]);
+                }
+            }
+            $item->value[DRMDateView::VALUE_DETAIL_HASH_PRODUIT_GENERATED] = ($libelle)? md5($libelle) : '';
             if ($interpro == 'INTERPRO-IR' && $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]) {
                 $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT];
             }

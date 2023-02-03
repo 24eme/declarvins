@@ -267,30 +267,34 @@
         <tr>
             <th rowspan="2" style="width: 285px">Catégorie fiscale</th>
             <th rowspan="2" style="width: 105px; text-align: center;">Stock théorique Début de mois</th>
-            <th colspan="3" style="width: 250px; text-align: center;">Entrées</th>
-            <th colspan="3" style="width: 250px; text-align: center;">Sorties</th>
+            <th colspan="4" style="width: 240px; text-align: center;">Entrées</th>
+            <th colspan="4" style="width: 240px; text-align: center;">Sorties</th>
             <th rowspan="2" style="width: 105px; text-align: center;">Stock théorique Fin de mois</th>
         </tr>
         <tr>
-            <th style="width: 70px; text-align: center;">Achats</th>
-            <th style="width: 70px; text-align: center;">Excédents</th>
-            <th style="width: 70px; text-align: center;">Retours</th>
-            <th style="width: 70px; text-align: center;">Utilisées</th>
-            <th style="width: 70px; text-align: center;">Détruites</th>
-            <th style="width: 70px; text-align: center;">Manquantes</th>
+            <th style="width: 60px; text-align: center;">Achats</th>
+            <th style="width: 60px; text-align: center;">Excédents</th>
+            <th style="width: 60px; text-align: center;">Retours</th>
+            <th style="width: 60px; text-align: center;">Autres</th>
+            <th style="width: 60px; text-align: center;">Utilisées</th>
+            <th style="width: 60px; text-align: center;">Détruites</th>
+            <th style="width: 60px; text-align: center;">Manquantes</th>
+            <th style="width: 60px; text-align: center;">Autres</th>
         </tr>
 		<?php foreach($drm->crds as $crd): ?>
 
 		<tr >
 			<td><?php echo $crd->libelle ?></td>
-            <td class="number detail"><strong><?php echo $crd->total_debut_mois ?></strong></td>
-			<td class="number detail"><?php echo $crd->entrees->achats ?></td>
-			<td class="number detail"><?php echo $crd->entrees->excedents ?></td>
-			<td class="number detail"><?php echo $crd->entrees->retours ?></td>
-			<td class="number detail"><?php echo $crd->sorties->utilisees ?></td>
-			<td class="number detail"><?php echo $crd->sorties->detruites ?></td>
-			<td class="number detail"><?php echo $crd->sorties->manquantes ?></td>
-			<td class="number detail"><strong><?php echo $crd->total_fin_mois ?></strong></td>
+            <td style="width: 105px;" class="number detail"><strong><?php echo $crd->total_debut_mois ?></strong></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->entrees->achats ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->entrees->excedents ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->entrees->retours ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->entrees->autres ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->sorties->utilisees ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->sorties->detruites ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->sorties->manquantes ?></td>
+			<td style="width: 60px;" class="number detail"><?php echo $crd->sorties->autres ?></td>
+			<td style="width: 105px;" class="number detail"><strong><?php echo $crd->total_fin_mois ?></strong></td>
 		</tr>
 
 		<?php endforeach; ?>

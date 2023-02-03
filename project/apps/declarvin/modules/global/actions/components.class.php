@@ -3,7 +3,7 @@
 class globalComponents extends sfComponents {
 
     public function executeNav() {
-        $this->with_etablissement = ($this->getRoute() instanceof InterfaceEtablissementRoute && $this->getRoute()->getEtablissement());
+        $this->with_etablissement = $this->with_etablissement || ($this->getRoute() instanceof InterfaceEtablissementRoute && $this->getRoute()->getEtablissement());
     }
 
     public function executeNavBack() {
@@ -16,7 +16,12 @@ class globalComponents extends sfComponents {
     }
 
     public function executeNavTop() {
-        $this->etablissement = $this->getRoute()->getEtablissement();
+        if ($this->getRoute() instanceof InterfaceEtablissementRoute)
+            $this->etablissement = $this->getRoute()->getEtablissement();
+        elseif ($identifiant = $this->getRequest()->getParameter('identifiant'))
+            $this->etablissement = EtablissementClient::getInstance()->retrieveById($identifiant);
+        else
+            $this->etablissement = null;
     	$this->configuration = ConfigurationClient::getCurrent();
     }
 

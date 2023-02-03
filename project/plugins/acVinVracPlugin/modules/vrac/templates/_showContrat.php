@@ -14,8 +14,8 @@
 						<?php echo $vrac->vendeur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->vendeur->num_accise)? ' ('.$vrac->vendeur->num_accise.')' : ''; ?>
-					<?php echo ($vrac->vendeur->famille)? ' - '.ucfirst(($vrac->vendeur->famille)) : ''; ?>
-					<?php echo ($vrac->vendeur->sous_famille)? ' '.ucfirst(($vrac->vendeur->sous_famille)) : ''; ?>
+					<?php echo ($vrac->vendeur->famille)? ' - '.EtablissementFamilles::getFamilleLibelle($vrac->vendeur->famille) : ''; ?>
+					<?php echo ($vrac->vendeur->sous_famille)? ' '.EtablissementFamilles::getSousFamilleLibelle($vrac->vendeur->famille, $vrac->vendeur->sous_famille) : ''; ?>
 					<?php echo ($vrac->vendeur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>
@@ -29,8 +29,8 @@
 						<?php echo $vrac->acheteur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->acheteur->num_accise)? ' ('.$vrac->acheteur->num_accise.')' : ''; ?>
-					<?php echo ($vrac->acheteur->famille)? ' - '.ucfirst(($vrac->acheteur->famille)) : ''; ?>
-					<?php echo ($vrac->acheteur->sous_famille)? ' '.ucfirst(($vrac->acheteur->sous_famille)) : ''; ?>
+					<?php echo ($vrac->acheteur->famille)? ' - '.EtablissementFamilles::getFamilleLibelle($vrac->acheteur->famille) : ''; ?>
+					<?php echo ($vrac->acheteur->sous_famille)? ' '.EtablissementFamilles::getSousFamilleLibelle($vrac->acheteur->famille, $vrac->acheteur->sous_famille) : ''; ?>
 					<?php echo ($vrac->acheteur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>
@@ -98,8 +98,14 @@
         <ul>
 			<li>
 				<span>Type de contrat :</span>
-				<span><?php if ($vrac->contrat_pluriannuel): ?>Adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?> (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php endif ?><?php else: ?>Ponctuel<?php endif; ?></span>
+				<span><?php if ($vrac->isAdossePluriannuel()): ?>Adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Ponctuel<?php endif; ?></span>
 			</li>
+            <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?>
+			<li>
+				<span>Campagnes d'application :</span>
+				<span>de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></span>
+			</li>
+            <?php endif; ?>
 		</ul>
     	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -142,10 +148,25 @@
 	<li>
 	    <h3>Volume / Prix</h3>
         <ul>
+            <?php if ($vrac->pourcentage_recolte): ?>
+			<li>
+				<span>Pourcentage de la récolte :</span>
+				<span><?php echo $vrac->pourcentage_recolte ?>%</span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->surface): ?>
+			<li>
+				<span>Surface concernée :</span>
+				<span><?php echo $vrac->surface ?> HA</span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->volume_propose): ?>
 			<li>
 				<span>Volume :</span>
 				<span><?php echo $vrac->volume_propose ?><?php if($vrac->type_transaction == 'raisin'): ?> Kg<?php else: ?> HL<?php endif; ?></span>
 			</li>
+            <?php endif; ?>
+            <?php if ($vrac->prix_unitaire): ?>
 			<li>
 				<span>Prix unitaire net :</span>
 				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
@@ -176,10 +197,25 @@
 				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
 			</li>
 			<?php endif; ?>
+            <?php endif; ?>
+            <?php if(!$vrac->contrat_pluriannuel): ?>
 			<li>
 				<span>Type de prix :</span>
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
 			</li>
+            <?php endif; ?>
+            <?php if ($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond && $vrac->isPluriannuel()): ?>
+			<li>
+				<span>Fourchette de prix :</span>
+				<span>entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> €/HL</span>
+			</li>
+            <?php endif; ?>
+            <?php if ($vrac->pluriannuel_clause_indexation): ?>
+			<li>
+				<span>Clause d'indexation des prix :</span>
+				<span><?php echo $vrac->pluriannuel_clause_indexation ?></span>
+			</li>
+            <?php endif; ?>
 			<?php if ($vrac->determination_prix_date): ?>
 			<li>
 				<span>Date de détermination du prix :</span>
@@ -207,7 +243,7 @@
 						<?php endif; ?>
 					</li>
 				<?php endif; ?>
-				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
+				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER && !$vrac->isPluriannuel()): ?>
 				<li>
 					<span>Echéancier :</span>
 					<span>
@@ -264,10 +300,12 @@
 				<span><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?></span>
 			</li>
 			<?php endif; ?>
+            <?php if($vrac->date_limite_retiraison): ?>
 			<li>
 				<span>Date limite de retiraison:</span>
 				<span><?php echo Date::francizeDate($vrac->date_limite_retiraison) ?></span>
 			</li>
+			<?php endif; ?>
 			<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 			<li>
 				<span>Clause de reserve de propriété:</span>
