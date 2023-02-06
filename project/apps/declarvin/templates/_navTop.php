@@ -44,11 +44,9 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
-        <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_DAE)): ?>
         <li<?php if ($active == 'dae'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>
         </li>
-        <?php endif; ?>
         <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($sf_user->getCompte()->getGerantInterpro()->_id, 'factures')): ?>
         <li<?php if ($active == 'factures'): ?> class="actif"<?php endif; ?>>
