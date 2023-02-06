@@ -19,7 +19,7 @@ done
 
 cat $TMPE/factures.csv|grep ";ECHEANCE;"|while read line; do cp $LATEX/$(ls $LATEX/|grep $(echo $line|cut -d";" -f4)|tail -n1) $TMPE/pdf/$(echo $line|cut -d";" -f4).pdf; done
 
-zip –r $TMPE/factures.zip $TMPE/pdf
+zip -r $TMPE/factures.zip $TMPE/pdf
 
 echo "$TMPE/factures.sage|factures.sage|Export JSON des factures"
 echo "$TMPE/factures.csv|factures.csv|Export CSV des factures"
