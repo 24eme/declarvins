@@ -43,10 +43,8 @@ all:
     facture-interpro-ir:
       type_cvo:
         identifiant_prefix: "D"
-      pdf_ligne_details: false
       ref_client_is_code_comptable: true
       pdf_nom_ref_client: "N° CLIENT"
-      seuil_minimum: 120
       paiements_actif: false
       pdf_ordre_cheque: 'Inter Rhône'
       pdf_nom_interpro: 'Inter Rhône'
