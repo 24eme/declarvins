@@ -348,6 +348,9 @@ class ImportEtablissementsCsv {
 		  				$etab->compte = $contrat->compte;
 		  			}
 		  			$etab->save();
+                    $societe = $etab->getGenerateSociete();
+                    $societe->save();
+                    $this->updateSepa($line, $societe);
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
@@ -359,9 +362,29 @@ class ImportEtablissementsCsv {
       		$interpro->save();
       	}
       	return $cpt;
-    }  
-    
-    private function updateCompte($line, $etablissement, $contrat, $ligne) 
+    }
+
+    private function updateSepa($line, $societe) {
+        $inactive = (!trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||!trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||!trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||!trim($line[EtablissementCsv::COL_RIB_CLE]));
+        $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe);
+        if ($inactive) {
+            if($mandatSepa) {
+                $mandatSepa->is_actif = 0;
+                $mandatSepa->save();
+            }
+            return;
+        }
+        if(!$mandatSepa) {
+            $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->createDoc($societe);
+        }
+        $mandatSepa->debiteur->banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
+        $mandatSepa->debiteur->iban = 'XXXX'.trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]).trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]).trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]).trim($line[EtablissementCsv::COL_RIB_CLE]);
+        $mandatSepa->is_actif = 1;
+        $mandatSepa->is_signe = 1;
+        $mandatSepa->save();
+    }
+
+    private function updateCompte($line, $etablissement, $contrat, $ligne)
     {
     	if ($contrat) {
     		if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
