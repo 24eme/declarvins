@@ -1,0 +1,14 @@
+all:
+  mandatsepa:
+    configuration:
+      is_active: false
+    configuration-interpro-ir:
+      is_active: true
+      mention_autorisation: "En signant ce formulaire de mandat, vous autorisez (A) Inter Rhône à envoyer des instructions à votre banque pour débiter votre compte, et (B) votre banque à débiter votre compte conformément aux instructions d'Inter Rhône."
+      delai_echeance_prelevement: '+30 days'
+      creancier:
+        identifiant_ics: ''
+        nom: 'Inter Rhône'
+        adresse: '6 Rue Des Trois Faucons'
+        code_postal: '84000'
+        commune: 'Avignon'

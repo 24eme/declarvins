@@ -244,8 +244,15 @@ class Etablissement extends BaseEtablissement {
 
     public function getGenerateSociete()
     {
-      $societe = new Societe();
-      $societe->addEtablissement($this);
+      $societe = $this->getSociete();
+      if (!$societe) {
+        $societe = new Societe();
+        $societe->addEtablissement($this);
+        $societe->add("date_creation", date('Y-m-d'));
+        $societe->constructId();
+        $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
+        $this->societe = $societe->_id;
+      }
       $societe->raison_sociale = $this->raison_sociale;
       $societe->type_societe = SocieteClient::TYPE_OPERATEUR;
       $societe->identifiant = $this->identifiant;
@@ -260,14 +267,10 @@ class Etablissement extends BaseEtablissement {
       $societe->siege->code_postal = $this->siege->code_postal;
       $societe->siege->commune = $this->siege->commune;
       $societe->siege->pays = $this->siege->pays;
-      $societe->add("date_creation", date('Y-m-d'));
-      $societe->constructId();
-      $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
       $societe->compte_societe = $this->compte;
       $societe->remove('contacts');
       $societe->add('contacts');
       $societe->contacts->getOrAdd($this->compte);
-      $this->societe = $societe->_id;
       return $societe;
     }
 

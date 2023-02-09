@@ -40,5 +40,13 @@ class EtablissementCsv {
     const COL_CORRESPONDANCES = 36;
     const COL_CHAMPS_COMPTE_CIEL = 37;
     const NB_COL = 38;
-}
 
+    const COL_TYPE_OPERATEUR = 38;
+    const COL_BANQUE_NOM = 39;
+    const COL_RIB_CODE_BANQUE = 40;
+    const COL_RIB_CODE_GUICHET = 41;
+    const COL_RIB_NUM_COMPTE = 42;
+    const COL_RIB_CLE = 43;
+    const COL_BANQUE_DEVISE = 44;
+    const COL_IBAN = 45;
+}
