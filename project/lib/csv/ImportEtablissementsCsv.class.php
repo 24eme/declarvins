@@ -378,7 +378,11 @@ class ImportEtablissementsCsv {
             $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->createDoc($societe);
         }
         $mandatSepa->debiteur->banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
-        $mandatSepa->debiteur->iban = 'XXXX'.trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]).trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]).trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]).trim($line[EtablissementCsv::COL_RIB_CLE]);
+        $codeBanque = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]), 5, '0', STR_PAD_LEFT);
+        $codeGuichet = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]), 5, '0', STR_PAD_LEFT);
+        $numCompte = str_pad(trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]), 11, '0', STR_PAD_LEFT);
+        $cle = str_pad(trim($line[EtablissementCsv::COL_RIB_CLE]), 2, '0', STR_PAD_LEFT);
+        $mandatSepa->debiteur->iban = 'XXXX'.$codeBanque.$codeGuichet.$numCompte.$cle;
         $mandatSepa->is_actif = 1;
         $mandatSepa->is_signe = 1;
         $mandatSepa->save();
