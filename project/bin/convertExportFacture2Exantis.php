@@ -76,7 +76,12 @@ function getAppellations() {
             foreach($certifications as $certification) {
                 foreach($certification->genres as $genre) {
                     foreach($genre->appellations as $appellation) {
-                        $appellations[$appellation->libelle] = $appellation->code;
+                        $tx = 0;
+                        if ($cvo = end($appellation->droits->cvo)) {
+                            $tx = $cvo->taux;
+                        }
+                        if ($tx > 0)
+                            $appellations[$certification->libelle.' '.$genre->libelle.' '.$appellation->libelle] = $appellation->code;
                     }
                 }
             }
