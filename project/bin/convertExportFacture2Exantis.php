@@ -39,7 +39,7 @@ function getDetail($tabLine) {
     return [
         "CodeArticle" => getCodeArticle($tabLine[4]),
         "Designation" => ($pos === false)? $tabLine[4] : trim(substr($tabLine[4], $pos+1)),
-        "Qte" => floatval($tabLine[20]),
+        "Qte" => round(floatval($tabLine[20]),2),
         "MontantHT" => round(floatval($tabLine[10]), 2),
         "TXcvo" => floatval($tabLine[21]),
         "AnneeDRM" => $annee,
