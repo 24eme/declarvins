@@ -347,10 +347,17 @@ class ImportEtablissementsCsv {
 		  			if ($contrat) {
 		  				$etab->compte = $contrat->compte;
 		  			}
-		  			$etab->save();
                     $societe = $etab->getGenerateSociete();
-                    $societe->save();
-                    $this->updateSepa($line, $societe);
+		  			$etab->save();
+                    $hasSociete = true;
+                    try {
+                        $societe->save();
+                    } catch(Exception $e) {
+                        $hasSociete = false;
+                    }
+                    if ($hasSociete) {
+                        $this->updateSepa($line, $societe);
+                    }
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
