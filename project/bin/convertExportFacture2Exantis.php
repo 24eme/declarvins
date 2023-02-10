@@ -19,7 +19,7 @@ function initFactureTab($tabLine) {
       "NombreEcheance" => 1,
   	  "Echeances" => [[
           "DateEcheance" => null,
-          "LibelleModeReglement" => "Cheque",
+          "LibelleModeReglement" => null,
   		  "MontantEcheance" => 0
   	  ]]
     ];
@@ -107,6 +107,7 @@ while($line = fgets(STDIN)) {
         $factures[$tabLine[3]]["TotalTTCDocument"] = round($factures[$tabLine[3]]["TotalTTCDocument"] + floatval($tabLine[10]), 2);
         $factures[$tabLine[3]]["Echeances"][0]["MontantEcheance"] = round($factures[$tabLine[3]]["Echeances"][0]["MontantEcheance"] + floatval($tabLine[10]), 2);
         $factures[$tabLine[3]]["Echeances"][0]["DateEcheance"] = date('d/m/Y', strtotime($tabLine[8]));
+        $factures[$tabLine[3]]["Echeances"][0]["LibelleModeReglement"] = ($tabLine[26] == 'PRELEVEMENT')? 'Traite' : 'Cheque';
         continue;
     }
     if ($tabLine[14] == 'LIGNE') {
