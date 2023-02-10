@@ -55,3 +55,4 @@ all:
       export_shell: "%sf_root_dir%/bin/exportExantis.sh"
       echeance: "+60 days"
       echeance_fin_de_mois: true
+      seuil_minimum: 50
