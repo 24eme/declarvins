@@ -369,8 +369,7 @@ class ImportEtablissementsCsv {
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe);
         if ($inactive) {
             if($mandatSepa) {
-                $mandatSepa->is_actif = 0;
-                $mandatSepa->save();
+                $mandatSepa->delete();
             }
             return;
         }
