@@ -10,7 +10,8 @@ rm -rf $TMP 2> /dev/null
 mkdir -p $TMPE $TMPE/pdf
 
 
-php symfony export:facture $SYMFONYTASKOPTIONS > $TMPE/factures.csv
+php symfony export:facture $SYMFONYTASKOPTIONS --interpro="INTERPRO-IR" > $TMPE/factures.csv
+
 cat $TMPE/factures.csv | php bin/convertExportFacture2Exantis.php > $TMPE/factures.json
 
 cat $TMPE/factures.csv | awk -F ';' '{print $14}' | sort | uniq | grep 2[0-9][0-9][0-9] | while read FACTUREID; do
