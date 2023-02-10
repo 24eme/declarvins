@@ -560,9 +560,6 @@ class DRMDetail extends BaseDRMDetail {
             if (!$mouvement) {
                 continue;
             }
-            if ($mouvement->facturable && ($mouvement->date < self::START_FACTURATION_MVT_AT)) {
-                $mouvement->facture = 1;
-            }
             if (is_array($mouvement)) {
                 foreach ($mouvement as $mouvement_vrac) {
                     $mouvements[$this->getDocument()->getIdentifiant()][$mouvement_vrac->getMD5Key()] = $mouvement_vrac;
