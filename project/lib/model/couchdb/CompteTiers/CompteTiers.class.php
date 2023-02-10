@@ -106,9 +106,6 @@ class CompteTiers extends BaseCompteTiers {
         if (strlen($phone) == 9 && preg_match('/^[64]/', $phone) )
         	$phone = '+33'.$phone;
 
-        if (!preg_match('/^\+/', $phone) || (strlen($phone) != 12 && preg_match('/^\+33/', $phone)))
-        	echo("$phone n'est pas un téléphone correct\n");
-
         return $phone;
     }
 
