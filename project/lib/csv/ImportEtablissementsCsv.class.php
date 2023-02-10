@@ -371,8 +371,15 @@ class ImportEtablissementsCsv {
       	return $cpt;
     }
 
+    public function isZero($val) {
+        if (!$val||!trim($val)||trim($val)=="0"||(is_numeric(trim($val)) && !intval(trim($val))))
+            return true;
+        else
+            return false;
+    }
+
     private function updateSepa($line, $societe) {
-        $inactive = (!trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||!trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||!trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||!trim($line[EtablissementCsv::COL_RIB_CLE]));
+        $inactive = ($this->isZero($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||$this->isZero($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||$this->isZero($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||$this->isZero($line[EtablissementCsv::COL_RIB_CLE]));
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe);
         if ($inactive) {
             if($mandatSepa) {
