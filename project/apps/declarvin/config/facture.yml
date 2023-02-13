@@ -44,8 +44,8 @@ all:
     facture-interpro-ir:
       type_cvo:
         identifiant_prefix: "D"
-      ref_client_is_code_comptable: true
-      pdf_nom_ref_client: "N° CLIENT"
+      ref_client_is_code_comptable: false
+      pdf_nom_ref_client: "N° CHAI"
       paiements_actif: false
       pdf_ordre_cheque: 'Inter Rhône'
       pdf_nom_interpro: 'Inter Rhône'
