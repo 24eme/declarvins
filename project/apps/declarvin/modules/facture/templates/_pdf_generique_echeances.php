@@ -16,7 +16,7 @@ $echeances = $facture->getEcheancesPapillon();
         \CutlnPapillonEntete
         <?php if($facture->getNbPaiementsAutomatique()): ?>
           &
-          \centering \fontsize{7}{8}\selectfont Par traite sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\  \textbf{RIB~}:<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?>~ &
+          \centering \fontsize{7}{8}\selectfont Par traite sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\  \textbf{RIB~}:<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?> \\ ~ &
 
            \centering \small{Echéance} &
            \centering \small{Client~/~Facture} &
