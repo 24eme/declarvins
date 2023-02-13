@@ -389,6 +389,7 @@ class ImportEtablissementsCsv {
         }
         if(!$mandatSepa) {
             $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->createDoc($societe);
+            $mandatSepa->add('interpro', trim($line[EtablissementCsv::COL_INTERPRO]));
         }
         $mandatSepa->debiteur->banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
         $codeBanque = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]), 5, '0', STR_PAD_LEFT);
