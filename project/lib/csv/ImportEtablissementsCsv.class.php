@@ -380,7 +380,7 @@ class ImportEtablissementsCsv {
 
     private function updateSepa($line, $societe) {
         $inactive = ($this->isZero($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||$this->isZero($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||$this->isZero($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||$this->isZero($line[EtablissementCsv::COL_RIB_CLE]));
-        $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe);
+        $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
         if ($inactive) {
             if($mandatSepa) {
                 $mandatSepa->delete();
