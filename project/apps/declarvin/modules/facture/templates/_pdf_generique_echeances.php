@@ -16,14 +16,14 @@ $echeances = $facture->getEcheancesPapillon();
         \CutlnPapillonEntete
         <?php if($facture->getNbPaiementsAutomatique()): ?>
           &
-          \centering \fontsize{7}{8}\selectfont Par traite sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\  \textbf{RIB~}:<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?> \\ ~ &
+          \centering \fontsize{7}{8}\selectfont \textbf{Prélevé} sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\ ~ &
 
            \centering \small{Echéance} &
            \centering \small{Client~/~Facture} &
            \multicolumn{1}{c}{\small{Montant TTC}} \\
 
                        \centering \small{~} &
-                       \centering \fontsize{7}{8}\selectfont Par chèque à l'ordre : <?php echo ($chequesOrdre)? $chequesOrdre : "Ordre chèque"; ?> ~ &
+                       \centering \fontsize{7}{8}\selectfont \textbf{RIB~}:<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?>~ &
 
                   \centering \small{\textbf{<?php echo format_date($facture->date_echeance,'dd/MM/yyyy'); ?>}} &
                   \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
@@ -33,14 +33,14 @@ $echeances = $facture->getEcheancesPapillon();
         <?php else: ?>
         <?php $nb = count($echeances) ; foreach ($echeances as $key => $papillon) : ?>
         &
-   \centering \fontsize{7}{8}\selectfont Par chèque à l'ordre : <?php echo ($chequesOrdre)? $chequesOrdre : "Ordre chèque"; ?> \\ ~ &
+   \centering \fontsize{7}{8}\selectfont \textbf{Par chèque} à l'ordre : <?php echo ($chequesOrdre)? $chequesOrdre : "Ordre chèque"; ?> ~ &
 
     \centering \small{Echéance} &
     \centering \small{Client~/~Facture} &
     \multicolumn{1}{c}{\small{Montant TTC}} \\
 
                 \centering \small{~} &
-                \centering \fontsize{7}{8}\selectfont Par virement bancaire : \InterproBANQUE \\  \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN &
+                \centering \fontsize{7}{8}\selectfont « ou » \textbf{Par virement bancaire} : \InterproBANQUE \\  \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN &
 
                 \centering \small{\textbf{<?php echo format_date($papillon->echeance_date,'dd/MM/yyyy'); ?>}} &
                 \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
