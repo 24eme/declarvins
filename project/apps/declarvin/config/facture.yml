@@ -57,3 +57,4 @@ all:
       echeance: "+60 days"
       echeance_fin_de_mois: true
       seuil_minimum: 50
+      globalise_calcul_taxe: true
