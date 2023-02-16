@@ -355,7 +355,7 @@ class ImportEtablissementsCsv {
                     } catch(Exception $e) {
                         $hasSociete = false;
                     }
-                    if ($hasSociete) {
+                    if ($hasSociete && isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])) {
                         $this->updateSepa($line, $societe);
                     }
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
