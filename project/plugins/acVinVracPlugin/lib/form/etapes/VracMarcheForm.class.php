@@ -60,7 +60,7 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
             'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
             'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
-        	'clause_reserve_retiraison' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'clause_reserve_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
@@ -186,9 +186,6 @@ class VracMarcheForm extends VracForm
       if ($this->getObject()->determination_prix_date) {
       	$d = new DateTime($this->getObject()->determination_prix_date);
         $this->setDefault('determination_prix_date', $d->format('d/m/Y'));
-      }
-      if (is_null($this->getObject()->clause_reserve_retiraison)) {
-        $this->setDefault('clause_reserve_retiraison', 0);
       }
       if (is_null($this->getObject()->vin_livre)) {
         $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
