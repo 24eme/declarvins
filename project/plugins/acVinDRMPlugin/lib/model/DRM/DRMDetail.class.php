@@ -652,6 +652,7 @@ class DRMDetail extends BaseDRMDetail {
         if (preg_match('/^1[RBS].*M/', $this->getInao())) {
             return 'VM_IG_AOC';
         }
+        return null;
     }
 
     public function isInao() {
