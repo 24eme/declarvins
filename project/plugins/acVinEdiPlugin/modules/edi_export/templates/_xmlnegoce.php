@@ -31,7 +31,7 @@
   </droits-acquittes>
 <?php endif; ?>
   <droits-suspendus>
-<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getLibelleFiscal()) { continue; } ?>
+<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getLibelleFiscal(true)) { continue; } ?>
     <produit>
 	  <libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
 	  <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
