@@ -631,9 +631,27 @@ class DRMDetail extends BaseDRMDetail {
     	return $this->getTotalVrac() + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
 
-    public function getLibelleFiscal()
+    public function getLibelleFiscal($guess_if_empty = false)
     {
-    	return $this->getCepage()->getLibelleFiscal();
+    	$lib = $this->getCepage()->getLibelleFiscal();
+        if ($lib || !$guess_if_empty) {
+            return $lib;
+        }
+        if (!$this->isInao()) {
+            return null;
+        }
+        if (preg_match('/^3[RBS][^M]*$/', $this->getInao())) {
+            return 'VT_IG_IGP';
+        }
+        if (preg_match('/^1[RBS][^M]*$/', $this->getInao())) {
+            return 'VT_IG_AOC';
+        }
+        if (preg_match('/^3[RBS].*M/', $this->getInao())) {
+            return 'VM_IG_IGP';
+        }
+        if (preg_match('/^1[RBS].*M/', $this->getInao())) {
+            return 'VM_IG_AOC';
+        }
     }
 
     public function isInao() {
