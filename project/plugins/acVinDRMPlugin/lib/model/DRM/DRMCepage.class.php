@@ -132,7 +132,7 @@ class DRMCepage extends BaseDRMCepage {
 
 		if(preg_match("/(VINSSANSIG)/", $this->getCertification()->getKey()) && !in_array($this->getKey(),array("CEP", "DEFAUT", "SANSCEP", "SANS"))) {
 
-			return "V".$genreLF."_SANS_IG_CEPAGES";
+			return "V".$genreLF."_SANS_IG_CEPAGE";
 		} elseif(preg_match("/(VINSSANSIG)/", $this->getCertification()->getKey())) {
 
             return "V".$genreLF."_SANS_IG_AUTRES";
