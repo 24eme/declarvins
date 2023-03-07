@@ -66,8 +66,8 @@
                     if($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
                         $validated = false;
                     }
-                    if($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ANNULE) {
-                        $validated = true;
+                    if($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ANNULE && !$validated) {
+                        continue;
                     }
                     if($elt[VracHistoryView::VRAC_REF_PLURIANNUEL]) {
                         $isAdossePluriannuel = true;
