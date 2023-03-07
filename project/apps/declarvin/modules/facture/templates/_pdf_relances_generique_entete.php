@@ -3,7 +3,7 @@ use_helper('Display');
 use_helper('Date');
 ?>
 
-\def\FactureReglement{ <?php echo FactureConfiguration::getInstance()->getReglement(); ?> }
+\def\FactureReglement{ <?php echo $factureConfiguration->getReglement(); ?> }
 \def\TVA{20}
 \def\FactureNum{<?php echo $infos->id_relance; ?>}
 \def\FactureDate{<?php echo format_date($infos->date_relance,'dd/MM/yyyy'); ?>}
@@ -21,7 +21,7 @@ use_helper('Date');
 \\
 }
 
-\lhead{\includegraphics[width=20mm]{<?php echo realpath(dirname(__FILE__)."/../../../../../web/images")."/logo_ivse.png"; ?>}}
+\lhead{\includegraphics[width=45mm]{<?php echo realpath(dirname(__FILE__)."/../../../../../web/images")."/".$factureConfiguration->getPdfLogoInterpro(); ?>}}
 \rhead{
  \textbf{\NomInterpro} \\
  \InterproAdresse \\
@@ -43,7 +43,7 @@ use_helper('Date');
 	\begin{tikzpicture}
 		\node[inner sep=1pt] (tab0){
 			\begin{tabular}{*{2}{c|}c}
-  				\rowcolor{lightgray} \textbf{NUMERO} & \textbf{DATE} & \textbf{<?php echo escape_string_for_latex(FactureConfiguration::getInstance()->getNomRefClient()); ?>} \\
+  				\rowcolor{lightgray} \textbf{NUMERO} & \textbf{DATE} & \textbf{<?php echo escape_string_for_latex($factureConfiguration->getNomRefClient()); ?>} \\
   				\hline
   				\FactureNum & \FactureDate & \FactureRefClient
 			\end{tabular}
