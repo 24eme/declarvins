@@ -76,7 +76,7 @@
 			<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire || $isOperateur): ?>
 			<tr class="<?php echo $statusColor ?>" >
 			  <td class="text-center" style="padding: 0;">
-			  	<?php if (!$validated && $isOperateur): ?>
+			  	<?php if ((!$validated||$pluriannuel) && $isOperateur): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
                 <?php if (empty($statusColor)): ?>
