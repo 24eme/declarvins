@@ -16,7 +16,7 @@ csv = pd.read_csv("export_bi_drm.csv", encoding='iso-8859-1', delimiter=";", ind
 csv.to_sql('drm', con=engine, if_exists='replace')
 
 sys.stderr.write("export_bi_mouvements.csv\n")
-csv = pd.read_csv("export_bi_mouvements.csv", encoding='iso-8859-1', delimiter=";", index_col=False).rename(columns={'pays export (si export)': 'pays export', '#MOUVEMENT': "type de document"})
+csv = pd.read_csv("export_bi_mouvements.csv", encoding='iso-8859-1', delimiter=";", index_col=False, dtype={'type de mouvement': 'str', 'code produit': 'str', 'numero vrac du mouvement': 'str'}).rename(columns={'pays export (si export)': 'pays export', '#MOUVEMENT': "type de document"})
 csv.to_sql('mouvement', con=engine, if_exists='replace')
 
 sys.stderr.write("export_bi_etablissements.csv\n")
