@@ -233,6 +233,7 @@ class drmActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeMonEspace(sfWebRequest $request) {
+		ini_set('memory_limit', '256M');
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->updateLastDrmSession($this->etablissement);
         $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
