@@ -248,10 +248,10 @@ class Etablissement extends BaseEtablissement {
       if (!$societe) {
         $societe = new Societe();
         $societe->addEtablissement($this);
+        $societe->identifiant = $this->identifiant;
         $societe->add("date_creation", date('Y-m-d'));
         $societe->constructId();
         $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
-        $this->societe = $societe->_id;
       }
       $societe->raison_sociale = $this->raison_sociale;
       $societe->type_societe = SocieteClient::TYPE_OPERATEUR;
@@ -271,6 +271,9 @@ class Etablissement extends BaseEtablissement {
       $societe->remove('contacts');
       $societe->add('contacts');
       $societe->contacts->getOrAdd($this->compte);
+      if ($this->societe != $societe->_id) {
+          $this->societe = $societe->_id;
+      }
       return $societe;
     }
 
