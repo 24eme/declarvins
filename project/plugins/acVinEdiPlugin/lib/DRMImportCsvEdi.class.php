@@ -86,16 +86,36 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $this->drm->remove("declaration");
             $this->drm->add("declaration");
         }
-
-        foreach ($this->getDocRows() as $datas) {
-            $numLigne++;
-            if (preg_match('/^(...)?#/', $datas[self::CSV_TYPE])) {
+        $rows = $this->getDocRows();
+        $produits = [];
+        foreach ($rows as $row) {
+            if (strtoupper($row[self::CSV_TYPE]) != self::TYPE_CAVE) {
                 continue;
             }
+            if (!isset($produits[$this->getCacheKeyFromData($row)])) {
+                $produits[$this->getCacheKeyFromData($row)] = $row;
+            }
+            if (strpos(strtolower(trim($row[self::CSV_CAVE_CATEGORIE_MOUVEMENT])), 'stock') !== false && strtolower(trim($row[self::CSV_CAVE_TYPE_MOUVEMENT])) == 'total_debut_mois') {
+                $produits[$this->getCacheKeyFromData($row)] = '';
+            }
+        }
+        foreach($produits as $produit) {
+            if ($produit) {
+                $produit[self::CSV_CAVE_CATEGORIE_MOUVEMENT] = 'stocks';
+                $produit[self::CSV_CAVE_TYPE_MOUVEMENT] = 'total_debut_mois';
+                $produit[self::CSV_CAVE_VOLUME] = 0;
+                $rows[] = $produit;
+            }
+        }
+        foreach ($rows as $datas) {
+            $numLigne++;
             if (strtoupper($datas[self::CSV_TYPE]) != self::TYPE_CAVE) {
                 continue;
             }
-            if (!in_array(strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]), ['stocks', 'stock', 'entrees', 'entree'])) {
+            if (strpos(strtolower(trim($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT])), 'stock') === false) {
+                continue;
+            }
+            if (strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]) != 'total_debut_mois') {
                 continue;
             }
             $complement_libelle = null;
