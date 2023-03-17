@@ -1846,9 +1846,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       return $volumes;
   }
 
-  public function getProduitsReserveInterpro() {
+  public function getProduitsReserveInterpro($hash = null) {
       $produits = array();
       foreach($this->getProduitsCepages() as $p) {
+          if ($hash && strpos($p->getHash(), $hash) === false) continue;
           if ($p->hasReserveInterpro()) {
               $produits[] = $p;
           }
