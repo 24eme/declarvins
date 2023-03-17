@@ -16,7 +16,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
         <?php foreach ($produits as $p) : ?>
                     <tr>
                         <td style="text-align: left;"><?php echo $p->getLibelle(); ?></td>
-                        <td style="text-align: right;"><strong><?php echoLongFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
+                        <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
                     </tr>
         <?php endforeach; ?>
     </tbody>
