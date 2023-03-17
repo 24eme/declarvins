@@ -50,8 +50,12 @@
             	<a href="" data-popup="#raccourci_clavier" class="btn_popup" data-popup-config="configDefaut">Raccourcis clavier</a>
             
                 <?php include_partial('shortcutKeys') ?>
-                
-                <?php include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu, 
+
+                <?php foreach ($drm->getProduitsReserveInterpro($drm_lieu->getHash()) as $p): ?>
+                    <p style="text-align:center;border:1px solid red;padding:5px;margin:5px;">Votre volume de <?php echo $p->getLibelle(); ?> mis en réserve est de : <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</p>
+                <?php endforeach; ?>
+
+                <?php include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu,
                                                                    'config_lieu' => $config_lieu,
                                                                    'produits' => $produits,
                                                                    'form' => $form,
