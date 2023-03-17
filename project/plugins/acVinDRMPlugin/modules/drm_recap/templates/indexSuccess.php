@@ -1,3 +1,4 @@
+<?php use_helper('Float'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
