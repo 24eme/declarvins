@@ -10,7 +10,7 @@ function initFactureTab($tabLine) {
       "DateDocument" => date('d/m/Y', strtotime($tabLine[1])),
       "NumeroClientOrigine" => $tabLine[16],
       "NomClientDestination" => $tabLine[15],
-      "CodeDepotClientDestination" => (substr($tabLine[19], -3, 1) == '-')? substr($tabLine[19], 4, -8) : substr($tabLine[19], 4, -12),
+      "CodeDepotClientDestination" => $tabLine[27],
       "ReferenceDocument" => "DRM",
       "TotalHTDocument" => 0,
       "TotalTTCDocument" => 0,
