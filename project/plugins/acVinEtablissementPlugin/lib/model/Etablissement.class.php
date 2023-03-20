@@ -303,4 +303,15 @@ class Etablissement extends BaseEtablissement {
     public function getEmailTeledeclaration() {
        return null;
     }
+
+    public function getIdentifiantByInterpro($interpro) {
+        if ($this->exist('correspondances')) {
+            if ($this->correspondances->exist($interpro)) {
+                if ($identifiant = $this->correspondances->get($interpro)) {
+                    return $identifiant;
+                }
+            }
+        }
+        return $this->identifiant;
+    }
 }
