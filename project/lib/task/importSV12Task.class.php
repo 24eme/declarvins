@@ -70,7 +70,11 @@ EOF;
             continue;
         }
         $labels = $this->getLabels($datas[35]);
-        if ($etablissement = $conf->identifyEtablissement($cvi)) {
+        $etablissement = $conf->identifyEtablissement($cvi);
+        if (!$etablissement) {
+            $etablissement = EtablissementClient::getInstance()->find(trim($datas[3]));
+        }
+        if ($etablissement) {
             $key = $campagne.'-'.$cvi;
             if (!isset($result[$key])) {
                 $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
