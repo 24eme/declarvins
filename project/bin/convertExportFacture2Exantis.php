@@ -94,7 +94,7 @@ function getAppellations() {
 $appellations = getAppellations();
 global $appellations;
 $factures = [];
-while($line = fgets(STDIN)) {
+while($line = trim(fgets(STDIN))) {
     if (substr($line, 0, 3) != 'VEN') continue;
     $tabLine = explode(';', $line);
     if (!isset($factures[$tabLine[3]])) $factures[$tabLine[3]] = initFactureTab($tabLine);
