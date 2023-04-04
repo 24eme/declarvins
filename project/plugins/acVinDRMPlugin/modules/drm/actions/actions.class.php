@@ -587,7 +587,9 @@ class drmActions extends sfActions {
                 Email::getInstance()->volumesSurveilles($drm, $volumes, InterproClient::getInstance()->find($interpro));
             }
         }
-
+        if ($drm->hasUtilisationReserveInterpro()) {
+            Email::getInstance()->volumesReserveInterpro($drm);
+        }
     }
 
     private function updateLastDrmSession($etablissement) {
