@@ -488,6 +488,18 @@ class Email {
     	return $this->getMailer()->send($message);
     }
 
+    public function volumesReserveInterpro($drm)
+    {
+        $etablissement = $drm->getEtablissement();
+        $interpro = $etablissement->getInterproObject();
+        $from = $this->getFromEmailInterpros(array($interpro),true);
+        $to = array($interpro->email_contrat_inscription);
+    	$subject = "DeclarVins // DRM - Réserve interpro utilisée";
+    	$body = $this->getBodyFromPartial('volumes_reserve_interpro', array('drm' => $drm));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	return $this->getMailer()->send($message);
+    }
+
     public function prixNonCoherent($vrac)
     {
         $interpro = $vrac->getProduitInterpro();
