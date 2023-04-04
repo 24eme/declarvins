@@ -1857,6 +1857,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       return $produits;
   }
 
+  public function hasUtilisationReserveInterpro() {
+      foreach ($this->getProduitsReserveInterpro() as $produit) {
+          if ($produit->getVolumeCommercialisable() < 0) return true;
+      }
+      return false;
+  }
+
   public static function getFactureCalculeeParameters($interpro = null) {
       $filters_parameters = [];
       $filters_parameters['date_mouvement'] = date('Y-m-d');
