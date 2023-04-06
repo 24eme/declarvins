@@ -113,6 +113,11 @@ EOF;
     foreach($result as $sv12) {
         if (!$checkingMode) {
             $sv12->validate();
+            foreach($sv12->mouvements as $mouvements) {
+                foreach($mouvements as $mouvement) {
+                    $mouvement->add('interpro', "INTERPRO-$interpro");
+                }
+            }
             $sv12->save();
         }
         echo "SV12 created $sv12->_id\n";
