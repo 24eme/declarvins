@@ -25,10 +25,19 @@ $echeances = $facture->getEcheancesPapillon();
                        \centering \small{~} &
                        \centering \fontsize{7}{8}\selectfont \textbf{RIB~}:<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?>~ &
 
-                  \centering \small{\textbf{<?php echo format_date($facture->date_echeance,'dd/MM/yyyy'); ?>}} &
-                  \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
-                  \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}  \\
-
+                       <?php if ($multiEcheances = $facture->getEcheancesArray(true)): $first = true; foreach($multiEcheances as $echeance): ?>
+                              <?php if (!$first): ?>
+                              \centering \small{~} &
+                              \centering \small{~} &
+                              <?php endif; ?>
+                              \centering \small{\textbf{<?php echo format_date($echeance->echeance_date,'dd/MM/yyyy'); ?>}} &
+                              \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+                              \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($echeance->montant_ttc); ?>~\texteuro{}}}}  \\
+                       <?php $first = false; endforeach; else: ?>
+                              \centering \small{\textbf{<?php echo format_date($facture->date_echeance,'dd/MM/yyyy'); ?>}} &
+                              \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+                              \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}  \\
+                       <?php endif; ?>
 
         <?php else: ?>
         <?php $nb = count($echeances) ; foreach ($echeances as $key => $papillon) : ?>
@@ -40,12 +49,22 @@ $echeances = $facture->getEcheancesPapillon();
     \multicolumn{1}{c}{\small{Montant TTC}} \\
 
                 \centering \small{~} &
-                \centering \fontsize{7}{8}\selectfont « ou » \textbf{Par virement bancaire} : \InterproBANQUE \\  \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN &
+                \centering \fontsize{7}{8}\selectfont « ou » \textbf{Par virement bancaire} : \InterproBANQUE \\
+                \centering \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN &
 
+            <?php if ($multiEcheances = $facture->getEcheancesArray(true)): $first = true; foreach($multiEcheances as $echeance): ?>
+                   <?php if (!$first): ?>
+                   \centering \small{~} &
+                   \centering \small{~} &
+                   <?php endif; ?>
+                    \centering \small{\textbf{<?php echo format_date($echeance->echeance_date,'dd/MM/yyyy'); ?>}} &
+                    \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+                    \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($echeance->montant_ttc); ?>~\texteuro{}}}}  \\
+            <?php $first = false; endforeach; else: ?>
                 \centering \small{\textbf{<?php echo format_date($papillon->echeance_date,'dd/MM/yyyy'); ?>}} &
                 \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
                 \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}  \\
-
+            <?php endif; ?>
 
         <?php endforeach; ?>
       <?php endif; ?>
