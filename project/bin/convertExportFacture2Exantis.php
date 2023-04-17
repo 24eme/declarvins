@@ -16,12 +16,8 @@ function initFactureTab($tabLine) {
       "TotalTTCDocument" => 0,
       "NombreLignesDocument" => 0,
       "DocumentLigne" => [],
-      "NombreEcheance" => 1,
-  	  "Echeances" => [[
-          "DateEcheance" => null,
-          "LibelleModeReglement" => null,
-  		  "MontantEcheance" => 0
-  	  ]]
+      "NombreEcheance" => 0,
+  	  "Echeances" => []
     ];
 }
 
@@ -106,6 +102,7 @@ function getAppellations() {
 $appellations = getAppellations();
 global $appellations;
 $factures = [];
+$indEcheance = [];
 while($line = trim(fgets(STDIN))) {
     if (substr($line, 0, 3) != 'VEN') continue;
     $tabLine = explode(';', $line);
@@ -115,11 +112,17 @@ while($line = trim(fgets(STDIN))) {
         continue;
     }
     if ($tabLine[14] == 'ECHEANCE') {
+        if (!isset($indEcheance[$tabLine[3]])) {
+            $indEcheance[$tabLine[3]] = 0;
+            $factures[$tabLine[3]]["Echeances"][$indEcheance[$tabLine[3]]] = ["DateEcheance" => null, "LibelleModeReglement" => null, "MontantEcheance" => 0];
+        }
         $factures[$tabLine[3]]["TotalHTDocument"] = round($factures[$tabLine[3]]["TotalHTDocument"] + floatval($tabLine[10]), 2);
         $factures[$tabLine[3]]["TotalTTCDocument"] = round($factures[$tabLine[3]]["TotalTTCDocument"] + floatval($tabLine[10]), 2);
-        $factures[$tabLine[3]]["Echeances"][0]["MontantEcheance"] = round($factures[$tabLine[3]]["Echeances"][0]["MontantEcheance"] + floatval($tabLine[10]), 2);
-        $factures[$tabLine[3]]["Echeances"][0]["DateEcheance"] = date('d/m/Y', strtotime($tabLine[8]));
-        $factures[$tabLine[3]]["Echeances"][0]["LibelleModeReglement"] = (trim($tabLine[26]) == 'PRELEVEMENT')? 'Traite' : 'Cheque';
+        $factures[$tabLine[3]]["Echeances"][$indEcheance[$tabLine[3]]]["DateEcheance"] = date('d/m/Y', strtotime($tabLine[8]));
+        $factures[$tabLine[3]]["Echeances"][$indEcheance[$tabLine[3]]]["LibelleModeReglement"] = (trim($tabLine[26]) == 'PRELEVEMENT')? 'Traite' : 'Cheque';
+        $factures[$tabLine[3]]["Echeances"][$indEcheance[$tabLine[3]]]["MontantEcheance"] = round($factures[$tabLine[3]]["Echeances"][$indEcheance[$tabLine[3]]]["MontantEcheance"] + floatval($tabLine[10]), 2);
+        $indEcheance[$tabLine[3]]++;
+        $factures[$tabLine[3]]["NombreEcheance"]++;
         continue;
     }
     if ($tabLine[14] == 'LIGNE') {
