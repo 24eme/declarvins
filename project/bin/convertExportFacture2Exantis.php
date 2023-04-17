@@ -27,14 +27,26 @@ function initFactureTab($tabLine) {
 
 function getDetail($tabLine) {
     $pos = strpos($tabLine[4], '-');
-    if (substr($tabLine[19], -3, 1) == '-') {
-        $annee = substr($tabLine[19], -7, 4);
-        $mois = substr($tabLine[19], -2);
-        $version = "000";
+    if (strpos($tabLine[19], 'SV12') !== false) {
+        if (substr($tabLine[19], -5, 1) == '-') {
+            $annee = substr($tabLine[19], -9, 4);
+            $mois = null;
+            $version = "000";
+        } else {
+            $annee = substr($tabLine[19], -13, 4);
+            $mois = null;
+            $version = substr($tabLine[19], -3);
+        }
     } else {
-        $annee = substr($tabLine[19], -11, 4);
-        $mois = substr($tabLine[19], -6, 2);
-        $version = substr($tabLine[19], -3);
+        if (substr($tabLine[19], -3, 1) == '-') {
+            $annee = substr($tabLine[19], -7, 4);
+            $mois = substr($tabLine[19], -2);
+            $version = "000";
+        } else {
+            $annee = substr($tabLine[19], -11, 4);
+            $mois = substr($tabLine[19], -6, 2);
+            $version = substr($tabLine[19], -3);
+        }
     }
     return [
         "CodeArticle" => getCodeArticle($tabLine[4]),
