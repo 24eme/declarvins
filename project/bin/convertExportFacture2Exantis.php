@@ -11,7 +11,7 @@ function initFactureTab($tabLine) {
       "NumeroClientOrigine" => $tabLine[16],
       "NomClientDestination" => $tabLine[15],
       "CodeDepotClientDestination" => $tabLine[27],
-      "ReferenceDocument" => "DRM",
+      "ReferenceDocument" => substr($tabLine[19], 0, strpos($tabLine[19], '-')),
       "TotalHTDocument" => 0,
       "TotalTTCDocument" => 0,
       "NombreLignesDocument" => 0,
