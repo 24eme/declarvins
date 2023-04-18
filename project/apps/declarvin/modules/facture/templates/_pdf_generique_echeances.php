@@ -23,7 +23,7 @@ $echeances = $facture->getEcheancesPapillon();
            \multicolumn{1}{c}{\small{Montant TTC}} \\
 
                        \centering \small{~} &
-                       \centering \fontsize{7}{8}\selectfont \textbf{RIB~}:<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?>~ &
+                       \centering \fontsize{7}{8}\selectfont \textbf{RIB~}:~<?php echo $facture->getSociete()->getMandatSepa()->getRibFormate() ?>~ &
 
                        <?php if ($multiEcheances = $facture->getEcheancesArray(true)): $first = true; foreach($multiEcheances as $echeance): ?>
                               <?php if (!$first): ?>
