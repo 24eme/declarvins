@@ -142,6 +142,6 @@ EOF;
     foreach($labels as $label) {
         if (isset($labelsLibelles[$label])) $libelles[] = $labelsLibelles[$label];
     }
-    return trim($produit_libelle.' '.implode(', ', $libelles));
+    return trim(trim($produit_libelle).' '.implode(', ', $libelles));
   }
 }
