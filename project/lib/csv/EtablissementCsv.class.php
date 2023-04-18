@@ -49,4 +49,6 @@ class EtablissementCsv {
     const COL_RIB_CLE = 43;
     const COL_BANQUE_DEVISE = 44;
     const COL_IBAN = 45;
+
+    const COL_NB_PAIEMENT_SV12 = 46;
 }
