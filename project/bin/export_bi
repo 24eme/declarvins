@@ -12,15 +12,15 @@ fi
 
 INTERPRO=$1
 
-if [[ $INTERPRO -eq "IR" ]] ; then
+if [[ $INTERPRO == "IR" ]] ; then
     Z="RHONE"
 fi
 
-if [[ $INTERPRO -eq "CIVP" ]] ; then
+if [[ $INTERPRO == "CIVP" ]] ; then
     Z="PROVENCE"
 fi
 
-if [[ $INTERPRO -eq "IVSE" ]] ; then
+if [[ $INTERPRO == "IVSE" ]] ; then
     Z="IGP-IVSE"
 fi
 
