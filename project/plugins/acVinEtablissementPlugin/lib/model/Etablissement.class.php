@@ -263,10 +263,10 @@ class Etablissement extends BaseEtablissement {
       $societe->telephone = $this->telephone;
       $societe->fax = $this->fax;
       $societe->no_tva_intracommunautaire = $this->no_tva_intracommunautaire;
-      $societe->siege->adresse = $this->siege->adresse;
-      $societe->siege->code_postal = $this->siege->code_postal;
-      $societe->siege->commune = $this->siege->commune;
-      $societe->siege->pays = $this->siege->pays;
+      $societe->siege->adresse = ($this->comptabilite->adresse)? $this->comptabilite->adresse: $this->siege->adresse;
+      $societe->siege->code_postal = ($this->comptabilite->code_postal)? $this->comptabilite->code_postal : $this->siege->code_postal;
+      $societe->siege->commune = ($this->comptabilite->commune)? $this->comptabilite->commune : $this->siege->commune;
+      $societe->siege->pays = ($this->comptabilite->pays)? $this->comptabilite->pays : $this->siege->pays;
       $societe->compte_societe = $this->compte;
       $societe->remove('contacts');
       $societe->add('contacts');
