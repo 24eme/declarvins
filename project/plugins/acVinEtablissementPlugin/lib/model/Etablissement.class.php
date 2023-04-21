@@ -253,7 +253,7 @@ class Etablissement extends BaseEtablissement {
         $societe->constructId();
         $societe->commentaire = "Généré automatiquement a partir de l'établissement $this->_id";
       }
-      $societe->raison_sociale = $this->raison_sociale;
+      $societe->raison_sociale = ($this->nom)? $this->nom : $this->raison_sociale;
       $societe->type_societe = SocieteClient::TYPE_OPERATEUR;
       $societe->identifiant = $this->identifiant;
       $societe->siret = $this->siret;
