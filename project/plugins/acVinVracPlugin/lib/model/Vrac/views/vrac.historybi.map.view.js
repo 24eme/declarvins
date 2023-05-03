@@ -64,7 +64,8 @@ function(doc) {
      cmentions = (doc.mentions)? (doc.mentions).join('|') : null;
 
 	var campagne = "";
-	if (doc.valide.date_validation) { campagne = getCampagne(doc.valide.date_validation); }
+	if (doc.date_stats) { campagne = getCampagne(doc.date_stats); }
+	if (!campagne && doc.valide.date_validation) { campagne = getCampagne(doc.valide.date_validation); }
 	if (!campagne && doc.valide.date_saisie) { campagne = getCampagne(doc.valide.date_saisie); }
 
      emit([teledeclare, doc.valide.date_saisie, doc._id, doc.interpro], [campagne, doc.valide.statut, doc._id, doc.numero_contrat, archive, doc.acheteur_identifiant, doc.acheteur.raison_sociale, doc.vendeur_identifiant, doc.vendeur.raison_sociale, doc.mandataire_identifiant,doc.mandataire.raison_sociale, null, null, doc.type_transaction, doc.produit, doc.produit_libelle, doc.volume_propose, doc.volume_enleve, doc.prix_unitaire, doc.prix_unitaire, prix_variable, interne, original, ctype, doc.date_signature, doc.date_stats, doc.valide.date_saisie, doc.millesime, null, doc.domaine, doc.part_variable, doc.cvo_repartition, doc.cvo_nature, null, null, labels, clabels, mentions, cmentions, export, premiere_mise_en_marche, doc.type_prix, doc.cas_particulier]);
