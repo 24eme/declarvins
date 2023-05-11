@@ -244,6 +244,9 @@ class DRMDetail extends BaseDRMDetail {
         	if ($vrac->exist('referente') && $vrac->referente === 0) {
         		continue;
         	}
+            if (in_array($vrac->type_transaction, [VracClient::TYPE_TRANSACTION_RAISINS, VracClient::TYPE_TRANSACTION_MOUTS])) {
+                continue;
+            }
             $acheteur = '';
             if ($vrac->acheteur->nom) {
                 $acheteur .= $vrac->acheteur->nom;
