@@ -558,7 +558,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	}
       }
       if ($statut_valide) {
-      	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
+          if (in_array($this->type_transaction, [VracClient::TYPE_TRANSACTION_RAISINS, VracClient::TYPE_TRANSACTION_MOUTS])) {
+              $this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
+          } else {
+              $this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
+          }
     	$this->valide->date_validation = date('c');
     	$this->date_signature = $this->valide->date_validation;
     	if (!$this->hasVersion()) {
@@ -642,6 +646,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         } elseif (!$this->isPluriannuel() && $this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+        }
+
+        if (in_array($this->type_transaction, [VracClient::TYPE_TRANSACTION_RAISINS, VracClient::TYPE_TRANSACTION_MOUTS]) && $this->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
+            $this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         }
     }
 
