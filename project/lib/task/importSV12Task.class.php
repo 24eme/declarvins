@@ -15,6 +15,7 @@ class importSV12Task extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('checking', null, sfCommandOption::PARAMETER_REQUIRED, 'Cheking mode', 0),
       new sfCommandOption('campagne', null, sfCommandOption::PARAMETER_OPTIONAL, 'Campagne'),
+      new sfCommandOption('mvtsalwaysfactures', null, sfCommandOption::PARAMETER_OPTIONAL, 'Mvts'),
     ));
 
     $this->namespace        = 'import';
@@ -35,6 +36,7 @@ EOF;
     $interpro = str_replace('INTERPRO-', '', $arguments['interpro']);
     $checkingMode = $options['checking'];
     $campagneOpt = $options['campagne'];
+    $mvtsalwaysfacturesOpt = $options['mvtsalwaysfactures'];
 
     if (!file_exists($csvFile)) {
         echo "file doesn't exist";
@@ -112,6 +114,9 @@ EOF;
             foreach($sv12->mouvements as $mouvements) {
                 foreach($mouvements as $mouvement) {
                     $mouvement->add('interpro', "INTERPRO-$interpro");
+                    if ($mvtsalwaysfacturesOpt && $mouvement->facturable) {
+                        $mouvement->facture = 1;
+                    }
                 }
             }
             $sv12->save();
