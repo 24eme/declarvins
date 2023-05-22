@@ -49,21 +49,17 @@ EOF;
     foreach($items as $datas) {
         $campagne = $datas[1];
         $cvi = str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT);
-        $inao = $datas[16];
+        $idProduit = trim($datas[16]);
         if ($datas[19] != '15') {
             continue;
         }
         if ($campagneOpt && $campagneOpt != $campagne) {
             continue;
         }
-        if (!$inao||(!in_array($inao[0],[1,3]))) {
-            echo "product not importable $inao : $datas[17]\n";
-            continue;
-        }
         $volume = str_replace(',', '.', $datas[21])*1;
-        $produit = $conf->identifyProduct(null, "($inao)");
+        $produit = ($this->isHashProduit($idProduit))? $conf->identifyProduct($idProduit) : $conf->identifyProduct(null, "($idProduit)");
         if (!$produit) {
-            echo "product not found $inao : $datas[17]\n";
+            echo "product not found $idProduit : $datas[17]\n";
             continue;
         }
         if ($produit->getDocument()->interpro != "INTERPRO-$interpro") {
@@ -134,6 +130,16 @@ EOF;
           $labels[] = 'conv';
       }
       return $labels;
+  }
+
+  public function isHashProduit($str) {
+      $composants = ['certifications', 'genres', 'appellations', 'mentions', 'lieux', 'couleurs', 'cepages'];
+      foreach($composants as $composant) {
+          if (strpos($str, $composant) === false) {
+              return false;
+          }
+      }
+      return true;
   }
 
   public function getProduitLibelleWithLabel($produit_libelle, $labels) {
