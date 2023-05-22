@@ -74,25 +74,27 @@ EOF;
         }
         if ($etablissement) {
             $key = $campagne.'-'.$cvi;
+            $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
+            $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
             if (!isset($result[$key])) {
-                $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
-                if ($sv12->isValidee()) {
-                    echo "sv12 already valided $sv12->_id\n";
+                $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
+                if (!$sv12) {
+                    $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
+                }
+                if ($sv12->isValidee() && $sv12->contrats->exist($identifiant)) {
+                    echo "sv12 already valided $sv12->_id for contrat $identifiant\n";
                     continue;
+                }
+                if ($sv12->isValidee() && !$sv12->contrats->exist($identifiant)) {
+                    $sv12 = $sv12->generateModificative();
                 }
                 if ($sv12->isNew()) {
                     $sv12->constructId();
                     $sv12->storeContrats();
-                } else {
-                    $sv12->remove('contrats');
-                    $sv12->remove('totaux');
-                    $sv12->add('contrats');
-                    $sv12->add('totaux');
                 }
             } else {
                 $sv12 = $result[$key];
             }
-            $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
             $exist = $sv12->contrats->exist($identifiant);
             $sv12Contrat = $sv12->contrats->getOradd($identifiant);
             if (!$exist) {
