@@ -102,7 +102,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 37. Volume entrée Mvt. temporaire : Retour transfert de chai
 38. Volume entrée Replacement en suspension CRD
 39. Volume total des sorties
-40. Volume sortie Vrac DAA/DAE
+40. Volume sortie Vrac DAA/DAE (pour IR, cette colonne représente la somme des sortie Vrac DAA/DAE + sortie Vrac Export)
 41. Volume sortie Conditionné export
 42. Volume sortie DSA / tickets / factures
 43. Volume sortie CRD France
@@ -123,7 +123,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 58. Mode de saisie : PAPIER si saisie par l'interprofession, DTI si saisie par le déclarant, EDI si échange informatique avec logiciel déclarant
 59. CVO Code
 60. CVO Taux
-61. CVO Volume (40.Volume sortie Vrac DAA/DAE + 41.Volume sortie Conditionné export + 42.Volume sortie DSA / tickets / factures + 43.Volume sortie CRD France + 84.Volume sortie CRD Collectives acquittées + 99.Volume sortie Vrac Export)
+61. CVO Volume (40.Volume sortie Vrac DAA/DAE + 41.Volume sortie Conditionné export + 42.Volume sortie DSA / tickets / factures + 43.Volume sortie CRD France + 84.Volume sortie CRD Collectives acquittées + 99.Volume sortie Vrac Export (pour le CIVP))
 62. CVO Montant
 63. Campagne DRM
 64. ID de cette DRM : concaténation de DRM-IDDeclarant-AnnéeDRM-MoisDRM-RevisionDRM
@@ -161,7 +161,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 96. Volume acquitté sortie Autres
 97. Stock acquitté théorique fin de mois
 98. Montant de l'avoir (Volume entrée Replacement en suspension CRD x CVO Taux)
-99. Volume sortie Vrac Export
+99. Volume sortie Vrac Export (pour IR : ne pas prendre ce volume en compte, il est compris dans la ligne 40)
 100. Hash produit
 
 ### Format d'export des DRM orienté CIEL
