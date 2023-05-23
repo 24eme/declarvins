@@ -53,6 +53,13 @@ class acVinVracActions extends sfActions
                     $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, 1));
                 }
         }
+        if ($this->statut === 'TOUS') {
+            foreach($this->vracs as $k => $v) {
+                if (!$v->value[VracHistoryView::VRAC_REFERENTE]) {
+                    unset($this->vracs[$k]);
+                }
+            }
+        }
         usort($this->vracs, array('VracClient', 'sortVracId'));
 
         $this->pluriannuels = [];
