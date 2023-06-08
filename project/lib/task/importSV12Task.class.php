@@ -71,7 +71,14 @@ EOF;
             continue;
         }
         $labels = $this->getLabels($datas[35]);
-        $etablissement = $conf->identifyEtablissement($cvi);
+        $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi)->rows;
+        $etablissement = null;
+        foreach($etablissements as $e) {
+            $etab = EtablissementClient::getInstance()->find($e->id);
+            if ($etab->statut == Etablissement::STATUT_ARCHIVE) continue;
+            if ($etab->sous_famille !=  EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) continue;
+            $etablissement = $etab;
+        }
         if (!$etablissement) {
             $etablissement = EtablissementClient::getInstance()->find(trim($datas[3]));
         }
