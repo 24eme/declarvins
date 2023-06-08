@@ -60,6 +60,9 @@ EOF;
         }
         $volume = str_replace(',', '.', $datas[21])*1;
         $produit = ($this->isHashProduit($idProduit))? $conf->identifyProduct($idProduit) : $conf->identifyProduct(null, "($idProduit)");
+        if (!$produit && !$this->isHashProduit($idProduit) && substr($idProduit, -3, 1) == ' ' && strlen($idProduit) == 8) {
+            $produit = $conf->identifyProduct(null, "(".substr($idProduit, 0, 5).' 00'.")");
+        }
         if (!$produit) {
             echo "product not found $idProduit : $datas[17]\n";
             continue;
