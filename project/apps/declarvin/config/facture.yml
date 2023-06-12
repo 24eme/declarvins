@@ -45,6 +45,8 @@ all:
     facture-interpro-ir:
       type_cvo:
         identifiant_prefix: "D"
+      type_libre:
+        identifiant_prefix: "D"
       ref_client_is_code_comptable: false
       pdf_nom_ref_client: "N° CHAI / N° CLIENT"
       paiements_actif: false
