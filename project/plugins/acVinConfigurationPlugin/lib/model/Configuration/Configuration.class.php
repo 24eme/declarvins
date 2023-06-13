@@ -256,7 +256,7 @@ class Configuration extends BaseConfiguration {
     	return $this->getFormattedCouleursWithoutCode(null, array(ConfigurationZoneClient::ZONE_RHONE => $zone), false, "%g% %a% %m% %l% %co%", false,  $date, $exception);
     }
 
-    public function formatProduitsSV12($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false) {
+    public function formatProduitsSV12($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = true) {
         $zones = array(
             ConfigurationZoneClient::ZONE_RHONE => ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_RHONE),
             ConfigurationZoneClient::ZONE_IVSE => ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_IVSE)
