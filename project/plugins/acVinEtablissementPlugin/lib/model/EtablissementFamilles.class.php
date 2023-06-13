@@ -45,8 +45,8 @@ class EtablissementFamilles
     );
 
     protected static $droits = array (
-    	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DS),
-    	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DS),
+    	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DS, EtablissementDroit::DROIT_SV12),
+    	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DS, EtablissementDroit::DROIT_SV12),
         "producteur_vendeur_raisin" => array(EtablissementDroit::DROIT_VRAC),
     	"negociant" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
     	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCEUPLOAD),
