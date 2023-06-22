@@ -123,10 +123,10 @@ class VracMarcheValidator extends sfValidatorBase {
                     $limite = "$annee-09-30";
                     $date1 = new DateTime();
                     if ($this->vrac->contrat_pluriannuel||$this->vrac->isAdossePluriannuel()) {
-                        $limite = "$annee-09-30";
+                        $limite = "$annee-12-15";
                         if ($ref = $this->vrac->getContratPluriannelReferent()) {
                             if ($this->vrac->getCampagne() == $ref->pluriannuel_campagne_fin) {
-                                $limite = "$annee-12-15";
+                                $limite = "$annee-09-30";
                             }
                         }
                         $date2 = new DateTime("$annee-06-30");

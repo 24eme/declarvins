@@ -145,10 +145,10 @@
                 $date1->modify("+$nbJour day");
                 if ($form->getObject()->contrat_pluriannuel||$form->getObject()->isAdossePluriannuel()) {
                     $moitie = "30/06/$annee";
-                    $fin = "30/09/$annee";
+                    $fin = "15/12/$annee";
                     if ($ref = $form->getObject()->getContratPluriannelReferent()) {
                         if ($form->getObject()->getCampagne() == $ref->pluriannuel_campagne_fin) {
-                            $fin = "15/12/$annee";
+                            $fin = "30/09/$annee";
                         }
                     }
                 } else {
