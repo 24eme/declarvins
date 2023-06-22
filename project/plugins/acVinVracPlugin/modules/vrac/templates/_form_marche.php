@@ -137,15 +137,20 @@
 
                 <?php
                 $today = date('Y-m-d');
-                $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                $annee = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? (date('Y')+1) : date('Y');
+                $limite = "$annee-09-30";
                 $date1 = new DateTime();
                 $date2 = new DateTime($limite);
                 $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
                 $date1->modify("+$nbJour day");
-                if ($form->getObject()->contrat_pluriannuel) {
-                    $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? '30/06/'.(date('Y')+1) : '30/06/'.date('Y');
-                    $moitie = $limite;
-                    $fin = $limite;
+                if ($form->getObject()->contrat_pluriannuel||$form->getObject()->isAdossePluriannuel()) {
+                    $moitie = "30/06/$annee";
+                    $fin = "30/09/$annee";
+                    if ($ref = $form->getObject()->getContratPluriannelReferent()) {
+                        if ($form->getObject()->getCampagne() == $ref->pluriannuel_campagne_fin) {
+                            $fin = "15/12/$annee";
+                        }
+                    }
                 } else {
                     $moitie = $date1->format('d/m/Y');
                     $fin = $date2->format('d/m/Y');

@@ -119,22 +119,17 @@ class VracMarcheValidator extends sfValidatorBase {
                 }
                 if (!$this->ivse&&!$this->civp) {
                     $today = date('Y-m-d');
-
-                    if ($this->vrac->contrat_pluriannuel) {
-                        $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-12-15' : date('Y').'-12-15';
-                    } else {
-                        $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
-                    }
-
-                    if ($maxd > $limite) {
-                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
-                        $hasError = true;
-                    }
-
+                    $annee = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1) : date('Y');
+                    $limite = "$annee-09-30";
                     $date1 = new DateTime();
-                    if ($this->vrac->contrat_pluriannuel) {
-                        $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-06-30' : date('Y').'-06-30';
-                        $date2 = new DateTime($limite);
+                    if ($this->vrac->contrat_pluriannuel||$this->vrac->isAdossePluriannuel()) {
+                        $limite = "$annee-09-30";
+                        if ($ref = $this->vrac->getContratPluriannelReferent()) {
+                            if ($this->vrac->getCampagne() == $ref->pluriannuel_campagne_fin) {
+                                $limite = "$annee-12-15";
+                            }
+                        }
+                        $date2 = new DateTime("$annee-06-30");
                         $nbJour = ceil($date2->diff($date1)->format("%a"));
                     } else {
                         $date2 = new DateTime($limite);
@@ -152,6 +147,11 @@ class VracMarcheValidator extends sfValidatorBase {
 
                     if ($montantMoitie < round($montantTotal/2, 2)) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
+                        $hasError = true;
+                    }
+
+                    if ($maxd > $limite) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
                         $hasError = true;
                     }
                 }
