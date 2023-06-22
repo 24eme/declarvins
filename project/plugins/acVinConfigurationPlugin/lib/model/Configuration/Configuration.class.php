@@ -235,6 +235,14 @@ class Configuration extends BaseConfiguration {
         return $labels;
     }
 
+    public function getVracLabels() {
+        $vracLabels = array();
+        foreach ($this->vrac->interpro as $interpro => $configurationVrac) {
+            $vracLabels = array_merge($vracLabels, $configurationVrac->labels->toArray(true,false));
+        }
+        return $vracLabels;
+    }
+
     public function getConfigurationProduits($interpro) {
         $variable = '_configuration_produits_' . str_replace(Interpro::INTERPRO_KEY, '', $interpro);
         if (is_null($this->$variable)) {
