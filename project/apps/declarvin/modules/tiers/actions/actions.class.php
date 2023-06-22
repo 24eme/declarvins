@@ -270,11 +270,11 @@ class tiersActions extends sfActions
   public function executeRedirect2Stat(sfWebRequest $request)
   {
     $etablissement = $this->getRoute()->getEtablissement();
-    if (!$etablissement) {
+    if (!$etablissement and !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         $this->redirect('/');
     }
-    $_SESSION['etablissement_id'] = $etablissement->identifiant;
-    $this->redirect('/wine-tracker/?id='.$etablissement->identifiant);
+    $_SESSION['etablissement_id'] = $request->identifiant;
+    $this->redirect('/wine-tracker/?id='.$request->identifiant);
   }
 
 }
