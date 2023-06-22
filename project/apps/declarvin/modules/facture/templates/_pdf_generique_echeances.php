@@ -52,7 +52,7 @@ $echeances = $facture->getEcheancesPapillon();
                 \centering \fontsize{7}{8}\selectfont « ou » \textbf{Par virement bancaire} : \InterproBANQUE \\
                 \centering \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN &
 
-<?php if ($multiEcheances = $facture->getEcheancesArray(true)->getRawValue()): var_dump($multiEcheances); ?>
+<?php if ($multiEcheances = $facture->getEcheancesArray(true)->getRawValue()): ?>
 <?php
     $first = true;
     foreach($multiEcheances as $echeance):
