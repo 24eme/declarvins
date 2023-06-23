@@ -267,4 +267,15 @@ class tiersActions extends sfActions
   	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
   }
 
+  public function executeRedirect2Stat(sfWebRequest $request)
+  {
+    $identifiant = $request->getParameter('identifiant');
+    $etablissement = EtablissementClient::getInstance()->find($identifiant);
+    if (!$etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        $this->redirect('/');
+    }
+    $_SESSION['etablissement_id'] = $request->getParameter('identifiant');
+    $this->redirect('/wine-tracker/?id='.$request->getParameter('identifiant'));
+  }
+
 }
