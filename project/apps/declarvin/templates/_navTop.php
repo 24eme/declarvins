@@ -43,6 +43,16 @@ use_helper('Text');
             <a href="<?php echo url_for('ds_etablissement', $etablissement) ?>"><?php echo DSConfiguration::getInstance()->getName() ?></a>
         </li>
         <?php endif; ?>
+        <?php if ($etablissement->interpro == 'INTERPRO-IR'): ?>
+        <style><!--
+            #barre_navigation #nav_principale li.vrr a:hover {
+                background: url(../images/fonds/bg_nav_principale_vvr.png) left 0 no-repeat;
+            }
+        --></style>
+        <li class="vrr">
+            <a href="<?php echo url_for('redirect2stat', $etablissement); ?>">Statistiques</a>
+        </li>
+        <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
         <li<?php if ($active == 'dae'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>

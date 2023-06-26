@@ -219,6 +219,11 @@ profil_statut:
   param: { module: tiers, action: statut }
   requirements: { sf_method: ['get', 'post'] }
   options: { model: Etablissement, type: object }
+redirect2stat:
+  class: EtablissementRoute
+  url: /redirect2stat/:identifiant
+  param: { module: tiers, action: redirect2Stat }
+  options: { model: Etablissement, type: object }
 login:
   url: /login
   param: {module: acVinCompte, action: login}
