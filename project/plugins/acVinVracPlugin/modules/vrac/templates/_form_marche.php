@@ -145,6 +145,9 @@
                 $date1->modify("+$nbJour day");
                 if ($form->getObject()->contrat_pluriannuel||$form->getObject()->isAdossePluriannuel()) {
                     $moitie = "30/06/$annee";
+                    if (date('Ymd') > $annee.'0630') {
+                        $moitie = date("t/m/Y");
+                    }
                     $fin = "15/12/$annee";
                     if ($ref = $form->getObject()->getContratPluriannelReferent()) {
                         if ($form->getObject()->getCampagne() == $ref->pluriannuel_campagne_fin) {

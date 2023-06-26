@@ -129,7 +129,11 @@ class VracMarcheValidator extends sfValidatorBase {
                                 $limite = "$annee-09-30";
                             }
                         }
-                        $date2 = new DateTime("$annee-06-30");
+                        if (date('Ymd') > $annee.'0630') {
+                            $date2 = new DateTime(date("Y-m-t"));
+                        } else {
+                            $date2 = new DateTime("$annee-06-30");
+                        }
                         $nbJour = ceil($date2->diff($date1)->format("%a"));
                     } else {
                         $date2 = new DateTime($limite);
