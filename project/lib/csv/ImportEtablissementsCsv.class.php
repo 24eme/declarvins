@@ -353,6 +353,10 @@ class ImportEtablissementsCsv {
                     if ($societe && isset($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) > 1) {
                         $societe->setMetasForFacturation(FactureClient::TYPE_FACTURE_MOUVEMENT_SV12, [Societe::FACTURATION_NB_PAIEMENTS_NODE => round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12])]);
                     }
+                    if ($societe && !$societe->getDataFromInterproMetas($this->_interpro->_id, 'code_comptable_client') && in_array($this->_interpro->_id, InterproClient::$_drm_interpros)) {
+                        $cc = (strpos($societe->identifiant, '-') !== false)? substr($societe->identifiant, 0, strpos($societe->identifiant, '-')) : $societe->identifiant;
+                        $societe->addCodeComptableClient($cc, $this->_interpro->_id);
+                    }
                     try {
                         $societe->save();
                     } catch(Exception $e) {
