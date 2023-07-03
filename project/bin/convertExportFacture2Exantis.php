@@ -104,7 +104,7 @@ global $appellations;
 $factures = [];
 $indEcheance = [];
 while($line = trim(fgets(STDIN))) {
-    if (substr($line, 0, 3) != 'VEN') continue;
+    if (!in_array(substr($line, 0, 3), ['VEN', 'ATT'])) continue;
     $tabLine = explode(';', $line);
     if (!isset($factures[$tabLine[3]])) $factures[$tabLine[3]] = initFactureTab($tabLine);
     if ($tabLine[14] == 'TVA') {
