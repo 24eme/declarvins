@@ -668,7 +668,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if ($this->produit && $this->interpro && $this->type_transaction && $this->interpro == 'INTERPRO-CIVP' && $this->type_transaction == 'vrac') {
     	    $this->has_transaction = 1;
     	}
-			$manageAttachments = ($this->isNew() && $this->version);
+			$manageAttachments = (($this->isNew() && $this->version)||($this->isNew() && $this->isAdossePluriannuel()));
     	parent::save();
 			if ($manageAttachments) {
 				if ($previous = $this->findDocumentByVersion($this->getPreviousVersion())) {
@@ -926,6 +926,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function findDocumentByVersion($version) {
+        if ($doc = $this->getContratPluriannelReferent()) {
+            return $doc;
+        }
         return VracClient::getInstance()->find(VracClient::getInstance()->buildId($this->numero_contrat, $version));
     }
 
