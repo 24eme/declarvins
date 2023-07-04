@@ -504,6 +504,10 @@ class acVinVracActions extends sfActions
         } else {
         	$application->vous_etes = null;
         }
+        if ($application->exist('_attachments')) {
+            $application->remove('_attachments');
+            $application->add('_attachments');
+        }
         $application->save(false);
         return $this->redirect(array('sf_route' => 'vrac_etape',
                               'sf_subject' => $application,
