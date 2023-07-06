@@ -2,16 +2,18 @@
 require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlParser.php');
 
 function initFactureTab($tabLine) {
+    $ref = substr($tabLine[19], 0, strpos($tabLine[19], '-'));
+    if ($tabLine[0] == 'ATT') $ref .= 'ATT';
     return [
       "NumeroDocument" => $tabLine[3],
       "DomaineDocument" => "V",
-      "TypeDocument" => 7,
+      "TypeDocument" => ($tabLine[0] == 'VEN')? 7 : 1,
       "Devise" =>"EUR",
       "DateDocument" => date('d/m/Y', strtotime($tabLine[1])),
       "NumeroClientOrigine" => $tabLine[16],
       "NomClientDestination" => $tabLine[15],
       "CodeDepotClientDestination" => $tabLine[27],
-      "ReferenceDocument" => substr($tabLine[19], 0, strpos($tabLine[19], '-')),
+      "ReferenceDocument" => $ref,
       "TotalHTDocument" => 0,
       "TotalTTCDocument" => 0,
       "NombreLignesDocument" => 0,
