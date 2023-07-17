@@ -1927,7 +1927,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                   continue;
               }
               $item = new stdClass();
-              $item->key = [$mvt->facture, $mvt->facturable, $mvt->region, $this->identifiant, $this->type, $mvt->categorie, $mvt->produit_hash, $this->periode, $mvt->date, $mvt->vrac_numero, $mvt->vrac_destinataire, $mvt->type_hash, $mvt->detail_identifiant, $mvt->type_drm];
+              $item->key = [$mvt->facture, $mvt->facturable, $mvt->interpro, $mvt->region, $this->identifiant, $this->type, $mvt->categorie, $mvt->produit_hash, $this->periode, $mvt->date, $mvt->vrac_numero, $mvt->vrac_destinataire, $mvt->type_hash, $mvt->detail_identifiant, $mvt->type_drm];
               $item->value = [$mvt->produit_libelle, $mvt->type_libelle, $mvt->volume*-1, $mvt->cvo, $mvt->vrac_destinataire, $mvt->detail_libelle, $this->_id, [$this->_id.':'.$key]];
               $items[$mvt->produit_libelle] = $item;
           }
