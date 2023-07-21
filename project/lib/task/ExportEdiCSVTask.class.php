@@ -50,6 +50,53 @@ class ExportEdiCSVTask extends sfBaseTask
       		}
         }
 
+        if ($arguments['type'] == 'drm') {
+            $conf = ConfigurationClient::getCurrent();
+    		$numberValues = DRMDateView::numberValues();
+            $famille = null;
+            if ($d = $options['fromdate']) {
+                $dateForView = new DateTime($date);
+                $items = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
+            } else {
+                $items = DRMDateView::getInstance()->findByInterpro($interpro)->rows;
+            }
+            foreach ($items as $item) {
+                if ($item->value[DRMDateView::VALUE_TYPE] != 'DETAIL') {
+                    $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT] = null;
+                }
+                $libelle = '';
+                $hash = substr($item->key[DRMDateView::KEY_DETAIL_HASH], 0, strpos($item->key[DRMDateView::KEY_DETAIL_HASH], '/details/'));
+                if ($hash && ($confProduit = $conf->getConfigurationProduit($hash))) {
+                    $libelle = trim($confProduit->getLibelleFormat(array(), "%format_libelle%"));
+                    if ($item->value[DRMDateView::VALUE_LABELS_CODE]) {
+                        $libelle .= ' '.str_replace('|', ', ', $item->value[DRMDateView::VALUE_LABELS_CODE]);
+                    }
+                }
+                $item->value[DRMDateView::VALUE_DETAIL_HASH_PRODUIT_GENERATED] = ($libelle)? md5($libelle) : '';
+                if ($interpro == 'INTERPRO-IR' && $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]) {
+                    $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT];
+                }
+    			foreach ($numberValues as $val) {
+    				if ($item->value[$val]) {
+    					$item->value[$val] = number_format($item->value[$val], 5, '.', '');
+    				}
+    			}
+      			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
+      				continue;
+      			}
+      			if ($interpro == 'INTERPRO-CIVP' && !$famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != 'producteur') {
+      				continue;
+      			}
+      			if ($interpro == 'INTERPRO-IVSE' && !$famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != 'producteur' && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_SOUSFAMILLE] != 'vinificateur') {
+      				continue;
+      			}
+      			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && $famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != $famille) {
+      			    continue;
+      			}
+                echo str_replace(array(chr(10), chr(13)), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)))."\n";
+      		}
+        }
+
     }
 
 }
