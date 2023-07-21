@@ -46,7 +46,7 @@ EOF;
     }
 
     if (($s = SocieteClient::getInstance()->find($etablissement->identifiant)) && $cc) {
-      if ($ccExistant = $s->getCodeComtableClient($interpro)) {
+      if ($ccExistant = $s->getCodeComptableClient($interpro)) {
         $this->logSection("generate:societe-by-etablissement", "Société ".$arguments['identifiant']." ($cc) existante avec le code comptable : ".$ccExistant, null, 'WARNING');
         return;
       } else {
@@ -69,7 +69,7 @@ EOF;
     }
 
     $societe->save();
-    $this->logSection("generate:societe-by-etablissement", "Société créée avec succès ".$societe->_id." (".$societe->getCodeComtableClient($interpro).")", null, 'SUCCESS');
+    $this->logSection("generate:societe-by-etablissement", "Société créée avec succès ".$societe->_id." (".$societe->getCodeComptableClient($interpro).")", null, 'SUCCESS');
 
   }
 }

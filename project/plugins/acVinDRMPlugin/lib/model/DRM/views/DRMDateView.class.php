@@ -151,10 +151,17 @@ class DRMDateView extends acCouchdbView
                     		->endkey(array($interpro, $dates['end'], array()))
                     		->getView($this->design, $this->view);
     }
-    
-    public function getEndISODateForView() 
+
+    public function findByInterpro($interpro)
+    {
+      	return $this->client->startkey(array($interpro))
+                    		->endkey(array($interpro, array()))
+                    		->getView($this->design, $this->view);
+    }
+
+    public function getEndISODateForView()
     {
     	return '9999-99-99T99:99:99'.date('P');
     }
 
-}  
+}

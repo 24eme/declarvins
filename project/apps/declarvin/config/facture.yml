@@ -42,6 +42,8 @@ all:
       reglement_avoir: '\textbf{ } \\\\ Les informations recueillies sont nécessaires pour le fonctionnement de l’interprofession. Elles font l’objet d’un traitement informatique et sont destinées aux services économique et comptable d’InterVins sud-est. En application des articles 39 et suivants de la loi du 6 janvier 1978, vous bénéficiez d’un droit de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adressez au siège social d’InterVins sud-est.\\\\ &nbsp; \\\\ &nbsp; \\\\ &nbsp; \\\\'
       export_shell: "%sf_root_dir%/bin/exportComptableIVSE.sh"
       export_relances: "%sf_root_dir%/bin/exportRelanceFactureIVSE.sh"
+      nom_interpro_teledeclaration: 'InterVins sud-est'
+      email_interpro_teledeclaration: 'contact@intervins-sudest.org'
     facture-interpro-ir:
       type_cvo:
         identifiant_prefix: "D"
@@ -61,3 +63,5 @@ all:
       echeance_fin_de_mois: true
       seuil_minimum: 50
       globalise_calcul_taxe: true
+      nom_interpro_teledeclaration: 'Inter Rhône'
+      email_interpro_teledeclaration: 'declarvins@inter-rhone.com'
