@@ -65,3 +65,4 @@ all:
       globalise_calcul_taxe: true
       nom_interpro_teledeclaration: 'Inter Rhône'
       email_interpro_teledeclaration: 'declarvins@inter-rhone.com'
+      facturation_metas_actif: true
