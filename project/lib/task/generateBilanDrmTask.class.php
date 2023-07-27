@@ -113,7 +113,8 @@ EOF;
             				$str .=  $detail->sorties->vrac.";";
             				$str .=  $detail->sorties->export.";";
             				$str .=  $detail->sorties->factures.";";
-            				$str .=  $detail->sorties->crd."\n";
+            				$str .=  $detail->sorties->crd.";";
+            				$str .=  $detail->sorties->vrac_export."\n";
                             $bilanPeriodesCsv[$periode] .= str_replace(DRM::DEFAULT_KEY, '', $str);
             			}
             		}
@@ -144,7 +145,7 @@ EOF;
     }
 
     private function getEnteteBilanPeriodeCsv($periode) {
-        return self::ENTETES_ETABLISSEMENT."Categorie;Genre;Denomination;Lieu;Couleur;Cepage;$periode;Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France\n";
+        return self::ENTETES_ETABLISSEMENT."Categorie;Genre;Denomination;Lieu;Couleur;Cepage;$periode;Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France;Vrac Export\n";
     }
 
     private function getEtablissementInfosCsv($etablissement) {
