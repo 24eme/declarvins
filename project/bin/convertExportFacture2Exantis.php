@@ -127,7 +127,7 @@ while($line = trim(fgets(STDIN))) {
         $factures[$tabLine[3]]["NombreEcheance"]++;
         continue;
     }
-    if ($tabLine[14] == 'LIGNE' && round(floatval($tabLine[10]), 2) > 0) {
+    if ($tabLine[14] == 'LIGNE' && round(floatval($tabLine[10]), 2) != 0) {
         $factures[$tabLine[3]]["NombreLignesDocument"]++;
         $factures[$tabLine[3]]["DocumentLigne"][] = getDetail($tabLine);
     }
