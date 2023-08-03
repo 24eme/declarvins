@@ -32,6 +32,8 @@ suspendu,sorties,autres,Destruction / Distillation
 suspendu,sorties,lies,Lies
 suspendu,stocks,total_debut_mois,Stock théorique début de mois
 suspendu,stocks,total,Stock théorique fin de mois
+suspendu,stocks,reserve_debut_mois,Volume en réserve en début de mois
+suspendu,stocks,reserve_fin_mois,Volume en réserve en fin de mois
 suspendu,complement,tav,Taux d'alcool volumique du produit
 suspendu,complement,premix,Indique si le produit est un premix
 suspendu,complement,observation,Observation d'un produit
