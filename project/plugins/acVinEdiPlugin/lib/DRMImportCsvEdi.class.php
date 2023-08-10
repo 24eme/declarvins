@@ -207,9 +207,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             if (!$produit) {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
       		}
-          if ($libellePerso) {
-            $produit->libelle = $libellePerso;
-          }
+
+            if ($libellePerso) {
+                $produit->libelle = $libellePerso;
+            }
 
       		if ($complement_libelle && !$label) {
                 $l = $libellePerso;
@@ -218,6 +219,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $produit->libelle = ($libellePerso) ? trim($l) : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
+
     		if ($complement_libelle && $label) {
               $l = $libellePerso;
               if ($libellePerso != $complement_libelle) {
