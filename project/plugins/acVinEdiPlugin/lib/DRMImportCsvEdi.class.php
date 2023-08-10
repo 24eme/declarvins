@@ -191,7 +191,18 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     }
                 }
             }
+
             $produit = $this->drm->getProduitByIdDouane($hash, ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
+
+            if (!$produit && $this->floatize($datas[self::CSV_CAVE_VOLUME]) > 0) {
+                $produits = $this->drm->getProduitsByIdDouaneAndStockDebut(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $this->floatize($datas[self::CSV_CAVE_VOLUME]));
+                if (count($produits) > 1) {
+                    throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane()));
+                }
+                if (count($produits) == 1) {
+                    $produit = $produits[0];
+                }
+            }
 
             if (!$produit) {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
