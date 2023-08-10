@@ -81,7 +81,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     public function createCacheProduits() {
         $numLigne = 0;
         $this->cache = array();
-        $cache2datas = array();
+        //$cache2datas = array();
         if($this->drm->canSetStockDebutMois()){
             $this->drm->remove("declaration");
             $this->drm->add("declaration");
@@ -214,11 +214,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
               }
               $produit->libelle = $complement_libelle;
     		}
+
       		if ($isAutre) {
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
+
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
-            $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
+            //echo $produit->getHash().' - '.$produit->getLibelle().' - '.$produit->getIdentifiantDouane().' - '.$produit->getTotalDebutMois()."\n";
+            /*$cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
             $cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME] = $this->floatize($cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME]);
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
@@ -226,9 +229,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
       		if ($isAutre) {
                 $cache2datas[$this->getCacheKeyFromData($datas)]['inao'] = $this->getIdDouane($datas);
-      		}
+      		}*/
         }
-
+        /*
         //on prépare les vérifications
         $check = array();
         foreach ($this->cache as $cacheid => $produit) {
@@ -332,7 +335,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $this->cache[$cacheid] = $p;
             }
-        }
+        }*/
     }
 
     public function getProduitFromCache($datas) {
