@@ -51,9 +51,6 @@
 			<li<?php if ($subactive == 'profil'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@etablissement_profil_login') ?>">Profil</a>
 			</li>
-			<li<?php if ($subactive == 'subvention'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@subvention') ?>">Aides Occitanie</a>
-			</li>
 		<?php elseif ($active == 'parametrage'): ?>
 			<li<?php if ($subactive == 'produits'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@configuration_produit') ?>">Produits</a>

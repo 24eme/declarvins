@@ -64,12 +64,6 @@ use_helper('Text');
         </li>
         <?php endif; ?>
 
-        <?php if(SubventionConfiguration::getInstance()->isActif($etablissement, $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-        <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
-        </li>
-        <?php endif; ?>
-
         <?php if(($etablissement->hasDocuments()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'documents'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('fichiers_etablissement', $etablissement) ?>">Documents</a>
