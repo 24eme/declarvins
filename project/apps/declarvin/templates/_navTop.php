@@ -46,7 +46,7 @@ use_helper('Text');
         <?php if ($etablissement->interpro == 'INTERPRO-IR'): ?>
         <style><!--
             #barre_navigation #nav_principale li.vrr a:hover {
-                background: url(../images/fonds/bg_nav_principale_vvr.png) left 0 no-repeat;
+                background: url(/images/fonds/bg_nav_principale_vvr.png) left 0 no-repeat;
             }
         --></style>
         <li class="vrr">
