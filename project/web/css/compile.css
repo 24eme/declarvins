@@ -976,7 +976,7 @@ a.highlight_link:hover {
 #barre_navigation #nav_principale li a {
   color: #494949;
   float: left;
-  padding: 5px 12px 0 20px;
+  padding: 5px 12px 0 16px;
 }
 #barre_navigation #nav_principale li.actif {
   font-weight: bold;
