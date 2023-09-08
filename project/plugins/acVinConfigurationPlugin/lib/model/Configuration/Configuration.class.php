@@ -299,7 +299,7 @@ class Configuration extends BaseConfiguration {
                 $p = $configurationProduits->getProduits($hash, $onlyForDrmVrac, $cvoNeg, $date);
                 if ($configurationProduits->interpro == InterproClient::INTERPRO_COMMUNE && $famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
                     foreach ($p as $k => $v) {
-                        if (strpos($k, '/AOP/') !== false || strpos($k, '/IGP/') !== false) {
+                        if (strpos($k, '/AOP/') !== false) {
                             unset($p[$k]);
                         }
                     }
