@@ -244,6 +244,18 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $cache2datas[$this->getCacheKeyFromData($datas)]['inao'] = $this->getIdDouane($datas);
       		}*/
         }
+        if($this->drm->canSetStockDebutMois()) {
+            if ($this->drmPrecedente) {
+                if ($produitsReserve = $this->drmPrecedente->getProduitsReserveInterpro()) {
+                    foreach ($produitsReserve as $produitReserve) {
+                        if ($this->drm->exist($produitReserve->getHash())) {
+                            $produitAddReserve = $this->drm->get($produitReserve->getHash());
+                            $produitAddReserve->add('reserve_interpro', $produitReserve->getRerserveIntepro());
+                        }
+                    }
+                }
+            }
+        }
         /*
         //on prépare les vérifications
         $check = array();
