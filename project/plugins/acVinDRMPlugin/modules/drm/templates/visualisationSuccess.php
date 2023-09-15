@@ -31,8 +31,8 @@
 
         <?php
           if ($drm->isValidee()):
-            $region = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
-            $isFacture = $drm->isFactures($region);
+            $interpro = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
+            $isFacture = $drm->isFactures($interpro);
         ?>
 
             <?php if(!$isFacture && !$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>

@@ -412,8 +412,8 @@ class drmActions extends sfActions {
 
     public function executeReouvrir(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
-				$region = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $this->getUser()->getCompte()->getGerantInterpro()->_id : null;
-				$this->forward404Unless($this->drm->isNonFactures($region));
+		$interpro = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $this->getUser()->getCompte()->getGerantInterpro()->_id : null;
+		$this->forward404Unless($this->drm->isNonFactures($interpro));
         if ($this->drm->isFictive()) {
         	$this->drm = $this->drm->getDRM();
         }
