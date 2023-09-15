@@ -605,6 +605,7 @@ class drmActions extends sfActions {
     }
 
     public function executeForceValidationCiel(sfWebRequest $request) {
+		set_time_limit(90);
     	$this->etablissement = $this->getRoute()->getEtablissement();
     	$this->drm = $this->getRoute()->getDRM();
     	if ($this->drm->isFictive()) {
