@@ -20,14 +20,10 @@
             <form action="<?php echo url_for('drm_crd', $drm) ?>" method="post">
             	<?php echo $form->renderHiddenFields(); ?>
 	            <?php echo $form->renderGlobalErrors(); ?>
-	            
-	            
+
+
 	            <div id="btn_etape_dr">
-                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
-                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
-                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <?php endif; ?>
+                    <button type="submit" name="prev" value="1" class="btn_prec"><span>Précédent</span></button>
 	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
 	            </div>
 
@@ -83,14 +79,10 @@
 				</div>
 	            <br /><br />
 	            <div id="btn_etape_dr">
-                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
-                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
-                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <?php endif; ?>
+                    <button type="submit" name="prev" value="1" class="btn_prec"><span>Précédent</span></button>
 	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
 	            </div>
-				
+
 				<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
 				<?php else: ?>
 	            <div class="ligne_btn">
