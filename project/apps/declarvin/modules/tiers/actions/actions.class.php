@@ -61,7 +61,7 @@ class tiersActions extends sfActions
   	    if (!$droits) {
   	        $droits = array();
   	    }
-  	    if (!in_array(myUser::CREDENTIAL_OPERATEUR, $droits)) {
+  	    if (!in_array(myUser::CREDENTIAL_OPERATEUR, (array)$droits)) {
   	        $this->getUser()->setAttribute('initial_user', $this->getUser()->getCompte()->login);
   	    }
   		$this->getUser()->signOut();
