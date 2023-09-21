@@ -10,7 +10,7 @@
 
 
                 <div id="btn_etape_dr">
-                    <button type="submit" name="prev" value="1" class="btn_prec"><span>Précédente</span></button>
+                    <button type="submit" name="prev" value="1" class="btn_prec"><span>Précédent</span></button>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 
@@ -205,7 +205,7 @@
                 <?php endif; ?>
 
                 <div id="btn_etape_dr">
-                	<button type="submit" name="prev" value="1" class="btn_prec"><span>Précédente</span></button>
+                	<button type="submit" name="prev" value="1" class="btn_prec"><span>Précédent</span></button>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 
