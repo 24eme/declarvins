@@ -318,6 +318,14 @@ class drmActions extends sfActions {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->drm = $this->form->save();
+                if ($request->getParameter('prev')) {
+                    $this->drm->save();
+                    if (($this->getUser()->getCompte()->isTiers() && $this->etablissement->isTransmissionCiel()) || $this->drm->isNegoce()) {
+                        $this->redirect('drm_crd', $this->drm);
+                    } else {
+                        $this->redirect('drm_vrac', ['sf_subject' => $this->drm, 'precedent' => '1']);
+                    }
+                }
                 $this->drm->etape = 'validation';
                 $this->drm->save();
                 $this->redirect('drm_validation', $this->drm);
