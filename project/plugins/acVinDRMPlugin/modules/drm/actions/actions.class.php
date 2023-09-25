@@ -385,7 +385,7 @@ class drmActions extends sfActions {
         $this->postVars = array('drm_validation' => array('retransmission' => 1));
     	$this->url = $this->generateUrl('drm_retransfer_ciel', array('sf_subject' => $this->drm));
 
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->drmCiel->isTransfere() && $this->etablissement->isTransmissionCiel()) {
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->etablissement->isTransmissionCiel()) {
         	if ($request->isMethod(sfWebRequest::POST)) {
 	        	$export = new DRMExportCsvEdi($this->drm);
 		        if ($xml = $export->exportEDI('xml')) {
@@ -406,7 +406,7 @@ class drmActions extends sfActions {
 		        }
 		        $this->drm->save();
 		        if ($this->drm->isValidee()) {
-		        	$this->getUser()->setFlash('notice', "DRM re-transmise avec succès à CIEL");
+		        	$this->getUser()->setFlash('notice', "DRM transmise avec succès à CIEL");
 		        	$this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
 		        } else {
 		        	$this->redirect('drm_validation', array('sf_subject' => $this->drm));
