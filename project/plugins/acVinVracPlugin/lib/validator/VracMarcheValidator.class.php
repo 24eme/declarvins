@@ -177,8 +177,12 @@ class VracMarcheValidator extends sfValidatorBase {
             $totalMax = ceil(($prix + $cvo) * $vol);
             $totalMin = floor($prix * $vol);
             if ($montantTotal < $totalMin || $montantTotal > $totalMax) {
-                $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
-                $hasError = true;
+                if ($this->civp && $this->vrac->version) {
+                    // non bloquant pour saisie prix definitif
+                } else {
+                    $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
+                    $hasError = true;
+                }
             }
         }
         if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {
