@@ -10,20 +10,11 @@
         	<?php if ($isCloture): ?>
         	<p class="text-center text-danger"><em>Le téléservice est cloturé</em></p>
         	<?php else: ?>
-        	<div class="col-xs-6">
-
-        		<div class="dropdown pull-right">
-				  <button class="btn btn-default dropdown-toggle link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <p class="text-center text-danger" style="margin:20px 0;">/!\ Les opérateurs déposant une DRM tous les mois sur notre plateforme Declarvins sont exemptés de déposer la DS Négoce.<br />Les données seront récupérées directement via votre DRM.</p>
+        	<div class="col-xs-6 text-right">
+				  <a href="/docs/dsnegoce-ir.xls?<?= date('Ym') ?>" class="btn btn-default link">
 				    Télécharger la DS à compléter
-				    <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				  <li><a href="/docs/dsnegoce-ir.xls?<?= date('Ym') ?>">Modèle Inter-Rhône</a></li>
-				  <li><a href="/docs/dsnegoce-civp.xls?<?= date('Ym') ?>">Modèle Provence</a></li>
-				  </ul>
-				</div>
-
-
+                  </a>
         	</div>
         	<div class="col-xs-6">
         		<a href="<?php echo url_for('dsnegoceupload_upload', $etablissement) ?>" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Déposer la DS complétée</a>
