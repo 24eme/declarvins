@@ -1497,11 +1497,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->mouvement_document->facturerMouvements();
     }
 
-    public function isFactures($region = null) {
+    public function isFactures($interpro = null) {
         foreach($this->getMouvements() as $mouvements) {
             foreach($mouvements as $mouvement) {
                 if($mouvement->facture) {
-                    if (!$region||($region && $mouvement->region == $region)) {
+                    if (!$interpro||($interpro && $mouvement->interpro == $interpro)) {
                       return true;
                     }
                 }
@@ -1510,8 +1510,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return false;
     }
 
-    public function isNonFactures($region = null) {
-        return !$this->isFactures($region);
+    public function isNonFactures($interpro = null) {
+        return !$this->isFactures($interpro);
     }
 
     public function clearMouvements() {

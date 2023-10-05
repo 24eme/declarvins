@@ -3436,7 +3436,10 @@ p#date_drm {
 #declaratif_info .contenu_onglet_declaratif .champs_centres .error_list {
   text-align: left;
 }
-#declaratif_info #btn_etape_dr .btn_suiv span {
+#btn_etape_dr .btn_suiv span {
+  text-transform: uppercase;
+}
+#btn_etape_dr .btn_prec span {
   text-transform: uppercase;
 }
 #declaratif_info .error_daa {

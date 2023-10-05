@@ -164,7 +164,7 @@ class VracMarcheValidator extends sfValidatorBase {
                     $limite =  (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison'])? $values['date_limite_retiraison'] : null;
                     $delai =  (isset($values['delai_paiement']) && $values['delai_paiement'])? str_replace('_jours', '', $values['delai_paiement']) : null;
                     $limite = ($limite && $delai && ctype_digit(strval($delai)))? date('Y-m-d', strtotime($limite. "+$delai days")) : null;
-                    if ($limite && $maxd && $maxd > $limite) {
+                    if ($limite && $maxd && $maxd > $limite && !$this->vrac->version) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date_generique'), 'conditions_paiement');
                         $hasError = true;
                     }
@@ -177,8 +177,12 @@ class VracMarcheValidator extends sfValidatorBase {
             $totalMax = ceil(($prix + $cvo) * $vol);
             $totalMin = floor($prix * $vol);
             if ($montantTotal < $totalMin || $montantTotal > $totalMax) {
-                $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
-                $hasError = true;
+                if ($this->civp && $this->vrac->version) {
+                    // non bloquant pour saisie prix definitif
+                } else {
+                    $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
+                    $hasError = true;
+                }
             }
         }
         if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {

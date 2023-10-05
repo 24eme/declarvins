@@ -31,8 +31,8 @@
 
         <?php
           if ($drm->isValidee()):
-            $region = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
-            $isFacture = $drm->isFactures($region);
+            $interpro = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
+            $isFacture = $drm->isFactures($interpro);
         ?>
 
             <?php if(!$isFacture && !$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
@@ -93,8 +93,8 @@
             <?php elseif($drmCiel->isTransfere() && $drmCiel->isValide()): ?>
             <p>DRM conforme proDou@ne</p>
             <?php endif; ?>
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-            <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
+            <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Transmettre la DRM</a></p>
             <?php endif; ?>
         <?php endif; ?>
 

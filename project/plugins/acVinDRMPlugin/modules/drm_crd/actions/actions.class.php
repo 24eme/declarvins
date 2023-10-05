@@ -29,6 +29,13 @@ class drm_crdActions extends sfActions
         		if ($request->isXmlHttpRequest()) {
         			return $this->renderText(json_encode(array("success" => true)));
         		} else {
+                    if ($request->getParameter('prev')) {
+                        if (!$this->drm->declaration->hasMouvementCheck()) {
+                            $this->redirect('drm_mouvements_generaux', $this->drm);
+                        } else {
+                            $this->redirect('drm_vrac', ['sf_subject' => $this->drm, 'precedent' => '1']);
+                        }
+                    }
 	        		if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 	                	$this->drm->setCurrentEtapeRouting('validation');
 	                	$this->redirect('drm_validation', $this->drm);
