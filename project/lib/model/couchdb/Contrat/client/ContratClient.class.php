@@ -37,7 +37,6 @@ class ContratClient extends acCouchdbClient {
     public function getNextNoContrat() {
     	$date = date('Ymd');
     	$contrats = self::getAtDate($date, acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
-        print_r($contrats);
         if (count($contrats) > 0) {
             return ((double)str_replace('CONTRAT-', '', max($contrats)) + 1);
         } else {
