@@ -25,6 +25,8 @@ EOF;
       $databaseManager = new sfDatabaseManager($this->configuration);
       $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
+      $contextInstance = sfContext::createInstance($this->configuration);
+
       $lines = explode(PHP_EOL, file_get_contents($arguments['grcfile']));
       foreach ($lines as $line) {
           $datas = explode(';', $line);
