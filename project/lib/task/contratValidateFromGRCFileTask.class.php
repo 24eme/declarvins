@@ -30,7 +30,7 @@ EOF;
       $lines = explode(PHP_EOL, file_get_contents($arguments['grcfile']));
       foreach ($lines as $line) {
           $datas = explode(';', $line);
-          if (!isset(!$datas[EtablissementCsv::COL_NUMERO_CONTRAT]) || !$datas[EtablissementCsv::COL_NUMERO_CONTRAT]) continue;
+          if (!isset($datas[EtablissementCsv::COL_NUMERO_CONTRAT]) || !$datas[EtablissementCsv::COL_NUMERO_CONTRAT]) continue;
           if ($contrat = ContratClient::getInstance()->retrieveById($datas[EtablissementCsv::COL_NUMERO_CONTRAT])) {
               $compte = $contrat->getCompteObject();
               $compte->interpro->getOrAdd($datas[EtablissementCsv::COL_INTERPRO])->setStatut(_Compte::STATUT_VALIDE);
