@@ -36,7 +36,7 @@ EOF;
               $compte->interpro->getOrAdd($datas[EtablissementCsv::COL_INTERPRO])->setStatut(_Compte::STATUT_VALIDE);
               $compte->setStatut(_Compte::STATUT_ATTENTE);
               $compte->save();
-              Email::getInstance()->sendCompteRegistration($compte, $compte->email);
+              Email::getInstance()->sendCompteRegistrationAutomatique($compte, $compte->email);
               echo $datas[EtablissementCsv::COL_NUMERO_CONTRAT]." validé\n";
           } else {
               echo "Pas de contrat numéro ".$datas[EtablissementCsv::COL_NUMERO_CONTRAT]."\n";
