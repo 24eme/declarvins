@@ -329,7 +329,7 @@ EOF;
     }
 
     public function isContratATransmettre($contrat) {
-        if ($contrat->type_transaction !== 'vrac') {
+        if ($contrat->type_transaction == 'raisin') {
             return false;
         }
         if (!$contrat->referente) {
