@@ -75,7 +75,8 @@ class VracMarcheForm extends VracForm
     		$cepages = array_merge(array('' => ''), $this->getCepages());
     		$this->setWidget('cepages', new sfWidgetFormChoice(array('choices' => $cepages), array('class' => 'autocomplete')));
     		$this->widgetSchema->setLabel('cepages', 'Cépage:');
-    		$this->setValidator('cepages', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($cepages))));
+            $required = ($this->getObject()->type_transaction == 'raisin' && $this->getObject()->isConditionneIvse())? true : false;
+    		$this->setValidator('cepages', new sfValidatorChoice(array('required' => $required, 'choices' => array_keys($cepages)), array('required' => 'Veuillez préciser le cépage')));
     	}
 
     	if ($this->getObject()->type_transaction != 'raisin') {
