@@ -58,6 +58,10 @@ if [[ $INTERPRO == "IR" ]] ; then
 
   recode UTF8..ISO88591-1 $TMPI/export_bi_daes.csv
   recode UTF8..ISO88591-1 $TMPI/export_rapport_depots_dae.csv
+
+
+  cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
+  cp $TMPI/export_rapport_depots_dae.csv $EXPORTDIR_INTERPRO/
 fi
 
 php symfony export:facture $SYMFONYTASKOPTIONS --factureid=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_factures.csv
@@ -100,7 +104,6 @@ cp $TMPI/export_bi_societes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_etablissements.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_drm.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_drm_stock.csv $EXPORTDIR_INTERPRO/
-cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_factures.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_factures_paiements.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_sv12.csv $EXPORTDIR_INTERPRO/
