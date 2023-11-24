@@ -83,6 +83,11 @@ class acVinLdap
      */
     protected function add($uid, $infos) 
     {
+        if(sfConfig::get('app_instance') == 'preprod') {
+
+            return false;
+        }
+
         $con = $this->connect();
         if($con) {
             $add = @ldap_add($con, 'uid='.$uid.',ou=People,'.$this->dc, $infos);
@@ -94,15 +99,20 @@ class acVinLdap
         }
         return false;
     }
-    
+
     /**
      *
      * @param mixed $uid
      * @param array $infos
-     * @return bool 
+     * @return bool
      */
     protected function update($uid, $infos)
     {
+        if(sfConfig::get('app_instance') == 'preprod') {
+
+            return false;
+        }
+
         $con = $this->connect();
         if($con) {
             $update = @ldap_modify($con, 'uid='.$uid.',ou=People,'.$this->dc, $infos);
@@ -142,6 +152,11 @@ class acVinLdap
      */
     public function delete($uid) 
     {
+        if(sfConfig::get('app_instance') == 'preprod') {
+
+            return false;
+        }
+
         $con = $this->connect();
         if($con) {
             $delete = ldap_delete($con, 'uid='.$uid.',ou=People,'.$this->dc);
