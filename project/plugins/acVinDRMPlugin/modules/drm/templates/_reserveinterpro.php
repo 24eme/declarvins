@@ -4,7 +4,7 @@ $produits = $drm->getProduitsReserveInterpro();
 if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
 <div class="tableau_ajouts_liquidations">
 <h2><strong>Réserve</strong> interprofessionnelle</h2>
-<p style="padding: 10px;">L'assemblée générale d'Inter Rhône a voté la mise en place d'une réserve interprofessionnelle. Le tableau suivant récapitule les volumes de votre réserve :</p>
+<p style="padding: 10px;">L'assemblée générale de votre interprofession a voté la mise en place d'une réserve interprofessionnelle. Le tableau suivant récapitule les volumes de votre réserve :</p>
 <table class="tableau_recap" style="width:auto;">
     <thead>
         <tr>
