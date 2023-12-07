@@ -3,10 +3,8 @@
 class DRMDetailStocksFinForm  extends acCouchdbObjectForm {
 
     public function configure() {
-
-    	$contraintes = Configuration::getContraintes($this->getObject()->getParent());
     	foreach (Configuration::getStocksFin($this->getOption('acquittes', false)) as $key => $item) {
-    		if ($contraintes && !in_array('stocks_fin/'.$key, $contraintes)) {
+    		if ($key == 'bloque') {
     			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.05f"), array('readonly' => 'readonly')));
     		} else {
     			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.05f")));
@@ -16,5 +14,14 @@ class DRMDetailStocksFinForm  extends acCouchdbObjectForm {
         $this->widgetSchema->setNameFormat('drm_detail_stocks_fin[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
+
+	   protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+        if ($r = $this->getObject()->getParent()->getReserveInterpro()) {
+        	$defaults = $this->getDefaults();
+        	$defaults['bloque'] = $r;
+        	$this->setDefaults($defaults);
+        }
+      }
 
 }
