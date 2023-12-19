@@ -718,7 +718,7 @@ class DRMDetail extends BaseDRMDetail {
       if ($this->observations) {
         $observations = $this->observations.', '.$observations;
       }
-    	$this->observations = $observations;
+    	$this->observations = str_replace(';', ',', $observations);
     }
 
     public function isVci() {
