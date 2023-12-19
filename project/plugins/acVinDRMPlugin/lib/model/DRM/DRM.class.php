@@ -1196,7 +1196,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     {
     	if ($this->exist($hash)) {
     		$produit = $this->get($hash);
-    		$produit->observations = "".$observation;
+    		$produit->observations = "".str_replace(';', '', $observation);
     	}
     }
 
