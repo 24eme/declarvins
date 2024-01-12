@@ -59,7 +59,7 @@ all:
       reglement_avoir: '\textbf{ } \\\\ Les informations recueillies sont nécessaires pour le fonctionnement de l’interprofession. Elles font l’objet d’un traitement informatique et sont destinées aux services économique et comptable d’Inter Rhône. En application des articles 39 et suivants de la loi du 6 janvier 1978, vous bénéficiez d’un droit de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adressez au siège social d’Inter Rhône.\\\\ &nbsp; \\\\ &nbsp; \\\\ &nbsp; \\\\'
       export_csv_facture_detailed: true
       export_shell: "%sf_root_dir%/bin/exportComptableIR.sh"
-      echeance: "+60 days"
+      echeance: "+90 days"
       echeance_fin_de_mois: true
       seuil_minimum: 50
       globalise_calcul_taxe: true
