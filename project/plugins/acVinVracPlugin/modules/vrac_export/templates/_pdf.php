@@ -108,7 +108,7 @@
 	<h2>Type de contrat</h2>
 	<p><?php if ($vrac->isAdossePluriannuel()): ?>Contrat adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Contrat ponctuel<?php endif; ?></p>
     <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?><p>Campagnes d'application de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></p><?php endif; ?>
-    <?php if ($vrac->isPluriannuel() && $vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?><p>Fourchette de prix entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> €/HL</p><?php endif; ?>
+    <?php if ($vrac->isPluriannuel() && $vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond): ?><p>Fourchette de prix entre <?php echo $vrac->pluriannuel_prix_plancher ?> et <?php echo $vrac->pluriannuel_prix_plafond ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL<?php endif; ?></p><?php endif; ?>
     <?php if ($vrac->pluriannuel_clause_indexation): ?><p>Indexation du prix : <?php echo $vrac->pluriannuel_clause_indexation ?></p><?php endif; ?>
 	<h2>Spécificités du contrat</h2>
 	<p>Condition particulière : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></p>
