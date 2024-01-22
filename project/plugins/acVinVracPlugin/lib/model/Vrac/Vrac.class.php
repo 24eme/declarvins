@@ -623,7 +623,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$produit = $this->getProduitObject();
     	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
-				if ($vrac->type_transaction == 'vrac' && ($vrac->type_retiraison == 'vrac' || !$vrac->type_retiraison)) {
+				if ($this->type_transaction == 'vrac' && ($this->type_retiraison == 'vrac' || !$this->type_retiraison)) {
 	    		$oioc = $this->getOrAdd('oioc');
 	    		$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
 	    		$oioc->statut = OIOC::STATUT_EDI;
