@@ -4,6 +4,7 @@
 	$warningExport = false;
 	$warningFourchette = false;
     $errorMentions = false;
+    $errorTypeVendeur = false;
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
 		$warningMiseEnMarche = true;
 	}
@@ -16,6 +17,9 @@
     if (!$form->getObject()->prixIsInFourchette()) {
         $warningFourchette = true;
     }
+    if ($form->getObject()->type_transaction != 'raisin' && $form->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN) {
+        $errorTypeVendeur = true;
+    }
 ?>
 	<?php if($warningMiseEnMarche || $warningExport || $warningFourchette): ?>
 	<div class="vigilance_list">
@@ -27,11 +31,16 @@
 	    </ol>
 	</div>
 	<?php endif; ?>
-	<?php if($errorMentions): ?>
+	<?php if($errorMentions||$errorTypeVendeur): ?>
 	<div class="error_list">
 	    <h3>Points bloquants</h3>
 	    <ol>
+        <?php if($errorMentions): ?>
 	    	<li>Vous ne pouvez pas mentionner de domaine et autre terme règlementé pour un contrat de type raisin ou moûts : <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'produit', 'etablissement' => $etablissement)) ?>">Rectifier</a></li>
+        <?php endif; ?>
+        <?php if($errorTypeVendeur): ?>
+	    	<li>Vous avez sélectionné un vendeur de raisin alors que vous avez saisi un contrat de <?php echo $configurationVrac->formatTypesTransactionLibelle(array($form->getObject()->type_transaction)); ?> : <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>">Rectifier</a></li>
+        <?php endif; ?>
 	    </ol>
 	</div>
 	<?php endif; ?>
@@ -111,7 +120,7 @@
 		<div class="ligne_form_btn">
 			<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
 			<button id="brouillon" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #989898; border: 1px solid  #ECEBEB;" type="submit"><span>Sauvegarder le brouillon</span></button>
-            <?php if(!$errorMentions): ?>
+            <?php if(!$errorMentions && !$errorTypeVendeur): ?>
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$form->getObject()->isRectificative()): ?>
 				<button id="no_mail" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #FF9F00; border: 1px solid #D68500;" type="submit"><span>Valider sans e-mail</span></button>
 			<?php endif; ?>

@@ -318,4 +318,8 @@ class Etablissement extends BaseEtablissement {
         }
         return $this->identifiant;
     }
+
+    public function hasFacture() {
+        return count(FactureSocieteView::getInstance()->findBySociete($this)) > 0;
+    }
 }

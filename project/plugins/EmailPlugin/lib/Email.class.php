@@ -378,6 +378,23 @@ class Email {
         return $this->getMailer()->send($message);
     }
 
+    public function sendCompteRegistrationAutomatique($compte, $destinataire)
+    {
+    	$interpros = array();
+    	foreach ($compte->interpro as $id => $values) {
+    		$interpros[] = InterproClient::getInstance()->find($id);
+    	}
+        $from = $this->getFromEmailInterpros($interpros,true);
+        $to = array($destinataire);
+        $subject = 'Activation de votre compte sur Declarvins.net';
+    	$numeroContrat = explode('-', $compte->contrat);
+    	$numeroContrat = $numeroContrat[1];
+        $body = $this->getBodyFromPartial('send_compte_registration_automatique', array('numero_contrat' => $numeroContrat));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return $this->getMailer()->send($message);
+    }
+
     public function sendRedefinitionMotDePasse($compte, $destinataire, $logins)
     {
     	$interpros = array();

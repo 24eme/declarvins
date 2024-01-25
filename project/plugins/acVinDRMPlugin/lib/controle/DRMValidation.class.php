@@ -135,7 +135,11 @@ class DRMValidation
 
         foreach ($this->drm->getProduitsReserveInterpro() as $produit) {
             if ($produit->getVolumeCommercialisable() < 0) {
-                $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleError('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
+								if ($produit->getInterpro() == 'INTERPRO-CIVP') {
+									$this->errors['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleError('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
+								} else {
+									$this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleError('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
+								}
             } elseif (($produit->total / $produit->getReserveInterpro()) < 1.2) {
                 $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
             }
@@ -174,7 +178,7 @@ class DRMValidation
 		if ($detail->acq_total < 0) {
 			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
-		if (round($detail->total,5) < round($detail->stocks_fin->bloque + $detail->stocks_fin->instance,5)) {
+		if (round($detail->total,5) < round($detail->stocks_fin->instance,5)) {
 			$this->errors['total_stocks_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
 		if (isset($this->options['is_operateur']) && !$this->options['is_operateur']) {

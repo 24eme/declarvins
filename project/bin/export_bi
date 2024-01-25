@@ -37,7 +37,7 @@ echo "#CONTRAT;campagne;statut;identifiant document;numero contrat;numero archiv
 curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/historybi  | grep "INTERPRO-$INTERPRO"  |  sed -f bin/unicode2alpha | awk -F ',' 'BEGIN { OFS="," }{$6 = substr($6,0,14) "-" substr($6,15,19); if ($19 == "null" ) $19 = "\"/declaration/certifications//genres//appellations//mentions//lieux//couleurs//cepages/\"" ; print $0}' | sed -r 's|.+"key"\:\[(.{1}),(.+)|\1;\2|' | sed -r 's/^(.{1});.*"value":\[(.+)/\1;CONTRAT;\2/' | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep -E '^.{1};CONTRAT;' | grep -E ',"(NONSOLDE|SOLDE|ANNULE)",' | sed -r 's/"([a-zA-Z ]+),([a-zA-Z ]+)"/\1 \2/g' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed -r 's/(;[0-9]+\.[0-9]{2})[0-9]+;/\1;/g' | sed 's/"//g' | sed 's|/declaration/certifications/||' | sed 's|/genres/|;|' | sed 's|/appellations/|;|' | sed 's|/mentions/|;|' | sed 's|/lieux/|;|' | sed 's|/couleurs/|;|' | sed 's|/cepages/|;|' | sed -r 's/^.{1};//g' | sed 's/%//g' | awk -F ";" 'BEGIN { OFS=";"} { for(i=1;i<=22;i++) { printf($(i) ";") } ; printf(";") ; for(i=23;i<=NF-1;i++) { printf($(i) ";") } ; if ($(44) ~ /biol/) printf("Biologique;"); else printf("Conventionnel;"); printf("\n")  }'  >> $TMPI/export_bi_contrats.csv
 
 echo "#SOCIETE;statut;type societe;identifiant interne;identifiant;code_comptable_client;code_comptable_fournisseur;type fournisseur;nom;nom abrege;cave cooperative;siret;code naf;tva intracommunautaire;domaines;adresse;adresse complementaire;code postal;ville;pays;telephone;fax;email" > $TMPI/export_bi_societes.csv
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/societe/_view/export | sed -f bin/unicode2alpha | sed 's/.*"key":\["INTERPRO-[^"]*",/SOCIETE;/' | sed 's/\],"value":\[*/,/' | sed 's/\]*\},*//' | grep '^SOCIETE;"' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed -r 's/"([^"]+); ([^"]+)"/"\1 \2"/g' | sed 's/"//g'  >> $TMPI/export_bi_societes.csv
+curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/societe/_view/export | sed -f bin/unicode2alpha | sed 's/.*"key":\["INTERPRO-[^"]*",/SOCIETE;/' | sed 's/\],"value":\[*/,/' | sed 's/\]*\},*//' | grep '^SOCIETE;"' | sed -r 's/"([^"]+),([^"]+)"/\1 \2/g' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed -r 's/"([^"]+); ([^"]+)"/"\1 \2"/g' | sed 's/"//g'  >> $TMPI/export_bi_societes.csv
 
 echo "#ETABLISSEMENT;statut;famille;identifiant societe;identifiant interne;nom;identifiant;cvi;region viticole;raison sociale;siege.adresse;siege.commune;siege.code postal;no accises;carte pro;email;telephone;fax;recette_locale_id_douane;recette_locale_nom;siret;" > $TMPI/export_bi_etablissements.csv
 curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/all  | grep "CONFIGURATION-ZONE-$Z" | sed -f bin/unicode2alpha | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g' | sed 's/null/""/g' | sed -r 's/"([^"]+),([^"]+)"/\1 \2/g' | sed -r 's/\{[^{}]*\}/{}/' | sed 's/,/;/g' | sed 's/"//g' | sed 's/SOCIETE-//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "ETABLISSEMENT;"$2";"$4 " " $5";"$6";"$1";"$8";"$9";"$12";;"$10";"$25";"$13";"$14";"$20";"$21";"$22";"$23";"$24";;"$18";"$11";" }'  >> $TMPI/export_bi_etablissements.csv
@@ -49,9 +49,19 @@ cat $TMPI/export_bi_drm_stock_last_modificatrices.csv | sed 's/"//g' | sed 's|/d
 
 . bin/export_bi_drm $INTERPRO
 
-echo "#DAE;date;famille;sous famille;code postal;certifications;genres;appellations;mentions;lieux;couleurs;cepages;libelle produit;label;mention;millesime;primeur;acheteur type;destination;conditionnement;contenance en litre;quantite;prix unitaire;volume total en hl;prix unitaire en hl" > $TMPI/export_bi_daes.csv
-if [[ $INTERPRO -eq "IR" ]] ; then
-	curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae | sed -f bin/unicode2alpha | tr -d '\r' | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep 'DAE-' | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g' | sed 's/Leclerc, Carrefour.../Leclerc \/ Carrefour.../g' | sed 's/LIDL, ALDI, Leader Price.../LIDL \/ ALDI \/ Leader Price.../g' | sed 's/,/;/g' | sed 's/"//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "DAE;"$2";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$19";"$20";"$21";"$22";"$23";"$26";"$27";"$28";"$30";"$31";"$32";"$33";"$34";" }' | sed 's/null//g'  >> $TMPI/export_bi_daes.csv
+if [[ $INTERPRO == "IR" ]] ; then
+  echo "#DAE;date;famille;sous famille;code postal;certifications;genres;appellations;mentions;lieux;couleurs;cepages;libelle produit;label;mention;millesime;primeur;acheteur type;destination;conditionnement;contenance en litre;quantite;prix unitaire;volume total en hl;prix unitaire en hl" > $TMPI/export_bi_daes.csv
+  if [[ $INTERPRO -eq "IR" ]] ; then
+  	curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae | sed -f bin/unicode2alpha | tr -d '\r' | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep 'DAE-' | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g' | sed 's/Leclerc, Carrefour.../Leclerc \/ Carrefour.../g' | sed 's/LIDL, ALDI, Leader Price.../LIDL \/ ALDI \/ Leader Price.../g' | sed 's/,/;/g' | sed 's/"//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "DAE;"$2";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$19";"$20";"$21";"$22";"$23";"$26";"$27";"$28";"$30";"$31";"$32";"$33";"$34";" }' | sed 's/null//g'  >> $TMPI/export_bi_daes.csv
+  fi
+  php symfony dae:rapport-depots --application="declarvin" > $TMPI/export_rapport_depots_dae.csv
+
+  recode UTF8..ISO88591-1 $TMPI/export_bi_daes.csv
+  recode UTF8..ISO88591-1 $TMPI/export_rapport_depots_dae.csv
+
+
+  cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
+  cp $TMPI/export_rapport_depots_dae.csv $EXPORTDIR_INTERPRO/
 fi
 
 php symfony export:facture $SYMFONYTASKOPTIONS --factureid=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_factures.csv
@@ -74,7 +84,6 @@ recode UTF8..ISO88591-1 export_bi_contrats.csv
 recode UTF8..ISO88591-1 export_bi_etablissements.csv
 recode UTF8..ISO88591-1 export_bi_drm.csv
 recode UTF8..ISO88591-1 export_bi_drm_stock.csv
-recode UTF8..ISO88591-1 export_bi_daes.csv
 recode UTF8..ISO88591-1 export_bi_factures.csv
 recode UTF8..ISO88591-1 export_bi_factures_paiements.csv
 recode UTF8..ISO88591-1 export_bi_sv12.csv
@@ -95,7 +104,6 @@ cp $TMPI/export_bi_societes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_etablissements.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_drm.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_drm_stock.csv $EXPORTDIR_INTERPRO/
-cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_factures.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_factures_paiements.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_sv12.csv $EXPORTDIR_INTERPRO/

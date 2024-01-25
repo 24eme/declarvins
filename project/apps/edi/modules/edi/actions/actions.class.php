@@ -539,7 +539,7 @@ class ediActions extends sfActions
   		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
   		if ($formUploadCsv->isValid()) {
   			try {
-  				$drm = new DRM();
+  				$drm = DRMClient::getInstance()->createDoc($etab->identifiant);
   				$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
   				$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
   				$drmCsvEdi = new DRMImportCsvEdi($file, $drm);

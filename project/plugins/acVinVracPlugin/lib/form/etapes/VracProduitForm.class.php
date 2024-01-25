@@ -66,6 +66,7 @@ class VracProduitForm extends VracForm
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
           $this->getObject()->interpro = $configurationProduit->getDocument()->interpro;
+          $this->getObject()->contrat_pluriannuel = ($this->getObject()->isPluriannuel())? 1 : 0;
         	$cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
 	        if ($cvo) {
 	        	$this->getObject()->part_cvo = $cvo->taux;

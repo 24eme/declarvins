@@ -718,7 +718,7 @@ class DRMDetail extends BaseDRMDetail {
       if ($this->observations) {
         $observations = $this->observations.', '.$observations;
       }
-    	$this->observations = $observations;
+    	$this->observations = str_replace(';', ',', $observations);
     }
 
     public function isVci() {
@@ -734,5 +734,20 @@ class DRMDetail extends BaseDRMDetail {
       } else {
         return ($this->total_debut_mois == 0 && $this->total_entrees == 0 && $this->total_sorties == 0);
       }
+    }
+
+    public function hasReserveInterpro() {
+        return $this->exist('reserve_interpro');
+    }
+
+    public function getReserveInterpro() {
+        if ($this->hasReserveInterpro()) {
+            return $this->_get('reserve_interpro');
+        }
+        return 0;
+    }
+
+    public function getVolumeCommercialisable() {
+        return $this->total - $this->getReserveInterpro();
     }
 }

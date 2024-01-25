@@ -243,8 +243,8 @@ EOF;
             $ligne[self::CSV_FA_POURCENTAGE_ACCOMPTE] = self::ACCOMPTE;
             $ligne[self::CSV_FA_DELAI_PAIEMENT] = $this->getDelaiPaiement($contrat);
 
-            $ligne[self::CSV_FA_CODE_TYPE_PRODUIT] = ($type_contrat == 'M') ? 'E' : "PA";
-            $ligne[self::CSV_FA_CODE_DENOMINATION_VIN_IGP] = $this->getCodeDenomVinIGP($produit); // ASSIGNER LES CODE PRODUITS IGP
+            $ligne[self::CSV_FA_CODE_TYPE_PRODUIT] = ($type_contrat == 'M') ? 'MO' : "PA";
+            $ligne[self::CSV_FA_CODE_DENOMINATION_VIN_IGP] = ($type_contrat == 'M') ? '' : $this->getCodeDenomVinIGP($produit); // ASSIGNER LES CODE PRODUITS IGP
             $ligne[self::CSV_FA_PRIMEUR] = ($contrat->isPrimeur()) ? "O" : "N";
             $ligne[self::CSV_FA_BIO] = ($contrat->isBio()) ? "O" : "N";
             $ligne[self::CSV_FA_COULEUR] = $this->getCouleurIGP($type_contrat, $produit);
@@ -255,7 +255,7 @@ EOF;
             $ligne[self::CSV_FA_PRIX] = sprintf($contrat->prix_unitaire, '0.2f');
             $ligne[self::CSV_FA_UNITE_PRIX] = 'H';
             $ligne[self::CSV_FA_CODE_CEPAGE] = $this->getCepageCode($produit->libelle);
-            $ligne[self::CSV_FA_CODE_DEST] = ($type_contrat == 'M') ? 'E' : "Z";
+            $ligne[self::CSV_FA_CODE_DEST] = ($type_contrat == 'M') ? 'A' : "Z";
             $ligne[self::CSV_FA_LAST] = "0.0";
             $ligne[self::CSV_FA_LAST + 1 ] = $contrat->_id;
 
@@ -329,7 +329,7 @@ EOF;
     }
 
     public function isContratATransmettre($contrat) {
-        if ($contrat->type_transaction !== 'vrac') {
+        if ($contrat->type_transaction == 'raisin') {
             return false;
         }
         if (!$contrat->referente) {
