@@ -367,13 +367,16 @@ class acVinVracActions extends sfActions
 
 	public function executeValidation(sfWebRequest $request)
 	{
-		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
-		$acteurs = VracClient::getInstance()->getActeurs();
-      	if (!in_array($this->acteur, $acteurs)) {
-        	throw new sfException('Acteur '.$acteur.' invalide!');
-      	}
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->forward404Unless($this->vrac && $this->etablissement);
+        if ($this->etablissement->identifiant == $this->vrac->vendeur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_VENDEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->acheteur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_ACHETEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->mandataire_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_COURTIER;
+        }
         $this->init($this->vrac, $this->etablissement);
         $validationActeur = 'date_validation_'.$this->acteur;
         $this->dateValidationActeur = $this->vrac->valide->{$validationActeur};
