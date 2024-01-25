@@ -489,7 +489,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function validateEdi()
     {
-    	$this->vous_etes = 'vendeur';
+    	$this->vous_etes = VracClient::VRAC_TYPE_VENDEUR;
     	$this->date_signature = date('c');
     	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_saisie = $this->date_signature;
