@@ -101,7 +101,7 @@
 			    	<?php endif; ?>
 			    <?php else: ?>
 			    	<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isOperateur): ?>
-                        <?php if ($isProprietaire && $isOperateur ): ?>
+                        <?php if (($isProprietaire && $isOperateur) || $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) ): ?>
 			      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
                         <?php else: ?>
                             En cours d'édition par le responsable
