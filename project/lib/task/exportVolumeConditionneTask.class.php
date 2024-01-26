@@ -14,6 +14,7 @@ class exportVolumeConditionneTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('annee', null, sfCommandOption::PARAMETER_REQUIRED, 'Annee civile'),
+      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'Interpro'),
     ));
 
     $this->namespace        = 'export';
@@ -35,6 +36,7 @@ EOF;
     $csvFile = $arguments['mvtsDrmCsvFile'];
     $etablissementCsvFile = $arguments['etablissementsCsvFile'];
     $annee = $options['annee'];
+    $interpro = 'INTERPRO-'.str_replace('INTERPRO-', '', $options['interpro']);
 
     if (!file_exists($csvFile)) {
         echo "file doesn't exist";
@@ -57,6 +59,18 @@ EOF;
           $result[$data[2]] += $data[19];
       }
       fclose($handle);
+    }
+
+    $contrats = VracDateView::getInstance()->findByInterproAndDates($interpro, $annee.'-01-01', $annee.'-12-31')->rows;
+    foreach ($contrats as $contrat) {
+      if ($contrat->value[VracDateView::VALUE_TYPE_RETIRAISON] != 'tire_bouche') {
+        continue;
+      }
+      $identifiant = $contrat->value[VracDateView::VALUE_VENDEUR_ID];
+      if (!isset($result[$identifiant])) {
+        $result[$identifiant] = 0;
+      }
+      $result[$identifiant] += $contrat->value[VracDateView::VALUE_VOLUME_PROPOSE];
     }
 
     if ($result) {

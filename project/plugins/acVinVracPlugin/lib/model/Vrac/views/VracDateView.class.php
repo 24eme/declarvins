@@ -88,6 +88,7 @@ class VracDateView extends acCouchdbView
 	const VALUE_DATE_DETERMINATION_PRIX = 79;
 	const VALUE_CAMPAGNE = 80;
 	const VALUE_PRIX_TOTAL = 81;
+	const VALUE_TYPE_RETIRAISON = 84;
 
 	public static function getInstance() 
 	{
@@ -113,4 +114,11 @@ class VracDateView extends acCouchdbView
     	return '9999-99-99T99:99:99'.date('P');
     }
 
-}  
+    public function findByInterproAndDates($interpro, $dateDebut, $dateFin)
+    {
+      	return $this->client->startkey(array($interpro, $dateDebut))
+                    		->endkey(array($interpro, $dateFin, array()))
+                    		->getView($this->design, $this->view);
+    }
+
+}
