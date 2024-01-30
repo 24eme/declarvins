@@ -50,7 +50,7 @@ EOF;
           if (strpos($data[4], $annee) !== 0) {
             continue;
           }
-          if (!in_array($data[30], ['sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes'])) {
+          if (!in_array($data[30], ['sorties/crd', 'sorties/crd_acquittes'])) {
             continue;
           }
           if (!isset($result[$data[2]])) {
