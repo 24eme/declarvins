@@ -192,11 +192,13 @@
 
     <?php if ($drm->periode == '2024-01' && count($drm->getDetails('INTERPRO-IR')) > 0): ?>
   	<div id="popup_adelphe" class="popup_contenu popup_form" style="display:none;">
-  		<p>Avez-vous sorti du vin, de la vallée du Rhône, conditionné (bouteille, bib, ...) au cours de l'année 2023 ?</p>
+  		<p>Avez-vous sorti du vin bénéficiant des appellations CDR, CDRV ou Crus  en conditionné (bouteille, bib, ...) au cours de l'année 2023 ?</p>
   		<br />
-  		<p>Si oui, vous devez déclarer ces volumes auprès de l'Adelphe, organisme en charge du recyclage des emballages.</p>
+  		<p>Si oui, vous devez déclarer ces volumes auprès d’Adelphe, organisme en charge de la valorisation des déchets pour la filière vin.</p>
   		<br />
-  		<p>Pour ce faire, nous vous invitons à saisir vos volumes conditionnés 2023 auprès de votre syndicat.</p>
+  		<p>Pour ceux qui ont souscrit au contrat collectif Syndicat des CDR/Adelphe, nous vous invitons à saisir vos volumes conditionnés 2023 auprès de votre syndicat.</p>
+      <br />
+      <p>Pour ceux qui n’ont pas souscrit au contrat collectif CDR Syndicat des CDR/Adelphe, nous vous invitons à vous mettre en conformité auprès d’ADELPHE en direct.</p>
   		<br />
       <p style="text-align: right;">
   		    <a href="https://declaration.syndicat-cotesdurhone.com/" style="color: #86005b;">Déclarer sur le portail du syndicat des Côtes du Rhône</a>
