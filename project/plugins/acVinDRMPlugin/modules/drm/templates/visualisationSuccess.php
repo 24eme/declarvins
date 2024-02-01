@@ -190,7 +190,7 @@
   	<?php endif; ?>
 
 
-    <?php if ($drm->periode == '2023-12' && count($drm->getDetails('INTERPRO-IR')) > 0): ?>
+    <?php if ($drm->periode == '2024-01' && count($drm->getDetails('INTERPRO-IR')) > 0): ?>
   	<div id="popup_adelphe" class="popup_contenu popup_form" style="display:none;">
   		<p>Avez-vous sorti du vin, de la vallée du Rhône, conditionné (bouteille, bib, ...) au cours de l'année 2023 ?</p>
   		<br />
