@@ -202,7 +202,7 @@
   		{
   			$.openPopup("#popup_adelphe",
   					null,
-  					"Déclaration de conditionnement Adelphe",
+  					"Déclaration Adelphe",
   					null,
   					null,
   					function() {
