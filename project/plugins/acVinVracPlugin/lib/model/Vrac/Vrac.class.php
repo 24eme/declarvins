@@ -613,7 +613,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$produit = $this->getProduitObject();
     	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
-	    	return true;
+	    	return ($this->type_transaction == 'vrac' && ($this->type_retiraison == 'vrac' || !$this->type_retiraison));
     	}
     	return false;
 
