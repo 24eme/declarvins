@@ -18,10 +18,10 @@
 	    </thead>
 	    <tbody>
             <?php
-	        	$isOperateur = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
+	        	$isAdmin = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
 	        	foreach ($vracs as $value):
 	        		$elt = $value->value;
-	        		if ($isOperateur && $elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID] && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
+	        		if ($isAdmin && $elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID] && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
 	        			continue;
 	        		}
 					$acteur = null;
@@ -64,7 +64,7 @@
 		?>
 			<tr class="<?php echo $statusColor ?>" >
 			  <td class="text-center" style="padding: 0;">
-			  	<?php if ((!$validated||$pluriannuel) && $isOperateur): ?>
+			  	<?php if ((!$validated||$pluriannuel) && $isAdmin): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
                 <?php if (empty($statusColor)): ?>
@@ -94,14 +94,14 @@
 			    		<?php else: ?>
 							<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE)): ?>
 				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
-							<?php elseif ($isOperateur): ?>
+							<?php elseif ($isAdmin): ?>
 							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
 							<?php endif; ?>
 						<?php endif; ?>
 			    	<?php endif; ?>
 			    <?php else: ?>
-			    	<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isOperateur): ?>
-                        <?php if (($isProprietaire && $isOperateur) || $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) ): ?>
+			    	<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isAdmin): ?>
+                        <?php if ($isProprietaire || $isAdmin): ?>
 			      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
                         <?php else: ?>
                             En cours d'édition par le responsable
