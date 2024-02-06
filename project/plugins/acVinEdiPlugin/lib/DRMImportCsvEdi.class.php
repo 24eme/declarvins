@@ -250,7 +250,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     foreach ($produitsReserve as $produitReserve) {
                         if ($this->drm->exist($produitReserve->getHash())) {
                             $produitAddReserve = $this->drm->get($produitReserve->getHash());
-                            $produitAddReserve->add('reserve_interpro', $produitReserve->getRerserveIntepro());
+                            $produitAddReserve->add('reserve_interpro', $produitReserve->getReserveInterpro());
                         }
                     }
                 }
