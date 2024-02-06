@@ -14,7 +14,7 @@ $echeances = $facture->getEcheancesPapillon();
 	\multicolumn{3}{>{\columncolor[rgb]{0.8,0.8,0.8}}c}{\centering \small{\textbf{Références de facturation}}} \\
 
         \CutlnPapillonEntete
-        <?php if($facture->getNbPaiementsAutomatique()): ?>
+        <?php if($facture->getNbPaiementsAutomatique() && $facture->getSociete()->getMandatSepa()): ?>
           &
           \centering \fontsize{7}{8}\selectfont \textbf{Prélevé} sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\ ~ &
 
