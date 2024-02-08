@@ -6,7 +6,7 @@
 TMPE="$TMP/export_exantis"
 LATEX="data/latex"
 
-rm -rf $TMP 2> /dev/null
+rm -rf $TMPE 2> /dev/null
 mkdir -p $TMPE $TMPE/pdf
 
 
