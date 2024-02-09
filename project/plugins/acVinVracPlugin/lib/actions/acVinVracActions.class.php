@@ -411,13 +411,23 @@ class acVinVracActions extends sfActions
 
 	public function executeAnnulation(sfWebRequest $request)
 	{
-		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
 		$acteurs = VracClient::getInstance()->getActeurs();
-      	if (!in_array($this->acteur, $acteurs)) {
-        	throw new sfException('Acteur '.$acteur.' invalide!');
-      	}
+
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+
+        $this->acteur = $request->getParameter('acteur', null)
+        if ($this->etablissement->identifiant == $this->vrac->vendeur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_VENDEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->acheteur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_ACHETEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->mandataire_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_COURTIER;
+        }
+        $this->forward404Unless($this->acteur);
+        if (!in_array($this->acteur, $acteurs)) {
+            throw new sfException('Acteur '.$acteur.' invalide!');
+        }
         $this->init($this->vrac, $this->etablissement);
         $annulationActeur = 'date_annulation_'.$this->acteur;
         $this->dateAnnulationActeur = $this->vrac->annulation->{$annulationActeur};

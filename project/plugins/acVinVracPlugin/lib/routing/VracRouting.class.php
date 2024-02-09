@@ -77,10 +77,10 @@ class VracRouting {
         $r->prependRoute('vrac_validation', new VracRoute('/vrac/:identifiant/:contrat/validation/:acteur',
                                                         array('module' => 'vrac','action' => 'validation', 'acteur' => null),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));                                               
-                                                        
-        $r->prependRoute('vrac_annulation', new VracRoute('/vrac/:identifiant/:contrat/annulation/:acteur',
-                                                        array('module' => 'vrac','action' => 'annulation', 'acteur' => null),
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
+
+        $r->prependRoute('vrac_annulation', new VracRoute('/vrac/:identifiant/:contrat/annulation',
+                                                        array('module' => 'vrac','action' => 'annulation'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
                                                         
