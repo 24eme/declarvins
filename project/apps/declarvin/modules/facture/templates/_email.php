@@ -20,6 +20,20 @@ Vous pouvez la télécharger directement en cliquant sur le lien : <?php echo Pr
 Dans le cas d'une modification à apporter, n'hésitez pas nous contacter au 04 90 42 90 04 ou à contact@intervins-sudest.org.
 
 <?php echo $interproNom ?>
+<?php elseif($facture->exist('interpro') && $facture->interpro == 'INTERPRO-CIVP'): ?>
+Bonjour,
+
+Une nouvelle facture émise par le <?php echo $interproNom ?> est disponible.
+
+Vous pouvez la télécharger directement en cliquant sur le lien : <?php echo ProjectConfiguration::getAppRouting()->generate('facture_pdf_auth', array('id' => $facture->_id, 'auth' => FactureClient::generateAuthKey($facture->_id)), true); ?>.
+
+En cas de question concernant les volumes de cette facture, contactez declarvins@provenwines.com
+
+En cas de question sur le montant, les échéances ou sur les moyens de paiements, contactez compta@provencewines.com
+
+Bien cordialement,
+
+Le <?php echo $interproNom ?>
 <?php else: ?>
 Bonjour,
 

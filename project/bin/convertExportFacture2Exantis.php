@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlParser.php');
 
+if (!isset($argv[1])) {
+  echo "ERREUR : l'identifiant de la configuration produit a utiliser n'est pas spécifié\n";
+  exit;
+}
+
 function initFactureTab($tabLine) {
     $ref = substr($tabLine[19], 0, strpos($tabLine[19], '-'));
     if ($tabLine[0] == 'ATT') $ref .= 'ATT';
@@ -69,6 +74,7 @@ function getCodeArticle($designation) {
 }
 
 function getAppellations() {
+    global $argv;
     $appellations = [];
     $databases = file_get_contents(dirname(__FILE__).'/../config/databases.yml');
     if ($databases) {
@@ -79,19 +85,14 @@ function getAppellations() {
         } catch(Exception $e) {
             return null;
         }
-        if ($conf = file_get_contents($db['all']['default']['param']['dsn'].$db['all']['default']['param']['dbname'].'/CONFIGURATION-PRODUITS-IR-20200801')) {
+        if ($conf = file_get_contents($db['all']['default']['param']['dsn'].$db['all']['default']['param']['dbname'].'/'.$argv[1])) {
             $confObj = json_decode($conf);
             if (!is_object($confObj)) return null;
             $certifications = $confObj->declaration->certifications;
             foreach($certifications as $certification) {
                 foreach($certification->genres as $genre) {
                     foreach($genre->appellations as $appellation) {
-                        $tx = 0;
-                        if ($cvo = end($appellation->droits->cvo)) {
-                            $tx = $cvo->taux;
-                        }
-                        if ($tx > 0)
-                            $appellations[$certification->libelle.' '.$genre->libelle.' '.$appellation->libelle] = $appellation->code;
+                      $appellations[$certification->libelle.' '.$genre->libelle.' '.$appellation->libelle] = $appellation->code;
                     }
                 }
             }
