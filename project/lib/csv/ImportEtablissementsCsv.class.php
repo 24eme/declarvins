@@ -360,6 +360,21 @@ class ImportEtablissementsCsv {
                 $cc = (strpos($societe->identifiant, '-') !== false)? substr($societe->identifiant, 0, strpos($societe->identifiant, '-')) : $societe->identifiant;
                 $societe->addCodeComptableClient($cc, $this->_interpro->_id);
             }
+            if (isset($line[EtablissementCsv::COL_FACTURE_EMAIL])) {
+                $societe->email = $line[EtablissementCsv::COL_FACTURE_EMAIL];
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_ADRESSE])) {
+                $societe->siege->adresse = $line[EtablissementCsv::COL_FACTURE_ADRESSE];
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_COMMUNE])) {
+                $societe->siege->commune = $line[EtablissementCsv::COL_FACTURE_COMMUNE];
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_CODE_POSTAL])) {
+                $societe->siege->code_postal = $line[EtablissementCsv::COL_FACTURE_CODE_POSTAL];
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_PAYS])) {
+                $societe->siege->pays = $line[EtablissementCsv::COL_FACTURE_PAYS];
+            }
             $societe->save();
             if ($hasSociete && isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])) {
                 $this->updateSepa($line, $societe);
