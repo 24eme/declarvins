@@ -69,7 +69,7 @@ all:
       facturation_metas_actif: true
     facture-interpro-civp:
       type_cvo:
-        identifiant_prefix: "FA"
+        identifiant_prefix: "FADRM"
       type_libre:
         identifiant_prefix: "FA"
       paiements_actif: false
