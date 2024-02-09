@@ -416,7 +416,7 @@ class acVinVracActions extends sfActions
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 
-        $this->acteur = $request->getParameter('acteur', null)
+        $this->acteur = $request->getParameter('acteur', null);
         if ($this->etablissement->identifiant == $this->vrac->vendeur_identifiant) {
             $this->acteur = VracClient::VRAC_TYPE_VENDEUR;
         }elseif ($this->etablissement->identifiant == $this->vrac->acheteur_identifiant) {
