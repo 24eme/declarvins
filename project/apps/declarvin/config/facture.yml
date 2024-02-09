@@ -84,7 +84,7 @@ all:
       seuil_minimum: 0
       globalise_calcul_taxe: true
       nom_interpro_teledeclaration: 'CIVP'
-      email_interpro_teledeclaration: 'declarvins@provencewines.com'
+      email_interpro_teledeclaration: 'noreply-facturedrm@provencewines.com'
       facturation_metas_actif: true
       pdf_display_code_comptable: false
       pdf_nom_ref_client: "N° CLIENT"
