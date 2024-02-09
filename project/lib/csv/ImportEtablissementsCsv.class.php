@@ -376,7 +376,8 @@ class ImportEtablissementsCsv {
                 $societe->siege->pays = $line[EtablissementCsv::COL_FACTURE_PAYS];
             }
             $societe->save();
-            if ($hasSociete && isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])) {
+
+            if (isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])) {
                 $this->updateSepa($line, $societe);
             }
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
