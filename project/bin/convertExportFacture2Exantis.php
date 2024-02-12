@@ -76,6 +76,7 @@ function getCodeArticle($designation) {
 function getAppellations() {
     global $argv;
     $appellations = [];
+    $couleurs = [];
     $databases = file_get_contents(dirname(__FILE__).'/../config/databases.yml');
     if ($databases) {
         $ymlParser = new sfYamlParser();
@@ -93,12 +94,23 @@ function getAppellations() {
                 foreach($certification->genres as $genre) {
                     foreach($genre->appellations as $appellation) {
                       $appellations[$certification->libelle.' '.$genre->libelle.' '.$appellation->libelle] = $appellation->code;
+                      foreach($appellation->mentions as $mention) {
+                        foreach($mention->lieux as $lieu) {
+                          foreach($lieu->couleurs as $couleur) {
+                            $droits = (array)$couleur->droits->cvo;
+                            if (!$droits) continue;
+                            $droit = array_pop($droits);
+                            $key = trim($certification->libelle.' '.$genre->libelle.' '.$appellation->libelle.' '.trim($mention->libelle.' '.$lieu->libelle.' '.$couleur->libelle));
+                            $couleurs[$key] = str_replace([0,1,2,3,4,5,6,7,8,9], '', $droit->code);
+                          }
+                        }
+                      }
                     }
                 }
             }
         }
     }
-    return $appellations;
+    return (strpos($argv[1], 'CIVP') !== false)? $couleurs : $appellations;
 }
 
 
