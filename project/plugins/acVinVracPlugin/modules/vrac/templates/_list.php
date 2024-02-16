@@ -40,7 +40,7 @@
                     if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_COURTIER && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_MANDATAIREID]) {
 						$isProprietaire = true;
 					}
-                    if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_ACHETEUR && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
+                    if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_ACHETEUR && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
 						$isProprietaire = true;
 					}
 					if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_VENDEUR && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
