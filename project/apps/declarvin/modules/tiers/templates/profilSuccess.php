@@ -17,7 +17,22 @@
 				        <?php endif; ?>
 			        </ul>
 				</div>
+				<?php if ($societe && !$societe->isNew()): ?>
+				<div style="padding: 10px 0;" class="clearfix">
+					<h1>Vos informations de facturation</h1>
+					<ul>
+						<li style="margin: 10px 0;">Email : <strong><?php echo $societe->email ?></strong></li>
+						<li style="margin: 10px 0;">Adresse : <strong><?php echo $societe->siege->adresse ?></strong> <strong><?php echo $societe->siege->code_postal ?> <?php echo $societe->siege->commune ?></strong></li>
+
+						<?php if ($sepa = $societe->getMandatSepa($sf_user->getCompte()->getGerantInterpro()->_id)): ?>
+						<li style="margin: 10px 0;">Paiement par prélèvement automatique :</li>
+						<li style="margin: 10px 0;">Banque <strong><?php echo $sepa->getBanqueNom() ?></strong></li>
+						<li style="margin: 10px 0;">Compte <strong><?php echo $sepa->getIbanFormate() ?></strong></li>
+						<?php endif; ?>
+			    </ul>
+				</div>
 			</div>
+			<?php endif; ?>
 		<?php endif; ?>
 
 		<div id="visualisation_profil">

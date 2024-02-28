@@ -69,7 +69,7 @@ all:
       facturation_metas_actif: true
     facture-interpro-civp:
       type_cvo:
-        identifiant_prefix: "FA"
+        identifiant_prefix: "FADRM"
       type_libre:
         identifiant_prefix: "FA"
       paiements_actif: false
@@ -84,5 +84,7 @@ all:
       seuil_minimum: 0
       globalise_calcul_taxe: true
       nom_interpro_teledeclaration: 'CIVP'
-      email_interpro_teledeclaration: 'declarvins@provencewines.com'
+      email_interpro_teledeclaration: 'noreply-facturedrm@provencewines.com'
       facturation_metas_actif: true
+      pdf_display_code_comptable: false
+      pdf_nom_ref_client: "N° CLIENT"

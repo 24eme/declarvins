@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlParser.php');
 
+if (!isset($argv[1])) {
+  echo "ERREUR : l'identifiant de la configuration produit a utiliser n'est pas spécifié\n";
+  exit;
+}
+
 function initFactureTab($tabLine) {
     $ref = substr($tabLine[19], 0, strpos($tabLine[19], '-'));
     if ($tabLine[0] == 'ATT') $ref .= 'ATT';
@@ -69,7 +74,9 @@ function getCodeArticle($designation) {
 }
 
 function getAppellations() {
+    global $argv;
     $appellations = [];
+    $couleurs = [];
     $databases = file_get_contents(dirname(__FILE__).'/../config/databases.yml');
     if ($databases) {
         $ymlParser = new sfYamlParser();
@@ -79,25 +86,31 @@ function getAppellations() {
         } catch(Exception $e) {
             return null;
         }
-        if ($conf = file_get_contents($db['all']['default']['param']['dsn'].$db['all']['default']['param']['dbname'].'/CONFIGURATION-PRODUITS-IR-20200801')) {
+        if ($conf = file_get_contents($db['all']['default']['param']['dsn'].$db['all']['default']['param']['dbname'].'/'.$argv[1])) {
             $confObj = json_decode($conf);
             if (!is_object($confObj)) return null;
             $certifications = $confObj->declaration->certifications;
             foreach($certifications as $certification) {
                 foreach($certification->genres as $genre) {
                     foreach($genre->appellations as $appellation) {
-                        $tx = 0;
-                        if ($cvo = end($appellation->droits->cvo)) {
-                            $tx = $cvo->taux;
+                      $appellations[$certification->libelle.' '.$genre->libelle.' '.$appellation->libelle] = $appellation->code;
+                      foreach($appellation->mentions as $mention) {
+                        foreach($mention->lieux as $lieu) {
+                          foreach($lieu->couleurs as $couleur) {
+                            $droits = (array)$couleur->droits->cvo;
+                            if (!$droits) continue;
+                            $droit = array_pop($droits);
+                            $key = trim($certification->libelle.' '.$genre->libelle.' '.$appellation->libelle.' '.trim($mention->libelle.' '.$lieu->libelle.' '.$couleur->libelle));
+                            $couleurs[$key] = str_replace([0,1,2,3,4,5,6,7,8,9], '', $droit->code);
+                          }
                         }
-                        if ($tx > 0)
-                            $appellations[$certification->libelle.' '.$genre->libelle.' '.$appellation->libelle] = $appellation->code;
+                      }
                     }
                 }
             }
         }
     }
-    return $appellations;
+    return (strpos($argv[1], 'CIVP') !== false)? $couleurs : $appellations;
 }
 
 

@@ -140,10 +140,6 @@ class Etablissement extends BaseEtablissement {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
     		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
     	}
-
-        $societe = $this->getGenerateSociete();
-        $societe->save();
-
     	parent::save();
     }
 
