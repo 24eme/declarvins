@@ -22,7 +22,9 @@
 					<h1>Vos informations de facturation</h1>
 					<ul>
 						<li style="margin: 10px 0;">Email : <strong><?php echo $societe->email ?></strong></li>
-						<li style="margin: 10px 0;">Adresse : <strong><?php echo $societe->siege->adresse ?></strong> <strong><?php echo $societe->siege->code_postal ?> <?php echo $societe->siege->commune ?></strong></li>
+						<li style="margin: 10px 0;">Adresse :</li>
+						<li style="margin: 10px 0;"><strong><?php echo $societe->siege->adresse ?></strong></li>
+						<li style="margin: 10px 0;"><strong><?php echo $societe->siege->code_postal ?> <?php echo $societe->siege->commune ?></strong></li>
 
 						<?php if ($sepa = $societe->getMandatSepa($sf_user->getCompte()->getGerantInterpro()->_id)): ?>
 						<li style="margin: 10px 0;">Paiement par prélèvement automatique :</li>
