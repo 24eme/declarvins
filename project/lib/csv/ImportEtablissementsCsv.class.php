@@ -353,7 +353,7 @@ class ImportEtablissementsCsv {
 		  			}
 		        $etab->save();
             $societe = $etab->getGenerateSociete();
-            if ($societe && isset($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) > 1) {
+            if ($societe && isset($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && is_int($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && $line[EtablissementCsv::COL_NB_PAIEMENT_SV12] > 1) {
                 $societe->setMetasForFacturation(FactureClient::TYPE_FACTURE_MOUVEMENT_SV12, [Societe::FACTURATION_NB_PAIEMENTS_NODE => round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12])]);
             }
             if ($societe && !$societe->getDataFromInterproMetas($this->_interpro->_id, 'code_comptable_client') && in_array($this->_interpro->_id, InterproClient::$_drm_interpros)) {
