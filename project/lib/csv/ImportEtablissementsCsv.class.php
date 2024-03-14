@@ -428,7 +428,7 @@ class ImportEtablissementsCsv {
         $codeGuichet = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]), 5, '0', STR_PAD_LEFT);
         $numCompte = str_pad(trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]), 11, '0', STR_PAD_LEFT);
         $cle = str_pad(trim($line[EtablissementCsv::COL_RIB_CLE]), 2, '0', STR_PAD_LEFT);
-        $mandatSepa->debiteur->iban = 'XXXX'.$codeBanque.$codeGuichet.$numCompte.$cle;
+        $mandatSepa->debiteur->iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
         $mandatSepa->is_actif = 1;
         $mandatSepa->is_signe = 1;
         $mandatSepa->save();
