@@ -402,6 +402,16 @@ class ImportEtablissementsCsv {
 
     private function updateSepa($line, $societe) {
         $inactive = ($this->isZero($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||$this->isZero($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||$this->isZero($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||$this->isZero($line[EtablissementCsv::COL_RIB_CLE]));
+        $iban = trim($line[EtablissementCsv::COL_IBAN]);
+        if ($inactive && $iban && $iban != "0")  {
+          if (strlen($iban) == 27 && substr($iban, 0, 4) == 'FR76') {
+            $inactive = false;
+            $line[EtablissementCsv::COL_RIB_CODE_BANQUE] = substr($iban, 4, 5);
+            $line[EtablissementCsv::COL_RIB_CODE_GUICHET] = substr($iban, 9, 5);
+            $line[EtablissementCsv::COL_RIB_NUM_COMPTE] = substr($iban, 14, 11);
+            $line[EtablissementCsv::COL_RIB_CLE] = substr($iban, -2);
+          }
+        }
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
         if ($inactive) {
             if($mandatSepa) {
