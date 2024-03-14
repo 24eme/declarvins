@@ -361,7 +361,7 @@ class ImportEtablissementsCsv {
                 $societe->addCodeComptableClient($cc, $this->_interpro->_id);
             }
             if (isset($line[EtablissementCsv::COL_FACTURE_EMAIL])) {
-                $societe->email = trim($line[EtablissementCsv::COL_FACTURE_EMAIL]);
+                $societe->email = trim(str_replace("\xc2\xa0", " ", $line[EtablissementCsv::COL_FACTURE_EMAIL]));
             }
             if (isset($line[EtablissementCsv::COL_FACTURE_ADRESSE])) {
                 $societe->siege->adresse = trim($line[EtablissementCsv::COL_FACTURE_ADRESSE]);
