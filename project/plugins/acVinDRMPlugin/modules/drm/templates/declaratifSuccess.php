@@ -146,7 +146,7 @@
                 </div>
                 <?php endif; ?>
 
-                <?php if (($sf_user->getCompte()->isTiers()) || $drm->isNegoce()): ?>
+                <?php if (($sf_user->getCompte()->isTiers()|| $drm->isNegoce()) && $drm->needObservations()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
                 </ul>
