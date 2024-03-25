@@ -144,6 +144,12 @@ class DRMValidation
                 $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
             }
         }
+
+				foreach ($this->drm->crds as $crdId => $crd) {
+					if (($crd->entrees->autres > 0 || $crd->sorties->autres > 0) && !$crd->observations) {
+							$this->errors['obs_crd_autres_'.$crdId] = new DRMControleError('obs_crd_autres', $this->generateUrl('drm_declaratif', $this->drm), 'CRD '.$crd->libelle.': %message%');
+					}
+				}
 	}
 
 	public function isValide() {
