@@ -76,4 +76,14 @@ class DRMCrd extends BaseDRMCrd {
 			$this->sorties->set($sortie, null);
 		}
 	}
+
+	public function needObservation() {
+      if ($this->entrees->autres > 0) {
+        return true;
+      }
+			if ($this->sorties->autres > 0) {
+        return true;
+      }
+			return false;
+	}
 }
