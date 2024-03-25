@@ -659,3 +659,4 @@ DRM:
                         detruites: { type: float }
                         manquantes: { type: float }
                         autres: { type: float }
+                  observations: {  }

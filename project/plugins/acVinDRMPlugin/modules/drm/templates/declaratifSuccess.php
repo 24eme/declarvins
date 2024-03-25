@@ -167,7 +167,16 @@
                         			<?php echo $formObservations['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
                         		</td>
                     		</tr>
-                    	<?php $i++; endforeach; ?>
+                        <?php $i++; endforeach; ?>
+                        <?php foreach ($form['observationsCrds'] as $formObservationsCrd): ?>
+                          <tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
+                            <td style="width: 332px;"><?php echo $formObservationsCrd['observations']->renderLabel() ?></td>
+                            <td>
+                                  <?php echo $formObservationsCrd['observations']->renderError() ?>
+                                  <?php echo $formObservationsCrd['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
+                                </td>
+                            </tr>
+                          <?php $i++; endforeach; ?>
                     	</table>
                     </div>
                 </div>

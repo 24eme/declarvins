@@ -125,6 +125,9 @@
         		</sorties-capsules>
 <?php endif; ?>
         		<stock-fin-periode><?php echo $crd->total_fin_mois ?></stock-fin-periode>
+<?php if ($crd->observations): ?>
+						<observations><?php echo $crd->observations ?></observations>
+<?php endif ?>
       		</centilisation>
 <?php endforeach; ?>
     	</compte-crd>
