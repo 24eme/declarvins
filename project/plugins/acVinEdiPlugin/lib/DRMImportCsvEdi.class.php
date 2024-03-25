@@ -617,14 +617,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			return;
   		}
 
-  		if (!is_numeric($valeur) || $valeur < 0 || intval($valeur) != $valeur) {
-	  		$this->csvDoc->addErreur($this->valeurCrdMouvementNotValidError($numLigne, $datas));
-	  		return;
-  		}
+      $mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
 
-  		$mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
-  		$old = (in_array($typeCrd , array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
-  		$mvt->add($typeCrd, ($old + intval($valeur)));
+      if ($this->isComplement($datas)) {
+        $mvt->add($typeCrd, $valeur);
+      } else {
+    		if (!is_numeric($valeur) || $valeur < 0 || intval($valeur) != $valeur) {
+  	  		$this->csvDoc->addErreur($this->valeurCrdMouvementNotValidError($numLigne, $datas));
+  	  		return;
+    		}
+
+    		$old = (in_array($typeCrd , array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
+    		$mvt->add($typeCrd, ($old + intval($valeur)));
+      }
 
     }
 
