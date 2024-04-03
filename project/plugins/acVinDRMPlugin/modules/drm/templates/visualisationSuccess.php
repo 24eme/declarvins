@@ -31,8 +31,8 @@
 
         <?php
           if ($drm->isValidee()):
-            $region = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
-            $isFacture = $drm->isFactures($region);
+            $interpro = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
+            $isFacture = $drm->isFactures($interpro);
         ?>
 
             <?php if(!$isFacture && !$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
@@ -93,8 +93,8 @@
             <?php elseif($drmCiel->isTransfere() && $drmCiel->isValide()): ?>
             <p>DRM conforme proDou@ne</p>
             <?php endif; ?>
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-            <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
+            <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Transmettre la DRM</a></p>
             <?php endif; ?>
         <?php endif; ?>
 
@@ -171,9 +171,6 @@
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
         <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">
             <button style="float:left;" class="btn_passer_etape modificative" type="submit">Faire une DRM Modificative</button>
-        	 <?php if (!$drmCiel->isTransfere() && !$historique->hasDRMInProcess() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-            <a id="telecharger_pdf" onclick="return confirm('Vous allez dévalider cette DRM, êtes vous sûr ?')" style="font-weight: bold; float: right; margin-left: 0; position: relative; padding: 3px; background: #9e9e9e;" href="<?php echo url_for('drm_devalide', $drm); ?>">[X] DEVALIDER</a>
-			<?php endif; ?>
         </form>
     <?php endif; ?>
 
@@ -188,6 +185,23 @@
   		<br />
       <p style="text-align: right;">
   		    <a href="<?php echo url_for('ds_etablissement', $etablissement) ?>" style="color: #86005b;">Saisir mes stocks d'AOP Provence Rosé</a>
+      </p>
+  	</div>
+  	<?php endif; ?>
+
+
+    <?php if ($drm->periode == '2024-01' && count($drm->getDetails('INTERPRO-IR')) > 0): ?>
+  	<div id="popup_adelphe" class="popup_contenu popup_form" style="display:none;">
+  		<p>Avez-vous sorti du vin bénéficiant des appellations CDR, CDRV ou Crus  en conditionné (bouteille, bib, ...) au cours de l'année 2023 ?</p>
+  		<br />
+  		<p>Si oui, vous devez déclarer ces volumes auprès d’Adelphe, organisme en charge de la valorisation des déchets pour la filière vin.</p>
+  		<br />
+  		<p>Pour ceux qui ont souscrit au contrat collectif Syndicat des CDR/Adelphe, nous vous invitons à saisir vos volumes conditionnés 2023 auprès de votre syndicat.</p>
+      <br />
+      <p>Pour ceux qui n’ont pas souscrit au contrat collectif CDR Syndicat des CDR/Adelphe, nous vous invitons à vous mettre en conformité auprès d’ADELPHE en direct.</p>
+  		<br />
+      <p style="text-align: right;">
+  		    <a href="https://declaration.syndicat-cotesdurhone.com/" style="color: #86005b;">Déclarer sur le portail du syndicat des Côtes du Rhône</a>
       </p>
   	</div>
   	<?php endif; ?>

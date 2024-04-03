@@ -10,11 +10,7 @@
 
 
                 <div id="btn_etape_dr">
-                	<?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
-                    <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
-                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <?php endif; ?>
+                    <button type="submit" name="prev" value="1" class="btn_prec"><span>Précédent</span></button>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 
@@ -150,7 +146,7 @@
                 </div>
                 <?php endif; ?>
 
-                <?php if (($sf_user->getCompte()->isTiers()) || $drm->isNegoce()): ?>
+                <?php if (($sf_user->getCompte()->isTiers()|| $drm->isNegoce()) && $drm->needObservations()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
                 </ul>
@@ -171,7 +167,16 @@
                         			<?php echo $formObservations['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
                         		</td>
                     		</tr>
-                    	<?php $i++; endforeach; ?>
+                        <?php $i++; endforeach; ?>
+                        <?php foreach ($form['observationsCrds'] as $formObservationsCrd): ?>
+                          <tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
+                            <td style="width: 332px;"><?php echo $formObservationsCrd['observations']->renderLabel() ?></td>
+                            <td>
+                                  <?php echo $formObservationsCrd['observations']->renderError() ?>
+                                  <?php echo $formObservationsCrd['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
+                                </td>
+                            </tr>
+                          <?php $i++; endforeach; ?>
                     	</table>
                     </div>
                 </div>
@@ -209,11 +214,7 @@
                 <?php endif; ?>
 
                 <div id="btn_etape_dr">
-                	<?php if (($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()) || $drm->isNegoce()): ?>
-                    <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
-                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <?php endif; ?>
+                	<button type="submit" name="prev" value="1" class="btn_prec"><span>Précédent</span></button>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 

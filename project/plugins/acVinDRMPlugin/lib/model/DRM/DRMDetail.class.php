@@ -718,7 +718,7 @@ class DRMDetail extends BaseDRMDetail {
       if ($this->observations) {
         $observations = $this->observations.', '.$observations;
       }
-    	$this->observations = $observations;
+    	$this->observations = str_replace(';', ',', $observations);
     }
 
     public function isVci() {
@@ -734,5 +734,38 @@ class DRMDetail extends BaseDRMDetail {
       } else {
         return ($this->total_debut_mois == 0 && $this->total_entrees == 0 && $this->total_sorties == 0);
       }
+    }
+
+    public function hasReserveInterpro() {
+        return $this->exist('reserve_interpro');
+    }
+
+    public function getReserveInterpro() {
+        if ($this->hasReserveInterpro()) {
+            return $this->_get('reserve_interpro');
+        }
+        return 0;
+    }
+
+    public function getVolumeCommercialisable() {
+        return $this->total - $this->getReserveInterpro();
+    }
+
+    public function needObservation() {
+      if (($this->entrees->crd > 0)||($this->entrees->excedent > 0)) {
+        return true;
+      }
+      if (($this->sorties->autres > 0)||($this->sorties->pertes > 0)) {
+        return true;
+      }
+      if ($this->getDocument()->isNegoce()) {
+          if (($this->entrees->declassement > 0)||($this->entrees->repli > 0)||($this->entrees->mouvement > 0)) {
+            return true;
+          }
+          if (($this->sorties->declassement > 0)||($this->sorties->repli > 0)||($this->sorties->mouvement > 0)||($this->sorties->autres_interne > 0)||($this->sorties->crd_acquittes > 0)) {
+            return true;
+          }
+      }
+      return false;
     }
 }

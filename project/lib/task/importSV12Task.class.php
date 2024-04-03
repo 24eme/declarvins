@@ -15,6 +15,7 @@ class importSV12Task extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('checking', null, sfCommandOption::PARAMETER_REQUIRED, 'Cheking mode', 0),
       new sfCommandOption('campagne', null, sfCommandOption::PARAMETER_OPTIONAL, 'Campagne'),
+      new sfCommandOption('mvtsalwaysfactures', null, sfCommandOption::PARAMETER_OPTIONAL, 'Mvts'),
     ));
 
     $this->namespace        = 'import';
@@ -35,6 +36,7 @@ EOF;
     $interpro = str_replace('INTERPRO-', '', $arguments['interpro']);
     $checkingMode = $options['checking'];
     $campagneOpt = $options['campagne'];
+    $mvtsalwaysfacturesOpt = $options['mvtsalwaysfactures'];
 
     if (!file_exists($csvFile)) {
         echo "file doesn't exist";
@@ -49,52 +51,60 @@ EOF;
     foreach($items as $datas) {
         $campagne = $datas[1];
         $cvi = str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT);
-        $inao = $datas[16];
+        $idProduit = trim($datas[16]);
         if ($datas[19] != '15') {
             continue;
         }
         if ($campagneOpt && $campagneOpt != $campagne) {
             continue;
         }
-        if (!$inao||(!in_array($inao[0],[1,3]))) {
-            echo "product not importable $inao : $datas[17]\n";
-            continue;
-        }
         $volume = str_replace(',', '.', $datas[21])*1;
-        $produit = $conf->identifyProduct(null, "($inao)");
+        $produit = ($this->isHashProduit($idProduit))? $conf->identifyProduct($idProduit) : $conf->identifyProduct(null, "($idProduit)");
+        if (!$produit && !$this->isHashProduit($idProduit) && substr($idProduit, -3, 1) == ' ' && strlen($idProduit) == 8) {
+            $produit = $conf->identifyProduct(null, "(".substr($idProduit, 0, 5).' 00'.")");
+        }
         if (!$produit) {
-            echo "product not found $inao : $datas[17]\n";
+            echo "product not found $idProduit : $datas[17]\n";
             continue;
         }
         if ($produit->getDocument()->interpro != "INTERPRO-$interpro") {
             continue;
         }
         $labels = $this->getLabels($datas[35]);
-        $etablissement = $conf->identifyEtablissement($cvi);
+        $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi)->rows;
+        $etablissement = null;
+        foreach($etablissements as $e) {
+            $etab = EtablissementClient::getInstance()->find($e->id);
+            if ($etab->statut == Etablissement::STATUT_ARCHIVE) continue;
+            if ($etab->sous_famille !=  EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) continue;
+            $etablissement = $etab;
+        }
         if (!$etablissement) {
             $etablissement = EtablissementClient::getInstance()->find(trim($datas[3]));
         }
         if ($etablissement) {
             $key = $campagne.'-'.$cvi;
+            $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
+            $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
             if (!isset($result[$key])) {
-                $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
-                if ($sv12->isValidee()) {
-                    echo "sv12 already valided $sv12->_id\n";
+                $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
+                if (!$sv12) {
+                    $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
+                }
+                if ($sv12->isValidee() && $sv12->contrats->exist($identifiant)) {
+                    echo "sv12 already valided $sv12->_id for contrat $identifiant\n";
                     continue;
+                }
+                if ($sv12->isValidee() && !$sv12->contrats->exist($identifiant)) {
+                    $sv12 = $sv12->generateModificative();
                 }
                 if ($sv12->isNew()) {
                     $sv12->constructId();
                     $sv12->storeContrats();
-                } else {
-                    $sv12->remove('contrats');
-                    $sv12->remove('totaux');
-                    $sv12->add('contrats');
-                    $sv12->add('totaux');
                 }
             } else {
                 $sv12 = $result[$key];
             }
-            $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
             $exist = $sv12->contrats->exist($identifiant);
             $sv12Contrat = $sv12->contrats->getOradd($identifiant);
             if (!$exist) {
@@ -116,6 +126,9 @@ EOF;
             foreach($sv12->mouvements as $mouvements) {
                 foreach($mouvements as $mouvement) {
                     $mouvement->add('interpro', "INTERPRO-$interpro");
+                    if ($mvtsalwaysfacturesOpt && $mouvement->facturable) {
+                        $mouvement->facture = 1;
+                    }
                 }
             }
             $sv12->save();
@@ -134,6 +147,16 @@ EOF;
           $labels[] = 'conv';
       }
       return $labels;
+  }
+
+  public function isHashProduit($str) {
+      $composants = ['certifications', 'genres', 'appellations', 'mentions', 'lieux', 'couleurs', 'cepages'];
+      foreach($composants as $composant) {
+          if (strpos($str, $composant) === false) {
+              return false;
+          }
+      }
+      return true;
   }
 
   public function getProduitLibelleWithLabel($produit_libelle, $labels) {

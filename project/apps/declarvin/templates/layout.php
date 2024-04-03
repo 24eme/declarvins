@@ -56,12 +56,12 @@
         </div>
         <!-- fin #global -->
         <?php include_partial('global/initMessageAide') ?>
-        <?php include_partial('global/ajaxNotification') ?> 
+        <?php include_partial('global/ajaxNotification') ?>
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <!--[if lte IE 9 ]> </div> <![endif]-->
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <script type="text/javascript">var jsPath = "/js/";</script>
-        <script type="text/javascript" src="/js/includes.js?20170712"></script>
+        <script type="text/javascript" src="/js/includes.js?20240201"></script>
         <script type="text/javascript" src="/js/lib/select2.min.js"></script>
     </body>
 

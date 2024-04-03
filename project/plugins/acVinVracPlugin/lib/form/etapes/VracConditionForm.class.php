@@ -110,7 +110,7 @@ class VracConditionForm extends VracForm
         if ($this->getObject()->isPluriannuel()) {
             $campagne_debut = $this->getObject()->pluriannuel_campagne_debut;
             $annees = explode('-', $campagne_debut);
-            $campagne_fin = implode('-', [$annees[0] + +$values['pluriannuel_campagne_fin'], $annees[1] + +$values['pluriannuel_campagne_fin']]);
+            $campagne_fin = implode('-', [$annees[0] + $values['pluriannuel_campagne_fin'] - 1, $annees[0] + $values['pluriannuel_campagne_fin']]);
             $this->getObject()->pluriannuel_campagne_fin = $campagne_fin;
         }
 
@@ -135,7 +135,7 @@ class VracConditionForm extends VracForm
                   $this->setDefault('pluriannuel_campagne_debut', $cm->getCurrent());
               }
               if ($this->getObject()->pluriannuel_campagne_fin) {
-                  $this->setDefault('pluriannuel_campagne_fin', intval($this->getObject()->pluriannuel_campagne_fin) - intval($this->getObject()->pluriannuel_campagne_debut));
+                  $this->setDefault('pluriannuel_campagne_fin', intval($this->getObject()->pluriannuel_campagne_fin) - intval($this->getObject()->pluriannuel_campagne_debut) + 1);
               } else {
                   $this->setDefault('pluriannuel_campagne_fin', 2);
               }

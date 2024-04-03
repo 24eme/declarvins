@@ -2,12 +2,12 @@
 class ConfigurationProduitNouveauForm extends sfForm 
 {
 	protected $configurationProduit;
-	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage'); 
-	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE', 'MOUTS' => 'MOÛTS');
+	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage');
+	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE', 'MOUTS' => 'MOÛTS', 'APD' => 'Autres produits');
 	protected static $couleurs = array('' => '', 'rouge' => 'Rouge', 'blanc' => 'Blanc', 'rose' => 'Rosé');
-	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel', 'VCI' => 'VCI');
-	
-	public function __construct($configuration, $defaults = array(), $options = array(), $CSRFSecret = null) 
+	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel', 'VCI' => 'VCI', 'SP' => 'Spiritueux');
+
+	public function __construct($configuration, $defaults = array(), $options = array(), $CSRFSecret = null)
 	{
 		$this->configurationProduit = $configuration;
 		parent::__construct($defaults, $options, $CSRFSecret);

@@ -18,13 +18,12 @@
 	    </thead>
 	    <tbody>
             <?php
-	        	$isOperateur = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
+	        	$isAdmin = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
 	        	foreach ($vracs as $value):
 	        		$elt = $value->value;
-	        		if ($isOperateur && $elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID] && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
+	        		if ($isAdmin && $elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID] && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
 	        			continue;
 	        		}
-					$acteur = null;
 					$validated = false;
 					$isProprietaire = false;
                     $isAdossePluriannuel = false;
@@ -35,28 +34,17 @@
                         $vracid .= '-'.$elt[VracHistoryView::VRAC_VERSION];
                     }
 					$vraclibelle = $elt[VracHistoryView::VRAC_VIEW_NUM];
-                    if (($pos = strpos($vraclibelle, '-')) !== false)
+                    if (($pos = strpos($vraclibelle, '-')) !== false) {
                         $vraclibelle = substr($vraclibelle, 0, $pos);
-					if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
-						$acteur = VracClient::VRAC_TYPE_ACHETEUR;
-						$const = VracHistoryView::VRAC_VIEW_ACHETEURVAL;
-						if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
-							$isProprietaire = true;
-						}
+                    }
+                    if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_COURTIER && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_MANDATAIREID]) {
+						$isProprietaire = true;
 					}
-					if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_MANDATAIREID]) {
-						$acteur = VracClient::VRAC_TYPE_COURTIER;
-						$const = VracHistoryView::VRAC_VIEW_MANDATAIREVAL;
-						if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
-							$isProprietaire = true;
-						}
+                    if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_ACHETEUR && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
+						$isProprietaire = true;
 					}
-					if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
-						$acteur = VracClient::VRAC_TYPE_VENDEUR;
-						$const = VracHistoryView::VRAC_VIEW_VENDEURVAL;
-						if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
-							$isProprietaire = true;
-						}
+					if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_VENDEUR && $etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
+						$isProprietaire = true;
 					}
 					if ($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID] && $elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL] && $elt[VracHistoryView::VRAC_VIEW_VENDEURVAL] && $elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]) {
 						$validated = true;
@@ -72,11 +60,10 @@
                     if($elt[VracHistoryView::VRAC_REF_PLURIANNUEL]) {
                         $isAdossePluriannuel = true;
                     }
-			?>
-			<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire || $isOperateur): ?>
+		?>
 			<tr class="<?php echo $statusColor ?>" >
 			  <td class="text-center" style="padding: 0;">
-			  	<?php if ((!$validated||$pluriannuel) && $isOperateur): ?>
+			  	<?php if ((!$validated||$pluriannuel) && $isAdmin): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
                 <?php if (empty($statusColor)): ?>
@@ -102,18 +89,22 @@
 			    		<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo $vraclibelle ?></a>
 			    	<?php else: ?>
 			    		<?php if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION): ?>
-			    			<a class="highlight_link" href="<?php echo url_for('vrac_annulation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>"><?php echo $vraclibelle ?></a>
+			    			<a class="highlight_link" href="<?php echo url_for('vrac_annulation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo $vraclibelle ?></a>
 			    		<?php else: ?>
 							<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE)): ?>
-				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
-							<?php elseif ($isOperateur): ?>
+				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
+							<?php elseif ($isAdmin): ?>
 							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
 							<?php endif; ?>
 						<?php endif; ?>
 			    	<?php endif; ?>
 			    <?php else: ?>
-			    	<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isOperateur): ?>
+			    	<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isAdmin): ?>
+                        <?php if ($isProprietaire || $isAdmin): ?>
 			      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
+                        <?php else: ?>
+                            En cours d'édition par le responsable
+                        <?php endif; ?>
 			      	<?php endif; ?>
 			    <?php endif; ?>
 			  </td>
@@ -131,7 +122,10 @@
 			      <?php else: ?>
 			          <?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID]; ?>
 			      <?php endif; ?>
-			      </span>
+                    </span>
+                  <?php if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_ACHETEUR): ?>
+                      (Responsable)
+                  <?php endif; ?>
                   <br />
                   <span class="glyphicon glyphicon-minus"></span> Vendeur :
                   <?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?>
@@ -146,7 +140,10 @@
                   <?php else: ?>
                       <?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID]; ?>
                   <?php endif; ?>
-                  </span>
+                    </span>
+                  <?php if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_VENDEUR): ?>
+                      (Responsable)
+                  <?php endif; ?>
                   <?php if($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]): ?>
                       <br />
                       <span class="glyphicon glyphicon-minus"></span> Courtier :
@@ -162,7 +159,10 @@
                      <?php else: ?>
                          <?php echo $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]; ?>
                      <?php endif; ?>
-                     </span>
+                        </span>
+                     <?php if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == VracClient::VRAC_TYPE_COURTIER): ?>
+                         (Responsable)
+                     <?php endif; ?>
                   <?php endif; ?>
 		    </td>
 			    <td class="text-left"><?php echo substr($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' ')) ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
@@ -185,7 +185,6 @@
                 </td>
                 <?php endif; ?>
 			</tr>
-			<?php endif; ?>
 	        <?php endforeach; ?>
 	    </tbody>
 	</table>

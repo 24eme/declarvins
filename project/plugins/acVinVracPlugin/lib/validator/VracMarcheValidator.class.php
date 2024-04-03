@@ -119,21 +119,21 @@ class VracMarcheValidator extends sfValidatorBase {
                 }
                 if (!$this->ivse&&!$this->civp) {
                     $today = date('Y-m-d');
-
-                    if ($this->vrac->contrat_pluriannuel) {
-                        $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-12-15' : date('Y').'-12-15';
-                    } else {
-                        $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
-                    }
-
-                    if ($maxd > $limite) {
-                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
-                        $hasError = true;
-                    }
-
+                    $annee = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1) : date('Y');
+                    $limite = "$annee-09-30";
                     $date1 = new DateTime();
-                    if ($this->vrac->contrat_pluriannuel) {
-                        $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $this->vrac->type_transaction != 'vrac')? (date('Y')+1).'-06-30' : date('Y').'-06-30';
+                    if ($this->vrac->contrat_pluriannuel||$this->vrac->isAdossePluriannuel()) {
+                        $limite = "$annee-12-15";
+                        if ($ref = $this->vrac->getContratPluriannelReferent()) {
+                            if ($this->vrac->getCampagne() == $ref->pluriannuel_campagne_fin) {
+                                $limite = "$annee-09-30";
+                            }
+                        }
+                        if (date('Ymd') > $annee.'0630') {
+                            $date1 = new DateTime(date("Y-m-t"));
+                        } else {
+                            $date1 = new DateTime("$annee-06-30");
+                        }
                         $date2 = new DateTime($limite);
                         $nbJour = ceil($date2->diff($date1)->format("%a"));
                     } else {
@@ -154,12 +154,17 @@ class VracMarcheValidator extends sfValidatorBase {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
                         $hasError = true;
                     }
+
+                    if ($maxd > $limite) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
+                        $hasError = true;
+                    }
                 }
                 if ($this->civp) {
                     $limite =  (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison'])? $values['date_limite_retiraison'] : null;
                     $delai =  (isset($values['delai_paiement']) && $values['delai_paiement'])? str_replace('_jours', '', $values['delai_paiement']) : null;
                     $limite = ($limite && $delai && ctype_digit(strval($delai)))? date('Y-m-d', strtotime($limite. "+$delai days")) : null;
-                    if ($limite && $maxd && $maxd > $limite) {
+                    if ($limite && $maxd && $maxd > $limite && !$this->vrac->version) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date_generique'), 'conditions_paiement');
                         $hasError = true;
                     }
@@ -172,8 +177,12 @@ class VracMarcheValidator extends sfValidatorBase {
             $totalMax = ceil(($prix + $cvo) * $vol);
             $totalMin = floor($prix * $vol);
             if ($montantTotal < $totalMin || $montantTotal > $totalMax) {
-                $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
-                $hasError = true;
+                if ($this->civp && $this->vrac->version) {
+                    // non bloquant pour saisie prix definitif
+                } else {
+                    $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
+                    $hasError = true;
+                }
             }
         }
         if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {

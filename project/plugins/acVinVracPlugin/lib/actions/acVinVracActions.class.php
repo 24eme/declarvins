@@ -53,6 +53,13 @@ class acVinVracActions extends sfActions
                     $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, 1));
                 }
         }
+        if ($this->statut === 'TOUS'||$this->statut === VracClient::STATUS_CONTRAT_ANNULE) {
+            foreach($this->vracs as $k => $v) {
+                if (!$v->value[VracHistoryView::VRAC_REFERENTE]) {
+                    unset($this->vracs[$k]);
+                }
+            }
+        }
         usort($this->vracs, array('VracClient', 'sortVracId'));
 
         $this->pluriannuels = [];
@@ -360,13 +367,16 @@ class acVinVracActions extends sfActions
 
 	public function executeValidation(sfWebRequest $request)
 	{
-		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
-		$acteurs = VracClient::getInstance()->getActeurs();
-      	if (!in_array($this->acteur, $acteurs)) {
-        	throw new sfException('Acteur '.$acteur.' invalide!');
-      	}
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->forward404Unless($this->vrac && $this->etablissement);
+        if ($this->etablissement->identifiant == $this->vrac->vendeur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_VENDEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->acheteur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_ACHETEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->mandataire_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_COURTIER;
+        }
         $this->init($this->vrac, $this->etablissement);
         $validationActeur = 'date_validation_'.$this->acteur;
         $this->dateValidationActeur = $this->vrac->valide->{$validationActeur};
@@ -401,13 +411,23 @@ class acVinVracActions extends sfActions
 
 	public function executeAnnulation(sfWebRequest $request)
 	{
-		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
 		$acteurs = VracClient::getInstance()->getActeurs();
-      	if (!in_array($this->acteur, $acteurs)) {
-        	throw new sfException('Acteur '.$acteur.' invalide!');
-      	}
+
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+
+        $this->acteur = $request->getParameter('acteur', null);
+        if ($this->etablissement->identifiant == $this->vrac->vendeur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_VENDEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->acheteur_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_ACHETEUR;
+        }elseif ($this->etablissement->identifiant == $this->vrac->mandataire_identifiant) {
+            $this->acteur = VracClient::VRAC_TYPE_COURTIER;
+        }
+        $this->forward404Unless($this->acteur);
+        if (!in_array($this->acteur, $acteurs)) {
+            throw new sfException('Acteur '.$acteur.' invalide!');
+        }
         $this->init($this->vrac, $this->etablissement);
         $annulationActeur = 'date_annulation_'.$this->acteur;
         $this->dateAnnulationActeur = $this->vrac->annulation->{$annulationActeur};
@@ -497,6 +517,10 @@ class acVinVracActions extends sfActions
         } else {
         	$application->vous_etes = null;
         }
+        if ($application->exist('_attachments')) {
+            $application->remove('_attachments');
+            $application->add('_attachments');
+        }
         $application->save(false);
         return $this->redirect(array('sf_route' => 'vrac_etape',
                               'sf_subject' => $application,
@@ -584,12 +608,13 @@ class acVinVracActions extends sfActions
             die("Unauthorized");
         }
 
-        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/IGP/genres/TRANQ/appellations/MED/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose');
+        $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/IGP');
         $result= array();
         foreach($contrats as $c){
-			$result[$c->id]['numero'] = $c->value[VracHistoryView::VRAC_VIEW_NUM];
+            $result[$c->id]['numero'] = $c->value[VracHistoryView::VRAC_VIEW_NUM];
             $result[$c->id]['acheteur'] = $c->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM];
-			$result[$c->id]['volume'] = $c->value[VracHistoryView::VRAC_VIEW_VOLPROP];
+            $result[$c->id]['produit'] = $c->value[VracHistoryView::VRAC_VIEW_PRODUIT_ID];
+            $result[$c->id]['volume'] = $c->value[VracHistoryView::VRAC_VIEW_VOLPROP];
         }
         $this->getResponse()->setContentType('application/json');
         $data_json=json_encode($result);

@@ -164,5 +164,11 @@ class DRMCepage extends BaseDRMCepage {
         return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getLibelles(), array(), $format);
     }
 
-
+    public function getInterpro() {
+        if ($config = $this->getConfig()) {
+            return $config->getDocument()->interpro;
+        } else {
+            return null;
+        }
+    }
 }

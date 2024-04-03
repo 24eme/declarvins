@@ -198,6 +198,21 @@
   					}
   			);
   		}
+  		if($('#popup_adelphe').exists())
+  		{
+  			$.openPopup("#popup_adelphe",
+  					null,
+  					"Déclaration Adelphe",
+  					null,
+  					null,
+  					function() {
+  						btnPopup.addClass('btn_chargement');
+  					},
+  					function() {
+  						btnPopup.removeClass('btn_chargement');
+  					}
+  			);
+  		}
 		$('.btn_popup').each(function()
 		{
 			var btnPopup = $(this);

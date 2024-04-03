@@ -95,7 +95,7 @@ EOF;
                 }
                 $statuts[] = $libellesStatuts[$statut];
                 // On peuple les données periodique N-1
-                if ($statut == DRMClient::DRM_STATUS_BILAN_A_SAISIR) {
+                if (in_array($statut, [DRMClient::DRM_STATUS_BILAN_A_SAISIR,DRM_STATUS_BILAN_NON_VALIDE])) {
                     if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissement[EtablissementCsv::COL_ID], $this->getPeriodeLastYear($periode))) {
             			foreach ($drm->getDetails() as $detail) {
             				if ($detail->interpro != $interpro->_id) {
@@ -113,7 +113,8 @@ EOF;
             				$str .=  $detail->sorties->vrac.";";
             				$str .=  $detail->sorties->export.";";
             				$str .=  $detail->sorties->factures.";";
-            				$str .=  $detail->sorties->crd."\n";
+            				$str .=  $detail->sorties->crd.";";
+            				$str .=  $detail->sorties->vrac_export."\n";
                             $bilanPeriodesCsv[$periode] .= str_replace(DRM::DEFAULT_KEY, '', $str);
             			}
             		}
@@ -144,7 +145,7 @@ EOF;
     }
 
     private function getEnteteBilanPeriodeCsv($periode) {
-        return self::ENTETES_ETABLISSEMENT."Categorie;Genre;Denomination;Lieu;Couleur;Cepage;$periode;Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France\n";
+        return self::ENTETES_ETABLISSEMENT."Categorie;Genre;Denomination;Lieu;Couleur;Cepage;$periode;Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France;Vrac Export\n";
     }
 
     private function getEtablissementInfosCsv($etablissement) {

@@ -61,7 +61,7 @@ class tiersActions extends sfActions
   	    if (!$droits) {
   	        $droits = array();
   	    }
-  	    if (!in_array(myUser::CREDENTIAL_OPERATEUR, $droits)) {
+  	    if (!in_array(myUser::CREDENTIAL_OPERATEUR, $droits->toArray(true,false))) {
   	        $this->getUser()->setAttribute('initial_user', $this->getUser()->getCompte()->login);
   	    }
   		$this->getUser()->signOut();
@@ -269,12 +269,13 @@ class tiersActions extends sfActions
 
   public function executeRedirect2Stat(sfWebRequest $request)
   {
-    $etablissement = $this->getRoute()->getEtablissement();
-    if (!$etablissement) {
+    $identifiant = $request->getParameter('identifiant');
+    $etablissement = EtablissementClient::getInstance()->find($identifiant);
+    if (!$etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         $this->redirect('/');
     }
-    $_SESSION['etablissement_id'] = $etablissement->identifiant;
-    $this->redirect('/wine-tracker/?id='.$etablissement->identifiant);
+    $_SESSION['etablissement_id'] = $request->getParameter('identifiant');
+    $this->redirect('/wine-tracker/?id='.$request->getParameter('identifiant'));
   }
 
 }

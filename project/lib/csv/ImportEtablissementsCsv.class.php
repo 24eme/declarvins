@@ -173,6 +173,10 @@ class ImportEtablissementsCsv {
     			throw new sfException('has errors');
     		}
     	}
+        if ($line[EtablissementCsv::COL_SIRET] && strpos($line[EtablissementCsv::COL_SIRET], 'E+') !== false) {
+            $this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_SIRET + 1).')  le format du numero siret est incorrect');
+            throw new sfException('has errors');
+        }
     	$etab->identifiant = trim($line[EtablissementCsv::COL_ID]);
         $etab->num_interne = trim($line[EtablissementCsv::COL_NUM_INTERNE]);
         $etab->siret = trim($line[EtablissementCsv::COL_SIRET]);
@@ -347,20 +351,35 @@ class ImportEtablissementsCsv {
 		  			if ($contrat) {
 		  				$etab->compte = $contrat->compte;
 		  			}
-                    $societe = $etab->getGenerateSociete();
-		  			$etab->save();
-                    $hasSociete = true;
-                    if ($societe && isset($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) > 1) {
-                        $societe->setMetasForFacturation(FactureClient::TYPE_FACTURE_MOUVEMENT_SV12, [Societe::FACTURATION_NB_PAIEMENTS_NODE => round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12])]);
-                    }
-                    try {
-                        $societe->save();
-                    } catch(Exception $e) {
-                        $hasSociete = false;
-                    }
-                    if ($hasSociete && isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])) {
-                        $this->updateSepa($line, $societe);
-                    }
+		        $etab->save();
+            $societe = $etab->getGenerateSociete();
+            if ($societe && isset($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && is_int($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && $line[EtablissementCsv::COL_NB_PAIEMENT_SV12] > 1) {
+                $societe->setMetasForFacturation(FactureClient::TYPE_FACTURE_MOUVEMENT_SV12, [Societe::FACTURATION_NB_PAIEMENTS_NODE => round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12])]);
+            }
+            if ($societe && !$societe->getDataFromInterproMetas($this->_interpro->_id, 'code_comptable_client') && in_array($this->_interpro->_id, InterproClient::$_drm_interpros)) {
+                $cc = (strpos($societe->identifiant, '-') !== false)? substr($societe->identifiant, 0, strpos($societe->identifiant, '-')) : $societe->identifiant;
+                $societe->addCodeComptableClient($cc, $this->_interpro->_id);
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_EMAIL])) {
+                $societe->email = trim(str_replace("\xc2\xa0", " ", $line[EtablissementCsv::COL_FACTURE_EMAIL]));
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_ADRESSE])) {
+                $societe->siege->adresse = trim($line[EtablissementCsv::COL_FACTURE_ADRESSE]);
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_COMMUNE])) {
+                $societe->siege->commune = trim($line[EtablissementCsv::COL_FACTURE_COMMUNE]);
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_CODE_POSTAL])) {
+                $societe->siege->code_postal = trim($line[EtablissementCsv::COL_FACTURE_CODE_POSTAL]);
+            }
+            if (isset($line[EtablissementCsv::COL_FACTURE_PAYS])) {
+                $societe->siege->pays = trim($line[EtablissementCsv::COL_FACTURE_PAYS]);
+            }
+            $societe->save();
+
+            if (isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||isset($line[EtablissementCsv::COL_IBAN])) {
+                $this->updateSepa($line, $societe);
+            }
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
@@ -383,6 +402,16 @@ class ImportEtablissementsCsv {
 
     private function updateSepa($line, $societe) {
         $inactive = ($this->isZero($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||$this->isZero($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||$this->isZero($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||$this->isZero($line[EtablissementCsv::COL_RIB_CLE]));
+        $iban = trim($line[EtablissementCsv::COL_IBAN]);
+        if ($inactive && $iban && $iban != "0")  {
+          if (strlen($iban) == 27 && substr($iban, 0, 4) == 'FR76') {
+            $inactive = false;
+            $line[EtablissementCsv::COL_RIB_CODE_BANQUE] = substr($iban, 4, 5);
+            $line[EtablissementCsv::COL_RIB_CODE_GUICHET] = substr($iban, 9, 5);
+            $line[EtablissementCsv::COL_RIB_NUM_COMPTE] = substr($iban, 14, 11);
+            $line[EtablissementCsv::COL_RIB_CLE] = substr($iban, -2);
+          }
+        }
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
         if ($inactive) {
             if($mandatSepa) {
@@ -399,7 +428,7 @@ class ImportEtablissementsCsv {
         $codeGuichet = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]), 5, '0', STR_PAD_LEFT);
         $numCompte = str_pad(trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]), 11, '0', STR_PAD_LEFT);
         $cle = str_pad(trim($line[EtablissementCsv::COL_RIB_CLE]), 2, '0', STR_PAD_LEFT);
-        $mandatSepa->debiteur->iban = 'XXXX'.$codeBanque.$codeGuichet.$numCompte.$cle;
+        $mandatSepa->debiteur->iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
         $mandatSepa->is_actif = 1;
         $mandatSepa->is_signe = 1;
         $mandatSepa->save();

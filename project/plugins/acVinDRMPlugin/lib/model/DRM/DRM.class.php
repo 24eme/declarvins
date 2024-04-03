@@ -235,6 +235,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return null;
     }
 
+    public function getProduitsByIdDouaneAndStockDebut($idDouane, $stockDebut, $acq = false) {
+        $produits = [];
+        $droit = ($acq)? 'acq_total_debut_mois' : 'total_debut_mois';
+        foreach ($this->getDetails() as $detail) {
+            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($droit), 5)) {
+                $produits[] = $detail;
+            }
+        }
+        return $produits;
+    }
+
     public function getDetailsVracSansContrat() {
         $details = array();
         foreach ($this->getDetailsAvecVrac() as $detail) {
@@ -1185,7 +1196,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     {
     	if ($this->exist($hash)) {
     		$produit = $this->get($hash);
-    		$produit->observations = "".$observation;
+    		$produit->observations = "".str_replace(';', '', $observation);
     	}
     }
 
@@ -1486,11 +1497,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->mouvement_document->facturerMouvements();
     }
 
-    public function isFactures($region = null) {
+    public function isFactures($interpro = null) {
         foreach($this->getMouvements() as $mouvements) {
             foreach($mouvements as $mouvement) {
                 if($mouvement->facture) {
-                    if (!$region||($region && $mouvement->region == $region)) {
+                    if (!$interpro||($interpro && $mouvement->interpro == $interpro)) {
                       return true;
                     }
                 }
@@ -1499,8 +1510,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return false;
     }
 
-    public function isNonFactures($region = null) {
-        return !$this->isFactures($region);
+    public function isNonFactures($interpro = null) {
+        return !$this->isFactures($interpro);
     }
 
     public function clearMouvements() {
@@ -1853,6 +1864,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
           if ($p->hasReserveInterpro()) {
               $produits[] = $p;
           }
+          foreach ($p->getProduits() as $detail) {
+            if ($detail->hasReserveInterpro()) {
+                $produits[] = $detail;
+            }
+          }
       }
       return $produits;
   }
@@ -1927,11 +1943,25 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                   continue;
               }
               $item = new stdClass();
-              $item->key = [$mvt->facture, $mvt->facturable, $mvt->region, $this->identifiant, $this->type, $mvt->categorie, $mvt->produit_hash, $this->periode, $mvt->date, $mvt->vrac_numero, $mvt->vrac_destinataire, $mvt->type_hash, $mvt->detail_identifiant, $mvt->type_drm];
+              $item->key = [$mvt->facture, $mvt->facturable, $mvt->interpro, $mvt->region, $this->identifiant, $this->type, $mvt->categorie, $mvt->produit_hash, $this->periode, $mvt->date, $mvt->vrac_numero, $mvt->vrac_destinataire, $mvt->type_hash, $mvt->detail_identifiant, $mvt->type_drm];
               $item->value = [$mvt->produit_libelle, $mvt->type_libelle, $mvt->volume*-1, $mvt->cvo, $mvt->vrac_destinataire, $mvt->detail_libelle, $this->_id, [$this->_id.':'.$key]];
               $items[$mvt->produit_libelle] = $item;
           }
       }
       return $items;
+  }
+
+  public function needObservations() {
+    foreach ($this->getProduits() as $detail) {
+      if ($detail->needObservation()) {
+          return true;
+      }
+    }
+    foreach ($this->crds as $crd) {
+      if ($crd->needObservation()) {
+          return true;
+      }
+    }
+    return false;
   }
 }

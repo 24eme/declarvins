@@ -81,7 +81,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     public function createCacheProduits() {
         $numLigne = 0;
         $this->cache = array();
-        $cache2datas = array();
+        //$cache2datas = array();
         if($this->drm->canSetStockDebutMois()){
             $this->drm->remove("declaration");
             $this->drm->add("declaration");
@@ -191,14 +191,26 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     }
                 }
             }
+
             $produit = $this->drm->getProduitByIdDouane($hash, ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
+
+            if (!$produit && $this->floatize($datas[self::CSV_CAVE_VOLUME]) > 0) {
+                $produits = $this->drm->getProduitsByIdDouaneAndStockDebut(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $this->floatize($datas[self::CSV_CAVE_VOLUME]));
+                if (count($produits) > 1) {
+                    throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane()));
+                }
+                if (count($produits) == 1) {
+                    $produit = $produits[0];
+                }
+            }
 
             if (!$produit) {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
       		}
-          if ($libellePerso) {
-            $produit->libelle = $libellePerso;
-          }
+
+            if ($libellePerso) {
+                $produit->libelle = $libellePerso;
+            }
 
       		if ($complement_libelle && !$label) {
                 $l = $libellePerso;
@@ -207,6 +219,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $produit->libelle = ($libellePerso) ? trim($l) : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
+
     		if ($complement_libelle && $label) {
               $l = $libellePerso;
               if ($libellePerso != $complement_libelle) {
@@ -214,11 +227,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
               }
               $produit->libelle = $complement_libelle;
     		}
+
       		if ($isAutre) {
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
+
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
-            $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
+            //echo $produit->getHash().' - '.$produit->getLibelle().' - '.$produit->getIdentifiantDouane().' - '.$produit->getTotalDebutMois()."\n";
+            /*$cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
             $cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME] = $this->floatize($cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME]);
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
@@ -226,9 +242,21 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
       		if ($isAutre) {
                 $cache2datas[$this->getCacheKeyFromData($datas)]['inao'] = $this->getIdDouane($datas);
-      		}
+      		}*/
         }
-
+        if($this->drm->canSetStockDebutMois()) {
+            if ($this->drmPrecedente) {
+                if ($produitsReserve = $this->drmPrecedente->getProduitsReserveInterpro()) {
+                    foreach ($produitsReserve as $produitReserve) {
+                        if ($this->drm->exist($produitReserve->getHash())) {
+                            $produitAddReserve = $this->drm->get($produitReserve->getHash());
+                            $produitAddReserve->add('reserve_interpro', $produitReserve->getReserveInterpro());
+                        }
+                    }
+                }
+            }
+        }
+        /*
         //on prépare les vérifications
         $check = array();
         foreach ($this->cache as $cacheid => $produit) {
@@ -332,7 +360,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
                 $this->cache[$cacheid] = $p;
             }
-        }
+        }*/
     }
 
     public function getProduitFromCache($datas) {
@@ -589,14 +617,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			return;
   		}
 
-  		if (!is_numeric($valeur) || $valeur < 0 || intval($valeur) != $valeur) {
-	  		$this->csvDoc->addErreur($this->valeurCrdMouvementNotValidError($numLigne, $datas));
-	  		return;
-  		}
+      $mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
 
-  		$mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
-  		$old = (in_array($typeCrd , array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
-  		$mvt->add($typeCrd, ($old + intval($valeur)));
+      if ($this->isComplement($datas)) {
+        $mvt->add($typeCrd, $valeur);
+      } else {
+    		if (!is_numeric($valeur) || $valeur < 0 || intval($valeur) != $valeur) {
+  	  		$this->csvDoc->addErreur($this->valeurCrdMouvementNotValidError($numLigne, $datas));
+  	  		return;
+    		}
+
+    		$old = (in_array($typeCrd , array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
+    		$mvt->add($typeCrd, ($old + intval($valeur)));
+      }
 
     }
 

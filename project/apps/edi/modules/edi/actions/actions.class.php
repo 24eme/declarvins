@@ -539,7 +539,7 @@ class ediActions extends sfActions
   		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
   		if ($formUploadCsv->isValid()) {
   			try {
-  				$drm = new DRM();
+  				$drm = DRMClient::getInstance()->createDoc($etab->identifiant);
   				$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
   				$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
   				$drmCsvEdi = new DRMImportCsvEdi($file, $drm);
@@ -1000,7 +1000,7 @@ class ediActions extends sfActions
             $libelle = '';
             $hash = substr($item->key[DRMDateView::KEY_DETAIL_HASH], 0, strpos($item->key[DRMDateView::KEY_DETAIL_HASH], '/details/'));
             if ($hash && ($confProduit = $conf->getConfigurationProduit($hash))) {
-                $libelle = $confProduit->getLibelleFormat(array(), "%format_libelle%");
+                $libelle = trim($confProduit->getLibelleFormat(array(), "%format_libelle%"));
                 if ($item->value[DRMDateView::VALUE_LABELS_CODE]) {
                     $libelle .= ' '.str_replace('|', ', ', $item->value[DRMDateView::VALUE_LABELS_CODE]);
                 }
@@ -1026,6 +1026,9 @@ class ediActions extends sfActions
   			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && $famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != $famille) {
   			    $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
+        if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && !$item->value[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS] && !$item->value[DRMDateView::VALUE_DETAIL_ENTREES] && !$item->value[DRMDateView::VALUE_DETAIL_SORTIES]) {
+          $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
+        }
   			if ($item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH] != $squeeze) {
   				$drms[] = $item;
   			}

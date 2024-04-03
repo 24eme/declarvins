@@ -11,4 +11,13 @@ class DRMDetailStocksDebutForm  extends acCouchdbObjectForm {
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
 
+	   protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+        if ($r = $this->getObject()->getParent()->getReserveInterpro()) {
+        	$defaults = $this->getDefaults();
+        	$defaults['bloque'] = $r;
+        	$this->setDefaults($defaults);
+        }
+      }
+
 }

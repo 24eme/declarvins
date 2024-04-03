@@ -46,7 +46,7 @@ use_helper('Text');
         <?php if ($etablissement->interpro == 'INTERPRO-IR'): ?>
         <style><!--
             #barre_navigation #nav_principale li.vrr a:hover {
-                background: url(../images/fonds/bg_nav_principale_vvr.png) left 0 no-repeat;
+                background: url(/images/fonds/bg_nav_principale_vvr.png) left 0 no-repeat;
             }
         --></style>
         <li class="vrr">
@@ -58,15 +58,9 @@ use_helper('Text');
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>
         </li>
         <?php endif; ?>
-        <?php if ($configuration->isApplicationOuverte($sf_user->getCompte()->getGerantInterpro()->_id, 'factures')): ?>
+        <?php if ($configuration->isApplicationOuverte($sf_user->getCompte()->getGerantInterpro()->_id, 'factures')||$etablissement->hasFacture()): ?>
         <li<?php if ($active == 'factures'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('facture_societe', $etablissement) ?>">Factures</a>
-        </li>
-        <?php endif; ?>
-
-        <?php if(SubventionConfiguration::getInstance()->isActif($etablissement, $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-        <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
         </li>
         <?php endif; ?>
 

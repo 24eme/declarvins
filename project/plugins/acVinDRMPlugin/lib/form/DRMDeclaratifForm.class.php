@@ -123,6 +123,9 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $observations = new DRMValidationObservationsCollectionForm($this->_drm);
         $this->embedForm('observationsProduits', $observations);
 
+        $observationsCrds = new DRMValidationObservationsCrdCollectionForm($this->_drm);
+        $this->embedForm('observationsCrds', $observationsCrds);
+
         $this->embedForm('reports', new DRMDeclaratifReportForm($this->_drm));
 
         if (!$this->hasWidgetFrequence()) {
@@ -207,6 +210,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
         	foreach ($observations as $hash => $observation) {
        			$this->_drm->addObservationProduit($hash, $observation['observations']);
         	}
+        }
+        if ($observationsCrds = $values['observationsCrds']) {
+          	foreach ($observationsCrds as $hash => $observation) {
+         			$this->_drm->addObservationProduit($hash, $observation['observations']);
+          	}
         }
         return $this->_drm;
     }

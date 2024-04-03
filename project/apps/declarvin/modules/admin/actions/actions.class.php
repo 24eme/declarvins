@@ -144,7 +144,12 @@ class adminActions extends sfActions
   public function executeEtablissementSV12Login(sfWebRequest $request)
   {
       $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => array(EtablissementFamilles::FAMILLE_NEGOCIANT => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR)));
+      $familles = array(
+    	EtablissementFamilles::FAMILLE_PRODUCTEUR => implode("|",array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)),
+        EtablissementFamilles::FAMILLE_NEGOCIANT => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR,
+    );
+
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => $familles));
     if ($request->isMethod(sfWebRequest::POST)) {
       $this->form->bind($request->getParameter($this->form->getName()));
       if ($this->form->isValid()) {

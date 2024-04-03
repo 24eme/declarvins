@@ -318,6 +318,14 @@ class drmActions extends sfActions {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->drm = $this->form->save();
+                if ($request->getParameter('prev')) {
+                    $this->drm->save();
+                    if (($this->getUser()->getCompte()->isTiers() && $this->etablissement->isTransmissionCiel()) || $this->drm->isNegoce()) {
+                        $this->redirect('drm_crd', $this->drm);
+                    } else {
+                        $this->redirect('drm_vrac', ['sf_subject' => $this->drm, 'precedent' => '1']);
+                    }
+                }
                 $this->drm->etape = 'validation';
                 $this->drm->save();
                 $this->redirect('drm_validation', $this->drm);
@@ -377,7 +385,7 @@ class drmActions extends sfActions {
         $this->postVars = array('drm_validation' => array('retransmission' => 1));
     	$this->url = $this->generateUrl('drm_retransfer_ciel', array('sf_subject' => $this->drm));
 
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->drmCiel->isTransfere() && $this->etablissement->isTransmissionCiel()) {
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->etablissement->isTransmissionCiel()) {
         	if ($request->isMethod(sfWebRequest::POST)) {
 	        	$export = new DRMExportCsvEdi($this->drm);
 		        if ($xml = $export->exportEDI('xml')) {
@@ -398,7 +406,7 @@ class drmActions extends sfActions {
 		        }
 		        $this->drm->save();
 		        if ($this->drm->isValidee()) {
-		        	$this->getUser()->setFlash('notice', "DRM re-transmise avec succès à CIEL");
+		        	$this->getUser()->setFlash('notice', "DRM transmise avec succès à CIEL");
 		        	$this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
 		        } else {
 		        	$this->redirect('drm_validation', array('sf_subject' => $this->drm));
@@ -412,8 +420,8 @@ class drmActions extends sfActions {
 
     public function executeReouvrir(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
-				$region = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $this->getUser()->getCompte()->getGerantInterpro()->_id : null;
-				$this->forward404Unless($this->drm->isNonFactures($region));
+		$interpro = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $this->getUser()->getCompte()->getGerantInterpro()->_id : null;
+		$this->forward404Unless($this->drm->isNonFactures($interpro));
         if ($this->drm->isFictive()) {
         	$this->drm = $this->drm->getDRM();
         }
@@ -605,6 +613,7 @@ class drmActions extends sfActions {
     }
 
     public function executeForceValidationCiel(sfWebRequest $request) {
+		set_time_limit(90);
     	$this->etablissement = $this->getRoute()->getEtablissement();
     	$this->drm = $this->getRoute()->getDRM();
     	if ($this->drm->isFictive()) {
@@ -674,23 +683,6 @@ class drmActions extends sfActions {
         if ($this->drm->hasIncitationDS() && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->getUser()->setFlash('incitation_stock_rose', 1);
         }
-    }
-
-    public function executeDevalide(sfWebRequest $request) {
-    	$this->drm = $this->getRoute()->getDRM();
-    	if ($this->drm->isFictive()) {
-    		$this->drm = $this->drm->getDRM();
-    	}
-    	$historique = new DRMHistorique($this->drm->identifiant);
-    	$drmCiel = $this->drm->getOrAdd('ciel');
-    	if ($drmCiel->isTransfere() || $historique->hasDRMInProcess()) {
-    		return $this->redirect('drm_visualisation', $this->drm);
-    	}
-    	$this->drm->devalide();
-    	$this->drm->etape = 'validation';
-    	$this->drm->save();
-
-    	return $this->redirect('drm_validation', $this->drm);
     }
 
     public function executeRectificative(sfWebRequest $request) {

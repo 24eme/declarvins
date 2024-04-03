@@ -235,6 +235,14 @@ class Configuration extends BaseConfiguration {
         return $labels;
     }
 
+    public function getVracLabels() {
+        $vracLabels = array();
+        foreach ($this->vrac->interpro as $interpro => $configurationVrac) {
+            $vracLabels = array_merge($vracLabels, $configurationVrac->labels->toArray(true,false));
+        }
+        return $vracLabels;
+    }
+
     public function getConfigurationProduits($interpro) {
         $variable = '_configuration_produits_' . str_replace(Interpro::INTERPRO_KEY, '', $interpro);
         if (is_null($this->$variable)) {
@@ -256,7 +264,7 @@ class Configuration extends BaseConfiguration {
     	return $this->getFormattedCouleursWithoutCode(null, array(ConfigurationZoneClient::ZONE_RHONE => $zone), false, "%g% %a% %m% %l% %co%", false,  $date, $exception);
     }
 
-    public function formatProduitsSV12($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false) {
+    public function formatProduitsSV12($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = true) {
         $zones = array(
             ConfigurationZoneClient::ZONE_RHONE => ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_RHONE),
             ConfigurationZoneClient::ZONE_IVSE => ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_IVSE)
@@ -291,7 +299,7 @@ class Configuration extends BaseConfiguration {
                 $p = $configurationProduits->getProduits($hash, $onlyForDrmVrac, $cvoNeg, $date);
                 if ($configurationProduits->interpro == InterproClient::INTERPRO_COMMUNE && $famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
                     foreach ($p as $k => $v) {
-                        if (strpos($k, '/AOP/') !== false || strpos($k, '/IGP/') !== false) {
+                        if (strpos($k, '/AOP/') !== false) {
                             unset($p[$k]);
                         }
                     }

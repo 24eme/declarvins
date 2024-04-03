@@ -51,4 +51,10 @@ class EtablissementCsv {
     const COL_IBAN = 45;
 
     const COL_NB_PAIEMENT_SV12 = 46;
+
+    const COL_FACTURE_EMAIL = 47;
+    const COL_FACTURE_ADRESSE = 48;
+    const COL_FACTURE_COMMUNE = 49;
+    const COL_FACTURE_CODE_POSTAL = 50;
+    const COL_FACTURE_PAYS = 51;
 }

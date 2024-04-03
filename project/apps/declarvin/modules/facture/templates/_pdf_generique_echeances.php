@@ -14,7 +14,7 @@ $echeances = $facture->getEcheancesPapillon();
 	\multicolumn{3}{>{\columncolor[rgb]{0.8,0.8,0.8}}c}{\centering \small{\textbf{Références de facturation}}} \\
 
         \CutlnPapillonEntete
-        <?php if($facture->getNbPaiementsAutomatique()): ?>
+        <?php if($facture->getNbPaiementsAutomatique() && $facture->getSociete()->getMandatSepa()): ?>
           &
           \centering \fontsize{7}{8}\selectfont \textbf{Prélevé} sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\ ~ &
 
@@ -52,7 +52,7 @@ $echeances = $facture->getEcheancesPapillon();
                 \centering \fontsize{7}{8}\selectfont « ou » \textbf{Par virement bancaire} : \InterproBANQUE \\
                 \centering \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN &
 
-<?php if ($multiEcheances = $facture->getEcheancesArray(true)->getRawValue()): var_dump($multiEcheances); ?>
+<?php if ($multiEcheances = $facture->getEcheancesArray(true)->getRawValue()): ?>
 <?php
     $first = true;
     foreach($multiEcheances as $echeance):

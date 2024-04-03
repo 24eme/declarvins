@@ -489,7 +489,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function validateEdi()
     {
-    	$this->vous_etes = 'vendeur';
+    	$this->vous_etes = VracClient::VRAC_TYPE_VENDEUR;
     	$this->date_signature = date('c');
     	$this->valide->statut = ($this->isPluriannuel())? VracClient::STATUS_CONTRAT_SOLDE : VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_saisie = $this->date_signature;
@@ -613,7 +613,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$produit = $this->getProduitObject();
     	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
-	    	return true;
+	    	return ($this->type_transaction == 'vrac' && ($this->type_retiraison == 'vrac' || !$this->type_retiraison));
     	}
     	return false;
 
@@ -623,7 +623,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$produit = $this->getProduitObject();
     	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
-    		if ($this->type_transaction == 'vrac') {
+				if ($this->type_transaction == 'vrac' && ($this->type_retiraison == 'vrac' || !$this->type_retiraison)) {
 	    		$oioc = $this->getOrAdd('oioc');
 	    		$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
 	    		$oioc->statut = OIOC::STATUT_EDI;
@@ -668,7 +668,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if ($this->produit && $this->interpro && $this->type_transaction && $this->interpro == 'INTERPRO-CIVP' && $this->type_transaction == 'vrac') {
     	    $this->has_transaction = 1;
     	}
-			$manageAttachments = ($this->isNew() && $this->version);
+			$manageAttachments = (($this->isNew() && $this->version)||($this->isNew() && $this->isAdossePluriannuel()));
     	parent::save();
 			if ($manageAttachments) {
 				if ($previous = $this->findDocumentByVersion($this->getPreviousVersion())) {
@@ -926,6 +926,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function findDocumentByVersion($version) {
+        if ($doc = $this->getContratPluriannelReferent()) {
+            return $doc;
+        }
         return VracClient::getInstance()->find(VracClient::getInstance()->buildId($this->numero_contrat, $version));
     }
 
@@ -1087,6 +1090,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	public function isAdossePluriannuel() {
 		return ($this->reference_contrat_pluriannuel)? true : false;
 	}
+
+    public function getContratPluriannelReferent() {
+        return ($this->isAdossePluriannuel())? VracClient::getInstance()->findByNumContrat($this->reference_contrat_pluriannuel) : null;
+    }
 
     public function cleanPluriannuel() {
         $this->pluriannuel_campagne_debut = null;
