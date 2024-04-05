@@ -52,7 +52,7 @@ EOF;
         $campagne = $datas[1];
         $cvi = str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT);
         $idProduit = trim($datas[16]);
-        if ($datas[19] != '15') {
+        if (strpos($datas[19], '15') === false) {
             continue;
         }
         if ($campagneOpt && $campagneOpt != $campagne) {
