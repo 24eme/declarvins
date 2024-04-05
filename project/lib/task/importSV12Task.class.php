@@ -73,11 +73,17 @@ EOF;
         $labels = $this->getLabels($datas[35]);
         $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi)->rows;
         $etablissement = null;
+        $nbEtablissement = 0;
         foreach($etablissements as $e) {
             $etab = EtablissementClient::getInstance()->find($e->id);
             if ($etab->statut == Etablissement::STATUT_ARCHIVE) continue;
             if ($etab->sous_famille !=  EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) continue;
             $etablissement = $etab;
+            $nbEtablissement++;
+        }
+        if ($nbEtablissement > 1) {
+          echo "Plusieurs etablissements pour le cvi : $cvi\n";
+          continue;
         }
         if (!$etablissement) {
             $etablissement = EtablissementClient::getInstance()->find(trim($datas[3]));
