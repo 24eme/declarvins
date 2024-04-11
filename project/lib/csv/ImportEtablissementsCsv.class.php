@@ -429,7 +429,11 @@ class ImportEtablissementsCsv {
             $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->createDoc($societe);
             $mandatSepa->add('interpro', trim($line[EtablissementCsv::COL_INTERPRO]));
         }
-        $mandatSepa->debiteur->banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
+        $banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
+        if ( $mandatSepa->is_actif && $mandatSepa->is_signe && $mandatSepa->debiteur->banque_nom == $banque_nom && $mandatSepa->debiteur->iban == $iban) {
+            return;
+        }
+        $mandatSepa->debiteur->banque_nom = $banque_nom;
         $mandatSepa->debiteur->iban = $iban;
         $mandatSepa->is_actif = 1;
         $mandatSepa->is_signe = 1;
