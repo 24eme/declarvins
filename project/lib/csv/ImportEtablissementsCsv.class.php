@@ -377,7 +377,10 @@ class ImportEtablissementsCsv {
             }
             $societe->save();
 
-            $this->updateSepa($line, $societe);
+            //repère si il y a des champs dédié à la facturation
+            if (isset($line[EtablissementCsv::COL_FACTURE_PAYS])) {
+                $this->updateSepa($line, $societe);
+            }
 
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
@@ -410,15 +413,27 @@ class ImportEtablissementsCsv {
                 $iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
             }
         }
+        if ($line[EtablissementCsv::COL_BANQUE_NOM] == 'NC' || !$line[EtablissementCsv::COL_BANQUE_NOM]) {
+            $iban = null;
+        }
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
         if (!$iban) {
+            if ($mandatSepa && $mandatSepa->is_actif) {
+                $mandatSepa->is_actif = 0;
+                $mandatSepa->is_signe = 0;
+                $mandatSepa->save();
+            }
             return;
         }
         if(!$mandatSepa) {
             $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->createDoc($societe);
             $mandatSepa->add('interpro', trim($line[EtablissementCsv::COL_INTERPRO]));
         }
-        $mandatSepa->debiteur->banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
+        $banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
+        if ( $mandatSepa->is_actif && $mandatSepa->is_signe && $mandatSepa->debiteur->banque_nom == $banque_nom && $mandatSepa->debiteur->iban == $iban) {
+            return;
+        }
+        $mandatSepa->debiteur->banque_nom = $banque_nom;
         $mandatSepa->debiteur->iban = $iban;
         $mandatSepa->is_actif = 1;
         $mandatSepa->is_signe = 1;
