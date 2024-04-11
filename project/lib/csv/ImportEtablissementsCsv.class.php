@@ -413,8 +413,16 @@ class ImportEtablissementsCsv {
                 $iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
             }
         }
+        if ($line[EtablissementCsv::COL_BANQUE_NOM] == 'NC' || !$line[EtablissementCsv::COL_BANQUE_NOM]) {
+            $iban = null;
+        }
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
         if (!$iban) {
+            if ($mandatSepa && $mandatSepa->is_actif) {
+                $mandatSepa->is_actif = 0;
+                $mandatSepa->is_signe = 0;
+                $mandatSepa->save();
+            }
             return;
         }
         if(!$mandatSepa) {
