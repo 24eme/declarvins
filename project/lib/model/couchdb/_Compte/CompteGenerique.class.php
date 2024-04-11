@@ -147,6 +147,9 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public static function isSameAdresseComptes($compte1, $compte2) {
+        if (!$compte1->exist('adresse') || $compte2->exist('adresse')) {
+            return false;
+        }
         if
         (
             ($compte1->getAdresse() == $compte2->getAdresse() || !$compte1->getAdresse()) &&
@@ -163,6 +166,9 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public static function isSameContactComptes($compte1, $compte2) {
+        if (!$compte1->exist('telephone_bureau') || $compte2->exist('telephone_bureau')) {
+            return false;
+        }
         if
         (
             ($compte1->getTelephoneBureau() == $compte2->getTelephoneBureau() || !$compte1->getTelephoneBureau()) &&
@@ -223,6 +229,9 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public function pushContactTo($compte) {
+        if (!$compte->exist('telephone_bureau')) {
+            return false;
+        }
         $ret = false;
         if ($compte->telephone_bureau != $this->getTelephoneBureau()) {
           $compte->telephone_bureau = $this->getTelephoneBureau();

@@ -3,6 +3,7 @@
 class CompteClient extends _CompteClient
 {
     const TYPE_COMPTE_SOCIETE = "SOCIETE";
+    const TYPE_COMPTE_INTERLOCUTEUR = "INTERLOCUTEUR";
 
     public static function getInstance() {
         return acCouchdbManager::getClient("Compte");
