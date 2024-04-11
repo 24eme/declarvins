@@ -402,20 +402,14 @@ class ImportEtablissementsCsv {
 
     private function updateSepa($line, $societe) {
         $iban = trim($line[EtablissementCsv::COL_IBAN]);
-        if($iban && ($this->isZero($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||$this->isZero($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||$this->isZero($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||$this->isZero($line[EtablissementCsv::COL_RIB_CLE])) {
-            if (strlen($iban) == 27 && substr($iban, 0, 4) == 'FR76') {
-                $line[EtablissementCsv::COL_RIB_CODE_BANQUE] = substr($iban, 4, 5);
-                $line[EtablissementCsv::COL_RIB_CODE_GUICHET] = substr($iban, 9, 5);
-                $line[EtablissementCsv::COL_RIB_NUM_COMPTE] = substr($iban, 14, 11);
-                $line[EtablissementCsv::COL_RIB_CLE] = substr($iban, -2);
-            }
-        }
         if (!$iban) {
             $codeBanque = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]), 5, '0', STR_PAD_LEFT);
             $codeGuichet = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]), 5, '0', STR_PAD_LEFT);
             $numCompte = str_pad(trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]), 11, '0', STR_PAD_LEFT);
             $cle = str_pad(trim($line[EtablissementCsv::COL_RIB_CLE]), 2, '0', STR_PAD_LEFT);
-            $iban = iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
+            if (intval($codeBanque) && intval($codeGuichet) && intval($numCompte) && intval($cle)) {
+                $iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
+            }
         }
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
         if (!$iban) {
