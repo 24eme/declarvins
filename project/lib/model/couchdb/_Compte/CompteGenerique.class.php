@@ -53,7 +53,7 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public function getInsee() {
-        if (is_null($this->insee)) {
+        if (is_null($this->insee) && $this->getMasterCompte()) {
             $this->insee = $this->getMasterCompte()->insee;
         }
 
@@ -121,21 +121,21 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public function getTelephonePerso() {
-        if (is_null($this->telephone_perso)) {
+        if (is_null($this->telephone_perso) && $this->getMasterCompte()) {
             $this->telephone_perso = $this->getMasterCompte()->telephone_perso;
         }
         return $this->telephone_perso;
     }
 
     public function getTelephoneMobile() {
-        if (is_null($this->telephone_mobile)) {
+        if (is_null($this->telephone_mobile) && $this->getMasterCompte()) {
             $this->telephone_mobile = $this->getMasterCompte()->telephone_mobile;
         }
         return $this->telephone_mobile;
     }
 
     public function getSiteInternet() {
-        if (is_null($this->site_internet)) {
+        if (is_null($this->site_internet) && $this->getMasterCompte()) {
             $this->site_internet = $this->getMasterCompte()->site_internet;
         }
         return $this->site_internet;
