@@ -377,9 +377,8 @@ class ImportEtablissementsCsv {
             }
             $societe->save();
 
-            if (isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||isset($line[EtablissementCsv::COL_IBAN])) {
-                $this->updateSepa($line, $societe);
-            }
+            $this->updateSepa($line, $societe);
+
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
