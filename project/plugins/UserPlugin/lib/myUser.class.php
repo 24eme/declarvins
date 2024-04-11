@@ -26,4 +26,9 @@ class myUser extends acVinCompteSecurityUser
 	    return !$this->hasCredential(self::CREDENTIAL_OPERATEUR);
 	}
 
+    public function isAdmin()
+    {
+    	return $this->hasCredential(self::CREDENTIAL_ADMIN);
+    }
+
 }
