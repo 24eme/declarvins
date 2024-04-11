@@ -72,6 +72,10 @@ CompteTiers:
       prenom: {  }
       fonction: {  }
       telephone: {  }
+      telephone_perso: { }
+      telephone_bureau: { }
+      telephone_mobile: { }
+      site_internet: { }
       fax: {  }
       type: {  }
       contrat: {  }
