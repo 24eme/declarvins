@@ -377,7 +377,10 @@ class ImportEtablissementsCsv {
             }
             $societe->save();
 
-            $this->updateSepa($line, $societe);
+            //repère si il y a des champs dédié à la facturation
+            if (isset($line[EtablissementCsv::COL_FACTURE_PAYS])) {
+                $this->updateSepa($line, $societe);
+            }
 
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
