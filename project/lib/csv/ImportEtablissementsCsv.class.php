@@ -377,9 +377,11 @@ class ImportEtablissementsCsv {
             }
             $societe->save();
 
-            if (isset($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||isset($line[EtablissementCsv::COL_IBAN])) {
+            //repère si il y a des champs dédié à la facturation
+            if (isset($line[EtablissementCsv::COL_FACTURE_PAYS])) {
                 $this->updateSepa($line, $societe);
             }
+
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
@@ -401,21 +403,25 @@ class ImportEtablissementsCsv {
     }
 
     private function updateSepa($line, $societe) {
-        $inactive = ($this->isZero($line[EtablissementCsv::COL_RIB_CODE_BANQUE])||$this->isZero($line[EtablissementCsv::COL_RIB_CODE_GUICHET])||$this->isZero($line[EtablissementCsv::COL_RIB_NUM_COMPTE])||$this->isZero($line[EtablissementCsv::COL_RIB_CLE]));
         $iban = trim($line[EtablissementCsv::COL_IBAN]);
-        if ($inactive && $iban && $iban != "0")  {
-          if (strlen($iban) == 27 && substr($iban, 0, 4) == 'FR76') {
-            $inactive = false;
-            $line[EtablissementCsv::COL_RIB_CODE_BANQUE] = substr($iban, 4, 5);
-            $line[EtablissementCsv::COL_RIB_CODE_GUICHET] = substr($iban, 9, 5);
-            $line[EtablissementCsv::COL_RIB_NUM_COMPTE] = substr($iban, 14, 11);
-            $line[EtablissementCsv::COL_RIB_CLE] = substr($iban, -2);
-          }
+        if (!$iban) {
+            $codeBanque = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]), 5, '0', STR_PAD_LEFT);
+            $codeGuichet = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]), 5, '0', STR_PAD_LEFT);
+            $numCompte = str_pad(trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]), 11, '0', STR_PAD_LEFT);
+            $cle = str_pad(trim($line[EtablissementCsv::COL_RIB_CLE]), 2, '0', STR_PAD_LEFT);
+            if (intval($codeBanque) && intval($codeGuichet) && intval($numCompte) && intval($cle)) {
+                $iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
+            }
+        }
+        if ($line[EtablissementCsv::COL_BANQUE_NOM] == 'NC' || !$line[EtablissementCsv::COL_BANQUE_NOM]) {
+            $iban = null;
         }
         $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->findLastBySociete($societe, trim($line[EtablissementCsv::COL_INTERPRO]));
-        if ($inactive) {
-            if($mandatSepa) {
-                $mandatSepa->delete();
+        if (!$iban) {
+            if ($mandatSepa && $mandatSepa->is_actif) {
+                $mandatSepa->is_actif = 0;
+                $mandatSepa->is_signe = 0;
+                $mandatSepa->save();
             }
             return;
         }
@@ -423,12 +429,12 @@ class ImportEtablissementsCsv {
             $mandatSepa = MandatSepaClient::getInstance(strtolower(trim($line[EtablissementCsv::COL_INTERPRO])))->createDoc($societe);
             $mandatSepa->add('interpro', trim($line[EtablissementCsv::COL_INTERPRO]));
         }
-        $mandatSepa->debiteur->banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
-        $codeBanque = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_BANQUE]), 5, '0', STR_PAD_LEFT);
-        $codeGuichet = str_pad(trim($line[EtablissementCsv::COL_RIB_CODE_GUICHET]), 5, '0', STR_PAD_LEFT);
-        $numCompte = str_pad(trim($line[EtablissementCsv::COL_RIB_NUM_COMPTE]), 11, '0', STR_PAD_LEFT);
-        $cle = str_pad(trim($line[EtablissementCsv::COL_RIB_CLE]), 2, '0', STR_PAD_LEFT);
-        $mandatSepa->debiteur->iban = 'FR76'.$codeBanque.$codeGuichet.$numCompte.$cle;
+        $banque_nom = trim($line[EtablissementCsv::COL_BANQUE_NOM]);
+        if ( $mandatSepa->is_actif && $mandatSepa->is_signe && $mandatSepa->debiteur->banque_nom == $banque_nom && $mandatSepa->debiteur->iban == $iban) {
+            return;
+        }
+        $mandatSepa->debiteur->banque_nom = $banque_nom;
+        $mandatSepa->debiteur->iban = $iban;
         $mandatSepa->is_actif = 1;
         $mandatSepa->is_signe = 1;
         $mandatSepa->save();
