@@ -642,9 +642,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
 
     protected function updateStatutSolde() {
-        if ($this->volume_propose > 0 && $this->volume_enleve >= $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
+        if ($this->volume_propose > 0 && round($this->volume_enleve, 2) >= round($this->volume_propose, 2) && $this->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
-        } elseif (!$this->isPluriannuel() && $this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
+        } elseif (!$this->isPluriannuel() && round($this->volume_enleve, 2) < round($this->volume_propose, 2) && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
         }
 
