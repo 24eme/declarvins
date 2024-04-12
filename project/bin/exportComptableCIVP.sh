@@ -19,7 +19,7 @@ cat $TMPE/factures.csv | awk -F ';' '{print $14}' | sort | uniq | grep 2[0-9][0-
 done
 
 
-cat $TMPE/factures.csv|grep ";ECHEANCE;"|while read line; do cp $LATEX/$(ls -t $LATEX/|grep $(echo $line|cut -d";" -f4)"_"$(echo $line|cut -d";" -f14|tail -c11)|head -n1) $TMPE/pdf/$(echo $line|cut -d";" -f4).pdf; done
+cat $TMPE/factures.csv | awk -F ';' '{print $4" "$14}'  | sort -u | grep FACTURE- | while read id doc ; do cp $LATEX/$id"_"$doc $TMPE/pdf/$id.pdf; done
 
 zip -rj $TMPE/factures.zip $TMPE/pdf
 
