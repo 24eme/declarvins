@@ -339,6 +339,9 @@ class ImportEtablissementsCsv {
     	$ligne = 0;
       	foreach ($this->_csv as $line) {
       		$ligne++;
+            if (strpos($line[EtablissementCsv::COL_ID], 'ID') !== false) {
+                continue;
+            }
             if (!$this->isEtablissementIdFormatChecked(trim($line[EtablissementCsv::COL_ID]))) {
                 $this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_ID + 1).') le format d\'identifiant de l\'etablissement est incorrect');
                 continue;
@@ -385,6 +388,7 @@ class ImportEtablissementsCsv {
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
+					$this->_errors[$ligne] = array($e->getMessage().' : '.implode(', ', $line));
 					continue;
 				}
 			}

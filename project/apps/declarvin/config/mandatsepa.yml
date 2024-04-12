@@ -5,7 +5,7 @@ all:
     configuration-interpro-civp:
       is_active: true
       mention_autorisation: "En signant ce formulaire de mandat, vous autorisez (A) Inter Rhône à envoyer des instructions à votre banque pour débiter votre compte, et (B) votre banque à débiter votre compte conformément aux instructions du CIVP."
-      delai_echeance_prelevement: '+30 days'
+      delai_echeance_prelevement: '+60 days'
       creancier:
         identifiant_ics: ''
         nom: 'CIVP'

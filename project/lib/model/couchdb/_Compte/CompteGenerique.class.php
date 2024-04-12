@@ -53,7 +53,7 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public function getInsee() {
-        if (is_null($this->insee)) {
+        if (is_null($this->insee) && $this->getMasterCompte()) {
             $this->insee = $this->getMasterCompte()->insee;
         }
 
@@ -121,21 +121,21 @@ abstract class CompteGenerique extends acCouchdbDocument {
     }
 
     public function getTelephonePerso() {
-        if (is_null($this->telephone_perso)) {
+        if (is_null($this->telephone_perso) && $this->getMasterCompte()) {
             $this->telephone_perso = $this->getMasterCompte()->telephone_perso;
         }
         return $this->telephone_perso;
     }
 
     public function getTelephoneMobile() {
-        if (is_null($this->telephone_mobile)) {
+        if (is_null($this->telephone_mobile) && $this->getMasterCompte()) {
             $this->telephone_mobile = $this->getMasterCompte()->telephone_mobile;
         }
         return $this->telephone_mobile;
     }
 
     public function getSiteInternet() {
-        if (is_null($this->site_internet)) {
+        if (is_null($this->site_internet) && $this->getMasterCompte()) {
             $this->site_internet = $this->getMasterCompte()->site_internet;
         }
         return $this->site_internet;
@@ -146,7 +146,10 @@ abstract class CompteGenerique extends acCouchdbDocument {
         return $this->_get('fax');
     }
 
-    public static function isSameAdresseComptes(InterfaceCompteGenerique $compte1, InterfaceCompteGenerique $compte2) {
+    public static function isSameAdresseComptes($compte1, $compte2) {
+        if (!$compte1->exist('adresse') || $compte2->exist('adresse')) {
+            return false;
+        }
         if
         (
             ($compte1->getAdresse() == $compte2->getAdresse() || !$compte1->getAdresse()) &&
@@ -162,7 +165,10 @@ abstract class CompteGenerique extends acCouchdbDocument {
         return false;
     }
 
-    public static function isSameContactComptes(InterfaceCompteGenerique $compte1, InterfaceCompteGenerique $compte2) {
+    public static function isSameContactComptes($compte1, $compte2) {
+        if (!$compte1->exist('telephone_bureau') || $compte2->exist('telephone_bureau')) {
+            return false;
+        }
         if
         (
             ($compte1->getTelephoneBureau() == $compte2->getTelephoneBureau() || !$compte1->getTelephoneBureau()) &&
@@ -178,22 +184,22 @@ abstract class CompteGenerique extends acCouchdbDocument {
         return false;
     }
 
-    public function isSameAdresseThan(InterfaceCompteGenerique $compte) {
+    public function isSameAdresseThan($compte) {
 
         return self::isSameAdresseComptes($this, $compte);
     }
 
-    public function isSameContactThan(InterfaceCompteGenerique $compte) {
+    public function isSameContactThan($compte) {
 
         return self::isSameContactComptes($this, $compte);
     }
 
-    public function pushContactAndAdresseTo(InterfaceCompteGenerique $compte) {
+    public function pushContactAndAdresseTo($compte) {
         $this->pushAdresseTo($compte);
         $this->pushContactTo($compte);
     }
 
-    public function pushAdresseTo(InterfaceCompteGenerique $compte) {
+    public function pushAdresseTo($compte) {
         $ret = false;
         if ($compte->adresse != $this->getAdresse()) {
           $compte->adresse = $this->getAdresse();
@@ -222,7 +228,10 @@ abstract class CompteGenerique extends acCouchdbDocument {
         return $ret;
     }
 
-    public function pushContactTo(InterfaceCompteGenerique $compte) {
+    public function pushContactTo($compte) {
+        if (!$compte->exist('telephone_bureau')) {
+            return false;
+        }
         $ret = false;
         if ($compte->telephone_bureau != $this->getTelephoneBureau()) {
           $compte->telephone_bureau = $this->getTelephoneBureau();
@@ -251,12 +260,12 @@ abstract class CompteGenerique extends acCouchdbDocument {
         return $ret;
     }
 
-    public function pullContactAndAdresseFrom(InterfaceCompteGenerique $compte) {
+    public function pullContactAndAdresseFrom($compte) {
         $this->pullAdresseFrom($compte);
         $this->pullContactFrom($compte);
     }
 
-    public static function pullAdresse(InterfaceCompteGenerique $compteTo, InterfaceCompteGenerique $compteFrom) {
+    public static function pullAdresse($compteTo, $compteFrom) {
         $compteTo->setAdresse($compteFrom->adresse);
         $compteTo->setAdresseComplementaire($compteFrom->adresse_complementaire);
         $compteTo->setCommune($compteFrom->commune);
@@ -265,11 +274,11 @@ abstract class CompteGenerique extends acCouchdbDocument {
         $compteTo->setPays($compteFrom->pays);
     }
 
-    public function pullAdresseFrom(InterfaceCompteGenerique $compteFrom) {
+    public function pullAdresseFrom($compteFrom) {
         self::pullAdresse($this, $compteFrom);
     }
 
-    public static function pullContact(InterfaceCompteGenerique $compteTo, InterfaceCompteGenerique $compteFrom) {
+    public static function pullContact($compteTo, $compteFrom) {
         $compteTo->setTelephoneBureau($compteFrom->telephone_bureau);
         $compteTo->setEmail($compteFrom->email);
         $compteTo->setFax($compteFrom->fax);
@@ -278,7 +287,7 @@ abstract class CompteGenerique extends acCouchdbDocument {
         $compteTo->setSiteInternet($compteFrom->site_internet);
     }
 
-    public function pullContactFrom(InterfaceCompteGenerique $compteFrom) {
+    public function pullContactFrom($compteFrom) {
         self::pullContact($this, $compteFrom);
     }
 

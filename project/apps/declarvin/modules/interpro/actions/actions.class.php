@@ -24,16 +24,11 @@ class interproActions extends sfActions
 	            $this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
 	            unlink($file->getSavedName());
 	            $this->import = new ImportEtablissementsCsv($this->interpro);
-	            
-	            try {
-	            	$nb = $this->import->updateOrCreate();
-        			$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
-			      	if (count($this->import->getErrors()) > 0) {
-			      		throw new sfException("has errors");
-			      	}
-	            	$this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
-	            } catch (Exception $e) {
-	            	$this->hasErrors = true;
+
+	            $nb = $this->import->updateOrCreate();
+	            $this->getUser()->setFlash('notice', "$nb établissements ont été importés");
+	            if (! count($this->import->getErrors())) {
+                    $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
 	            }
             }
         }
