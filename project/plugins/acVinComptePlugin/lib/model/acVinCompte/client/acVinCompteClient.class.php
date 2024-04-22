@@ -35,4 +35,8 @@ class acVinCompteClient extends acCouchdbClient
     {
         return parent::find(sfConfig::get('app_ac_vin_compte_couchdb_prefix').$login, $hydrate);
     }
+
+    public function findByIdentifiant($identifiant, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+        return $this->retrieveByLogin($identifiant);
+    }
 }
