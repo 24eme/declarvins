@@ -57,22 +57,14 @@ $echeances = $facture->getEcheancesPapillon();
     $first = true;
     foreach($multiEcheances as $echeance):
 ?>
-<?php if ($first): ?>
-                   \centering \small{~} &
-                   \centering \small{~} &
-                   \multicolumn{1}{c}{\small{~}} \\
-<?php else: ?>
-                   \centering \small{~} &
-                   \centering \small{~} &
-                   \centering \small{\textbf{<?php echo format_date($echeance->echeance_date,'dd/MM/yyyy'); ?>}} &
-                   \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
-                   \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($echeance->montant_ttc); ?>~\texteuro{}}}}  \\
+<?php if (!$first): ?>
+\centering \small{~} &
+\centering \small{~} &
 <?php endif; ?>
-<?php
-    $first = false;
-    endforeach;
-    else:
-?>
+\centering \small{\textbf{<?php echo format_date($echeance->echeance_date,'dd/MM/yyyy'); ?>}} &
+\centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+\multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($echeance->montant_ttc); ?>~\texteuro{}}}}  \\
+<?php $first = false; endforeach; else: ?>
                 \centering \small{\textbf{<?php echo format_date($papillon->echeance_date,'dd/MM/yyyy'); ?>}} &
                 \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
                 \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}  \\
