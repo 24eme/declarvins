@@ -951,6 +951,7 @@ class ediActions extends sfActions
   			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
   			$item->value[VracDateView::VALUE_PRIX_UNITAIRE] = round($item->value[VracDateView::VALUE_PRIX_UNITAIRE], 2);
   			$item->value[VracDateView::VALUE_PRIX_TOTAL] = round($item->value[VracDateView::VALUE_PRIX_TOTAL], 2);
+        $item->value[VracDateView::VALUE_RESPONSABLE] = str_replace('mandataire', 'courtier', $item->value[VracDateView::VALUE_RESPONSABLE]); 
   			$vracs[] = $item;
   		}
   		return $vracs;

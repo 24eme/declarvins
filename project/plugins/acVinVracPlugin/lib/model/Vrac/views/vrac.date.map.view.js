@@ -305,7 +305,8 @@ function(doc) {
 						 vrac_prix_unitaire_hl,
 						 vrac_volume_total_hl,
 						 vrac_volume_enleve,
-						 vrac_contrat_pluriannuel
+						 vrac_contrat_pluriannuel,
+					 	 doc.vous_etes
                 		 ]);
 			}
 		} else {
@@ -399,7 +400,8 @@ function(doc) {
 					 vrac_prix_unitaire_hl,
 					 vrac_volume_total_hl,
 					 vrac_volume_enleve,
-					 vrac_contrat_pluriannuel
+					 vrac_contrat_pluriannuel,
+					 doc.vous_etes
             		 ]);
 		}
 	}
