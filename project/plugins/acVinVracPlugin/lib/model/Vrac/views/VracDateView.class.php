@@ -89,6 +89,7 @@ class VracDateView extends acCouchdbView
 	const VALUE_CAMPAGNE = 80;
 	const VALUE_PRIX_TOTAL = 81;
 	const VALUE_TYPE_RETIRAISON = 84;
+	const VALUE_RESPONSABLE = 90;
 
 	public static function getInstance() 
 	{
