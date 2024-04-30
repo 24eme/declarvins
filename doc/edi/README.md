@@ -282,6 +282,7 @@ VRAC_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.
 87. Volume total du contrat en HL : Volume total du contrat en HL pour le raisin (= volume total du contrat pour le vrac et mout)
 88. Volume enlevé du contrat en HL : Volume enlevé du contrat en HL
 89. Contrat pluriannuel : 0 ou 1
+90. Responsable du contrat (courtier, acheteur, vendeur)
 
 
    [1]: https://fr.wikipedia.org/wiki/Authentification_HTTP
