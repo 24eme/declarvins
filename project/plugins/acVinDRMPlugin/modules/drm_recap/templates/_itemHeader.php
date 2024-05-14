@@ -36,11 +36,7 @@
     			unset($stockSorties['vrac_contrat']);
 				foreach ($stockSorties as $key => $item):
 			?>
-				<?php if ($key=='vrac_export'): ?>
-					<li style="border:1px dashed blue;"><span style="float:left;color: blue;padding-left: 5px;">Nouveau !</span><?php echo $item ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
-				<?php else: ?>
       		<li><?php echo $item ?>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
-				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
 	</div>
