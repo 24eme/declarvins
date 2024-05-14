@@ -28,7 +28,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'dsa_debut' => ($this->_drm->declaratif->dsa->debut)? $this->_drm->declaratif->dsa->debut : null,
             'dsa_fin' => ($this->_drm->declaratif->dsa->fin)? $this->_drm->declaratif->dsa->fin : null,
             'dsa_nb' => ($this->_drm->declaratif->dsa->nb)? $this->_drm->declaratif->dsa->nb : null,
-            'frequence' => $this->_drm->declaratif->paiement->douane->frequence,
+            'frequence' => ($this->_drm->declaratif->paiement->douane->frequence)? $this->_drm->declaratif->paiement->douane->frequence : DRMPaiement::FREQUENCE_MENSUELLE,
             'statistiques_jus' => $this->_drm->declaratif->statistiques->jus,
             'statistiques_mcr' => $this->_drm->declaratif->statistiques->mcr,
             'statistiques_vinaigre' => $this->_drm->declaratif->statistiques->vinaigre,
