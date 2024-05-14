@@ -46,7 +46,7 @@ class Configuration extends BaseConfiguration {
         'travail' => 'Mvt. temporaire : Retour de travail à façon',
         'distillation' => 'Mvt. temporaire : Retour de distillation à façon',
         'crd' => 'Replacement en suspension CRD',
-    	'excedent' => 'Excédent suite à inventaire ou contrôle douanes'
+    	'excedent' => 'Excédent inventaire / Autres entrées'
     );
     protected static $stocks_entree_acq = array(
         'acq_achat' => 'Achats',
