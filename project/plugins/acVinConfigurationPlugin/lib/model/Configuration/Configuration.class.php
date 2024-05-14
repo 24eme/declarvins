@@ -53,7 +53,7 @@ class Configuration extends BaseConfiguration {
         'acq_autres' => 'Autres'
     );
     protected static $stocks_sortie = array(
-        'vrac' => 'Vrac DAA / DAE National',
+        'vrac' => 'Vrac national / Vente Négoce',
         'vrac_export' => 'Vrac export',
         'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
