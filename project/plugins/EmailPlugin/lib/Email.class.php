@@ -467,7 +467,7 @@ class Email {
     	}
     	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
     	$to = array($compte->email);
-    	$subject = "Modification de votre DRM sur CIEL";
+    	$subject = "Modifications en attente de votre DRM sur DeclarVins";
     	$body = $this->getBodyFromPartial('ciel_rectificative', array('drm' => $drm, 'diffs' => $diffs, 'etablissement' => $etablissement));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
     	if ($interpro) {
