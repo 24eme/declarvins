@@ -1,4 +1,4 @@
 all:
   configuration:
     societe:
-      elastic_disabled:  true
+      real_sync_compte: false

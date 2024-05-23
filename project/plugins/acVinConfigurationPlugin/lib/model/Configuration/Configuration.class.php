@@ -46,14 +46,14 @@ class Configuration extends BaseConfiguration {
         'travail' => 'Mvt. temporaire : Retour de travail à façon',
         'distillation' => 'Mvt. temporaire : Retour de distillation à façon',
         'crd' => 'Replacement en suspension CRD',
-    	'excedent' => 'Excédent suite à inventaire ou contrôle douanes'
+    	'excedent' => 'Excédent inventaire / Autres entrées'
     );
     protected static $stocks_entree_acq = array(
         'acq_achat' => 'Achats',
         'acq_autres' => 'Autres'
     );
     protected static $stocks_sortie = array(
-        'vrac' => 'Vrac DAA / DAE National',
+        'vrac' => 'Vrac national / Vente Négoce',
         'vrac_export' => 'Vrac export',
         'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
