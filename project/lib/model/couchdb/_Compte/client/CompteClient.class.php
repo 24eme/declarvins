@@ -21,4 +21,8 @@ class CompteClient extends _CompteClient
         return false;
     }
 
+    public function findByLogin($login) {
+      return $this->find($login);
+    }
+
 }
