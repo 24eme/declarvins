@@ -60,6 +60,9 @@
                     if($elt[VracHistoryView::VRAC_REF_PLURIANNUEL]) {
                         $isAdossePluriannuel = true;
                     }
+										if (empty($statusColor) && !$isProprietaire && !$isAdmin) {
+											continue;
+										}
 		?>
 			<tr class="<?php echo $statusColor ?>" >
 			  <td class="text-center" style="padding: 0;">
