@@ -1,0 +1,4 @@
+all:
+  configuration:
+    societe:
+      real_sync_compte: false
