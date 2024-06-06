@@ -779,10 +779,6 @@ class drmActions extends sfActions {
         return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
     }
 
-    public function executeDownloadNotice() {
-        return $this->renderPdf(sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . "docs/notice.pdf", "notice.pdf");
-    }
-
     public function executeValidee() {
         $this->etablissement = $this->getRoute()->getEtablissement();
     }

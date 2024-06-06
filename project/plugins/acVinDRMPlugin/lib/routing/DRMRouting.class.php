@@ -33,12 +33,9 @@ class DRMRouting {
      */
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
-        
-	      $r->prependRoute('drm_notice', new sfRoute('/drm/document/notice', array('module' => 'drm', 
-									'action' => 'downloadNotice')));
-	      
-	      $r->prependRoute('drm_validated', new DRMRoute('/drm/:identifiant/erreur/:periode_version/validee', 
-                                                          array('module' => 'drm', 
+
+	      $r->prependRoute('drm_validated', new DRMRoute('/drm/:identifiant/erreur/:periode_version/validee',
+                                                          array('module' => 'drm',
                                                                 'action' => 'validee'),
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
