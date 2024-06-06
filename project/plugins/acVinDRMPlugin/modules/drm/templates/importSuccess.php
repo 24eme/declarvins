@@ -1,9 +1,9 @@
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
-    
-    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="<?php echo url_for('drm_notice') ?>" title="Message aide"></a></h1>
-    
+
+    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="/docs/notice.pdf|/docs/correspondances_mouvements.pdf" title="Message aide"></a></h1>
+
 
     <div id="flash_message">
 		<div class="flash_error">
