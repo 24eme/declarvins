@@ -689,7 +689,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function isTeledeclare()
     {
-    	return ($this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI);
+    	return $this->isModeDeSaisie(DRMClient::MODE_DE_SAISIE_DTI);
+    }
+
+    public function isModeDeSaisie($modeDeSaisie) {
+        return ($this->mode_de_saisie == $modeDeSaisie);
+    }
+
+    public function getDtiPlusCSV() {
+        if ($doc = CSVClient::getInstance()->find('CSV-'.$this->_id)) {
+            return $doc;
+        }
+        return false;
     }
 
     public function storeReferente() {

@@ -354,6 +354,18 @@ class drmActions extends sfActions {
     	return $this->renderText($dom->saveXML());
     }
 
+    public function executeGetDtiPlusFile(sfWebRequest $request) {
+    	$drm = $this->getRoute()->getDRM();
+        $csv = $drm->getDtiPlusCSV();
+    	$this->forward404Unless($csv);
+        $content = $csv->getFileContent();
+        $this->forward404Unless($content);
+    	$this->getResponse()->setContentType('text/csv');
+        $this->response->setHttpHeader('md5', md5($content));
+	    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$csv->getFileName());
+	    return $this->renderText($content);
+    }
+
     public function executePayerReport(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDRM();
     	$drm->payerReport();
