@@ -696,6 +696,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return ($this->mode_de_saisie == $modeDeSaisie);
     }
 
+    public function getDtiPlusCSV() {
+        if ($doc = CSVClient::getInstance()->find('CSV-'.$this->_id)) {
+            return $doc;
+        }
+        return false;
+    }
+
     public function storeReferente() {
         $drm_ref = null;
         if ($this->getPreviousVersion()) {
