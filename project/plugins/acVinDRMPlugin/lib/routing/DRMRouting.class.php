@@ -509,7 +509,16 @@ class DRMRouting {
                               'no_archive' => true,
                               'add_noeud' => true,
                               'must_be_valid' => true,
-                              'must_be_not_valid' => false))); 
+                              'must_be_not_valid' => false)));
+
+        $r->prependRoute('drm_dtiplusfile_download', new DRMRoute('/drm/:identifiant/dtiplusfile/:periode_version',
+                        array('module' => 'drm',
+                            'action' => 'getDtiPlusFile'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DRM',
+                              'type' => 'object',
+                              'must_be_valid' => false,
+                              'must_be_not_valid' => false)));
     }
 
 }
