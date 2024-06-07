@@ -73,7 +73,7 @@
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE]),
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE]),
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE]),
-                                                strtolower(substr($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' '))),
+                                                strtolower(str_replace(' Conventionnel', '', trim($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE]))),
                                                 strtolower($vraclibelle),
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_MILLESIME]),
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]),
@@ -184,7 +184,7 @@
                      <?php endif; ?>
                   <?php endif; ?>
 		    </td>
-			    <td class="text-left"><?php echo substr($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' ')) ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
+			    <td class="text-left"><?php echo str_replace(' Conventionnel', '', trim($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE])) ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
 			    <td class="text-center">
 					<?php if ($pluriannuel): ?>
                         <?php echo $elt[VracHistoryView::VRAC_VIEW_VOLPROP] ?> <?php echo ($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] === 'raisin' || $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] === 'mout') ? 'kg' : 'hl' ?>
