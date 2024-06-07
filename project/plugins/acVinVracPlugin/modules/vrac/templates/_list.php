@@ -1,5 +1,12 @@
 <?php use_helper('Vrac'); ?>
 <?php use_helper('Date') ?>
+
+<h1>Bonjour</h1>
+
+<div class="form-group">
+    <input type="hidden" data-placeholder="Saisissez un numéro de contrat, un soussigné, un produit, un volume ou un prix" data-hamzastyle-container="#tableau_recap" class="hamzastyle" style="width:900px;" />
+</div>
+
 <div class="tableau_ajouts_liquidations">
 	<table id="tableau_recap" class="visualisation_contrat">
 	    <thead>
@@ -64,7 +71,18 @@
 											continue;
 										}
 		?>
-			<tr class="<?php echo $statusColor ?>" >
+        <tr data-words='<?php echo json_encode(array_merge(array(
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE]),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE]),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE]),
+                                                strtolower(substr($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' '))),
+                                                strtolower($vraclibelle),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_MILLESIME]),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]),
+                                                $elt[VracHistoryView::VRAC_VIEW_VOLPROP],
+                                                $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]
+            )), JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?>'
+            class="<?php echo $statusColor ?> hamzastyle-item vertical-center">
 			  <td class="text-center" style="padding: 0;">
 			  	<?php if ((!$validated||$pluriannuel) && $isAdmin): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
