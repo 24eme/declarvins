@@ -1,8 +1,6 @@
 <?php use_helper('Vrac'); ?>
 <?php use_helper('Date') ?>
 
-<h1>Bonjour</h1>
-
 <div class="form-group">
     <input type="hidden" data-placeholder="Saisissez un numéro de contrat, un soussigné, un produit, un volume ou un prix" data-hamzastyle-container="#tableau_recap" class="hamzastyle" style="width:900px;" />
 </div>
