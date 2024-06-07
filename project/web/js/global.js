@@ -137,7 +137,6 @@ var fbConfig =
 
 
 
-
 	/**
 	 * Transforme une chaîne de caractères en objet JS
 	 * $.detectTerminal();
