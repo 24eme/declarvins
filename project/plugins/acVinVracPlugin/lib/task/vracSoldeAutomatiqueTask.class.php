@@ -25,7 +25,8 @@ EOF;
 
         $vracs = VracHistoryView::getInstance()->findByStatut(VracClient::STATUS_CONTRAT_NONSOLDE)->rows;
         $cm = new CampagneManager('08-01');
-        $campagne = substr($cm->getCampagneByDate(date('Y-m-d', strtotime('-3 year'))), 0, 4);
+        $campagneRaisinMout = substr($cm->getCampagneByDate(date('Y-m-d', strtotime('-1 year'))), 0, 4);
+        $campagneVrac = substr($cm->getCampagneByDate(date('Y-m-d', strtotime('-3 year'))), 0, 4);
         foreach ($vracs as $vrac) {
     	    $values = $vrac->value;
             $dateValidation = $values[VracHistoryView::VRAC_VIEW_DATESAISIE];
@@ -39,6 +40,11 @@ EOF;
                 $dateValidation = $values[VracHistoryView::VRAC_VIEW_VENDEURVAL];
             }
             $year = substr($cm->getCampagneByDate($dateValidation), 0, 4);
+            if (in_array($values[VracHistoryView::VRAC_VIEW_TYPEPRODUIT], [VracClient::TYPE_TRANSACTION_RAISINS, VracClient::TYPE_TRANSACTION_MOUTS])) {
+                $campagne = $campagneRaisinMout;
+            } else {
+                $campagne = $campagneVrac;
+            }
             if ($year < $campagne) {
                 $vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
                 $vrac->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
