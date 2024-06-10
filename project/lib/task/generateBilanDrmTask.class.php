@@ -149,6 +149,7 @@ EOF;
     }
 
     private function getEtablissementInfosCsv($etablissement) {
+            $email = $etablissement[EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL] ?: $etablissement[EtablissementCsv::COL_EMAIL];
             return $etablissement[EtablissementCsv::COL_ID] . ';'
                     . $etablissement[EtablissementCsv::COL_RAISON_SOCIALE] . ';'
                     . $etablissement[EtablissementCsv::COL_NOM] . ';'
@@ -159,7 +160,7 @@ EOF;
                     . $etablissement[EtablissementCsv::COL_CODE_POSTAL] . ';'
                     . $etablissement[EtablissementCsv::COL_COMMUNE] . ';'
                     . $etablissement[EtablissementCsv::COL_PAYS] . ';'
-                    . $etablissement[EtablissementCsv::COL_EMAIL] . ';'
+                    . $email . ';'
                     . $etablissement[EtablissementCsv::COL_TELEPHONE] . ';'
                     . $etablissement[EtablissementCsv::COL_FAX] . ';'
                     . $etablissement[EtablissementCsv::COL_SERVICE_DOUANE] . ';'
