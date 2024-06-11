@@ -13,7 +13,7 @@
  */
 class generateBilanDrmTask extends sfBaseTask {
 
-    const ENTETES_ETABLISSEMENT = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;';
+    const ENTETES_ETABLISSEMENT = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;Zones;';
 
     protected function configure() {
         $this->addOptions(array(
@@ -167,6 +167,7 @@ EOF;
                     . $etablissement[EtablissementCsv::COL_CHAMPS_STATUT] . ';'
                     . $etablissement[EtablissementCsv::COL_FAMILLE] . ';'
                     . $etablissement[EtablissementCsv::COL_SOUS_FAMILLE] . ';';
+                    . $etablissement[EtablissementCsv::COL_ZONES_LIBELLES] . ';';
     }
 
     private function isEligibleDRM($etablissement, $lastDRM) {
