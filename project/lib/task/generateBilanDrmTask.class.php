@@ -166,7 +166,7 @@ EOF;
                     . $etablissement[EtablissementCsv::COL_SERVICE_DOUANE] . ';'
                     . $etablissement[EtablissementCsv::COL_CHAMPS_STATUT] . ';'
                     . $etablissement[EtablissementCsv::COL_FAMILLE] . ';'
-                    . $etablissement[EtablissementCsv::COL_SOUS_FAMILLE] . ';';
+                    . $etablissement[EtablissementCsv::COL_SOUS_FAMILLE] . ';'
                     . $etablissement[EtablissementCsv::COL_ZONES_LIBELLES] . ';';
     }
 

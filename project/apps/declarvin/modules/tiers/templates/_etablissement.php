@@ -48,20 +48,29 @@
             <?php endif; ?>
 
             <?php if ($formEtablissement): ?>
-            <form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
-		    <?php echo $formEtablissement->renderHiddenFields(); ?>
-		    <?php echo $formEtablissement->renderGlobalErrors(); ?>
-			<div class="ligne_form">
-			    <label>Mois de saisie du stock :</label>
-			    <?php echo $formEtablissement['mois_stock_debut']->render(array('style' => 'width: 130px;text-align:right;')) ?>
-			    <?php echo $formEtablissement['mois_stock_debut']->renderError() ?>
-    		    <input type="submit" value="Modifier"/>
-			</div>
-			</form>
-			<?php else: ?>
-			<ul>
-				<li>Mois de saisie du stock : <strong><?php $dateFormat = new sfDateFormat('fr_FR'); echo ucfirst($dateFormat->format(date('Y').'-'.$etablissement->getMoisToSetStock().'-01', 'MMMM')); ?></strong>
-			</ul>
+                <form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
+        		    <?php echo $formEtablissement->renderHiddenFields(); ?>
+        		    <?php echo $formEtablissement->renderGlobalErrors(); ?>
+                    <?php if (isset($formEtablissement['mois_stock_debut'])): ?>
+                        <div class="ligne_form">
+            			    <label>Mois de saisie du stock :</label>
+            			    <?php echo $formEtablissement['mois_stock_debut']->render(array('style' => 'width: 130px;text-align:right;')) ?>
+            			    <?php echo $formEtablissement['mois_stock_debut']->renderError() ?>
+            			</div>
+        			<?php else: ?>
+        			<ul>
+        				<li>Mois de saisie du stock : <strong><?php $dateFormat = new sfDateFormat('fr_FR'); echo ucfirst($dateFormat->format(date('Y').'-'.$etablissement->getMoisToSetStock().'-01', 'MMMM')); ?></strong>
+        			</ul>
+                    <?php endif; ?>
+                    <h1>Commentaire</h1>
+                    <div class="ligne_form">
+                            <?php echo $formEtablissement['commentaire']->render(); ?>
+                            <?php echo $formEtablissement['commentaire']->renderError(); ?>
+                    </div>
+                    <input type="submit" value="Modifier"/>
+                    <br />
+                    <br />
+                </form>
 			<?php endif; ?>
 
 			<?php if ($formSociete): ?>
