@@ -7,11 +7,9 @@
 class EtablissementForm extends acCouchdbForm {
 
     public $etablissement;
-    public $isViticulteur;
 
     public function __construct($etablissement, $options = array(), $CSRFSecret = null) {
         $this->etablissement = $etablissement;
-        $this->isViticulteur = $options;
         parent::__construct($etablissement, $this->getDefaultValues(), $options, $CSRFSecret);
     }
 
@@ -30,7 +28,7 @@ class EtablissementForm extends acCouchdbForm {
     public function configure()
     {
 
-        if (! $this->isViticulteur) {
+        if (!$this->etablissement->isViticulteur()) {
             $this->setWidget('mois_stock_debut', new sfWidgetFormChoice(array('choices' => $this->getMonths())));
             $this->setValidator('mois_stock_debut', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getMonths()))));
         }
@@ -54,7 +52,7 @@ class EtablissementForm extends acCouchdbForm {
     public function save() {
         $values = $this->getValues();
 
-        if (! $this->isViticulteur) {
+        if (!$this->etablissement->isViticulteur()) {
             if (!$this->etablissement->exist('mois_stock_debut')) {
                 $this->etablissement->add('mois_stock_debut', $values['mois_stock_debut']);
             } else {

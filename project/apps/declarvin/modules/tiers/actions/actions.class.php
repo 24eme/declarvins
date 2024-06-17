@@ -171,7 +171,7 @@ class tiersActions extends sfActions
   	  }
   	  }
   	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-  	      $this->formEtablissement = new EtablissementForm($this->etablissement, $this->etablissement->isViticulteur());
+  	      $this->formEtablissement = new EtablissementForm($this->etablissement);
   	      if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formEtablissement->getName())) {
   	          $this->formEtablissement->bind($request->getParameter($this->formEtablissement->getName()));
   	          if ($this->formEtablissement->isValid()) {
