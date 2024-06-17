@@ -57,9 +57,10 @@
 			<?php endif; ?>
 
 		<div id="visualisation_profil">
-			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'formEtablissement' => $formEtablissement, 'formSociete' => $formSociete)); ?>
+			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'formEtablissement' => $formEtablissement)); ?>
 		</div>
 
+        <div style="text-align: right">
 		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 		<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
 			<a href="<?php echo url_for('profil_statut', $etablissement) ?>" id="btn_archiver_etablissement" class="btn_violet">Activer l'etablissement</a>
@@ -67,6 +68,7 @@
 			<a href="<?php echo url_for('profil_statut', $etablissement) ?>" id="btn_archiver_etablissement" class="btn_violet">Archiver l'etablissement</a>
 		<?php endif; ?>
 		<?php endif; ?>
+        </div>
 	</div>
 
 </section>
