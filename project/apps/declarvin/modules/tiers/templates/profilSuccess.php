@@ -33,9 +33,28 @@
 						<?php endif; ?>
 			    </ul>
 				</div>
+    		    <?php endif; ?>
+
+
+    			<?php if ($formSociete): ?>
+    			<form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
+    				<?php echo $formSociete->renderHiddenFields(); ?>
+    				<?php echo $formSociete->renderGlobalErrors(); ?>
+
+                <div class="ligne_form">
+                            <label>&nbsp;</label>
+                            <?php echo $formSociete['code_comptable_client']->renderError() ?>
+                </div>
+    			<div class="ligne_form">
+    					<label>Code comptable société :</label>
+    					<?php echo $formSociete['code_comptable_client']->render(array('style' => 'width: 120px;text-align:right;')) ?>
+    					<input type="submit" value="Modifier"/>
+    			</div>
+    			</form>
+    			<?php endif; ?>
+
 			</div>
 			<?php endif; ?>
-		<?php endif; ?>
 
 		<div id="visualisation_profil">
 			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'formEtablissement' => $formEtablissement, 'formSociete' => $formSociete)); ?>
