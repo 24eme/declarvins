@@ -46,6 +46,8 @@ EOF;
 	$ecart = $interval->format('%a');
   	if ($ecart >= self::NB_JOUR_RELANCE && !$values[VracHistoryView::VRAC_VIEW_DATERELANCE]) {
   		$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
+  		$vrac->date_relance = date('c');
+  		$vrac->save(false);
         try {
       		if ($sendmail && $values[VracHistoryView::VRAC_VIEW_ACHETEURID] && !$values[VracHistoryView::VRAC_VIEW_ACHETEURVAL]) {
       			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_ACHETEURID], VracClient::VRAC_TYPE_ACHETEUR);
@@ -60,8 +62,6 @@ EOF;
             $this->logSection('vrac-relance', 'Relance échouée pour le contrat '.$vrac->_id);
             return;
         }
-  		$vrac->date_relance = date('c');
-  		$vrac->save();
   		$this->logSection('vrac-relance', 'Relance envoyée pour le contrat '.$vrac->_id);
   	}
   }
