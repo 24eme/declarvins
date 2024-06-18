@@ -73,24 +73,6 @@
                 </form>
 			<?php endif; ?>
 
-			<?php if ($formSociete): ?>
-			<form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
-				<?php echo $formSociete->renderHiddenFields(); ?>
-				<?php echo $formSociete->renderGlobalErrors(); ?>
-
-            <div class="ligne_form">
-                        <label>&nbsp;</label>
-                        <?php echo $formSociete['code_comptable_client']->renderError() ?>
-            </div>
-			<div class="ligne_form">
-					<label>Code comptable société :</label>
-					<?php echo $formSociete['code_comptable_client']->render(array('style' => 'width: 120px;text-align:right;')) ?>
-					<input type="submit" value="Modifier"/><br />
-					<label>&nbsp;</label><span style="font-size:90%;color;grey;padding-left:5px;">Nombre après la chaîne 4110000C</span>
-			</div>
-			</form>
-			<?php endif; ?>
-
 		</div>
 	</div>
 </div>
