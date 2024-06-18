@@ -403,6 +403,23 @@ class acVinVracActions extends sfActions
 		}
 	}
 
+    public function executeCommentaire(sfWebRequest $request) {
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->forward404Unless($this->vrac && $this->etablissement);
+
+        $commentaireText = $request->getParameter('commentaireText');
+        $this->form = new VracCommentaireAnnulationForm($this->vrac->valide, $commentaireText);
+        if ($request->isMethod(sfWebRequest::POST)) {
+            $this->form->bind($request->getParameter($this->form->getName()));
+            if (! $this->form->isValid()) {
+                return sfView::SUCCESS;
+            }
+            $this->form->save();
+            $this->redirect('vrac_statut', array('sf_subject' => $this->vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement));
+        }
+    }
+
     private function notifiePrixNonCoherent($vrac) {
         if ($vrac->isVolumesAppellationsEnAlerte()) {
             Email::getInstance()->prixNonCoherent($vrac);

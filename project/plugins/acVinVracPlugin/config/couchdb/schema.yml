@@ -329,6 +329,7 @@ Vrac:
             date_validation: {  }
             identifiant: {  }
             statut: { }
+            commentaire_annulation: {  }
       oioc:
         type: collection
         definition:
