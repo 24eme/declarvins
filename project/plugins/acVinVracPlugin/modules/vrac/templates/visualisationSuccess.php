@@ -95,10 +95,16 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                         <?php endif; ?>
                         <div>
                             <span class="statut <?php echo statusColor($vrac->valide->statut) ?>"></span><span class="legende_statut_texte"><?php echo statusLibelle($vrac->valide->statut, $vrac->isPluriannuel()) ?></span>
+                            <?php if ($vrac->valide->commentaire_annulation): ?>
+                                <div>
+                                    <h4>Commentaire d'annulation : </h4>
+                                    <p><?php echo $vrac->valide->commentaire_annulation; ?></p>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-				        
+
 				        <div id="ligne_btn">
 				        	<?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
 				        		<?php if($hasNextVersion): ?>
