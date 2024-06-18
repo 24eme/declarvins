@@ -6,9 +6,12 @@
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form['commentaire_annulation']->renderError() ?>
             <h1><?php echo $form['commentaire_annulation']->renderLabel() ?></h1>
+            <p id="titre" style="text-align: left; margin-bottom: 30px;">
+                Afin d'annuler ce contrat, veuillez renseigner la raison de l'annulation.
+            </p>
             <?php echo $form['commentaire_annulation']->render() ?>
             <div class="ligne_form_btn">
-                <button type="submit" class="annuler_saisie" onclick="return confirm('Confirmez-vous le refus du contrat?')" id="btn_annuler_contrat">Refuser</button>
+                <button type="submit" class="annuler_saisie pull-right" onclick="return confirm('Confirmez-vous le refus du contrat?')" id="btn_annuler_contrat">Refuser</button>
             </div>
     </form>
 </div>
