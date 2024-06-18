@@ -114,6 +114,7 @@
             </div>
         <?php endif; ?>
         <div id="contenu_onglet">
+            <?php include_partial('global/metabaseControles', array('modele' => 'drm', 'doc' => $drm)) ?>
             <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
             <?php if (($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
