@@ -39,9 +39,20 @@ EOF;
                 continue;
             }
             if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE || $vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
-                if (!$vrac->date_relance || ($vrac->date_relance < $vrac->valide->date_validation)) {
+                $current_minus_7 = null;
+                if (! $vrac->date_seconde_relance && $vrac->date_relance && $vrac->date_relance > $vrac->valide->date_validation) {
+                    $date_relance = new DateTime($vrac->date_relance);
+                    $current_date = new DateTime();
+                    $current_minus_7 = $current_date->sub(new DateInterval('P7D'));
+                }
+                print_r($vrac);
+                if (!$vrac->date_relance || ($vrac->date_relance < $vrac->valide->date_validation) || ($date_relance == $current_minus_7)) {
                     $this->sendEmail($vrac, $vrac->acheteur_identifiant, 'acheteur');
-                    $vrac->date_relance = date('c');
+                    if (! $current_minus_7) {
+                        $vrac->date_relance = date('c');
+                    } else {
+                        $vrac->date_seconde_relance = date('c');
+                    }
                     $vrac->save();
                     $this->logSection('vrac-determination-prix', 'Relance envoyée pour le contrat '.$vrac->_id);
                 }
