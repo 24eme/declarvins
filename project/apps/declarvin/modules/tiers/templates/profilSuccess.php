@@ -33,6 +33,16 @@
 						<?php endif; ?>
 			    </ul>
 				</div>
+                <?php if(count($societe->getSocietesLieesIds()) >= 2): ?>
+                    <p>Sociétés liées :</p>
+                    <ul>
+                    <?php foreach($societe->getSocietesLieesIds() as $societeLieeId): ?>
+                        <?php $societeLiee = SocieteClient::getInstance()->find($societeLieeId); ?>
+                        <?php if(!$societeLiee || $societeLiee->_id == $societe->_id): continue; endif; ?>
+                        <li><a style="color:#86005b;" href="<?php echo url_for('facture_societe', $societeLiee) ?>"><span class="glyphicon glyphicon-link"></span> <?php echo $societeLiee->raison_sociale ?></a></li>
+                    <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
     		    <?php endif; ?>
 
 
