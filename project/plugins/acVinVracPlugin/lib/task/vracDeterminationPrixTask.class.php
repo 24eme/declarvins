@@ -9,6 +9,7 @@ class vracDeterminationPrixTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      new sfCommandOption('vrac_id', null, sfCommandOption::PARAMETER_REQUIRED, 'ID of a single vrac', null),
       // add your own options here
     ));
 
@@ -29,11 +30,15 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
-    
+
     $cm = new CampagneManager('08-01');
     $from = $cm->getDateDebutByCampagne($cm->getPrevious($cm->getCurrent()));
-    $vracs = VracDeterminationprixView::getInstance()->findLast();
-    foreach ($vracs->rows as $row) {
+    if (! $options['vrac_id']) {
+        $vracs = VracDeterminationprixView::getInstance()->findLast()->rows;
+    } else {
+        $vracs = [(object) ['id' => $options['vrac_id']]];
+    }
+    foreach ($vracs as $row) {
         if ($vrac = VracClient::getInstance()->find($row->id)) {
             if ($vrac->type_prix == 'definitif') {
                 continue;
@@ -45,8 +50,7 @@ EOF;
                     $current_date = new DateTime();
                     $current_minus_7 = $current_date->sub(new DateInterval('P7D'));
                 }
-                print_r($vrac);
-                if (!$vrac->date_relance || ($vrac->date_relance < $vrac->valide->date_validation) || ($date_relance == $current_minus_7)) {
+                if (!$vrac->date_relance || ($vrac->date_relance < $vrac->valide->date_validation) || ($date_relance->format('Y-m-d') == $current_minus_7->format('Y-m-d'))) {
                     $this->sendEmail($vrac, $vrac->acheteur_identifiant, 'acheteur');
                     if (! $current_minus_7) {
                         $vrac->date_relance = date('c');
