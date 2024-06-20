@@ -11,13 +11,13 @@ class VracCommentaireAnnulationForm extends acCouchdbObjectForm
 	public function configure()
 	{
 		$this->setWidgets(array(
-	       'commentaire_annulation' => new sfWidgetFormTextArea()
+	       'commentaire_refus' => new sfWidgetFormTextArea()
 		));
-        $this->getWidget('commentaire_annulation')->setLabel("Commentaire d'annulation");
+        $this->getWidget('commentaire_refus')->setLabel("Commentaire de refus");
 		$this->setValidators(array(
-	       'commentaire_annulation' => new sfValidatorString(array('required' => true))
+	       'commentaire_refus' => new sfValidatorString(array('required' => true))
 		));
-        $this->widgetSchema->setNameFormat('commentaire_annulation[%s]');
+        $this->widgetSchema->setNameFormat('commentaire_refus[%s]');
 	}
 
 }
