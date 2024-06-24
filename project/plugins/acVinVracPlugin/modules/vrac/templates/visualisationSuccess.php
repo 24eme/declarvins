@@ -95,10 +95,9 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                         <?php endif; ?>
                         <div>
                             <span class="statut <?php echo statusColor($vrac->valide->statut) ?>"></span><span class="legende_statut_texte"><?php echo statusLibelle($vrac->valide->statut, $vrac->isPluriannuel()) ?></span>
-                            <?php if ($vrac->valide->commentaire_annulation): ?>
+                            <?php if ($vrac->valide->commentaire_refus): ?>
                                 <div>
-                                    <h4>Commentaire d'annulation : </h4>
-                                    <p><?php echo $vrac->valide->commentaire_annulation; ?></p>
+                                    <p><?php echo nl2br($vrac->valide->commentaire_refus); ?></p>
                                 </div>
                             <?php endif; ?>
                         </div>

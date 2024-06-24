@@ -306,6 +306,7 @@ Vrac:
       date_stats: {  }
       date_signature: {  }
       date_relance: {  }
+      date_seconde_relance: {  }
       volume_enleve: { type: float }
       annulation:
         type: collection
@@ -329,7 +330,7 @@ Vrac:
             date_validation: {  }
             identifiant: {  }
             statut: { }
-            commentaire_annulation: {  }
+            commentaire_refus: {  }
       oioc:
         type: collection
         definition:
