@@ -55,7 +55,7 @@ class ExportEdiCSVTask extends sfBaseTask
     		$numberValues = DRMDateView::numberValues();
             $famille = null;
             if ($d = $options['fromdate']) {
-                $dateForView = new DateTime($date);
+                $dateForView = new DateTime($d);
                 $items = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
             } else {
                 $items = DRMDateView::getInstance()->findByInterpro($interpro)->rows;
