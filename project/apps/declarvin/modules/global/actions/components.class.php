@@ -16,12 +16,11 @@ class globalComponents extends sfComponents {
     }
 
     public function executeNavTop() {
+        $this->etablissement = null;
         if ($this->getRoute() instanceof InterfaceEtablissementRoute)
             $this->etablissement = $this->getRoute()->getEtablissement();
-        elseif ($identifiant = $this->getRequest()->getParameter('identifiant'))
-            $this->etablissement = EtablissementClient::getInstance()->retrieveById($identifiant);
-        else
-            $this->etablissement = null;
+        if (!$this->etablissement && $this->getRequest()->getParameter('identifiant'))
+            $this->etablissement = EtablissementClient::getInstance()->retrieveById($this->getRequest()->getParameter('identifiant'));
     	$this->configuration = ConfigurationClient::getCurrent();
     }
 
