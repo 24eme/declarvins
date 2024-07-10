@@ -1,9 +1,9 @@
 <?php include_component('global', 'navTop', array('active' => 'profil')); ?>
 <section id="contenu">
-	
+
 	<div id="profil">
-		<?php if ($hasCompte): ?>
 			<div id="formulaire_profil">
+        		<?php if ($hasCompte): ?>
 				<?php include_partial('form_compte', array('compte' => $compte, 'form' => $form, 'etablissement' => $etablissement)); ?>
 				<div style="padding: 10px 0;" class="clearfix">
 					<h1>Vos documents</h1>
@@ -17,6 +17,7 @@
 				        <?php endif; ?>
 			        </ul>
 				</div>
+    			<?php endif; ?>
 				<?php if ($societe && !$societe->isNew()): ?>
 				<div style="padding: 10px 0;" class="clearfix">
 					<h1>Vos informations de facturation</h1>
@@ -64,7 +65,6 @@
     			<?php endif; ?>
 
 			</div>
-			<?php endif; ?>
 
 		<div id="visualisation_profil">
 			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'formEtablissement' => $formEtablissement)); ?>

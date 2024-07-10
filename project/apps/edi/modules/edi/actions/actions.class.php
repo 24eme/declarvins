@@ -11,6 +11,10 @@
 class ediActions extends sfActions
 {
 
+    public static $EXCEPTION_PRESENCE_PRODUITS_EDIDRM = [
+        'declaration/certifications/AOP/genres/TRANQ/appellations/BAN'
+    ];
+
   protected function getCompte() {
   	return acCouchdbManager::getClient('_Compte')->retrieveByLogin($_SERVER['PHP_AUTH_USER']);
   }
@@ -1016,7 +1020,16 @@ class ediActions extends sfActions
 				}
 			}
   			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
-  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
+                $isExceptionProduit = false;
+                foreach (self::$EXCEPTION_PRESENCE_PRODUITS_EDIDRM as $hash) {
+                    if (strpos($item->key[DRMDateView::KEY_DETAIL_HASH], $hash) !== false) {
+                        $isExceptionProduit = true;
+                        break;
+                    }
+                }
+                if (!$isExceptionProduit) {
+                    $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
+                }
   			}
   			if ($interpro == 'INTERPRO-CIVP' && !$famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != 'producteur') {
   				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
@@ -1027,9 +1040,9 @@ class ediActions extends sfActions
   			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && $famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != $famille) {
   			    $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
-        if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && !$item->value[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS] && !$item->value[DRMDateView::VALUE_DETAIL_ENTREES] && !$item->value[DRMDateView::VALUE_DETAIL_SORTIES]) {
-          $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
-        }
+            if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && !$item->value[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS] && !$item->value[DRMDateView::VALUE_DETAIL_ENTREES] && !$item->value[DRMDateView::VALUE_DETAIL_SORTIES]) {
+                $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
+            }
   			if ($item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH] != $squeeze) {
   				$drms[] = $item;
   			}
