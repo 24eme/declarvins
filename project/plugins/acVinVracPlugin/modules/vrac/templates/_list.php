@@ -111,9 +111,9 @@
 			    			<a class="highlight_link" href="<?php echo url_for('vrac_annulation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo $vraclibelle ?></a>
 			    		<?php else: ?>
 							<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE)): ?>
-				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
+				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
 							<?php elseif ($isAdmin): ?>
-							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
+							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
 							<?php endif; ?>
 						<?php endif; ?>
 			    	<?php endif; ?>
