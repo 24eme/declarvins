@@ -516,6 +516,15 @@ class DRMRouting {
                               'type' => 'object',
                               'must_be_valid' => false,
                               'must_be_not_valid' => false)));
+
+        $r->prependRoute('drm_update_reserve_produit', new DRMRoute('/drm/:identifiant/update-reserve-produit/:periode_version',
+                        array('module' => 'drm',
+                            'action' => 'updateReserveProduit'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DRM',
+                              'type' => 'object',
+                              'must_be_valid' => false,
+                              'must_be_not_valid' => false)));
     }
 
 }
