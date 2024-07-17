@@ -790,7 +790,8 @@ class drmActions extends sfActions {
 
    public function executeUpdateReserveProduit(sfWebRequest $request) {
        $this->forward404If(!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
-	   $drm = $this->getRoute()->getDRM();
+       $drm = $this->getRoute()->getDRM();
+       $drm = DRMClient::getInstance()->find($drm->_id);
        $hashproduit = $request->getPostParameter('hashproduit');
        $reserve = $request->getPostParameter('reserve');
        if ($drm->exist($hashproduit)) {
