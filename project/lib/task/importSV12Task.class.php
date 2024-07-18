@@ -52,7 +52,7 @@ EOF;
         $campagne = $datas[1];
         $cvi = str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT);
         $idProduit = trim($datas[16]);
-        if (strpos($datas[19], '15') === false) {
+        if (!in_array($datas[19], ['15VF', '15M'])) {
             continue;
         }
         if ($campagneOpt && $campagneOpt != $campagne) {
@@ -85,9 +85,6 @@ EOF;
           echo "Plusieurs etablissements pour le cvi : $cvi\n";
           continue;
         }
-        if (!$etablissement) {
-            $etablissement = EtablissementClient::getInstance()->find(trim($datas[3]));
-        }
         if ($etablissement) {
             $key = $campagne.'-'.$cvi;
             $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
@@ -97,17 +94,16 @@ EOF;
                 if (!$sv12) {
                     $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
                 }
-                if ($sv12->isValidee() && $sv12->contrats->exist($identifiant)) {
-                    echo "sv12 already valided $sv12->_id for contrat $identifiant\n";
-                    continue;
-                }
-                if ($sv12->isValidee() && !$sv12->contrats->exist($identifiant)) {
+                if ($sv12->isValidee()) {
                     $sv12 = $sv12->generateModificative();
+                    $sv12->remove('contrats');
+                    $sv12->add('contrats');
+
                 }
                 if ($sv12->isNew()) {
                     $sv12->constructId();
-                    $sv12->storeContrats();
                 }
+                $sv12->storeContrats();
             } else {
                 $sv12 = $result[$key];
             }
@@ -127,17 +123,34 @@ EOF;
         }
     }
     foreach($result as $sv12) {
-        if (!$checkingMode) {
-            $sv12->validate();
-            foreach($sv12->mouvements as $mouvements) {
-                foreach($mouvements as $mouvement) {
-                    $mouvement->add('interpro', "INTERPRO-$interpro");
-                    if ($mvtsalwaysfacturesOpt && $mouvement->facturable) {
-                        $mouvement->facture = 1;
-                    }
+        if ($sv12->hasVersion()) {
+            $previous = $sv12->getMother();
+            $same = true;
+            foreach ($sv12->contrats as $key => $contrat) {
+                if (!$previous->contrats->exist($key)) {
+                    $same = false;
+                    break;
+                }
+                if ($previous->contrats->get($key)->volume != $contrat->volume) {
+                    $same = false;
+                    break;
                 }
             }
-            $sv12->save();
+            if ($same) {
+                continue;
+            }
+        }
+        $sv12->validate();
+        foreach($sv12->mouvements as $mouvements) {
+            foreach($mouvements as $mouvement) {
+                $mouvement->add('interpro', "INTERPRO-$interpro");
+                if ($mvtsalwaysfacturesOpt && $mouvement->facturable) {
+                    $mouvement->facture = 1;
+                }
+            }
+        }
+        if (!$checkingMode) {
+        //$sv12->save();
         }
         echo "SV12 created $sv12->_id\n";
     }
