@@ -101,42 +101,42 @@ EOF;
           echo "Plusieurs etablissements pour le cvi : $cvi\n";
           continue;
         }
-        if ($etablissement) {
-            $key = $campagne.'-'.$cvi;
-            $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
-            $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
-            if (!isset($result[$key])) {
-                $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
-                if (!$sv12) {
-                    $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
+        $etablissement = current($items);
+        $key = $campagne.'-'.$cvi;
+        $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
+        $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
+        if (!isset($result[$key])) {
+            $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
+            if (!$sv12) {
+                $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
+            }
+            if ($sv12->isValidee()) {
+                $sv12 = $sv12->generateModificative();
+                if ($interpro == 'IVSE') {
+                    $sv12->cleanContratsProduit('/IGP/');
+                } else {
+                    $sv12->cleanContratsProduit('/AOP/');
                 }
-                if ($sv12->isValidee()) {
-                    $sv12 = $sv12->generateModificative();
-                    $sv12->remove('contrats');
-                    $sv12->add('contrats');
 
-                }
-                if ($sv12->isNew()) {
-                    $sv12->constructId();
-                }
-                $sv12->storeContrats();
-            } else {
-                $sv12 = $result[$key];
             }
-            $exist = $sv12->contrats->exist($identifiant);
-            $sv12Contrat = $sv12->contrats->getOradd($identifiant);
-            if (!$exist) {
-                $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
-            } else {
-                $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
+            if ($sv12->isNew()) {
+                $sv12->constructId();
             }
-            $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
-            $sv12Contrat->add('labels', $labels);
-            $result[$key] = $sv12;
+            $sv12->storeContrats();
         } else {
-            echo "etablissement cvi not found $cvi : $datas[4]\n";
-            continue;
+            $sv12 = $result[$key];
         }
+        $exist = $sv12->contrats->exist($identifiant);
+        $sv12Contrat = $sv12->contrats->getOradd($identifiant);
+        if (!$exist) {
+            $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
+        } else {
+            $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
+        }
+        $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
+        $sv12Contrat->add('labels', $labels);
+        $result[$key] = $sv12;
+
     }
     foreach($result as $sv12) {
         if ($sv12->hasVersion()) {
