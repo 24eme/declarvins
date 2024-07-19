@@ -139,6 +139,7 @@ EOF;
 
     }
     foreach($result as $sv12) {
+        $avoir = null;
         if ($sv12->hasVersion()) {
             $previous = $sv12->getMother();
             $same = true;
@@ -155,13 +156,21 @@ EOF;
             if ($same) {
                 continue;
             }
+            $avoir = $previous->getMvtsFactures("INTERPRO-$interpro");
         }
         $sv12->validate();
+        if ($avoir) {
+            $sv12->avoiriserMvts($avoir);
+        }
         foreach($sv12->mouvements as $mouvements) {
             foreach($mouvements as $mouvement) {
                 $mouvement->add('interpro', "INTERPRO-$interpro");
                 if ($mvtsalwaysfacturesOpt && $mouvement->facturable) {
                     $mouvement->facture = 1;
+                }
+                if ($avoir && !$sv12->hasVolumeAFacturer()) {
+                    $mouvement->facturable = 0;
+                    $mouvement->facture = 0;
                 }
             }
         }
