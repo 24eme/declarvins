@@ -175,7 +175,7 @@ EOF;
             }
         }
         if (!$checkingMode) {
-        //$sv12->save();
+            $sv12->save();
         }
         echo "SV12 created $sv12->_id\n";
     }
