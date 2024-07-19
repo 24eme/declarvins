@@ -72,16 +72,32 @@ EOF;
         }
         $labels = $this->getLabels($datas[35]);
         $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi)->rows;
-        $etablissement = null;
-        $nbEtablissement = 0;
+        $items = [];
         foreach($etablissements as $e) {
             $etab = EtablissementClient::getInstance()->find($e->id);
             if ($etab->statut == Etablissement::STATUT_ARCHIVE) continue;
             if ($etab->sous_famille !=  EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) continue;
-            $etablissement = $etab;
-            $nbEtablissement++;
+            $items[] = $etab;
         }
-        if ($nbEtablissement > 1) {
+        $hasMany = false;
+        if (count($items) > 1) {
+            $hasMany = true;
+            $del = [];
+            foreach ($items as $ind => $item) {
+                $annees = explode('-', $campagne);
+                if (!SV12Client::getInstance()->findMaster($item->identifiant, ($annees[0] - 1) . '-' . ($annees[1] - 1))) {
+                    $del[] = $ind;
+                }
+            }
+            foreach ($del as $i) {
+                unset($items[$i]);
+            }
+        }
+        if (!$hasMany && !count($items)) {
+          echo "etablissement cvi not found $cvi : $datas[4]\n";
+          continue;
+        }
+        if (($hasMany && !count($items))||(count($items) > 1)) {
           echo "Plusieurs etablissements pour le cvi : $cvi\n";
           continue;
         }
