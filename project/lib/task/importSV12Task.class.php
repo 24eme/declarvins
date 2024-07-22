@@ -148,7 +148,7 @@ EOF;
                     $same = false;
                     break;
                 }
-                if ($previous->contrats->get($key)->volume != $contrat->volume) {
+                if (round($previous->contrats->get($key)->volume,5) != round($contrat->volume,5)) {
                     $same = false;
                     break;
                 }
