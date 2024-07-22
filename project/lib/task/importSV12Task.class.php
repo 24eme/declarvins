@@ -156,7 +156,9 @@ EOF;
             if ($same) {
                 continue;
             }
-            $avoir = $previous->getMvtsFactures("INTERPRO-$interpro");
+            if ($interpro == 'IVSE') {
+                $avoir = array_filter($previous->getMvtsFactures("INTERPRO-$interpro"), function($mvt) { return strpos($mvt->produit_hash, 'cepages/DEFAUT') === false; });
+            }
         }
         $sv12->validate();
         if ($avoir) {
