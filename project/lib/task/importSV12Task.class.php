@@ -117,7 +117,6 @@ EOF;
                 } else {
                     $sv12->cleanContratsProduit('/AOP/');
                 }
-
             }
             if ($sv12->isNew()) {
                 $sv12->constructId();
