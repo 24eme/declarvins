@@ -2,7 +2,9 @@
 
 <section id="contenu">
 
-    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="/docs/notice.pdf|/docs/correspondances_mouvements.pdf" title="Message aide"></a></h1>
+    <h1>Déclaration Récapitulative Mensuelle</h1>
+
+    <button id="telecharger_pdf" style="margin-left: 663px; padding-bottom: 6px;"><a href="/docs/correspondances_mouvements.pdf" target="_blank">correspondances mouvements</a></button>
 
     <p class="intro">Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
 
