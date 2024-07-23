@@ -787,6 +787,21 @@ class drmActions extends sfActions {
         $this->etablissement = $this->getRoute()->getEtablissement();
     }
 
+
+   public function executeUpdateReserveProduit(sfWebRequest $request) {
+       $this->forward404If(!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
+       $drm = $this->getRoute()->getDRM();
+       $drm = DRMClient::getInstance()->find($drm->_id);
+       $hashproduit = $request->getPostParameter('hashproduit');
+       $reserve = $request->getPostParameter('reserve');
+       if ($drm->exist($hashproduit)) {
+           $produit = $drm->get($hashproduit);
+           $produit->reserve_interpro = $reserve;
+           $drm->save();
+       }
+	   $this->redirect(($drm->isValidee()) ? 'drm_visualisation' : 'drm_validation', ['sf_subject' => $drm]);
+   }
+
     protected function renderPdf($path, $filename) {
         $this->getResponse()->setHttpHeader('Content-Type', 'application/pdf');
         $this->getResponse()->setHttpHeader('Content-disposition', 'attachment; filename="' . $filename . '"');
