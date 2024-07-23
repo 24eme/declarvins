@@ -5,5 +5,5 @@ all:
       title: "Enquête Stock de Rosé millésime %millesime% ou précédent"
       product_hash_regex_filter: "/certifications\/AOP\/.+\/couleurs\/rose/"
       product_detail_interpro: "INTERPRO-CIVP"
-      date_stock_declaration: '2023-07-31'
+      date_stock_declaration: '2024-07-31'
       hide_historique: true
