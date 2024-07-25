@@ -7,3 +7,4 @@ all:
       product_detail_interpro: "INTERPRO-CIVP"
       date_stock_declaration: '2024-07-31'
       hide_historique: true
+      exception_produit: "certifications/AOP/genres/TRANQ/appellations/BAN/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose"
