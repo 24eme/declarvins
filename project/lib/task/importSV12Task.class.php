@@ -155,6 +155,7 @@ EOF;
                 }
             }
             if ($same) {
+                echo "Version identique donc squeezée\n";
                 continue;
             }
             if ($interpro == 'IVSE') {
