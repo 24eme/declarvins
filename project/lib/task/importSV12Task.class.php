@@ -159,7 +159,11 @@ EOF;
                 continue;
             }
             if ($interpro == 'IVSE') {
-                $avoir = array_filter($previous->getMvtsFactures("INTERPRO-$interpro"), function($mvt) { return strpos($mvt->produit_hash, 'cepages/DEFAUT') === false; });
+                $avoir = [];
+                while (!count($avoir) && $previous->hasVersion()) {
+                    $avoir += array_filter($previous->getMvtsFactures("INTERPRO-$interpro"), function($mvt) { return strpos($mvt->produit_hash, 'cepages/DEFAUT') === false; });
+                    $previous = $previous->getMother();
+                }
             }
         }
         $sv12->validate();
