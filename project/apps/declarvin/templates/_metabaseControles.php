@@ -1,4 +1,7 @@
-<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+<?php
+    if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)):
+        $interpro = $sf_user->getCompte()->getGerantInterpro();
+?>
 <?php if ($controles = sfConfig::get("app_metabase_controles_$modele")): ?>
     <div class="vigilance_list">
         <h3 style="font-size: 14px;margin-bottom:10px;">
@@ -12,7 +15,8 @@
         <ul>
         <?php foreach ($controles as $controle): ?>
             <?php
-                $url = $controle['url'];
+                if (!isset($controle['url_'.$interpro->identifiant])) continue;
+                $url = $controle['url_'.$interpro->identifiant];
                 if (!empty($controle['filtres'])) {
                     foreach ($controle['filtres'] as $key => $value) {
                         if ($doc->exist($value)) {
