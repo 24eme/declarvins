@@ -93,15 +93,16 @@ EOF;
                 unset($items[$i]);
             }
         }
-        if (!$hasMany && !count($items)) {
+        $etablissementById = EtablissementClient::getInstance()->retrieveById($datas[2]);
+        if (!$etablissementById && !$hasMany && !count($items)) {
           echo "etablissement cvi not found $cvi : $datas[4]\n";
           continue;
         }
-        if (($hasMany && !count($items))||(count($items) > 1)) {
+        if (!$etablissementById && (($hasMany && !count($items))||(count($items) > 1))) {
           echo "Plusieurs etablissements pour le cvi : $cvi\n";
           continue;
         }
-        $etablissement = current($items);
+        $etablissement = (count($items) == 1)? current($items) : $etablissementById;
         $key = $campagne.'-'.$cvi;
         $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
         $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
