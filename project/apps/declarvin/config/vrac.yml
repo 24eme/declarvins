@@ -102,3 +102,12 @@ all:
         GRI:
           min: 10
           max: 20
+        CP:
+          min: 150
+          max: 400
+        CAP:
+          min: 120
+          max: 400
+        CVP:
+          min: 120
+          max: 400
