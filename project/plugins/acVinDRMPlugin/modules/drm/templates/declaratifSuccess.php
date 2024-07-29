@@ -153,7 +153,7 @@
                 <div class="contenu_onglet_declaratif">
                     <div class="tableau_ajouts_liquidations">
                         <p>
-                            <strong>/!\ Merci de préciser le volume de vin correspondant à l'observation /!\</strong>
+                            <strong>/!\ Merci de préciser le volume de vin correspondant à l'observation en detaillant explicitement le mouvement du produit /!\</strong>
                         </p>
                         <p style="text-align: right; padding-right: 20px;">
                             250 caractères max.
