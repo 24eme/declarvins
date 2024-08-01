@@ -51,7 +51,6 @@ EOF;
     foreach($items as $datas) {
         $campagne = $datas[1];
         $cvi = str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT);
-        $id = $datas[2];
         $idProduit = trim($datas[16]);
         if (!in_array($datas[19], ['15VF', '15M'])) {
             continue;
@@ -73,61 +72,72 @@ EOF;
         }
         $labels = $this->getLabels($datas[35]);
         $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi)->rows;
-        $etablissement = EtablissementClient::getInstance()->retrieveById($id);
-        $nbEtablissement = 0;
-        $tmp = null;
+        $items = [];
         foreach($etablissements as $e) {
             $etab = EtablissementClient::getInstance()->find($e->id);
             if ($etab->statut == Etablissement::STATUT_ARCHIVE) continue;
             if ($etab->sous_famille !=  EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) continue;
-            $tmp = $etab;
-            $nbEtablissement++;
+            $items[] = $etab;
         }
-        if ($nbEtablissement > 1 && !$etablissement) {
+        $hasMany = false;
+        if (count($items) > 1) {
+            $hasMany = true;
+            $del = [];
+            foreach ($items as $ind => $item) {
+                $annees = explode('-', $campagne);
+                if (!SV12Client::getInstance()->findMaster($item->identifiant, ($annees[0] - 1) . '-' . ($annees[1] - 1))) {
+                    $del[] = $ind;
+                }
+            }
+            foreach ($del as $i) {
+                unset($items[$i]);
+            }
+        }
+        $etablissementById = EtablissementClient::getInstance()->retrieveById($datas[2]);
+        if (!$etablissementById && !$hasMany && !count($items)) {
+          echo "etablissement cvi not found $cvi : $datas[4]\n";
+          continue;
+        }
+        if (!$etablissementById && (($hasMany && !count($items))||(count($items) > 1))) {
           echo "Plusieurs etablissements pour le cvi : $cvi\n";
           continue;
         }
-        if ($nbEtablissement == 1) {
-            $etablissement = $tmp;
-        }
-        if ($etablissement) {
-            $key = $campagne.'-'.$cvi;
-            $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
-            $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
-            if (!isset($result[$key])) {
-                $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
-                if (!$sv12) {
-                    $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
-                }
-                if ($sv12->isValidee()) {
-                    $sv12 = $sv12->generateModificative();
-                    if ($interpro == 'IVSE') {
-                        $sv12->cleanContratsProduit('/IGP/');
-                    } else {
-                        $sv12->cleanContratsProduit('/AOP/');
-                    }
-                }
-                if ($sv12->isNew()) {
-                    $sv12->constructId();
-                }
-                $sv12->storeContrats();
-            } else {
-                $sv12 = $result[$key];
+        $etablissement = (count($items) == 1)? current($items) : $etablissementById;
+        $key = $campagne.'-'.$cvi;
+        $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
+        $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
+        if (!isset($result[$key])) {
+            $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
+            if (!$sv12) {
+                $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
             }
-            $exist = $sv12->contrats->exist($identifiant);
-            $sv12Contrat = $sv12->contrats->getOradd($identifiant);
-            if (!$exist) {
-                $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
-            } else {
-                $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
+            if ($sv12->isValidee()) {
+                $sv12 = $sv12->generateModificative();
+                if ($interpro == 'IVSE') {
+                    $sv12->cleanContratsProduit('/IGP/');
+                } else {
+                    $sv12->cleanContratsProduit('/AOP/');
+                }
+
             }
-            $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
-            $sv12Contrat->add('labels', $labels);
-            $result[$key] = $sv12;
+            if ($sv12->isNew()) {
+                $sv12->constructId();
+            }
+            $sv12->storeContrats();
         } else {
-            echo "Etablissement non trouvé : $cvi\n";
-            continue;
+            $sv12 = $result[$key];
         }
+        $exist = $sv12->contrats->exist($identifiant);
+        $sv12Contrat = $sv12->contrats->getOradd($identifiant);
+        if (!$exist) {
+            $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
+        } else {
+            $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
+        }
+        $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
+        $sv12Contrat->add('labels', $labels);
+        $result[$key] = $sv12;
+
     }
     foreach($result as $sv12) {
         $avoir = null;
@@ -139,16 +149,21 @@ EOF;
                     $same = false;
                     break;
                 }
-                if (round($previous->contrats->get($key)->volume,5) != round($contrat->volume,5)) {
+                if ($previous->contrats->get($key)->volume != $contrat->volume) {
                     $same = false;
                     break;
                 }
             }
             if ($same) {
+                echo "Version identique donc squeezée\n";
                 continue;
             }
             if ($interpro == 'IVSE') {
-                $avoir = array_filter($previous->getMvtsFactures("INTERPRO-$interpro"), function($mvt) { return strpos($mvt->produit_hash, 'cepages/DEFAUT') === false; });
+                $avoir = [];
+                while (!count($avoir) && $previous->hasVersion()) {
+                    $avoir += array_filter($previous->getMvtsFactures("INTERPRO-$interpro"), function($mvt) { return strpos($mvt->produit_hash, 'cepages/DEFAUT') === false; });
+                    $previous = $previous->getMother();
+                }
             }
         }
         $sv12->validate();
@@ -172,8 +187,8 @@ EOF;
         }
         echo "SV12 created $sv12->_id\n";
     }
-  }
 
+  }
   public function getLabels($str) {
       $correspondances = ['BIO' => 'biol', 'DEMETER' => 'biod', 'CONVERSION_BIO' => 'bioc', 'HVE' => 'hve'];
       $labels = [];
