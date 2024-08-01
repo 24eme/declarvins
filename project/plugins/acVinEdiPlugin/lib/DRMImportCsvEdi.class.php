@@ -131,7 +131,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
               $lp = '';
               $s = strpos($libelle, '(');
               $e = strpos($libelle, ')');
-              if ($s !== false && $e !== false) {
+              $codeDouaneDansLibelle = (substr(trim($libelle), -1) == ')');
+              if ($codeDouaneDansLibelle && $s !== false && $e !== false) {
                 $lp = trim(substr($libelle, 0, $s));
               }
     		  $configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
@@ -164,7 +165,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             $s = strpos($libelle, '(');
             $e = strpos($libelle, ')');
-            if ($s !== false && $e !== false) {
+            $codeDouaneDansLibelle = (substr(trim($libelle), -1) == ')');
+            if ($codeDouaneDansLibelle && $s !== false && $e !== false) {
             	$libellePerso = trim(substr($libelle, 0, $s));
             } elseif ($libelle && trim($libelle) != trim($libelleConfig)) {
                 $libellePerso = trim($libelle);
@@ -945,7 +947,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       $libelleDouane = null;
       $s = strpos($libelle, '(');
       $e = strpos($libelle, ')');
-      if ($s !== false && $e !== false) {
+      $codeDouaneDansLibelle = (substr(trim($libelle), -1) == ')');
+      if ($codeDouaneDansLibelle && $s !== false && $e !== false) {
         $libelleDouane = substr($libelle, $s+1, $e-$s-1);
       }
       return $libelleDouane;
