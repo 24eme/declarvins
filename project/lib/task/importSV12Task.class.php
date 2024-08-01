@@ -99,32 +99,35 @@ EOF;
                 if (!$sv12) {
                     $sv12 = SV12Client::getInstance()->createOrFind($etablissement->identifiant, $campagne);
                 }
-            if ($sv12->isValidee()) {
-                $sv12 = $sv12->generateModificative();
-                if ($interpro == 'IVSE') {
-                    $sv12->cleanContratsProduit('/IGP/');
-                } else {
-                    $sv12->cleanContratsProduit('/AOP/');
+                if ($sv12->isValidee()) {
+                    $sv12 = $sv12->generateModificative();
+                    if ($interpro == 'IVSE') {
+                        $sv12->cleanContratsProduit('/IGP/');
+                    } else {
+                        $sv12->cleanContratsProduit('/AOP/');
+                    }
                 }
+                if ($sv12->isNew()) {
+                    $sv12->constructId();
+                }
+                $sv12->storeContrats();
+            } else {
+                $sv12 = $result[$key];
             }
-            if ($sv12->isNew()) {
-                $sv12->constructId();
+            $exist = $sv12->contrats->exist($identifiant);
+            $sv12Contrat = $sv12->contrats->getOradd($identifiant);
+            if (!$exist) {
+                $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
+            } else {
+                $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
             }
-            $sv12->storeContrats();
+            $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
+            $sv12Contrat->add('labels', $labels);
+            $result[$key] = $sv12;
         } else {
-            $sv12 = $result[$key];
+            echo "Etablissement non trouvé : $cvi\n";
+            continue;
         }
-        $exist = $sv12->contrats->exist($identifiant);
-        $sv12Contrat = $sv12->contrats->getOradd($identifiant);
-        if (!$exist) {
-            $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
-        } else {
-            $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
-        }
-        $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
-        $sv12Contrat->add('labels', $labels);
-        $result[$key] = $sv12;
-
     }
     foreach($result as $sv12) {
         $avoir = null;
@@ -169,8 +172,8 @@ EOF;
         }
         echo "SV12 created $sv12->_id\n";
     }
-
   }
+
   public function getLabels($str) {
       $correspondances = ['BIO' => 'biol', 'DEMETER' => 'biod', 'CONVERSION_BIO' => 'bioc', 'HVE' => 'hve'];
       $labels = [];
