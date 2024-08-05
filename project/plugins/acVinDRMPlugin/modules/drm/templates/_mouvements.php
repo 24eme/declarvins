@@ -28,7 +28,7 @@
                 <?php
                 foreach ($mouvements as $mouvement):
                 	if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-                		if ($interpro->_id != $mouvement->interpro) {
+                		if ($interpro != $mouvement->interpro) {
                 			if (!$configurationProduits->isProduitInPrestation($mouvement->produit_hash)) {
                 				continue;
                 			}
