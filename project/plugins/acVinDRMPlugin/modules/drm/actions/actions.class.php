@@ -601,7 +601,7 @@ class drmActions extends sfActions {
     }
 
     private function notifieVolumesSurveilles($drm) {
-        foreach (InterproClient::$_base_interpros as $interpro) {
+        foreach (InterproClient::$_drm_interpros as $interpro) {
             $volumes = $drm->getVolumesSurveilles($interpro);
             if ($volumes) {
                 Email::getInstance()->volumesSurveilles($drm, $volumes, InterproClient::getInstance()->find($interpro));
