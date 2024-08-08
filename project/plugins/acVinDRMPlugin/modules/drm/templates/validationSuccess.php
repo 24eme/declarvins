@@ -28,15 +28,9 @@
 
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
-                    <span>Précédent</span>
-                </a>
-                <?php else: ?>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <?php endif; ?>
                 <?php endif; ?>
 
 
@@ -157,15 +151,9 @@
 
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
-                    <span>Précédent</span>
-                </a>
-                <?php else: ?>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>

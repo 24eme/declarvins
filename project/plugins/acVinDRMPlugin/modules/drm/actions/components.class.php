@@ -53,11 +53,8 @@ class drmComponents extends sfComponents {
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             if (isset($this->numeros['crd'])) {
                 unset($this->numeros['crd']);
-            	$this->numeros['validation'] = $this->numeros['validation'] - 1;
-            }
-            if (isset($this->numeros['declaratif'])) {
-                unset($this->numeros['declaratif']);
-            	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+                $this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
+                $this->numeros['validation'] = $this->numeros['validation'] - 1;
             }
         }
 
