@@ -107,6 +107,8 @@ EOF;
                                 if(!$vrac->date_signature) {
 			    				    $vrac->validateEdi();
                                 }
+                                $vrac->type_transaction = 'vrac';
+                                $vrac->referente = 1;
 			    				$vrac->save();
 			    			}
 			    			$nbSuccess++;
