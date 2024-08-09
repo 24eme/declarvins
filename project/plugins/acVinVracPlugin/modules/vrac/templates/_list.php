@@ -25,7 +25,7 @@
             <?php
 	        	$isAdmin = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
 	        	foreach ($vracs as $value):
-	        		$elt = $value->value;
+	        		$elt = $value->value->getRawValue();
 	        		if ($isAdmin && $elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID] && !$configurationProduit->exist($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])) {
 	        			continue;
 	        		}
@@ -65,9 +65,12 @@
                     if($elt[VracHistoryView::VRAC_REF_PLURIANNUEL]) {
                         $isAdossePluriannuel = true;
                     }
-										if (empty($statusColor) && !$isProprietaire && !$isAdmin) {
-											continue;
-										}
+					if (empty($statusColor) && !$isProprietaire && !$isAdmin) {
+						continue;
+					}
+                    if ($elt[VracHistoryView::VRAC_VIEW_MODEDESAISIE] == 'EDI') {
+                        $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] = 'vrac';
+                    }
 		?>
         <tr data-words='<?php echo json_encode(array_merge(array(
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE]),

@@ -55,7 +55,7 @@ class acVinVracActions extends sfActions
         }
         if ($this->statut === 'TOUS'||$this->statut === VracClient::STATUS_CONTRAT_ANNULE) {
             foreach($this->vracs as $k => $v) {
-                if (!$v->value[VracHistoryView::VRAC_REFERENTE]) {
+                if (!$v->value[VracHistoryView::VRAC_REFERENTE] && $v->value[VracHistoryView::VRAC_VIEW_MODEDESAISIE] != 'EDI') {
                     unset($this->vracs[$k]);
                 }
             }
