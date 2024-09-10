@@ -15,7 +15,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected static $mvtsSurveilles = array(
         'Entrée replacement en suspension CRD' => 'entrees/crd',
         'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
-        'Sortie autres' => 'sorties/pertes'
+        'Sortie autres' => 'sorties/pertes',
+        'Mvt. temporaire : Embouteillage' => 'sorties/embouteillage',
+        'Mvt. temporaire : Travail à façon' => 'sorties/travail'
     );
 
     public function __construct() {
