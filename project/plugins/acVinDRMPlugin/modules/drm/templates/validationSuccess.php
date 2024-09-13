@@ -99,7 +99,7 @@
                 <?php } ?>
 
                 <div id="contenu_onglet">
-                    <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
+                    <?php include_partial('drm/reserveinterpro', array('drm' => $drm, 'hideFormReserve' => true)) ?>
                     <?php if(($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
