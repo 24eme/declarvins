@@ -20,7 +20,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                     <tr>
                         <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?></td>
                         <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
-                        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>
                         <td style="background: #f1f1f1;border: none;text-align: left;">
                             <a onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>').showModal()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -28,7 +28,6 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                 </svg>
                             </a>
-                            <?php if(!isset($hideFormReserve)): ?>
                             <dialog id="modale_<?php echo $p->getIdentifiantHTML() ?>">
                                 <form method="post" action="<?php echo url_for('drm_update_reserve_produit', $drm) ?>">
                                     <input type="hidden" name="hashproduit" value="<?php echo $p->getHash() ?>" />
@@ -45,7 +44,6 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                     <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                 </form>
                             </dialog>
-                            <?php endif; ?>
                         </td>
                         <?php endif; ?>
                     </tr>
