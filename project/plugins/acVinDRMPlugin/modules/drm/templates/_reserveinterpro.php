@@ -28,7 +28,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                 </svg>
                             </a>
-                            <?php if(isset($hideFormReserve) && $hideFormReserve): ?>
+                            <?php if(!isset($hideFormReserve)): ?>
                             <dialog id="modale_<?php echo $p->getIdentifiantHTML() ?>">
                                 <form method="post" action="<?php echo url_for('drm_update_reserve_produit', $drm) ?>">
                                     <input type="hidden" name="hashproduit" value="<?php echo $p->getHash() ?>" />
