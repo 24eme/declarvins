@@ -113,6 +113,11 @@ class acVinVracActions extends sfActions
 	        if ($this->vrac->valide->date_validation) {
 	        	$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
 	        }
+        	if ($mother = $this->vrac->getMother()) {
+        		$mother->referente = 1;
+        		$mother->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+        		$mother->save();
+        	}
 	        $this->vrac->delete();
         }
 
