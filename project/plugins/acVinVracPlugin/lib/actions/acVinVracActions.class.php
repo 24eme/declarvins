@@ -53,6 +53,13 @@ class acVinVracActions extends sfActions
                     $this->vracs = array_merge($this->vracs, VracHistoryView::getInstance()->findForListingMode($this->etablissement, $this->interpro->get('_id'), $statut, 1));
                 }
         }
+        if ($this->statut === 'TOUS'||$this->statut === VracClient::STATUS_CONTRAT_ANNULE) {
+            foreach($this->vracs as $k => $v) {
+                if (!$v->value[VracHistoryView::VRAC_REFERENTE]) {
+                    unset($this->vracs[$k]);
+                }
+            }
+        }
         usort($this->vracs, array('VracClient', 'sortVracId'));
 
         $this->pluriannuels = [];
@@ -106,6 +113,11 @@ class acVinVracActions extends sfActions
 	        if ($this->vrac->valide->date_validation) {
 	        	$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
 	        }
+        	if ($mother = $this->vrac->getMother()) {
+        		$mother->referente = 1;
+        		$mother->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+        		$mother->save();
+        	}
 	        $this->vrac->delete();
         }
 
