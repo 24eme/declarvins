@@ -6,6 +6,8 @@
  */
 class DRMDetail extends BaseDRMDetail {
 
+    use ReserveInterpro;
+
     protected $_config = null;
     const START_FACTURATION_MVT_AT = "2022-01-31";
 
@@ -734,21 +736,6 @@ class DRMDetail extends BaseDRMDetail {
       } else {
         return ($this->total_debut_mois == 0 && $this->total_entrees == 0 && $this->total_sorties == 0);
       }
-    }
-
-    public function hasReserveInterpro() {
-        return $this->exist('reserve_interpro');
-    }
-
-    public function getReserveInterpro() {
-        if ($this->hasReserveInterpro()) {
-            return $this->_get('reserve_interpro');
-        }
-        return 0;
-    }
-
-    public function getVolumeCommercialisable() {
-        return $this->total - $this->getReserveInterpro();
     }
 
     public function needObservation() {
