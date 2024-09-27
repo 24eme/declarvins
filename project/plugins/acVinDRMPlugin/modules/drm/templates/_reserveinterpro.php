@@ -47,6 +47,12 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                         </td>
                         <?php endif; ?>
                     </tr>
+                    <?php foreach ($p->getReserveInterproDetails() as $millesime => $volume): ?>
+                        <tr>
+                            <td style="text-align: right"><?php echo $millesime ?></td>
+                            <td style="text-align: right"><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
+                        </tr>
+                    <?php endforeach; ?>
         <?php endforeach; ?>
     </tbody>
 </table>
