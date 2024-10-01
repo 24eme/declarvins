@@ -69,9 +69,11 @@
 											continue;
 										}
 		?>
+        <?php $vendeur = $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE] ?>
+        <?php $vendeur = str_replace(['&quot;', '"'], '', $vendeur); ?>
         <tr data-words='<?php echo json_encode(array_merge(array(
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE]),
-                                                strtolower($elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE]),
+                                                strtolower($vendeur),
                                                 strtolower($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE]),
                                                 strtolower(str_replace(' Conventionnel', '', trim($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE]))),
                                                 strtolower($vraclibelle),
