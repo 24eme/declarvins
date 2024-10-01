@@ -6,6 +6,7 @@
 
 class DRMCepage extends BaseDRMCepage {
 
+    use ReserveInterpro;
 	/**
      *
      * @return DRMCouleur
@@ -140,21 +141,6 @@ class DRMCepage extends BaseDRMCepage {
 
 		return null;
 	}
-
-    public function hasReserveInterpro() {
-        return $this->exist('reserve_interpro');
-    }
-
-    public function getReserveInterpro() {
-        if ($this->hasReserveInterpro()) {
-            return $this->_get('reserve_interpro');
-        }
-        return 0;
-    }
-
-    public function getVolumeCommercialisable() {
-        return $this->total - $this->getReserveInterpro();
-    }
 
     public function getIdentifiantHTML() {
         return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));

@@ -270,6 +270,12 @@ DRM:
                                                                                                 total_sorties_interpro: { type: float }
                                                                                                 total_interpro: { type: float }
                                                                                                 reserve_interpro: { required: false }
+                                                                                                reserve_interpro_details:
+                                                                                                  required: false
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      '*': { }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DRMDetails
@@ -307,6 +313,12 @@ DRM:
                                                                                                             total_interpro: { type: float }
                                                                                                             interpro: { required: false }
                                                                                                             reserve_interpro: { required: false }
+                                                                                                            reserve_interpro_details:
+                                                                                                              required: false
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  '*': { }
                                                                                                             labels:
                                                                                                               type: array_collection
                                                                                                               definition:
