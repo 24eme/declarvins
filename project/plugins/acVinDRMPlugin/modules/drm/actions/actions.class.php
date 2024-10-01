@@ -796,7 +796,7 @@ class drmActions extends sfActions {
        $reserve = $request->getPostParameter('reserve');
        if ($drm->exist($hashproduit)) {
            $produit = $drm->get($hashproduit);
-           $produit->reserve_interpro = $reserve;
+           $produit->setReserveInterpro($reserve, $request->getGetParameter('millesime'));
            $drm->save();
        }
 	   $this->redirect(($drm->isValidee()) ? 'drm_visualisation' : 'drm_validation', ['sf_subject' => $drm]);

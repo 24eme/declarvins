@@ -24,13 +24,11 @@ trait ReserveInterpro
         return $this->total - $this->getReserveInterpro();
     }
 
-    public function setReserveInterpro($volume)
+    public function setReserveInterpro($volume, $millesime = null)
     {
-        $millesime = $this->getMillesimeCourant();
+        $millesime = $millesime ?: $this->getMillesimeCourant();
         $reserveDetails = $this->getOrAdd('reserve_interpro_details');
-        $reserveVolume = $reserveDetails->getOrAdd($millesime);
-        $volumeEnReserve = ($reserveVolume > 0)? $reserveVolume + $volume : $volume;
-        $this->reserve_interpro_details->add($millesime, round($volumeEnReserve, 5));
+        $this->reserve_interpro_details->add($millesime, round($volume, 5));
         $this->updateVolumeReserveInterpro();
     }
 
@@ -40,14 +38,11 @@ trait ReserveInterpro
         foreach ($this->getOrAdd('reserve_interpro_details') as $millesime => $volume) {
             $volumeTotalEnReserve += $volume;
         }
-        $this->add('reserve_interpro', round($volumeTotalEnReserve, 5));
+        $this->_set('reserve_interpro', round($volumeTotalEnReserve, 5));
     }
 
-    public function getReserveInterproDetails()
+    public function hasReserveInterproMultiMillesime()
     {
-        if ($this->exist('reserve_interpro_details')) {
-            return $this->_get('reserve_interpro_details')->toArray(true, false);
-        }
-        return [$this->getMillesimeCourant() => $this->getReserveInterpro()];
+        return (count($this->getOrAdd('reserve_interpro_details')) > 1);
     }
 }
