@@ -28,7 +28,11 @@ trait ReserveInterpro
     {
         $millesime = $millesime ?: $this->getMillesimeCourant();
         $reserveDetails = $this->getOrAdd('reserve_interpro_details');
-        $this->reserve_interpro_details->add($millesime, round($volume, 5));
+        if (!$volume && $this->reserve_interpro_details->exist($millesime)) {
+            $this->reserve_interpro_details->remove($millesime);
+        } else {
+            $this->reserve_interpro_details->add($millesime, round($volume, 5));
+        }
         $this->updateVolumeReserveInterpro();
     }
 
