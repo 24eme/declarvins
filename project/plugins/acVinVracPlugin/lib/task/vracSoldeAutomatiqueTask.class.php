@@ -45,7 +45,7 @@ EOF;
             } else {
                 $campagne = $campagneVrac;
             }
-            if ($year < $campagne) {
+            if ($year <= $campagne) {
                 $vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
                 $vrac->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
                 $vrac->observations = 'Contrat soldé automatiquement le '.date('d/m/Y H:i');
