@@ -530,7 +530,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function devalide() {
         $this->valide->statut = null;
-        $this->valide->date_saisie = null;
         $this->valide->identifiant = null;
         $this->valide->date_validation = null;
     	$acteurs = VracClient::getInstance()->getActeurs();

@@ -1,4 +1,5 @@
 <?php
+include_once("ReserveInterpro.trait.php");
 /**
  * Model for DRMCepage
  *
