@@ -4,7 +4,7 @@
 
     <h1>Déclaration Récapitulative Mensuelle</h1>
 
-    <button id="telecharger_pdf" style="margin-left: 663px; padding-bottom: 6px;"><a href="/docs/correspondances_mouvements.pdf" target="_blank">correspondances mouvements CIEL</a></button>
+    <button id="telecharger_pdf" style="margin-left: 629px; padding-bottom: 6px;"><a href="/docs/correspondances_mouvements.pdf" target="_blank">correspondances mouvements CIEL</a></button>
 
     <p class="intro">Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
 
