@@ -49,6 +49,8 @@ cat $TMPI/export_bi_drm_stock_last_modificatrices.csv | sed 's/"//g' | sed 's|/d
 
 . bin/export_bi_drm $INTERPRO
 
+. bin/export_bi_reserves $INTERPRO
+
 if [[ $INTERPRO == "IR" ]] ; then
   echo "#DAE;date;famille;sous famille;code postal;certifications;genres;appellations;mentions;lieux;couleurs;cepages;libelle produit;label;mention;millesime;primeur;acheteur type;destination;conditionnement;contenance en litre;quantite;prix unitaire;volume total en hl;prix unitaire en hl" > $TMPI/export_bi_daes.csv
   if [[ $INTERPRO -eq "IR" ]] ; then
@@ -87,6 +89,7 @@ recode UTF8..ISO88591-1 export_bi_drm_stock.csv
 recode UTF8..ISO88591-1 export_bi_factures.csv
 recode UTF8..ISO88591-1 export_bi_factures_paiements.csv
 recode UTF8..ISO88591-1 export_bi_sv12.csv
+recode UTF8..ISO88591-1 export_bi_reserves_interpro_drm.csv
 
 #Fichier DV
 #export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm.csv export_bi_daes.csv
@@ -107,3 +110,4 @@ cp $TMPI/export_bi_drm_stock.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_factures.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_factures_paiements.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_sv12.csv $EXPORTDIR_INTERPRO/
+cp $TMPI/export_bi_reserves_interpro_drm.csv $EXPORTDIR_INTERPRO/
