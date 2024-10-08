@@ -793,7 +793,7 @@ class drmActions extends sfActions {
        $drm = $this->getRoute()->getDRM();
        $drm = DRMClient::getInstance()->find($drm->_id);
        $hashproduit = $request->getPostParameter('hashproduit');
-       $reserve = $request->getPostParameter('reserve');
+       $reserve = floatval(str_replace(',', '.', trim($request->getPostParameter('reserve'))));
        if ($drm->exist($hashproduit)) {
            $produit = $drm->get($hashproduit);
            $produit->setReserveInterpro($reserve, $request->getGetParameter('millesime'));

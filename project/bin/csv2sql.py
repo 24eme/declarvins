@@ -48,3 +48,7 @@ csv.to_sql('sv12', con=engine, if_exists='replace')
 sys.stderr.write("export_bi_daes.csv\n")
 csv = pd.read_csv("export_bi_daes.csv", encoding='iso-8859-1', delimiter=";", index_col=False).rename(columns={"#ID": "id stock"})
 csv.to_sql('DAE', con=engine, if_exists='replace')
+
+sys.stderr.write("export_bi_reserves_interpro_drm.csv\n")
+csv = pd.read_csv("export_bi_reserves_interpro_drm.csv", encoding='iso-8859-1', delimiter=";", index_col=False)
+csv.to_sql('Reserves_Interpro', con=engine, if_exists='replace')
