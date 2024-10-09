@@ -29,9 +29,9 @@ function(doc) {
        ctype = "PLURIANNUEL";
 	 }
 
-     var export = "NON";
+     var isexport = "NON";
 	 if (doc.export == 1) {
-       export = "OUI";
+       isexport = "OUI";
 	 }
 
      var premiere_mise_en_marche = "NON";
