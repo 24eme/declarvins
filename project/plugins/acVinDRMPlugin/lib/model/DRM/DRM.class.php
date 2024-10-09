@@ -15,7 +15,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected static $mvtsSurveilles = array(
         'Entrée replacement en suspension CRD' => 'entrees/crd',
         'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
-        'Sortie autres' => 'sorties/pertes'
+        'Sortie autres' => 'sorties/pertes',
+        'Mvt. temporaire : Embouteillage' => 'sorties/embouteillage',
+        'Mvt. temporaire : Travail à façon' => 'sorties/travail'
     );
 
     public function __construct() {
@@ -689,7 +691,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function isTeledeclare()
     {
-    	return ($this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI);
+    	return $this->isModeDeSaisie(DRMClient::MODE_DE_SAISIE_DTI);
+    }
+
+    public function isModeDeSaisie($modeDeSaisie) {
+        return ($this->mode_de_saisie == $modeDeSaisie);
+    }
+
+    public function getDtiPlusCSV() {
+        if ($doc = CSVClient::getInstance()->find('CSV-'.$this->_id)) {
+            return $doc;
+        }
+        return false;
     }
 
     public function storeReferente() {
@@ -1949,19 +1962,5 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
           }
       }
       return $items;
-  }
-
-  public function needObservations() {
-    foreach ($this->getProduits() as $detail) {
-      if ($detail->needObservation()) {
-          return true;
-      }
-    }
-    foreach ($this->crds as $crd) {
-      if ($crd->needObservation()) {
-          return true;
-      }
-    }
-    return false;
   }
 }

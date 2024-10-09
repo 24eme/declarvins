@@ -37,7 +37,7 @@ class statistiqueActions extends sfActions {
     		'TOTAL' => 0,
     		'DEMAT' => 0
     	);
-        $correspondancesMoisCol = array(8 => 17,9 => 18,10 => 19,11 => 20,12 => 21,1 => 22,2 => 23,3 => 24,4 => 25,5 => 26,6 => 27,7 => 28);
+        $correspondancesMoisCol = array(8 => 18,9 => 19,10 => 20,11 => 21,12 => 22,1 => 23,2 => 24,3 => 25,4 => 26,5 => 27,6 => 28,7 => 29);
         $mois = substr($periode, -2)*1;
         $col = $correspondancesMoisCol[$mois];
         $libelles = DRMClient::getAllLibellesStatusBilan();

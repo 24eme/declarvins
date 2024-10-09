@@ -1,5 +1,5 @@
 all:
   dsnegoceupload:
-    date: "2023-07-01"
-    cloture: "2023-12-30"
-    cloture_libelle: "30 Septembre"
+    date: "2024-07-01"
+    cloture: "2024-10-04"
+    cloture_libelle: "04 octobre"

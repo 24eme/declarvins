@@ -47,8 +47,8 @@
 
 	// Fonctions personnalisées)
 	$.fn.includeJS(jsPath, 'konami.js');
-	$.fn.includeJS(jsPath, 'global.js?20190307');
-	$.fn.includeJS(jsPath, 'popups.js?20240201');
+	$.fn.includeJS(jsPath, 'global.js?20240607');
+	$.fn.includeJS(jsPath, 'popups.js?20240606');
 	$.fn.includeJS(jsPath, 'form.js');
 	$.fn.includeJS(jsPath, 'autocomplete.js?20160122');
 	$.fn.includeJS(jsPath, 'contrat.js');

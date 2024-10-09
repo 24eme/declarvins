@@ -39,10 +39,16 @@ class DRMLieuAjoutForm extends acCouchdbForm {
     public function getProduits() 
     {
     	if ($this->_configurationProduits) {
-    		return array_merge(array("" => ""), $this->_config->format($this->_configurationProduits->getTotalLieux($this->getCertificationHash(), true), "%g% %a% %m% %l%"));
+    		$produits = array_merge(array("" => ""), $this->_config->format($this->_configurationProduits->getTotalLieux($this->getCertificationHash(), true), "%g% %a% %m% %l%"));
     	}
     	$etablissement = $this->_drm->getEtablissement();
-        return array_merge(array("" => ""), $this->_config->getFormattedLieux($this->getCertificationHash(), $etablissement->getConfigurationZones(), $etablissement->famille, $etablissement->sous_famille));;
+        $produits = array_merge(array("" => ""), $this->_config->getFormattedLieux($this->getCertificationHash(), $etablissement->getConfigurationZones(), $etablissement->famille, $etablissement->sous_famille));
+        foreach (DRMClient::$drm_exception_produits as $exception) {
+            if (isset($produits[$exception])) {
+                unset($produits[$exception]);
+            }
+        }
+        return $produits;
     }
     
     public function addLieu() 

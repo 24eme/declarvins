@@ -28,10 +28,10 @@ class drm_vracActions extends sfActions
 
         if (count($this->details)==0) {
             if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-                        $this->drm->setCurrentEtapeRouting('validation');
-                return $this->redirect('drm_validation', $this->drm);
+                        $this->drm->setCurrentEtapeRouting('declaratif');
+                return $this->redirect('drm_declaratif', $this->drm);
             }
-            
+
             if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel() && !$this->drm->isNegoce()) {
             	$this->drm->setCurrentEtapeRouting('declaratif');
             	return $this->redirect('drm_declaratif', $this->drm);

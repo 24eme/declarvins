@@ -34,8 +34,7 @@
             $interpro = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
             $isFacture = $drm->isFactures($interpro);
         ?>
-
-            <?php if(!$isFacture && !$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if(!$isFacture && !$drm->isRectificative() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
             <?php endif; ?>
             <?php if($isFacture): ?>
@@ -114,6 +113,7 @@
             </div>
         <?php endif; ?>
         <div id="contenu_onglet">
+            <?php include_partial('global/metabaseControles', array('modele' => 'drm', 'doc' => $drm)) ?>
             <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
             <?php if (($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>

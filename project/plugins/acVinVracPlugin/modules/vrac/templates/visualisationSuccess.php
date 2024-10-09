@@ -10,10 +10,12 @@ $hasNextVersion = false;
 $nextRectif = VracClient::getInstance()->find($rectif->_id);
 $nextModif = VracClient::getInstance()->find($modif->_id);
 if ($nextRectif && $nextRectif->valide->statut != VracClient::STATUS_CONTRAT_ANNULE) {
-	$hasNextVersion = true;
+    $hasNextVersion = true;
+    $nextversion_url = url_for("vrac_visualisation", array('contrat' => str_replace('VRAC-', '', $rectif->_id), 'etablissement' => $etablissement));
 }
 if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNULE) {
-	$hasNextVersion = true;
+    $hasNextVersion = true;
+    $nextversion_url = url_for("vrac_visualisation", array('contrat' => str_replace('VRAC-', '', $modif->_id), 'etablissement' => $etablissement));
 }
 ?>
 <div id="contenu" class="vracs">
@@ -95,14 +97,19 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                         <?php endif; ?>
                         <div>
                             <span class="statut <?php echo statusColor($vrac->valide->statut) ?>"></span><span class="legende_statut_texte"><?php echo statusLibelle($vrac->valide->statut, $vrac->isPluriannuel()) ?></span>
+                            <?php if ($vrac->valide->commentaire_refus): ?>
+                                <div>
+                                    <p><?php echo nl2br($vrac->valide->commentaire_refus); ?></p>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-				        
+
 				        <div id="ligne_btn">
 				        	<?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
 				        		<?php if($hasNextVersion): ?>
-				        			<button id="btn_editer_contrat"  class="modifier" style="font-size: 12px; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</button>
+				        			<a href="<?php echo $nextversion_url; ?>" id="btn_editer_contrat"  class="modifier" style="font-size: 12px; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</a>
 				        		<?php else: ?>
 				            <form method="get" action="<?php echo url_for('vrac_rectificative', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>">
 				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
@@ -123,7 +130,7 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 			        <div class="ligne_form_btn" style="margin: 0;">
 
 				        		<?php if($hasNextVersion): ?>
-				        			<button id="btn_editer_contrat"  class="modifier" style="font-size: 12px; float: none; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</button>
+				        			<a id="btn_editer_contrat" href="<?php echo $nextversion_url; ?>" class="modifier" style="font-size: 12px; float: none; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</a>
 				        		<?php else: ?>
 			            <form method="get" action="<?php echo url_for('vrac_modificative', $vrac) ?>">
 			                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size:12px; float: none;">Soumettre un contrat modificatif</button>

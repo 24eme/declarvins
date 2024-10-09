@@ -5,7 +5,16 @@ class DRMCrdForm extends acCouchdbObjectForm
 
     public function configure()
     {
-    		$this->setWidget('total_debut_mois', new sfWidgetFormInput([], array('readonly' => 'readonly')));
+        $doc = $this->getObject()->getDocument();
+        $etablissement = $doc->getEtablissement();
+        $mois = DateTime::createFromFormat('Y-m', $doc->periode)->format('m');
+        $options = ['readonly' => 'readonly'];
+
+        if ($etablissement->getMoisToSetStock() == $mois) {
+            unset($options['readonly']);
+        }
+
+        $this->setWidget('total_debut_mois', new sfWidgetFormInput([], $options));
     		$this->setValidator('total_debut_mois', new sfValidatorInteger(array('required' => false)));
 
 

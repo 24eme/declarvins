@@ -424,8 +424,18 @@
 
 	               	if(url_doc)
 	               	{
-	               		btnTelecharger.attr('href', url_doc);
-	                	btnPopup.append(btnTelecharger);
+										if (url_doc.indexOf('|') != -1) {
+												url_doc.split('|').forEach(function (uri) {
+													let name = uri.substring(uri.lastIndexOf('/')+1).replace(/\.[^.]+$/, '');
+													name = name.replace('_', ' ');
+													name = name.replace('-', ' ');
+													console.log(uri);
+													btnPopup.append($('<a class="btn_telecharger" target="_blank" href="'+uri+'">'+name+'</a>'));
+												});
+										} else {
+	               			btnTelecharger.attr('href', url_doc);
+	                		btnPopup.append(btnTelecharger);
+										}
 	               	}
 
 	                popup.dialog('option' , 'title' , titre);

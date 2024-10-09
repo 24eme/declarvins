@@ -7,9 +7,7 @@ if ($facture->exist('interpro') && $facture->interpro == 'INTERPRO-IVSE'):
 ?>
 Madame, Monsieur,
 
-Pour gagner en efficacité, votre Interprofession s'est engagée dans la dématérialisation des factures.
-
-Dans un premier temps, vous recevrez vos factures par courrier et par mail afin de vous habituer à ce nouveau format et mettre à jour votre adresse mail, si nécessaire.
+Pour gagner en efficacité, votre Interprofession s'est engagée dans la dématérialisation des factures, de ce fait, merci de nous transmettre vos adresses mail de facturation, à jour.
 
 Vous pouvez retrouver vos factures dans votre espace Déclarvins, onglet « facture ».
 

@@ -99,6 +99,26 @@ class VersionDocument
         return null;
     }
 
+    public function getNextVersion() {
+    	if ($this->isModificative()) {
+    		$modificative = $this->buildVersionDocument(null, $this->getModificative() + 1);
+    		$rectificative = str_replace('M', 'R', $modificative);
+    	} elseif ($this->isRectificative()) {
+    		$rectificative = $this->buildVersionDocument($this->getRectificative() + 1, null);
+    		$modificative = str_replace('R', 'M', $rectificative);
+    	} else {
+        	$modificative = 'M01';
+            $rectificative = 'R01';
+    	}
+        if($this->document->findDocumentByVersion($modificative)) {
+            return $modificative;
+        }
+        if($this->document->findDocumentByVersion($rectificative)) {
+            return $rectificative;
+        }
+        return null;
+    }
+
     public function motherGet($hash) {
 
         return $this->document->getMother()->get($hash);

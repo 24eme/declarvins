@@ -1,23 +1,25 @@
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
-    
-    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="<?php echo url_for('drm_notice') ?>" title="Message aide"></a></h1>
-    
+
+    <h1>Déclaration Récapitulative Mensuelle</h1>
+
+    <button id="telecharger_pdf" style="margin-left: 629px; padding-bottom: 6px;"><a href="/docs/correspondances_mouvements.pdf" target="_blank">correspondances mouvements CIEL</a></button>
+
     <p class="intro">Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
-    
+
     <?php if ($sf_user->hasFlash('erreur_drm')): ?>
     <div id="flash_message" style="padding-top: 0px">
 		<div class="flash_error"><?php echo $sf_user->getFlash('erreur_drm') ?></div>
 	</div>
     <?php endif; ?>
-    
+
 	<?php if ($hasDrmEnCours): ?>
 	<div id="flash_message" style="padding-top: 0px">
 		<div class="flash_warning">Vous n'avez pas validé votre DRM de <?php echo strftime('%B %Y', strtotime($drmEnCours->periode.'-01')); ?> : <a href="<?php echo url_for('drm_init', $drmEnCours) ?>">Accéder à la déclaration en cours</a></div>
 	</div>
 	<?php endif; ?>
-	
+
 	<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE && !$hasDrmEnCours): ?>
     	<?php if($lastDrmInfos = $sf_user->getDerniereDrmSaisie()): ?>
     			<div id="flash_message" style="padding-top: 0px">
@@ -48,7 +50,7 @@
     </section>
 	        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>
 	        <br /><br />
-	        <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
+	        <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="/docs/notice.pdf|/docs/correspondances_mouvements.pdf" title="Message aide"></a></h1>
 	    	<p class="intro">Saisir une DRM d'un mois différent.</p>
 	        <div id="espace_admin" style="float: left; width: 670px;">
 	            <div class="contenu clearfix">

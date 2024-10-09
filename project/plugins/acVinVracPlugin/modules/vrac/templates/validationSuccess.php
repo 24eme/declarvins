@@ -46,11 +46,12 @@
 				            		<?php echo $form['transaction']->render() ?>
 				            		<?php echo $form['transaction']->renderLabel() ?>
 				        		</div>
-					<?php 
+					<?php
 						}
 					?>
 					 <div class="ligne_form_btn">
-						<a class="annuler_saisie" onclick="return confirm('Confirmez-vous le refus du contrat?')" href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser</a>
+						<a class="annuler_saisie" href="<?php echo url_for('vrac_commentaire', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser</a>
+
 						<?php echo $form->renderHiddenFields() ?>
 						<?php echo $form->renderGlobalErrors() ?>
 						 <button class="valider_etape" type="submit"><span>Valider - Signature</span></button>

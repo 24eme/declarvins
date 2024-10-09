@@ -79,32 +79,38 @@ class VracRouting {
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
 
+        $r->prependRoute('vrac_commentaire', new VracRoute('/vrac/:identifiant/:contrat/commentaire',
+                                                        array('module' => 'vrac', 'action' => 'commentaire'),
+                                                        array('sf_method' => array('get', 'post')),
+                                                        array('model' => 'Vrac', 'type' => 'object',
+                                                        'segment_separators' => array('/'))));
+
         $r->prependRoute('vrac_annulation', new VracRoute('/vrac/:identifiant/:contrat/annulation',
                                                         array('module' => 'vrac','action' => 'annulation'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
-                                                        
+
         $r->prependRoute('vrac_statut', new VracRoute('/vrac/:identifiant/:contrat/statut/:statut',
                                                         array('module' => 'vrac','action' => 'statut'),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/')))); 
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
 
         $r->prependRoute('vrac_modification_restreinte', new VracRoute('/vrac/:identifiant/:contrat/modification-restreinte',
                                                         array('module' => 'vrac','action' => 'modificationRestreinte'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
-                                                        
+
         $r->prependRoute('vrac_modification', new VracRoute('/vrac/:identifiant/:contrat/modification',
                                                         array('module' => 'vrac','action' => 'modification'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
 
-        $r->prependRoute('vrac_pdf', new VracRoute('/vrac/:identifiant/:contrat/pdf.:format', 
+        $r->prependRoute('vrac_pdf', new VracRoute('/vrac/:identifiant/:contrat/pdf.:format',
                                                           array('module' => 'vrac', 'action' => 'pdf', 'format' => 'pdf'),
                                                           array('sf_method' => array('get'), 'format' => '(html|pdf)'),
                                                           array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/', '.'))));
 
-        $r->prependRoute('vrac_pdf_transaction', new VracRoute('/vrac/:identifiant/:contrat/pdf-transaction.:format', 
+        $r->prependRoute('vrac_pdf_transaction', new VracRoute('/vrac/:identifiant/:contrat/pdf-transaction.:format',
                                                           array('module' => 'vrac', 'action' => 'pdfTransaction', 'format' => 'pdf'),
                                                           array('sf_method' => array('get'), 'format' => '(html|pdf)'),
                                                           array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/', '.'))));

@@ -17,7 +17,7 @@
 		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
 		    <ol style="font-weight: normal;">
 		        <?php foreach ($drmCiel->getErreurs() as $erreur): ?>
-		            <li><?php if($erreur == "CielService Error : null"): ?>Le service de reception des DRM de la Douane est indisponible pour le moment<?php else: ?><?php echo $erreur ?><?php endif; ?></li>
+		            <li><?php if($erreur == "CielService Error : null"): ?>Le service de reception des DRM de la Douane est indisponible pour le moment<?php else: ?><?php echo $erreur ?><?php endif; ?><?php if($erreur == 'Les données économiques ont déjà été reçues pour la période.'): ?> Contacter votre interprofession pour débloquer le flux de communication DRM<?php endif; ?></li>
 		        <?php endforeach; ?>
 		    </ol>
 		</div>
@@ -28,15 +28,9 @@
 
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
-                    <span>Précédent</span>
-                </a>
-                <?php else: ?>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <?php endif; ?>
                 <?php endif; ?>
 
 
@@ -105,7 +99,7 @@
                 <?php } ?>
 
                 <div id="contenu_onglet">
-                    <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
+                    <?php include_partial('drm/reserveinterpro', array('drm' => $drm, 'hideFormReserve' => true)) ?>
                     <?php if(($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
@@ -157,15 +151,9 @@
 
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
-                    <span>Précédent</span>
-                </a>
-                <?php else: ?>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>

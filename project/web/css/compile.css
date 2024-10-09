@@ -5022,3 +5022,7 @@ input[type="text"]:read-only,
     background-color: #dddddd;
     opacity: 50%;
 }
+::backdrop {
+  background-color: #000;
+  opacity: 0.75;
+}

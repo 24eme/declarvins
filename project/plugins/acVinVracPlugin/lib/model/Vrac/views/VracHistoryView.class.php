@@ -50,6 +50,12 @@ class VracHistoryView extends acCouchdbView
         return acCouchdbManager::getView('vrac', 'history', 'Vrac');
     }
 
+	public function findByStatut($statut, $pluriannuel = 0) {
+        return $this->client->startkey(array($pluriannuel, $statut))
+                    		->endkey(array($pluriannuel, $statut, array()))
+                            ->getView($this->design, $this->view);
+    }
+
 	public function findByStatutAndInterpro($statut, $interpro, $pluriannuel = 0) {
         return $this->client->startkey(array($pluriannuel, $statut, $interpro))
                     		->endkey(array($pluriannuel, $statut, $interpro, array()))

@@ -28,6 +28,20 @@ class DRMClient extends acCouchdbClient {
 
     protected $drm_historiques = array();
 
+    public static $drm_exception_produits = [
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/RAS',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/RAS/couleurs/rouge/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/RAS/couleurs/rose/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/RAS/couleurs/blanc/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/BDV',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/BDV/couleurs/rouge/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/BDV/couleurs/rose/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/BDV/couleurs/blanc/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/CAI',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/CAI/couleurs/rouge/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/CAI/couleurs/rose/cepages/DEFAUT',
+        '/declaration/certifications/AOP/genres/TRANQ/appellations/CVG/mentions/DEFAUT/lieux/CAI/couleurs/blanc/cepages/DEFAUT',
+    ];
     /**
      *
      * @return DRMClient

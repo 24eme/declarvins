@@ -1,5 +1,10 @@
 <?php use_helper('Vrac'); ?>
 <?php use_helper('Date') ?>
+
+<div class="form-group">
+    <input type="hidden" data-placeholder="Saisissez un numéro de contrat, un soussigné, un produit, un volume ou un prix" data-hamzastyle-container="#tableau_recap" class="hamzastyle" style="width:900px;" />
+</div>
+
 <div class="tableau_ajouts_liquidations">
 	<table id="tableau_recap" class="visualisation_contrat">
 	    <thead>
@@ -60,8 +65,24 @@
                     if($elt[VracHistoryView::VRAC_REF_PLURIANNUEL]) {
                         $isAdossePluriannuel = true;
                     }
+										if (empty($statusColor) && !$isProprietaire && !$isAdmin) {
+											continue;
+										}
 		?>
-			<tr class="<?php echo $statusColor ?>" >
+        <?php $vendeur = $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE] ?>
+        <?php $vendeur = str_replace(['&quot;', '"'], '', $vendeur); ?>
+        <tr data-words='<?php echo json_encode(array_merge(array(
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE]),
+                                                strtolower($vendeur),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE]),
+                                                strtolower(str_replace(' Conventionnel', '', trim($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE]))),
+                                                strtolower($vraclibelle),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_MILLESIME]),
+                                                strtolower($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]),
+                                                $elt[VracHistoryView::VRAC_VIEW_VOLPROP],
+                                                $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]
+            )), JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?>'
+            class="<?php echo $statusColor ?> hamzastyle-item vertical-center">
 			  <td class="text-center" style="padding: 0;">
 			  	<?php if ((!$validated||$pluriannuel) && $isAdmin): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
@@ -92,9 +113,9 @@
 			    			<a class="highlight_link" href="<?php echo url_for('vrac_annulation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo $vraclibelle ?></a>
 			    		<?php else: ?>
 							<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE)): ?>
-				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
+				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
 							<?php elseif ($isAdmin): ?>
-							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Saisie le <?php echo format_date($elt[VracHistoryView::VRAC_VIEW_DATESAISIE], 'd/MM/yy') ?></a>
+							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
 							<?php endif; ?>
 						<?php endif; ?>
 			    	<?php endif; ?>
@@ -165,7 +186,7 @@
                      <?php endif; ?>
                   <?php endif; ?>
 		    </td>
-			    <td class="text-left"><?php echo substr($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], strpos($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE], ' ')) ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
+			    <td class="text-left"><?php echo str_replace(' Conventionnel', '', trim($elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE])) ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
 			    <td class="text-center">
 					<?php if ($pluriannuel): ?>
                         <?php echo $elt[VracHistoryView::VRAC_VIEW_VOLPROP] ?> <?php echo ($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] === 'raisin' || $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] === 'mout') ? 'kg' : 'hl' ?>
