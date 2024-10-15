@@ -58,6 +58,7 @@ EOF;
         if ($campagneOpt && $campagneOpt != $campagne) {
             continue;
         }
+        $contratType = ($datas[19] == '15M') ? strtoupper(VracClient::TYPE_TRANSACTION_MOUTS) : SV12Client::SV12_TYPEKEY_VENDANGE;
         $volume = str_replace(',', '.', $datas[21])*1;
         $produit = ($this->isHashProduit($idProduit))? $conf->identifyProduct($idProduit) : $conf->identifyProduct(null, "($idProduit)");
         if (!$produit && !$this->isHashProduit($idProduit) && substr($idProduit, -3, 1) == ' ' && strlen($idProduit) == 8) {
@@ -104,7 +105,7 @@ EOF;
         }
         $etablissement = (count($items) == 1)? current($items) : $etablissementById;
         $key = $campagne.'-'.$cvi;
-        $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.SV12Client::SV12_TYPEKEY_VENDANGE.str_replace('/', '-', $produit->getHash());
+        $identifiant = SV12Client::SV12_KEY_SANSVITI.'-'.$contratType.str_replace('/', '-', $produit->getHash());
         $identifiant .= ($labels && $labels != ['conv'])? '-'.implode('_', $labels) : '';
         if (!isset($result[$key])) {
             $sv12 = SV12Client::getInstance()->findMaster($etablissement->identifiant, $campagne);
@@ -130,7 +131,7 @@ EOF;
         $exist = $sv12->contrats->exist($identifiant);
         $sv12Contrat = $sv12->contrats->getOradd($identifiant);
         if (!$exist) {
-            $sv12Contrat->updateNoContrat($produit, array('contrat_type' => SV12Client::SV12_TYPEKEY_VENDANGE, 'volume' => $volume));
+            $sv12Contrat->updateNoContrat($produit, array('contrat_type' => $contratType, 'volume' => $volume));
         } else {
             $sv12Contrat->volume = round($sv12Contrat->volume + $volume, 2);
         }
