@@ -258,9 +258,11 @@ class Etablissement extends BaseEtablissement {
       $societe->identifiant = $this->identifiant;
       $societe->siret = $this->siret;
       $societe->statut = $this->statut;
-      $societe->cooperative = ($this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)? true : false;
+      if ($societe->exist('cooperative')) {
+          $societe->cooperative = ($this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE)? true : false;
+      }
       $societe->email = $this->email;
-      $societe->telephone = $this->telephone;
+      $societe->add('telephone', $this->telephone);
       $societe->fax = $this->fax;
       $societe->no_tva_intracommunautaire = $this->no_tva_intracommunautaire;
       $societe->siege->adresse = ($this->comptabilite->adresse)? $this->comptabilite->adresse: $this->siege->adresse;
