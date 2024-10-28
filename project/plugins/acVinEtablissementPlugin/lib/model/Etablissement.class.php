@@ -318,4 +318,10 @@ class Etablissement extends BaseEtablissement {
     public function hasFacture() {
         return count(FactureSocieteView::getInstance()->findBySociete($this)) > 0;
     }
+
+    public function getLastFacture() {
+        $factures = FactureSocieteView::getInstance()->findBySociete($this);
+        if (!$factures) return null;
+        return FactureClient::getInstance()->find((array_shift($factures))->id);
+    }
 }
