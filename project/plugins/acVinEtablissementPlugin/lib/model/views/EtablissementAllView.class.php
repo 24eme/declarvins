@@ -133,7 +133,7 @@ class EtablissementAllView extends acCouchdbView
             $libelle .= $rs;
         }
 
-        if (sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+        if (sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)||sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $libelle .= ' ('.$datas[self::KEY_IDENTIFIANT];
             if ($c) {
                 $libelle .= ' / '.implode(' / ', $c);
