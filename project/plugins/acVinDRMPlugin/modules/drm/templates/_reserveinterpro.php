@@ -18,7 +18,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
     <tbody>
         <?php foreach ($produits as $p) : ?>
                     <tr>
-                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?></td>
+                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo $p->getMillesimeInReserveInterpro() ?></td>
                         <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
                         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve) && !$p->hasReserveInterproMultiMillesime()): ?>
                         <td style="background: #f1f1f1;border: none;text-align: left;">
@@ -29,7 +29,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                 </svg>
                             </a>
                             <dialog id="modale_<?php echo $p->getIdentifiantHTML() ?>">
-                                <form method="post" action="<?php echo url_for('drm_update_reserve_produit', $drm) ?>">
+                                <form method="post" action="<?php echo url_for('drm_update_reserve_produit', $drm) ?>?millesime=<?php echo $p->getMillesimeInReserveInterpro() ?>">
                                     <input type="hidden" name="hashproduit" value="<?php echo $p->getHash() ?>" />
                                     <p style="text-align: right;">
                                         <a style="cursor:pointer;" onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>').close()">

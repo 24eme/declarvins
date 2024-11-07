@@ -28,11 +28,7 @@ trait ReserveInterpro
     {
         $millesime = $millesime ?: $this->getMillesimeCourant();
         $reserveDetails = $this->getOrAdd('reserve_interpro_details');
-        if (!$volume && $this->reserve_interpro_details->exist($millesime)) {
-            $this->reserve_interpro_details->remove($millesime);
-        } else {
-            $this->reserve_interpro_details->add($millesime, round($volume, 5));
-        }
+        $this->reserve_interpro_details->add($millesime, round($volume, 5));
         $this->updateVolumeReserveInterpro();
     }
 
@@ -48,5 +44,13 @@ trait ReserveInterpro
     public function hasReserveInterproMultiMillesime()
     {
         return (count($this->getOrAdd('reserve_interpro_details')) > 1);
+    }
+
+    public function getMillesimeInReserveInterpro() {
+        $details = $this->getOrAdd('reserve_interpro_details');
+        if (count($details) != 1) {
+            throw new sfException('Il n\'existe pas de details pour la réserve interpro');
+        }
+        return array_key_first($details->toArray(true,false));
     }
 }
