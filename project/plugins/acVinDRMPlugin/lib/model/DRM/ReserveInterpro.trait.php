@@ -45,4 +45,12 @@ trait ReserveInterpro
     {
         return (count($this->getOrAdd('reserve_interpro_details')) > 1);
     }
+
+    public function getMillesimeInReserveInterpro() {
+        $details = $this->getOrAdd('reserve_interpro_details');
+        if (count($details) != 1) {
+            throw new sfException('Il n\'existe pas de details pour la réserve interpro');
+        }
+        return array_key_first($details->toArray(true,false));
+    }
 }
