@@ -46,10 +46,10 @@ trait ReserveInterpro
         return (count($this->getOrAdd('reserve_interpro_details')) > 1);
     }
 
-    public function getMillesimeInReserveInterpro() {
+    public function getMillesimeForReserveInterpro() {
         $details = $this->getOrAdd('reserve_interpro_details');
         if (count($details) != 1) {
-            throw new sfException('Il n\'existe pas de details pour la réserve interpro');
+            return $this->getMillesimeCourant();
         }
         return array_key_first($details->toArray(true,false));
     }
