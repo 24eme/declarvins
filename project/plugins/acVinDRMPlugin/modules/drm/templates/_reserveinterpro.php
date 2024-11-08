@@ -18,7 +18,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
     <tbody>
         <?php foreach ($produits as $p) : ?>
                     <tr>
-                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo $p->getMillesimeForReserveInterpro() ?></td>
+                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?><?php if (!$p->hasReserveInterproMultiMillesime()): ?> - <?php echo $p->getMillesimeForReserveInterpro() ?><?php endif; ?></td>
                         <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
                         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve) && !$p->hasReserveInterproMultiMillesime()): ?>
                         <td style="background: #f1f1f1;border: none;text-align: left;">
