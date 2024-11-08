@@ -39,7 +39,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                             </svg>
                                         </a>
                                     </p>
-                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> millésime <strong><?php echo $millesime ?></strong> est de <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</p>
+                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> millésime <strong><?php echo $p->getMillesimeForReserveInterpro() ?></strong> est de <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</p>
                                     <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve pour le millésime <?php echo $p->getMillesimeForReserveInterpro() ?> : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
                                     <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                 </form>
