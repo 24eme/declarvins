@@ -11,6 +11,7 @@ class Configuration extends BaseConfiguration {
     protected $_configuration_produits_IVSE = null;
     protected $_configuration_produits_ANIVIN = null;
     protected $_configuration_produits_IS = null;
+    protected $_configuration_produits_BIVB = null;
     protected $_configuration_produits_complete = null;
     protected $_zones = null;
     protected $identifyLibelleProduct = array();
