@@ -21,8 +21,8 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	case 'csv':
         		$result = $this->getCsvFormat(); break;
         	case 'xml':
-        		$result = $this->getXmlFormat($context); break;
         	case 'debug':
+                $result = $this->getXmlFormat($context); break;
         	default:
         		$result = $this->csv; break;
         }
