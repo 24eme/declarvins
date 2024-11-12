@@ -78,29 +78,16 @@ Configuration:
                                       definition:
                                         fields:
                                           '*': {  }
-                                    'achats-reintegrations':
+                                    'entree-droits-suspendus':
                                       type: array_collection
                                       definition:
                                         fields:
                                           '*': {  }
-                                    'mouvements-temporaires':
-                                      type: collection
+                                    'travail-a-facon':
+                                      type: array_collection
                                       definition:
                                         fields:
-                                          '*':
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*': {  }
-                                    'mouvements-internes':
-                                      type: collection
-                                      definition:
-                                        fields:
-                                          '*':
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*': {  }
+                                          '*': {  }
                                     'autres-entrees':
                                       type: array_collection
                                       definition:
@@ -123,57 +110,24 @@ Configuration:
                                 type: collection
                                 definition:
                                   fields:
-                                    'ventes-france-crd-suspendus':
-                                      type: collection
-                                      definition:
-                                        fields:
-                                          '*':
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*': {  }
-                                    'ventes-france-crd-acquittes':
-                                      type: array_collection
-                                      definition:
-                                        fields:
-                                          '*': {  }
+                                    'sorties-avec-paiement-droits':
+                                        type: collection
+                                        definition:
+                                          fields:
+                                            '*':
+                                              type: array_collection
+                                              definition:
+                                                fields:
+                                                  '*': {  }
                                     'sorties-sans-paiement-droits':
-                                      type: collection
-                                      definition:
-                                        fields:
-                                          'sorties-definitives':
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*': {  }
-                                          'consommation-familiale-degustation':
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*': {  }
-                                          'mouvements-temporaires':
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                '*':
-                                                  type: array_collection
-                                                  definition:
-                                                    fields:
-                                                      '*': {  }
-                                          'mouvements-internes':
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                '*':
-                                                  type: array_collection
-                                                  definition:
-                                                    fields:
-                                                      '*': {  }
-                                          'autres-sorties':
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*': {  }
+                                        type: collection
+                                        definition:
+                                          fields:
+                                            '*':
+                                              type: array_collection
+                                              definition:
+                                                fields:
+                                                  '*': {  }
                               'stock-fin-periode':
                                 type: array_collection
                                 definition:
