@@ -150,6 +150,14 @@
             <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             <?php endif; ?>
+
+            <?php if ($sf_user->isAdmin()): ?>
+                <a id="telecharger_xml_debug" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'debug')); ?>"
+                   style="background-color: #9e9e9e; border: 1px solid #646464; padding: 6px 6px 6px 30px; color: #fff; float: left; opacity: .5; background: url('/images/boutons/btn_xml.png') no-repeat scroll 0 0 #9E9E9E" >
+                   Debug XML
+                </a>
+            <?php endif ?>
+
             <?php if ($drm->isNegoce() || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <a id="telecharger_xml" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
 			<?php endif; ?>
