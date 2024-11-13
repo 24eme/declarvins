@@ -437,6 +437,8 @@ class ediActions extends sfActions
             }
             $errors[] = "[$level][$error->code] $error->message";
         }
+      } else {
+          $errors[] = 'Fichier conforme.';
       }
       $errors[] = 'Fini';
 
