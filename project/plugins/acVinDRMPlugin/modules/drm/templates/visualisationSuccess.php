@@ -79,6 +79,14 @@
                     <li>
                     	<img src="/images/visuels/prodouane.png" /><br />
                     	Vous devez à présent télécharger votre DRM au format XML pour la déposer ensuite et la valider sur CIEL à partir de votre compte ProDouane via le lien suivant : <a href="https://douane.gouv.fr/">douane.gouv.fr</a><br />
+
+                        <?php if ($sf_user->isAdmin()): ?>
+                            <a id="telecharger_xml_debug" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'debug')); ?>"
+                               style="padding: 6px; float: right; opacity: .5;" >
+                               Vérification schéma
+                            </a>
+                        <?php endif ?>
+
             			<a id="telecharger_xml" style="margin-left:0;float: right; position: inherit; font-weight: normal;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a><br />
             			&nbsp;
             		</li>
@@ -150,13 +158,6 @@
             <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             <?php endif; ?>
-
-            <?php if ($sf_user->isAdmin()): ?>
-                <a id="telecharger_xml_debug" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'debug')); ?>"
-                   style="background-color: #9e9e9e; border: 1px solid #646464; padding: 6px 6px 6px 30px; color: #fff; float: left; opacity: .5; background: url('/images/boutons/btn_xml.png') no-repeat scroll 0 0 #9E9E9E" >
-                   Debug XML
-                </a>
-            <?php endif ?>
 
             <?php if ($drm->isNegoce() || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <a id="telecharger_xml" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
