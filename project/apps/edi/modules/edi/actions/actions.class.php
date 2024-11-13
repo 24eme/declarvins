@@ -427,7 +427,7 @@ class ediActions extends sfActions
       $valid = $xml->schemaValidate($xsd);
 
       $errors = ['Validation du XML...'];
-      $errors[] = 'Schéma utilisé : '.$xsd;
+      $errors[] = 'Schéma utilisé : '.basename($xsd);
       if (! $valid) {
         foreach (libxml_get_errors() as $error) {
             switch ($error->level) {
