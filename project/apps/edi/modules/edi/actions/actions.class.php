@@ -390,8 +390,8 @@ class ediActions extends sfActions
   	set_time_limit(0);
   	$csv_file = null;
   	$format = $request->getParameter('format', 'csv');
-    if ($drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
-    	$export = new DRMExportCsvEdi($drm);
+    if ($this->drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
+        $export = new DRMExportCsvEdi($this->drm);
     	$csv_file = $export->exportEDI($format);
     }
     if (!$csv_file) {
