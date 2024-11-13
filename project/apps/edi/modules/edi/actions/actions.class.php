@@ -415,7 +415,7 @@ class ediActions extends sfActions
   {
       $xsd = $this->drm->isNegoce()
              ? sfConfig::get('sf_data_dir').'/ciel/ciel-dti-plus_v1.0.23.xsd'
-             : sfConfig::get('sf_data_dir').'/ciel/ciel-dti-plus-viti_v1.0.12.xsd';
+             : sfConfig::get('sf_data_dir').'/ciel/echanges-interprofession-1.17.xsd';
 
       if (! is_file($xsd)) {
           throw new sfException("Fichier xsd non trouvé");
