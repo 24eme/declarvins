@@ -20,6 +20,15 @@
 		            <li><?php if($erreur == "CielService Error : null"): ?>Le service de reception des DRM de la Douane est indisponible pour le moment<?php else: ?><?php echo $erreur ?><?php endif; ?><?php if($erreur == 'Les données économiques ont déjà été reçues pour la période.'): ?> Contacter votre interprofession pour débloquer le flux de communication DRM<?php endif; ?></li>
 		        <?php endforeach; ?>
 		    </ol>
+
+            <?php if ($sf_user->isAdmin()): ?>
+              <div style="margin-top:10px">
+                <a id="telecharger_xml_debug" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'debug')); ?>"
+                   style="padding: 6px; opacity: .5; margin-top: 10px; font-size:0.6rem" >
+                   Vérification du schéma XML
+                </a>
+              </div>
+            <?php endif ?>
 		</div>
     	<?php endif; ?>
         <form id="formValidation" action="<?php echo ($etablissement->isTransmissionCiel() && !$drm->hasVersion() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">

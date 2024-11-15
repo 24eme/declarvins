@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://douane.finances.gouv.fr/app/ciel/dtiplus/v1" targetNamespace="http://douane.finances.gouv.fr/app/ciel/dtiplus/v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.10">
+	<xsd:element name="mouvements-balances">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="periode-taxation" type="PeriodeTaxationType"/>
+				<xsd:element name="identification-redevable" type="NumeroAcciseType"/>
+				<xsd:element name="droits-acquittes" type="DroitsAcquittesType" minOccurs="0"/>
+				<xsd:element name="droits-suspendus" type="DroitsSuspendusType" minOccurs="0"/>
+				<xsd:element name="compte-crd" minOccurs="0" maxOccurs="10">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="categorie-fiscale-capsules" type="categorieFiscaleCapsuleType"/>
+							<xsd:element name="type-capsule" type="typeCapsuleType"/>
+							<xsd:element name="centilisation" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="stock-debut-periode" type="xsd:nonNegativeInteger"/>
+										<xsd:element name="entrees-capsules" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="achats" type="xsd:nonNegativeInteger" minOccurs="0"/>
+													<xsd:element name="retours" type="xsd:nonNegativeInteger" minOccurs="0"/>
+													<xsd:element name="excedents" type="xsd:nonNegativeInteger" minOccurs="0"/>
+													<xsd:element name="autres-entrees" type="xsd:nonNegativeInteger" minOccurs="0"/>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="sorties-capsules" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="utilisations" type="xsd:nonNegativeInteger" minOccurs="0"/>
+													<xsd:element name="destructions" type="xsd:nonNegativeInteger" minOccurs="0"/>
+													<xsd:element name="manquants" type="xsd:nonNegativeInteger" minOccurs="0"/>
+													<xsd:element name="autres-sorties" type="xsd:nonNegativeInteger" minOccurs="0"/>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="stock-fin-periode" type="xsd:nonNegativeInteger"/>
+										<xsd:element name="observations" type="ObservationsType" minOccurs="0"/>
+									</xsd:sequence>
+									<xsd:attribute name="volume" type="centilisationType" use="required"/>
+									<xsd:attribute name="volumePersonnalise">
+										<xsd:annotation>
+											<xsd:documentation>Volume indiqué pour une centilisation AUTRE</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:decimal">
+												<xsd:minExclusive value="0"/>
+												<xsd:fractionDigits value="1"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:attribute>
+									<xsd:attribute name="bib" type="xsd:boolean">
+										<xsd:annotation>
+											<xsd:documentation>Indique si la centilisation AUTRE est de type Bag-in-box</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="document-accompagnement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="numero-empreintes" type="DebutFinDocumentType" minOccurs="0"/>
+							<xsd:element name="daa-dca" type="DebutFinDocumentType" minOccurs="0"/>
+							<xsd:element name="dsa-dsac" type="DebutFinDocumentType" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="releve-non-apurement" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="numero-daa-dac-dae">
+								<xsd:simpleType>
+									<xsd:restriction base="numeroRnaType">
+										<xsd:minLength value="1"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="date-expedition" type="xsd:date"/>
+							<xsd:element name="numero-accise-destinataire" type="NumAcciseDestType" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="statistiques" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="quantite-mouts-jus" type="VolumeType" minOccurs="0"/>
+							<xsd:element name="quantite-mouts-mcr" type="VolumeType" minOccurs="0"/>
+							<xsd:element name="quantite-vins-vinaigre" type="VolumeType" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:simpleType name="NumAcciseDestType">
+		<xsd:annotation>
+			<xsd:documentation>N° d'accise destinataire ou bureau de sortie</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="([A-Za-z0-9]{8}|[A-Za-z0-9]{13})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="VolumeType">
+		<xsd:annotation>
+			<xsd:documentation>Nombre décimal positif à 5 chiffres après la virgule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="5"/>
+			<xsd:minInclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="VolumeStockType">
+		<xsd:annotation>
+			<xsd:documentation>Nombre décimal à 5 chiffres après la virgule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NumeroAcciseType">
+		<xsd:annotation>
+			<xsd:documentation>Numéro d'agréement de la relation EAOE.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="13"/>
+			<xsd:pattern value="[A-Za-z]{2}[0-9A-Za-z]{11}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LibelleFiscalType">
+		<xsd:annotation>
+			<xsd:documentation>Enumération des différents libellés fiscaux acceptables.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="VT_IG_AOP">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles avec IG – AOP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_IG_IGP">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles avec IG – IGP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_SANS_IG_CEPAGE">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles sans IG – vins de cépage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_SANS_IG_CEPAGE_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles sans IG – vins de cépage - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_SANS_IG_CEPAGE_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles sans IG – vins de cépage - prémix DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_SANS_IG_AUTRES">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles sans IG – autres</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_SANS_IG_AUTRES_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles sans IG – autres - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_SANS_IG_AUTRES_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles sans IG – autres - prémix DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_IG_AOP">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux avec IG – AOP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_IG_IGP">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux avec IG – IGP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_SANS_IG_CEPAGE">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux sans IG – vins de cépage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_SANS_IG_CEPAGE_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux sans IG – vins de cépage - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_SANS_IG_CEPAGE_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux sans IG – vins de cépage - prémix DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_SANS_IG_AUTRES">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux sans IG – autres</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_SANS_IG_AUTRES_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux sans IG – autres - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_SANS_IG_AUTRES_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux sans IG – autres - prémix DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_ETRANGERS">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles étrangers</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_ETRANGERS_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles étrangers - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VT_ETRANGERS_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Vins tranquilles étrangers - prémix DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_ETRANGERS">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux étrangers</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_ETRANGERS_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux étrangers - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VM_ETRANGERS_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Vins mousseux étrangers - prémix DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BOISSONS_FERMENTEES_AUTRES">
+				<xsd:annotation>
+					<xsd:documentation>Boissons fermentées autres que le vin et la bière</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BOISSONS_FERMENTEES_AUTRES_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Boissons fermentées autres que le vin et la bière - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BOISSONS_FERMENTEES_AUTRES_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Boissons fermentées autres que le vin et la bière - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CIDRES">
+				<xsd:annotation>
+					<xsd:documentation>Cidres</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CIDRES_INF_8_5">
+				<xsd:annotation>
+					<xsd:documentation>Cidres &lt;= 8,5% vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="POIRES">
+				<xsd:annotation>
+					<xsd:documentation>Poirés</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="POIRES_INF_8_5">
+				<xsd:annotation>
+					<xsd:documentation>Poirés &lt;= 8,5% vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HYDROMELS">
+				<xsd:annotation>
+					<xsd:documentation>Hydromels</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HYDROMELS_INF_8_5">
+				<xsd:annotation>
+					<xsd:documentation>Hydromels &lt;= 8,5% vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HYDROMELS_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Hydromels - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HYDROMELS_INF_8_5_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Hydromels &lt;= 8,5% vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HYDROMELS_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Hydromels - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HYDROMELS_INF_8_5_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Hydromels &lt;= 8,5% vol. - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PETILLANTS">
+				<xsd:annotation>
+					<xsd:documentation>Pétillants</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PETILLANTS_INF_8_5">
+				<xsd:annotation>
+					<xsd:documentation>Pétillants &lt;= 8,5% vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PETILLANTS_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Pétillants - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PETILLANTS_INF_8_5_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Pétillants &lt;= 8,5% vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PETILLANTS_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Pétillants - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PETILLANTS_INF_8_5_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Pétillants &lt;= 8,5% vol. - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VDN_VDL_AOP_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>VDN et VDL AOP &gt; 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VDN_VDL_AOP_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>VDN et VDL AOP &lt;= 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_PI_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Autres produits intermédiaires que VDN et VDL AOP &gt; 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_PI_SUP_18_HORS_CSS">
+				<xsd:annotation>
+					<xsd:documentation>Autres produits intermédiaires que VDN et VDL AOP &gt; 18 % vol. hors CSS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_PI_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Autres produits intermédiaires que VDN et VDL AOP &lt;= 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_PI_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Autres produits intermédiaires que VDN et VDL AOP &lt;= 18 % vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_PI_INF_18_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Autres produits intermédiaires que VDN et VDL AOP &lt;= 18 % vol. - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_INF_2_8">
+				<xsd:annotation>
+					<xsd:documentation>Bières &lt; 2,8 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_INF_2_8_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Bières &lt; 2,8 % vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_INF_2_8_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Bières &lt; 2,8 % vol. - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_18_BRASSERIE_TAUX_NORMAL">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 18 % vol. (brasseries taux normal)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_BRASSERIE_TAUX_NORMAL">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (brasseries taux normal)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_BRASSERIE_TAUX_NORMAL_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (brasseries taux normal) - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_BRASSERIE_TAUX_NORMAL_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (brasseries taux normal) - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_PETITE_BRASSERIE_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 18 % vol. (petite brasserie)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_PETITE_BRASSERIE_SUP_2_8">
+				<xsd:annotation>
+					<xsd:documentation>ières &gt; 2.8 % vol. (petite brasserie)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_PETITE_BRASSERIE_SUP_2_8_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (petite brasserie) - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_PETITE_BRASSERIE_SUP_2_8_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Bières gt; 2,8 % vol. (petite brasserie) - prémix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_18_PETITE_BRASSERIE_10000">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 18 % vol. (petite brasserie &lt;= 10000 hl)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_10000">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (petite brasserie &lt;= 10000 hl)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_10000_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (petite brasserie &lt;= 10000 hl) – prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_10000_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (petite brasserie &lt;= 10000 hl) – prémix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_18_PETITE_BRASSERIE_50000">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 18 % vol. (10000 hl &lt; petite brasserie &lt;= 50000 hl)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_50000">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (10000 hl &lt; petite brasserie &lt;= 50000 hl)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_50000_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (10000 hl &lt; petite brasserie &lt;= 50000 hl) - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_50000_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (10000 hl &lt; petite brasserie &lt;= 50000 hl) - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_18_PETITE_BRASSERIE_200000">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 18 % vol. (50000 hl &lt; petite brasserie &lt;= 200000 hl)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_200000">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (50000 hl &lt; petite brasserie &lt;= 200000 hl)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_200000_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (50000 hl &lt; petite brasserie &lt;= 200000 hl) - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BIERE_SUP_2_8_PETITE_BRASSERIE_200000_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Bières &gt; 2,8 % vol. (50000 hl &lt; petite brasserie &lt;= 200000 hl) - premix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_TRADITIONNEL_DOM_ART_1">
+				<xsd:annotation>
+					<xsd:documentation>Rhums traditionnels des DOM commercialisés en métropole dans le cadre du contingent fiscal prévu à l’article 403-I.1° du CGI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_TRADITIONNEL_DOM_ART_2">
+				<xsd:annotation>
+					<xsd:documentation>Rhums traditionnels des DOM commercialisés en métropole dans le cadre des dispositions de l’article 403-I.2° du CGI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_TRADITIONNEL_DOM_CONTINGENT_FISCAL">
+				<xsd:annotation>
+					<xsd:documentation>Rhums traditionnels DOM définis à l'article L.313-24 du CIBS, commercialisés en métropole dans la limite du contingent fiscal prévu à l'article L.313-26 du CIBS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_TRADITIONNEL_DOM_HORS_CONTINGENT_FISCAL">
+				<xsd:annotation>
+					<xsd:documentation>Rhums traditionnels DOM définis à l'article L.313-24 du CIBS, commercialisés en métropole hors du contingent fiscal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_TIERS_ET_AUTRES">
+				<xsd:annotation>
+					<xsd:documentation>Rhums tiers (hors DOM) et autres rhums</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ALCOOL_AUTRE_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Alcools autres que rhums &gt; 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ALCOOL_AUTRE_SUP_18_HORS_CSS">
+				<xsd:annotation>
+					<xsd:documentation>Alcools autres que rhums &gt; 18 % vol. hors CSS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ALCOOL_AUTRE_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Alcools autres que rhums &lt;= 18 % vol</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ALCOOL_AUTRE_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Alcools autres que rhums &lt;= 18 % vol - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COMPLEMENTS_ALIMENTAIRES">
+				<xsd:annotation>
+					<xsd:documentation>Compléments alimentaires</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COMPLEMENTS_ALIMENTAIRES_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Compléments alimentaires - prémix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COMPLEMENTS_ALIMENTAIRES_PREMIX_DOM">
+				<xsd:annotation>
+					<xsd:documentation>Compléments alimentaires - prémix - DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COMPLEMENTS_ALIMENTAIRES_CSS">
+				<xsd:annotation>
+					<xsd:documentation>Compléments alimentaires - CSS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_GUADELOUPE">
+				<xsd:annotation>
+					<xsd:documentation>Rhums DOM et tafias Guadeloupe</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_MARTINIQUE">
+				<xsd:annotation>
+					<xsd:documentation>Rhums DOM et tafias Martinique</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_GUYANE">
+				<xsd:annotation>
+					<xsd:documentation>Rhums DOM et tafias Guynae</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RHUM_REUNION">
+				<xsd:annotation>
+					<xsd:documentation>Rhums DOM et tafias Réunion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_GUADELOUPE_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Guadeloupe &gt; 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_GUADELOUPE_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Guadeloupe &lt;= 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_GUADELOUPE_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Guadeloupe &lt;= 18 % vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_MARTINIQUE_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Martinique &gt; 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_MARTINIQUE_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Martinique &lt;= 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_MARTINIQUE_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Martinique &lt;= 18 % vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_GUYANE_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Guyane &gt; 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_GUYANE_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Guyane &lt;= 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_GUYANE_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Guyane &lt;= 18 % vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_REUNION_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Réunion &gt;18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_REUNION_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Réunion &lt;= 18 % vol.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPIRITUEUX_REUNION_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Spiritueux à base d’alcools de cru Réunion &lt;= 18 % vol. - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_ALCOOLS_SUP_18">
+				<xsd:annotation>
+					<xsd:documentation>Autres alcools – alcools autres que rhums traditionnels des DOM &gt; 18 % vol. ou spiritueux importés d’un autre DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_ALCOOLS_SUP_18_HORS_CSS">
+				<xsd:annotation>
+					<xsd:documentation>Autres alcools – alcools autres que rhums traditionnels des DOM &gt; 18 % vol. ou spiritueux importés d’un autre DOM hors CSS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_ALCOOLS_INF_18">
+				<xsd:annotation>
+					<xsd:documentation>Autres alcools – alcools autres que rhums traditionnels des DOM &lt;= 18 % vol. ou spiritueux importés d’un autre DOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUTRES_ALCOOLS_INF_18_PREMIX">
+				<xsd:annotation>
+					<xsd:documentation>Autres alcools – alcools autres que rhums traditionnels des DOM &lt;= 18 % vol. ou spiritueux importés d’un autre DOM - premix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MATIERES_PREMIERES_SPIRITUEUX">
+				<xsd:annotation>
+					<xsd:documentation>Matières premières utilisées pour les spiritueux (chapitre 2208 du tarif des douanes)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MATIERES_PREMIERES_ALCOOLS">
+				<xsd:annotation>
+					<xsd:documentation>Matières premières utilisées pour les boissons alcooliques</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ObservationsType">
+		<xsd:annotation>
+			<xsd:documentation>Commentaire sur 250 caractères maximum.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="250"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tavType">
+		<xsd:annotation>
+			<xsd:documentation>Nombre décimal positif ou égal à zéro à 2 chiffres après la virgule</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="2"/>
+			<xsd:minExclusive value="0.5"/>
+			<xsd:maxExclusive value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ProduitType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Type Complexe commun à tous les produits</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="libelle-fiscal" type="LibelleFiscalType">
+					<xsd:annotation>
+						<xsd:documentation>Ce libellé est propre au service des douanes et permet de déclarer un produit qui n'a pas de code INAO.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="code-inao" type="codeInaoType"/>
+			</xsd:choice>
+			<xsd:element name="libelle-personnalise">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+						<xsd:minLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="tav" type="tavType" minOccurs="0"/>
+			<xsd:element name="premix" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="observations" type="ObservationsType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReplacementType">
+		<xsd:annotation>
+			<xsd:documentation>Type Complexe commun à tous les produits</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="mois">
+				<xsd:annotation>
+					<xsd:documentation>Mois de la sortie taxable ou de la réception en droits acquittés du produit</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:nonNegativeInteger">
+						<xsd:minInclusive value="1"/>
+						<xsd:maxInclusive value="12"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="annee">
+				<xsd:annotation>
+					<xsd:documentation>Année de la sortie taxable ou de la réception en droits acquittés du produit</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:nonNegativeInteger">
+						<xsd:totalDigits value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="volume" type="VolumeType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProduitDroitsAcquittesType">
+		<xsd:annotation>
+			<xsd:documentation>Produit associé à une balance des droits acquittés</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ProduitType">
+				<xsd:sequence>
+					<xsd:element name="balance-stock" type="BalanceStocksDroitsAcquittesType"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProduitDroitsSuspendusType">
+		<xsd:annotation>
+			<xsd:documentation>Produit associé à une balance des droits suspendus</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ProduitType">
+				<xsd:sequence>
+					<xsd:element name="balance-stock" type="BalanceStocksDroitsSuspendusType"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- ******************************************************************
+			Les types complexes infra sont créés afin de simplifier la lecture et la navigation dans le schéma
+		*******************************************************************-->
+	<xsd:complexType name="DroitsAcquittesType">
+		<xsd:annotation>
+			<xsd:documentation>Déclaration des droits acquittés</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="produit" type="ProduitDroitsAcquittesType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BalanceStocksDroitsAcquittesType">
+		<xsd:annotation>
+			<xsd:documentation>Balance des stocks des droits acquittés</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="stock-debut-periode" type="VolumeStockType"/>
+			<xsd:element name="entrees-periode" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="achats" type="VolumeType" minOccurs="0"/>
+						<xsd:element name="autres-entrees" type="VolumeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Excédent suite à inventaire ou contrôle du service des douanes.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="sorties-periode" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ventes" type="VolumeType" minOccurs="0"/>
+						<xsd:element name="replacement-suspension" type="VolumeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Sorties pour replacement en suspension de droits de produits les ayant acquittés</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="autres-sorties" type="VolumeType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="stock-fin-periode" type="VolumeStockType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DroitsSuspendusType">
+		<xsd:annotation>
+			<xsd:documentation>Déclaration des droits suspendus</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="produit" type="ProduitDroitsSuspendusType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BalanceStocksDroitsSuspendusType">
+		<xsd:annotation>
+			<xsd:documentation>Balance des stocks des droits suspendus</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="stock-debut-periode" type="VolumeStockType"/>
+			<xsd:element name="entrees-periode" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="volume-produit" type="VolumeType" minOccurs="0"/>
+						<xsd:element name="achats-reintegrations" type="VolumeType" minOccurs="0"/>
+						<xsd:element name="mouvements-temporaires" type="MouvementsTemporairesType" minOccurs="0"/>
+						<xsd:element name="mouvements-internes" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="replis-declassement-transfert-changement-appellation" type="VolumeType" minOccurs="0"/>
+									<xsd:element name="manipulations" type="VolumeType" minOccurs="0"/>
+									<xsd:element name="integration-vci-agree" type="VolumeType" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="autres-entrees" type="VolumeType" minOccurs="0"/>
+						<xsd:element name="replacements" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence maxOccurs="unbounded">
+									<xsd:element name="replacement-suspension" type="ReplacementType" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="sorties-periode" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ventes-france-crd-suspendus" type="SortiesAnnualiseesType" minOccurs="0"/>
+						<xsd:element name="ventes-france-crd-acquittes" type="VolumeType" minOccurs="0"/>
+						<xsd:element name="sorties-sans-paiement-droits" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="sorties-definitives" type="VolumeType" minOccurs="0"/>
+									<xsd:element name="consommation-familiale-degustation" type="VolumeType" minOccurs="0"/>
+									<xsd:element name="mise-sur-marche-corse" type="VolumeType" minOccurs="0"/>
+									<xsd:element name="mouvements-temporaires" type="MouvementsTemporairesType" minOccurs="0"/>
+									<xsd:element name="mouvements-internes" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="replis-declassement-transfert-changement-appellation" type="VolumeType" minOccurs="0"/>
+												<xsd:element name="fabrication-autre-produit" type="VolumeType" minOccurs="0"/>
+												<xsd:element name="revendication-vci" type="VolumeType" minOccurs="0"/>
+												<xsd:element name="autres-mouvements-internes" type="VolumeType" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="autres-sorties" type="VolumeType" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="stock-fin-periode" type="VolumeStockType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MouvementsTemporairesType">
+		<xsd:annotation>
+			<xsd:documentation>Mouvements temporaires en entrée ou sortie de droits suspendus</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="embouteillage" type="VolumeType" minOccurs="0"/>
+			<xsd:element name="relogement" type="VolumeType" minOccurs="0"/>
+			<xsd:element name="travail-a-facon" type="VolumeType" minOccurs="0"/>
+			<xsd:element name="distillation-a-facon" type="VolumeType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SortiesAnnualiseesType">
+		<xsd:annotation>
+			<xsd:documentation>Sorties annualisées. Dans le cas des DRA, la déclaration peut être faite sur l'année courante et sur l'année précédente.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="annee-precedente" type="VolumeType" minOccurs="0"/>
+			<xsd:element name="annee-courante" type="VolumeType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PeriodeTaxationType">
+		<xsd:annotation>
+			<xsd:documentation>Période de taxation constitué du mois et de l'année</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="mois">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:minInclusive value="1"/>
+						<xsd:maxInclusive value="12"/>
+						<xsd:fractionDigits value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="annee">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="4"/>
+						<xsd:fractionDigits value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="typeCapsuleType">
+		<xsd:annotation>
+			<xsd:documentation>Type de capsule: Personnalisées, Collectives de droits suspendus, Collectives de droits acquittés</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="PERSONNALISEES"/>
+			<xsd:enumeration value="COLLECTIVES_DROITS_SUSPENDUS"/>
+			<xsd:enumeration value="COLLECTIVES_DROITS_ACQUITTES"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="centilisationType">
+		<xsd:annotation>
+			<xsd:documentation>Type de capsule: Personnalisées, Collectives de droits suspendus, Collectives de droits acquittés</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CL_10"/>
+			<xsd:enumeration value="CL_12_5"/>
+			<xsd:enumeration value="CL_18_7"/>
+			<xsd:enumeration value="CL_20"/>
+			<xsd:enumeration value="CL_25"/>
+			<xsd:enumeration value="CL_35"/>
+			<xsd:enumeration value="CL_37_5"/>
+			<xsd:enumeration value="CL_50"/>
+			<xsd:enumeration value="CL_62"/>
+			<xsd:enumeration value="CL_70"/>
+			<xsd:enumeration value="CL_75"/>
+			<xsd:enumeration value="CL_100"/>
+			<xsd:enumeration value="CL_150"/>
+			<xsd:enumeration value="CL_175"/>
+			<xsd:enumeration value="CL_200"/>
+			<xsd:enumeration value="BIB_225"/>
+			<xsd:enumeration value="BIB_300"/>
+			<xsd:enumeration value="BIB_400"/>
+			<xsd:enumeration value="BIB_500"/>
+			<xsd:enumeration value="BIB_800"/>
+			<xsd:enumeration value="BIB_1000"/>
+			<xsd:enumeration value="AUTRE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="categorieFiscaleCapsuleType">
+		<xsd:annotation>
+			<xsd:documentation>Catégorie fiscale de capsules représentatives de droits (M (vin mousseurx), T (vin tranquille), PI (produits intermédiaire).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="M">
+				<xsd:annotation>
+					<xsd:documentation>Vin mousseux</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="T">
+				<xsd:annotation>
+					<xsd:documentation>Vin tranquille</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PI">
+				<xsd:annotation>
+					<xsd:documentation>Produit intermédiaire</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COGNAC-ARMAGNAC"/>
+			<xsd:enumeration value="ALCOOLS"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DebutFinDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>Numéros de document de début et de fin de période.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="debut-periode" type="numeroDocumentType"/>
+			<xsd:element name="fin-periode" type="numeroDocumentType"/>
+			<xsd:element name="nombre-document-empreinte">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:minExclusive value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="numeroRnaType">
+		<xsd:annotation>
+			<xsd:documentation>Numéro de référence des RNA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="21"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeroDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>Numéro de référence de document d'accompagnement d'une DRM</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="30"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="codeInaoType">
+		<xsd:annotation>
+			<xsd:documentation>Code INAO, entre 6 et 8 caractères. Si le code est limité à 5 caractères, le compléter par un espace.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="6"/>
+			<xsd:maxLength value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
