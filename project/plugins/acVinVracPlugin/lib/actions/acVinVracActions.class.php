@@ -631,10 +631,16 @@ class acVinVracActions extends sfActions
         }
 
         $contrats = VracClient::getInstance()->retrieveByCVIAndMillesime($cvi, $millesime, 'certifications/IGP');
+        $confProduit = ConfigurationProduitClient::getInstance()->getByInterpro('IVSE');
         $result= array();
         foreach($contrats as $c){
+            $conf = $confProduit->getProduits($c->value[VracHistoryView::VRAC_VIEW_PRODUIT_ID]);
+            if ($conf && count($conf) > 0) {
+                $conf = array_values($conf)[0];
+            }
             $result[$c->id]['numero'] = $c->value[VracHistoryView::VRAC_VIEW_NUM];
             $result[$c->id]['acheteur'] = $c->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM];
+            $result[$c->id]['code_douane'] = ($conf && $conf->exist('inao'))? trim($conf->inao) : '';
             $result[$c->id]['produit'] = $c->value[VracHistoryView::VRAC_VIEW_PRODUIT_ID];
             $result[$c->id]['volume'] = $c->value[VracHistoryView::VRAC_VIEW_VOLPROP];
         }
