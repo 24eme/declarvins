@@ -390,8 +390,8 @@ class ediActions extends sfActions
   	set_time_limit(0);
   	$csv_file = null;
   	$format = $request->getParameter('format', 'csv');
-    if ($drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
-    	$export = new DRMExportCsvEdi($drm);
+    if ($this->drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
+        $export = new DRMExportCsvEdi($this->drm);
     	$csv_file = $export->exportEDI($format);
     }
     if (!$csv_file) {
@@ -405,9 +405,46 @@ class ediActions extends sfActions
     	case 'xml':
     		return $this->renderTextXml($csv_file); break;
     	case 'debug':
+            return $this->compareXSD($csv_file); break;
     	default:
     		return $this->renderText($csv_file); break;
     }
+  }
+
+  public function compareXSD($csv_file)
+  {
+      $xsd = $this->drm->isNegoce()
+             ? sfConfig::get('sf_data_dir').'/ciel/ciel-dti-plus_v1.0.23.xsd'
+             : sfConfig::get('sf_data_dir').'/ciel/echanges-interprofession-1.17.xsd';
+
+      if (! is_file($xsd)) {
+          throw new sfException("Fichier xsd non trouvé");
+      }
+
+      $xml = new DOMDocument();
+      $xml->loadXML($csv_file);
+      libxml_use_internal_errors(true);
+      $valid = $xml->schemaValidate($xsd);
+
+      $errors = ['Validation du XML...'];
+      $errors[] = 'Schéma utilisé : '.basename($xsd);
+      if (! $valid) {
+        foreach (libxml_get_errors() as $error) {
+            switch ($error->level) {
+              case 1: $level = "WARN"; break;
+              case 2: $level = "ERR"; break;
+              case 3: $level = "FATAL"; break;
+            }
+            $errors[] = "[$level][$error->code] $error->message";
+        }
+      } else {
+          $errors[] = 'Fichier conforme.';
+      }
+      $errors[] = 'Fini';
+
+      libxml_use_internal_errors(false);
+
+      return $this->renderText('<pre>'.implode(PHP_EOL, $errors));
   }
 
   public function renderTextCsv($csv_file) {
