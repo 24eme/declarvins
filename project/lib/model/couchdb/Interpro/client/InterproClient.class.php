@@ -4,7 +4,7 @@ class InterproClient extends acCouchdbClient {
 
 	public static $_drm_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR');
 	protected static $_base_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE');
-	protected static $_interpros = array('INTERPRO-IR', 'INTERPRO-CIVP', 'INTERPRO-IVSE', 'INTERPRO-IS', 'INTERPRO-ANIVIN');
+	protected static $_interpros = array('INTERPRO-IR', 'INTERPRO-CIVP', 'INTERPRO-IVSE', 'INTERPRO-IS', 'INTERPRO-ANIVIN', 'INTERPRO-BIVB');
     const INTERPRO_REFERENTE = 'INTERPRO-IR';
     const INTERPRO_COMMUNE = 'INTERPRO-ANIVIN';
     /**
