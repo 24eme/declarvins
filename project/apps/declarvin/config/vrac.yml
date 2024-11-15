@@ -4,7 +4,7 @@ all:
       repartition_cvo: 100
       prix_appellations:
         CDR:
-          min: 90
+          min: 120
           max: 200
         BEA:
           min: 250
