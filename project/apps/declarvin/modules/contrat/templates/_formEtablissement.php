@@ -112,7 +112,7 @@
         <p>
             Plusieurs zones possibles. Indiquez la ou les zones qui vous concernent.<br/>
             <a data-popup="#popup_appellations_par_zone" class="btn_popup highlight_link" href="">Liste des appellations par zone</a>
-            <div id="popup_appellations_par_zone" class="popup_contenu" style="display:none;">
+            <div id="popup_appellations_par_zone" class="popup_contenu" style="display:none; max-height:85vh; overflow-y:scroll;">
                 <?php foreach (ConfigurationClient::getConfiguration()->getAllZones() as $zone): ?>
                     <?php if (!$zone->transparente): ?>
                         <h2 style="padding-top: 20px; padding-bottom: 10px;"><?php echo $zone->identifiant; ?></h2>
