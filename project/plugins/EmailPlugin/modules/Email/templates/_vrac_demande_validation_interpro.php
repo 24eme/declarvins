@@ -7,7 +7,7 @@ L'entreprise <?php if($vrac->{$vrac->vous_etes}->nom) { echo $vrac->{$vrac->vous
 <?php else: ?>
 Votre interprofession a <?php if ($vrac->isRectificative()): ?>rectifié le contrat numéro <?php echo $vrac->numero_contrat; ?><?php else: ?>saisi un contrat de transaction<?php endif; ?> vous concernant.<br /><br />
 <?php endif; ?>
-Le contrat saisi porte sur la transaction suivante :<br />
+Le contrat<?php if($vrac->isPluriannuel() && !$vrac->isAdossePluriannuel()): ?> pluriannuel cadre<?php endif; ?> saisi porte sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
 Millésime : <?php echo $vrac->millesime ?><br />

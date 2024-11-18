@@ -37,7 +37,11 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Demande de validation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+		$pluriannuel = '';
+		if ($vrac->isPluriannuel() && !$vrac->isAdossePluriannuel()) {
+			$pluriannuel = ' pluriannuel cadre';
+		}
+        $subject = 'Demande de validation d\'un contrat'.$pluriannuel.' interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
         if ($vrac->isRectificative()) {
         	$subject .= ' RECTIFIE';
         }
@@ -52,7 +56,11 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Demande de validation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+		$pluriannuel = '';
+		if ($vrac->isPluriannuel() && !$vrac->isAdossePluriannuel()) {
+			$pluriannuel = ' pluriannuel cadre';
+		}
+        $subject = 'Demande de validation d\'un contrat'.$pluriannuel.' interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
         if ($vrac->isRectificative()) {
         	$subject .= ' RECTIFIE';
         }
