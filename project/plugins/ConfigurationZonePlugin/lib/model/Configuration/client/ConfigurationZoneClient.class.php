@@ -56,16 +56,16 @@ class ConfigurationZoneClient extends acCouchdbClient
     	$ivse->inscriptions = array('INTERPRO-IR', 'INTERPRO-CIVP');
     	$ivse->accessibilites = array('INTERPRO-IVSE');
     	$ivse->constructId();
-    	
+
     	$languedoc = new ConfigurationZone();
     	$languedoc->identifiant = 'IGP-LANGUEDOC';
     	$languedoc->libelle = 'IGP Languedoc';
     	$languedoc->administratrice = 0;
     	$languedoc->transparente = 0;
-    	$languedoc->liaisons = array('INTERPRO-IO', 'INTERPRO-CIVL');
-    	$languedoc->produits = array('CONFIGURATION-PRODUITS-IO', 'CONFIGURATION-PRODUITS-CIVL');
+    	$languedoc->liaisons = array('INTERPRO-IS');
+    	$languedoc->produits = array('CONFIGURATION-PRODUITS-IS');
     	$languedoc->inscriptions = array('INTERPRO-IR');
-    	$languedoc->accessibilites = array('INTERPRO-IR', 'INTERPRO-IO', 'INTERPRO-CIVL');
+    	$languedoc->accessibilites = array('INTERPRO-IR', 'INTERPRO-IS');
     	$languedoc->constructId();
 
     	$bourgogne = new ConfigurationZone();
