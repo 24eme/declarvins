@@ -7,11 +7,12 @@ class ConfigurationZoneClient extends acCouchdbClient
 	const ZONE_PROVENCE = 'CONFIGURATION-ZONE-PROVENCE';
 	const ZONE_IVSE = 'CONFIGURATION-ZONE-IGP-IVSE';
 	const ZONE_LANGUEDOC = 'CONFIGURATION-ZONE-IGP-LANGUEDOC';
+    const ZONE_BOURGOGNE = 'CONFIGURATION-ZONE-BOURGOGNE';
 	const ZONE_ANIVIN = 'CONFIGURATION-ZONE-ANIVIN';
-	
-	protected static $_zones = array(self::ZONE_RHONE, self::ZONE_PROVENCE, self::ZONE_IVSE, self::ZONE_LANGUEDOC, self::ZONE_ANIVIN);
-	
-	public static function getInstance() 
+
+	protected static $_zones = array(self::ZONE_RHONE, self::ZONE_PROVENCE, self::ZONE_IVSE, self::ZONE_LANGUEDOC, self::ZONE_BOURGOGNE, self::ZONE_ANIVIN);
+
+	public static function getInstance()
 	{
 	  	return acCouchdbManager::getClient("ConfigurationZone");
 	}
@@ -66,7 +67,18 @@ class ConfigurationZoneClient extends acCouchdbClient
     	$languedoc->inscriptions = array('INTERPRO-IR');
     	$languedoc->accessibilites = array('INTERPRO-IR', 'INTERPRO-IO', 'INTERPRO-CIVL');
     	$languedoc->constructId();
-    	
+
+    	$bourgogne = new ConfigurationZone();
+    	$bourgogne->identifiant = 'BOURGOGNE';
+    	$bourgogne->libelle = 'AOP Bourgogne';
+    	$bourgogne->administratrice = 0;
+    	$bourgogne->transparente = 0;
+    	$bourgogne->liaisons = array('INTERPRO-BIVB');
+    	$bourgogne->produits = array('CONFIGURATION-PRODUITS-BIVB');
+    	$bourgogne->inscriptions = array('INTERPRO-IR', 'INTERPRO-CIVP');
+    	$bourgogne->accessibilites = array('INTERPRO-IR', 'INTERPRO-CIVP', 'INTERPRO-BIVB');
+    	$bourgogne->constructId();
+
     	$autres = new ConfigurationZone();
     	$autres->identifiant = 'ANIVIN';
     	$autres->libelle = 'Autres vins';
@@ -98,10 +110,13 @@ class ConfigurationZoneClient extends acCouchdbClient
       if (preg_match('/vsig/i', $zone) || preg_match('/'.self::ZONE_ANIVIN.'/i', $zone)) {
         return self::ZONE_ANIVIN;
       }
+      if (preg_match('/bourg/i', $zone) || preg_match('/'.self::ZONE_BOURGOGNE.'/i', $zone)) {
+        return self::ZONE_ANIVIN;
+      }
 
       throw new sfException("La zone $zone n'est pas reconnue");
     }
-    
+
 	public function getGrcCode($zone) {
       if ($zone == self::ZONE_RHONE) {
         return 'rhon';
@@ -118,9 +133,12 @@ class ConfigurationZoneClient extends acCouchdbClient
       if ($zone == self::ZONE_ANIVIN) {
         return 'vsig';
       }
+      if ($zone == self::ZONE_BOURGOGNE) {
+        return 'bourg';
+      }
 	  return '';
     }
-    
+
 	public function getGrcLibelle($zone) {
       if ($zone == self::ZONE_RHONE) {
         return 'Rhone';
@@ -137,7 +155,10 @@ class ConfigurationZoneClient extends acCouchdbClient
       if ($zone == self::ZONE_ANIVIN) {
         return 'Anivins';
       }
+      if ($zone == self::ZONE_BOURGOGNE) {
+        return 'Bourgogne';
+      }
 	  return '';
     }
-	
+
 }
