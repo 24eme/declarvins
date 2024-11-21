@@ -5,103 +5,94 @@ all:
       prix_appellations:
         CDR:
           min: 120
-          max: 200
-        BEA:
-          min: 250
-          max: 500
-        CAR:
-          min: 200
-          max: 350
-        CAD:
-          min: 180
-          max: 380
-        CDB:
-          min: 90
-          max: 200
-        CDD:
-          min: 90
-          max: 200
-        CDDB:
-          min: 90
-          max: 200
-        CDN:
-          min: 90
-          max: 200
-        CHD:
-          min: 100
-          max: 200
-        COD:
-          min: 1000
-          max: 2000
-        COR:
-          min: 1000
-          max: 1800
-        COT:
-          min: 90
-          max: 200
-        CRE:
-          min: 180
-          max: 350
-        CRH:
-          min: 350
-          max: 700
-        CRO:
-          min: 1000
-          max: 1800
-        CVG:
-          min: 90
-          max: 300
-        CVS:
-          min: 90
-          max: 300
-        CVX:
-          min: 90
-          max: 200
-        DUZ:
-          min: 90
-          max: 200
-        GIG:
-          min: 550
-          max: 850
-        GLA:
-          min: 85
-          max: 200
-        HER:
-          min: 1300
-          max: 2200
-        LIR:
-          min: 180
-          max: 400
-        LUB:
-          min: 80
-          max: 200
-        RTA:
-          min: 250
-          max: 380
-        SJO:
-          min: 500
-          max: 800
-        SPT:
-          min: 550
-          max: 700
-        TAV:
-          min: 250
-          max: 380
-        VAC:
-          min: 380
-          max: 650
-        VBR:
-          min: 200
-          max: 350
-        VBD:
-          min: 350
-          max: 450
-        VIV:
-          min: 90
           max: 250
-        GRI:
-          min: 10
-          max: 20
+        BEA:
+          min: 352.5
+          max: 397.5
+        CAR:
+          min: 245
+          max: 335
+        CDA:
+          min: 283.34
+          max: 383.32
+        CDD:
+          min: 260
+          max: 365
+        CDDB:
+          min: 260
+          max: 365
+        CDN:
+          min: 104.5
+          max: 155.5
+        COD:
+          min: 1329
+          max: 1611
+        COR:
+          min: 1375
+          max: 1525
+        COT:
+          min: 275
+          max: 275
+        CRE:
+          min: 296.25
+          max: 363.75
+        CRH:
+          min: 575
+          max: 785
+        CRO:
+          min: 1875
+          max: 2625
+        CVG:
+          min: 180
+          max: 270
+        CVS:
+          min: 110
+          max: 230
+        CVX:
+          min: 112
+          max: 178
+        DUZ:
+          min: 132.5
+          max: 215
+        GIG:
+          min: 750
+          max: 870
+        GLA:
+          min: 79.88
+          max: 170.63
+        HER:
+          min: 1825
+          max: 1975
+        LIR:
+          min: 225
+          max: 375
+        LUB:
+          min: 122.5
+          max: 167.5
+        RTA:
+          min: 305
+          max: 395
+        SJO:
+          min: 710
+          max: 830
+        SPT:
+          min: 683.75
+          max: 721.25
+        TAV:
+          min: 270
+          max: 390
+        VAC:
+          min: 445
+          max: 655
+        VBR:
+          min: 260.63
+          max: 316.88
+        VBD:
+          min: 375
+          max: 525
+        VIV:
+          min: 140
+          max: 140
         CP:
           min: 150
           max: 400
