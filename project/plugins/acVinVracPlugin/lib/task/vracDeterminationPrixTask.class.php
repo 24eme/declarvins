@@ -3,6 +3,9 @@
 class vracDeterminationPrixTask extends sfBaseTask
 {
 	const NB_JOUR_RELANCE = 7;
+    private $routing;
+    private $contextInstance;
+
   protected function configure()
   {
     $this->addOptions(array(
@@ -30,6 +33,10 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
+
+    $this->routing = clone ProjectConfiguration::getAppRouting();
+  	$this->contextInstance = sfContext::createInstance($this->configuration);
+    $this->contextInstance->set('routing', $this->routing);
 
     $cm = new CampagneManager('08-01');
     $from = $cm->getDateDebutByCampagne($cm->getPrevious($cm->getCurrent()));
@@ -64,30 +71,25 @@ EOF;
         }
     }
   }
-  
+
   protected function sendEmail($vrac, $identifiant, $acteur) {
-  	
-  	$routing = clone ProjectConfiguration::getAppRouting();
-	$contextInstance = sfContext::createInstance($this->configuration);
-    $contextInstance->set('routing', $routing);
-    
   	$etablissement = EtablissementClient::getInstance()->find($identifiant);
 
 
-  	$url['contact'] = $routing->generate('contact', array(), true);
-  	$url['home'] = $routing->generate('homepage', array(), true);
-  	
+  	$url['contact'] = $this->routing->generate('contact', array(), true);
+  	$url['home'] = $this->routing->generate('homepage', array(), true);
+
   	$compte = ($etablissement)? $etablissement->getCompteObject() : null;
   	if ($compte && $compte->email) {
   	    if ($compte->statut == _Compte::STATUT_ARCHIVE) {
   	        if ($interpro->email_contrat_vrac) {
-  	            Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+  	            Email::getInstance($this->contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
   	        }
   	    } else {
-  	        Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $compte->email, $acteur, $url);
+  	        Email::getInstance($this->contextInstance)->vracDeterminationPrix($vrac, $etablissement, $compte->email, $acteur, $url);
   	    }
   	} else {
-  	    Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+  	    Email::getInstance($this->contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
   	}
 
   }

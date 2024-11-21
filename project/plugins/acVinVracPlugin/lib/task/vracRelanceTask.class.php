@@ -3,6 +3,9 @@
 class vracRelanceTask extends sfBaseTask
 {
 	const NB_JOUR_RELANCE = 7;
+    private $routing;
+    private $contextInstance;
+
   protected function configure()
   {
     $this->addOptions(array(
@@ -30,6 +33,10 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
+
+    $this->routing = clone ProjectConfiguration::getAppRouting();
+  	$this->contextInstance = sfContext::createInstance($this->configuration);
+    $this->contextInstance->set('routing', $this->routing);
 
     $vracs = array_merge(VracHistoryView::getInstance()->findLast()->rows, VracHistoryView::getInstance()->findLast(1)->rows);
     foreach ($vracs as $vrac) {
@@ -68,28 +75,23 @@ EOF;
 
   protected function sendEmail($vrac, $identifiant, $acteur) {
 
-  	$routing = clone ProjectConfiguration::getAppRouting();
-	$contextInstance = sfContext::createInstance($this->configuration);
-    $contextInstance->set('routing', $routing);
-
   	$etablissement = EtablissementClient::getInstance()->find($identifiant);
-		$compte = ($etablissement)? $etablissement->getCompteObject() : null;
+	$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 
+  	$url['contact'] = $this->routing->generate('contact', array(), true);
+  	$url['home'] = $this->routing->generate('homepage', array(), true);
+  	$url['lien'] = $this->routing->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true);
 
-  	$url['contact'] = $routing->generate('contact', array(), true);
-  	$url['home'] = $routing->generate('homepage', array(), true);
-  	$url['lien'] = $routing->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true);
-
-		if ($compte && $compte->email) {
-				if ($compte->statut == _Compte::STATUT_ARCHIVE) {
-						if ($interpro->email_contrat_vrac) {
-								Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
-						}
-				} else {
-						Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $compte->email, $acteur, $url);
-				}
+	if ($compte && $compte->email) {
+		if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+			if ($interpro->email_contrat_vrac) {
+				Email::getInstance($this->contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+			}
 		} else {
-				Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+			Email::getInstance($this->contextInstance)->vracRelanceContrat($vrac, $etablissement, $compte->email, $acteur, $url);
 		}
+	} else {
+		Email::getInstance($this->contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+	}
   }
 }
