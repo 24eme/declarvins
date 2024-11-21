@@ -111,7 +111,7 @@ class ConfigurationZoneClient extends acCouchdbClient
         return self::ZONE_ANIVIN;
       }
       if (preg_match('/bourg/i', $zone) || preg_match('/'.self::ZONE_BOURGOGNE.'/i', $zone)) {
-        return self::ZONE_ANIVIN;
+        return self::ZONE_BOURGOGNE;
       }
 
       throw new sfException("La zone $zone n'est pas reconnue");
