@@ -1,3 +1,4 @@
+<div>
 <style>
     .password-rules {
         margin-bottom: 1rem;
@@ -87,3 +88,4 @@ document.addEventListener("DOMContentLoaded", () => {
     passwordInput.addEventListener("input", (e) => validatePassword(e.target.value));
 });
 </script>
+</div>
