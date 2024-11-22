@@ -51,6 +51,13 @@
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.getElementById("<?php echo $inputPasswordTarget ?>");
+    const showPasswordIcon = document.createElement("i");
+    showPasswordIcon.classList.add("show-password");
+    showPasswordIcon.addEventListener("click", () => {
+        showPasswordIcon.classList.toggle('hide');
+        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+    });
+    passwordInput.after(showPasswordIcon);
     const rules = Array.from(document.querySelector('.password-rules .list-group').children);
 
     const validatePassword = (password) => {
