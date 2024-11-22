@@ -47,3 +47,22 @@
         <li class="list-group-item checked" data-regex="[^A-Za-z0-9]">Au moins 1 caractère spécial (@, #, $, ...)</li>
     </ul>
 </div>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", () => {
+    const passwordInput = document.getElementById("<?php echo $inputPasswordTarget ?>");
+    const rules = Array.from(document.querySelector('.password-rules .list-group').children);
+
+    const validatePassword = (password) => {
+        rules.forEach((rule) => {
+            const regex = new RegExp(rule.dataset.regex);
+            if (regex.test(password)) {
+                rule.classList.add("checked");
+            } else {
+                rule.classList.remove("checked");
+            }
+        });
+    };
+    passwordInput.addEventListener("input", (e) => validatePassword(e.target.value));
+});
+</script>
