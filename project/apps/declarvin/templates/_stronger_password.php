@@ -76,16 +76,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const rules = Array.from(document.querySelector('.password-rules .list-group').children);
 
     const validatePassword = (password) => {
+        let valid = true;
         rules.forEach((rule) => {
             const regex = new RegExp(rule.dataset.regex);
             if (regex.test(password)) {
                 rule.classList.add("checked");
             } else {
+                valid = false;
                 rule.classList.remove("checked");
             }
         });
+        return valid;
     };
     passwordInput.addEventListener("input", (e) => validatePassword(e.target.value));
+    passwordInput.closest("form").addEventListener("submit", (e) => {
+        if (!validatePassword(passwordInput.value)) {
+            e.preventDefault();
+            passwordInput.style.borderColor = "#e35d6a";
+            alert("Toutes les contraintes du mot de passe doivent être respectées");
+        }
+    });
 });
 </script>
 </div>
