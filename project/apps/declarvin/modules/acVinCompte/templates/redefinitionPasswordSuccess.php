@@ -3,11 +3,12 @@
 	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p><br />
 	<?php endif; ?>
 	<p></p>
+    <div id="compteModification">
 	<form id="creation_compte" method="post" action="<?php echo url_for('compte_password', array('login' => $compte->login, 'rev' => $compte->_rev)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
 		<h1>Redéfinition de votre mot de passe</h1>
-		<div class="col">
+		<div class="col" style="width: 600px;">
 			<div class="ligne_form">
 				<label>Identifiant: </label>
 				<strong><?php echo $login ?></strong>
@@ -34,4 +35,5 @@
 			<button type="submit" class="btn_valider"><span>Valider</span></button>
 		</div>
 	</form>
+    </div>
 </section>
