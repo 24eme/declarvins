@@ -39,9 +39,8 @@
     .show-password{
         position: relative;
         right: 18px;
-        top: 50%;
         cursor: pointer;
-        display: block;
+        display: inline-block;
         width: 16px;
         height: 16px;
         background-repeat: no-repeat;
