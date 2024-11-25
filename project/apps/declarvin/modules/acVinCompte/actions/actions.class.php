@@ -154,7 +154,10 @@ class acVinCompteActions extends BaseacVinCompteActions {
         
         return $this->redirect($url);
     }
-    
+
+    public function executeCorrompu(sfWebRequest $request) {
+
+    }
 
 
 }

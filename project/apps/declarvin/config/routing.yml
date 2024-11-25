@@ -31,6 +31,9 @@ compte_password:
 compte_lost_password:
   url:   /compte/mot-de-passe-oublie
   param: { module: acVinCompte, action: lostPassword }
+compte_corrompu:
+  url:   /compte/corrompu
+  param: { module: acVinCompte, action: corrompu }
 contrat_nouveau:
   url:   /contrat/nouveau/:nocontrat
   param: { module: contrat, action: nouveau, nocontrat: null }
