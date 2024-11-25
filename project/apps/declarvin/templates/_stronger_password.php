@@ -4,7 +4,7 @@
         margin-bottom: 1rem;
     }
     .password-rules h2 {
-        font-size: 1rem;
+        font-size: 0.85rem;
         margin-bottom: .5rem;
         font-weight: 500;
         line-height: 1.2;
@@ -14,12 +14,12 @@
         flex-direction: column;
         padding-left: 0;
         margin-bottom: 0;
-        border-radius: .25rem;
+        border-radius: .25rem !important;
     }
     .list-group-item {
         position: relative;
         display: block;
-        padding: .5rem 1rem;
+        padding: .4rem 1rem;
         opacity: 0.75;
         text-decoration: none;
         border: 1px solid rgba(0,0,0,.125);
@@ -50,9 +50,18 @@
     .show-password.hide{
         background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktZXllLXNsYXNoIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0xMy4zNTkgMTEuMjM4QzE1LjA2IDkuNzIgMTYgOCAxNiA4cy0zLTUuNS04LTUuNWE3IDcgMCAwIDAtMi43OS41ODhsLjc3Ljc3MUE2IDYgMCAwIDEgOCAzLjVjMi4xMiAwIDMuODc5IDEuMTY4IDUuMTY4IDIuNDU3QTEzIDEzIDAgMCAxIDE0LjgyOCA4cS0uMDg2LjEzLS4xOTUuMjg4Yy0uMzM1LjQ4LS44MyAxLjEyLTEuNDY1IDEuNzU1cS0uMjQ3LjI0OC0uNTE3LjQ4NnoiLz4KICA8cGF0aCBkPSJNMTEuMjk3IDkuMTc2YTMuNSAzLjUgMCAwIDAtNC40NzQtNC40NzRsLjgyMy44MjNhMi41IDIuNSAwIDAgMSAyLjgyOSAyLjgyOXptLTIuOTQzIDEuMjk5LjgyMi44MjJhMy41IDMuNSAwIDAgMS00LjQ3NC00LjQ3NGwuODIzLjgyM2EyLjUgMi41IDAgMCAwIDIuODI5IDIuODI5Ii8+CiAgPHBhdGggZD0iTTMuMzUgNS40N3EtLjI3LjI0LS41MTguNDg3QTEzIDEzIDAgMCAwIDEuMTcyIDhsLjE5NS4yODhjLjMzNS40OC44MyAxLjEyIDEuNDY1IDEuNzU1QzQuMTIxIDExLjMzMiA1Ljg4MSAxMi41IDggMTIuNWMuNzE2IDAgMS4zOS0uMTMzIDIuMDItLjM2bC43Ny43NzJBNyA3IDAgMCAxIDggMTMuNUMzIDEzLjUgMCA4IDAgOHMuOTM5LTEuNzIxIDIuNjQxLTMuMjM4bC43MDguNzA5em0xMC4yOTYgOC44ODQtMTItMTIgLjcwOC0uNzA4IDEyIDEyeiIvPgo8L3N2Zz4=");
     }
+     input[type='password'].unvalid {
+         border-color: #e35d6a !important;
+     }
+    .password-unvalid {
+        color: #e35d6a;
+        margin-bottom: 5px;
+        display:none;
+    }
 </style>
 
 <div class="password-rules">
+    <p class="password-unvalid">Toutes les contraintes du mot de passe doivent être respectées</p>
     <h2>Le mot de passe doit contenir</h2>
     <ul class="list-group">
         <li class="list-group-item" data-regex=".{8,}">8 caractères minimum</li>
@@ -86,14 +95,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 rule.classList.remove("checked");
             }
         });
+        if (valid) {
+            passwordInput.classList.remove("unvalid");
+            document.querySelector('.password-rules .password-unvalid').style.display = 'none';
+        }
         return valid;
     };
     passwordInput.addEventListener("input", (e) => validatePassword(e.target.value));
     passwordInput.closest("form").addEventListener("submit", (e) => {
         if (!validatePassword(passwordInput.value)) {
             e.preventDefault();
-            passwordInput.style.borderColor = "#e35d6a";
-            alert("Toutes les contraintes du mot de passe doivent être respectées");
+            passwordInput.classList.add("unvalid");
+            document.querySelector('.password-rules .password-unvalid').style.display = 'block';
         }
     });
 });
