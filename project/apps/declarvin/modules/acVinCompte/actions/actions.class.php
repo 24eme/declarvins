@@ -94,7 +94,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
 
     public function executeLogin(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
-	  		$this->redirectAfterLogin();
+	  		return $this->redirectAfterLogin();
         } elseif ($ticket = $request->getParameter('ticket')) {
 			/** CAS * */
 			acPhpCas::client();
@@ -112,46 +112,61 @@ class acVinCompteActions extends BaseacVinCompteActions {
 				$this->getUser()->signOut();
 				$this->redirect('@compte_partenaire');
 			}
-			if ($service = $request->getParameter('service')) {
-				return $this->redirect($service);
-			}
-            return $this->redirectAfterLogin();
+            return $this->redirectAfterLogin($request->getParameter('service'));
         } else {
             if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
         	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
-	           
-               return $this->redirectAfterLogin();
+           } else {
+	  		   $url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
             }
-
-	  		$url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
-	  		
-            return $this->redirect($url);
+            return $this->redirectAfterLogin($url);
         }
     }
 
-    protected function redirectAfterLogin() {
+    protected function redirectAfterLogin($url = null) {
+        if ($this->isCompteCorrompu()) {
+            return $this->redirect('@compte_corrompu');
+        }
+        if ($url) {
+            return $this->redirect($url);
+        }
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             return $this->redirect('@admin');
         }
         return $this->redirect('@tiers');
     }
-    
+
+    protected function isCompteCorrompu() {
+        $identifiantsFile = sfConfig::get('sf_data_dir').'/security/cracked-password.list';
+        if (file_exists($identifiantsFile)) {
+           if ($handle = fopen($identifiantsFile, 'r')) {
+               while (($id = fgets($handle)) !== false) {
+                   if (trim($id) == trim($this->getUser()->getCompte()->login)) {
+                       return true;
+                   }
+               }
+               fclose($handle);
+           }
+       }
+       return false;
+    }
+
     /**
      *
-     * @param sfWebRequest $request 
+     * @param sfWebRequest $request
      */
     public function executeLogout(sfWebRequest $request) {
         $this->getUser()->signOut();
-        
+
         if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
-            
+
             return $this->redirect('login');
         }
 
         $url = 'https://'.$request->getHost();
         acPhpCas::client();
         phpCAS::logoutWithRedirectService($url);
-        
+
         return $this->redirect($url);
     }
 
