@@ -3,7 +3,7 @@
 class vracExpirationAnnulationTask extends sfBaseTask
 {
 	const NB_JOUR_EXPIRATION = 3;
-    private $routing;
+    protected $routing;
     private $contextInstance;
 
   protected function configure()

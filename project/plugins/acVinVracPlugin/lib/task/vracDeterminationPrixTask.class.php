@@ -3,7 +3,7 @@
 class vracDeterminationPrixTask extends sfBaseTask
 {
 	const NB_JOUR_RELANCE = 7;
-    private $routing;
+    protected $routing;
     private $contextInstance;
 
   protected function configure()
