@@ -4,6 +4,7 @@ acVinCompte:
     fields:
       login: { }
       mot_de_passe: {  }
+      date_reinitialisation_mdp: { required: false }
       email: {  }
       statut: {  }
       droits:
