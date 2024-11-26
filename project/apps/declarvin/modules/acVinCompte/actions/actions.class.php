@@ -129,7 +129,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
         if ($isAdmin &&
             $this->getUser()->getCompte()->exist('ip_autorisees') &&
             $_SERVER['REMOTE_ADDR'] &&
-            !in_array($_SERVER['REMOTE_ADDR'], $this->getUser()->getCompte()->exist('ip_autorisees'))
+            !in_array($_SERVER['REMOTE_ADDR'], $this->getUser()->getCompte()->get('ip_autorisees')->toArray(true,false))
         ) {
             $this->getUser()->signOut();
             throw new sfError403Exception("Vous n'avez pas le droit d'accéder à cette page");
