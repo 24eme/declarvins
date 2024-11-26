@@ -124,6 +124,15 @@ class acVinCompteActions extends BaseacVinCompteActions {
     }
 
     protected function redirectAfterLogin($url = null) {
+        $isAdmin = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)||$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
+        if ($isAdmin &&
+            $this->getUser()->getCompte()->exist('ip_autorisees') &&
+            $_SERVER['REMOTE_ADDR'] &&
+            !in_array($_SERVER['REMOTE_ADDR'], $this->getUser()->getCompte()->exist('ip_autorisees'))
+        ) {
+            $this->getUser()->signOut();
+            throw new sfError403Exception("Vous n'avez pas le droit d'accéder à cette page");
+        }
         if ($this->isCompteCorrompu()) {
             return $this->redirect('@compte_corrompu');
         }
