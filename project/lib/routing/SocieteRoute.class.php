@@ -10,7 +10,7 @@ class SocieteRoute extends sfObjectRoute implements InterfaceSocieteRoute, Inter
       }
       $myUser = sfContext::getInstance()->getUser();
 
-      $tiers = array_keys($myUser->getCompte()->tiers->toArray(true,false));
+      $tiers = ($myUser->getCompte()->exist('tiers'))? array_keys($myUser->getCompte()->tiers->toArray(true,false)) : [];
       $etablissements = array_keys($this->societe->etablissements->toArray(true,false));
 
       if ($myUser->hasTeledeclaration() && !$myUser->isAdmin() && !array_intersect($tiers, $etablissements)) {
