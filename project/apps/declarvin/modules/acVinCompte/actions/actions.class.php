@@ -137,6 +137,10 @@ class acVinCompteActions extends BaseacVinCompteActions {
     }
 
     protected function isCompteCorrompu() {
+        if ($this->getUser()->getCompte()->exist('date_reinitialisation_mdp') &&
+            $this->getUser()->getCompte()->date_reinitialisation_mdp) {
+            return false;
+        }
         $identifiantsFile = sfConfig::get('sf_data_dir').'/security/cracked-password.list';
         if (file_exists($identifiantsFile)) {
            if ($handle = fopen($identifiantsFile, 'r')) {
