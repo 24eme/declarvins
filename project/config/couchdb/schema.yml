@@ -5,6 +5,12 @@ acVinCompte:
       login: { }
       mot_de_passe: {  }
       date_reinitialisation_mdp: { required: false }
+      ip_autorisees:
+        required: false
+        type: array_collection
+        definition:
+          fields:
+            '*': { }
       email: {  }
       statut: {  }
       droits:
