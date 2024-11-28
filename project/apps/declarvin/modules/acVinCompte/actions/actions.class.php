@@ -125,16 +125,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
     }
 
     protected function redirectAfterLogin($url = null) {
-        $isAdmin = ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)||$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
-        if ($isAdmin &&
-            $this->getUser()->getCompte()->exist('ip_autorisees') &&
-            $_SERVER['REMOTE_ADDR'] &&
-            !in_array($_SERVER['REMOTE_ADDR'], $this->getUser()->getCompte()->get('ip_autorisees')->toArray(true,false))
-        ) {
-            $this->getUser()->signOut();
-            throw new sfError403Exception("Vous n'avez pas le droit d'accéder à cette page");
-        }
-        if ($this->isCompteCorrompu()) {
+        if ($this->getUser()->getCompte()->exist('mdp_faible') && boolval($this->mdp_faible)) {
             return $this->redirect('@compte_corrompu');
         }
         if ($url) {
@@ -144,25 +135,6 @@ class acVinCompteActions extends BaseacVinCompteActions {
             return $this->redirect('@admin');
         }
         return $this->redirect('@tiers');
-    }
-
-    protected function isCompteCorrompu() {
-        if ($this->getUser()->getCompte()->exist('date_reinitialisation_mdp') &&
-            $this->getUser()->getCompte()->date_reinitialisation_mdp) {
-            return false;
-        }
-        $identifiantsFile = sfConfig::get('sf_data_dir').'/security/cracked-password.list';
-        if (file_exists($identifiantsFile)) {
-           if ($handle = fopen($identifiantsFile, 'r')) {
-               while (($id = fgets($handle)) !== false) {
-                   if (trim($id) == trim($this->getUser()->getCompte()->login)) {
-                       return true;
-                   }
-               }
-               fclose($handle);
-           }
-       }
-       return false;
     }
 
     /**
