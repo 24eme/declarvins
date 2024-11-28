@@ -47,7 +47,9 @@ abstract class acVinCompte extends BaseacVinCompte
         $salt = pack("CCCC", mt_rand(), mt_rand(), mt_rand(), mt_rand());
         $hash = "{SSHA}" . base64_encode(pack("H*", sha1($mot_de_passe . $salt)) . $salt);        
         $this->_set('mot_de_passe', $hash);
-        $this->add('date_reinitialisation_mdp', date('Y-m-d'));
+        if ($this->exist('mdp_faible') && boolval($this->mdp_faible)) {
+            $this->mdp_faible = false;
+        }
     }
     
 	public function constructId() 
