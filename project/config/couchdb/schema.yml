@@ -4,7 +4,7 @@ acVinCompte:
     fields:
       login: { }
       mot_de_passe: {  }
-      date_reinitialisation_mdp: { required: false }
+      mdp_faible: { required: false }
       ip_autorisees:
         required: false
         type: array_collection
