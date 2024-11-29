@@ -125,7 +125,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
     }
 
     protected function redirectAfterLogin($url = null) {
-        if ($this->getUser()->getCompte()->exist('mdp_faible') && boolval($this->mdp_faible)) {
+        if ($this->getUser()->getCompte()->exist('mdp_faible') && boolval($this->getUser()->getCompte()->mdp_faible)) {
             return $this->redirect('@compte_corrompu');
         }
         if ($url) {
