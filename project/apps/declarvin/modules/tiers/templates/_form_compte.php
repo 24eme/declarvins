@@ -58,7 +58,12 @@
 			    <?php echo $form['mdp1']->render() ?>
 			    <?php echo $form['mdp1']->renderError() ?>
 			</div>
-			
+
+			<div class="ligne_form">
+			    <label>&nbsp;</label>
+                <?php include_partial('global/stronger_password', ['inputPasswordTarget' => $form['mdp1']->renderId()]) ?>
+            </div>
+
 			<div class="ligne_form">
 			    <?php echo $form['mdp2']->renderLabel() ?>
 			    <?php echo $form['mdp2']->render() ?>

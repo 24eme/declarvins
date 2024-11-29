@@ -105,6 +105,13 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
         if (!$compte) {
             throw new sfException('compte does not exist');
         }
+        if (
+            $compte->exist('ip_autorisees') &&
+            $_SERVER['REMOTE_ADDR'] &&
+            !in_array($_SERVER['REMOTE_ADDR'], $compte->get('ip_autorisees')->toArray(true,false))
+        ) {
+            throw new sfError403Exception("Restriction par adresse IP : Votre adresse IP ".$_SERVER['REMOTE_ADDR']." n'est pas autorisée à se connecter au compte $cas_user");
+        }
         $this->addCredential(self::CREDENTIAL_COMPTE);
         $this->signInCompte($compte);
         $this->setAuthenticated(true);

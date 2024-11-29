@@ -3,12 +3,13 @@
 	<p>Votre compte est désormais actif. Vous pouvez profiter pleinement des services offerts par la plateforme <a href="<?php echo url_for('ac_vin_login') ?>" class="lien_declarvin">Declarvins.net</a>.</p>
 	<p>Pensez à bien conserver votre identifiant et votre mot de passe. Ils sont uniques, confidentiels et les seuls valables pour votre entreprise.</p>
 	<p>Les administrateurs du site n'y ont pas accès et vous devrez en régénérer un en cas de perte.</p><br />
-	
+
 	<p><a href="<?php echo url_for('tiers') ?>">Cliquez ici pour revenir sur la plateforme Declarvins.net.</a></p><br />
-	
+
 	<p>Bonne navigation.</p><br />
 	<p>L'équipe Declarvins.net</p>
 	<?php else: ?>
+    <div id="compteModification">
 	<form id="creation_compte" method="post" action="<?php echo url_for('compte_nouveau', array('nocontrat' => $contrat->no_contrat)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
@@ -31,6 +32,10 @@
 				<?php echo $form['mdp1']->renderLabel() ?>
 				<?php echo $form['mdp1']->render() ?>
 			</div>
+            <div class="ligne_form">
+                <label>&nbsp;</label>
+                <?php include_partial('global/stronger_password', ['inputPasswordTarget' => $form['mdp1']->renderId()]) ?>
+            </div>
 			<div class="ligne_form">
 				<?php echo $form['mdp2']->renderError() ?>
 				<?php echo $form['mdp2']->renderLabel() ?>
@@ -42,5 +47,6 @@
 			<button type="submit" class="btn_valider"><span>Valider</span></button>
 		</div>
 	</form>
+    </div>
 	<?php endif; ?>
 </section>
