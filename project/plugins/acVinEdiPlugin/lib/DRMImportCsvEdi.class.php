@@ -253,6 +253,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                         if ($this->drm->exist($produitReserve->getHash())) {
                             $produitAddReserve = $this->drm->get($produitReserve->getHash());
                             $produitAddReserve->add('reserve_interpro', $produitReserve->getReserveInterpro());
+                            if ($produitReserve->hasCapaciteCommercialisation()) {
+                                $produitAddReserve->add('reserve_interpro_capacite_commercialisation', $produitReserve->getCapaciteCommercialisation());
+                            }
+                            if ($produitReserve->hasSuiviSortiesChais()) {
+                                $vol = (substr($this->drm->periode, -2) == 12)? 0 : round($produitReserve->getSuiviSortiesChais() + $produitReserve->getVolumeSortieChai(), 2);
+                                $produitAddReserve->add('reserve_interpro_suivi_sorties_chais', $vol);
+                            }
                         }
                     }
                 }
