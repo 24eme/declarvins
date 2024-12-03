@@ -53,4 +53,38 @@ trait ReserveInterpro
         }
         return array_key_first($details->toArray(true,false));
     }
+
+    public function hasCapaciteCommercialisation()
+    {
+        return $this->exist('reserve_interpro_capacite_commercialisation');
+    }
+
+    public function getCapaciteCommercialisation()
+    {
+        if ($this->hasCapaciteCommercialisation()) {
+            return $this->_get('reserve_interpro_capacite_commercialisation');
+        }
+        return 0;
+    }
+
+    public function hasSuiviSortiesChais()
+    {
+        return $this->exist('reserve_interpro_suivi_sorties_chais');
+    }
+
+    public function getSuiviSortiesChais()
+    {
+        if ($this->hasSuiviSortiesChais()) {
+            return $this->_get('reserve_interpro_suivi_sorties_chais');
+        }
+        return 0;
+    }
+
+    public function updateSuiviSortiesChais()
+    {
+        if ($this->hasCapaciteCommercialisation()) {
+            $vol = (substr($this->getDocument()->periode, -2) == 12)? 0 : round($this->getSuiviSortiesChais() + $this->getVolumeSortieChai(), 2);
+            $this->add('reserve_interpro_suivi_sorties_chais', $vol);
+        }
+    }
 }
