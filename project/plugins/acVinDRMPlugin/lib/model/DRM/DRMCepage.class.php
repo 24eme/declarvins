@@ -158,4 +158,12 @@ class DRMCepage extends BaseDRMCepage {
             return null;
         }
     }
+
+    public function getVolumeSortieChai() {
+        $volume = 0;
+        foreach($this->getDetails() as $detail) {
+            $volume += $detail->getVolumeSortieChai();
+        }
+        return round($volume, 5);
+    }
 }
