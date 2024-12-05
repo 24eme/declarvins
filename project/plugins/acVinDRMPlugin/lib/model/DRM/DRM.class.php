@@ -13,11 +13,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected $version_document = null;
     protected $suivante = null;
     protected static $mvtsSurveilles = array(
+        'Récolte / revendication' => 'entrees/recolte',
         'Entrée replacement en suspension CRD' => 'entrees/crd',
         'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
         'Sortie autres' => 'sorties/pertes',
         'Mvt. temporaire : Embouteillage' => 'sorties/embouteillage',
         'Mvt. temporaire : Travail à façon' => 'sorties/travail'
+    );
+    protected static $mvtsSurveillesHashConstraint = array(
+        'entrees/recolte' => ["appellations/CVG/mentions/DEFAUT/lieux/LAU"]
     );
 
     public function __construct() {
