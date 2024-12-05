@@ -1867,7 +1867,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       foreach ($this->getDetails($interpro) as $detail) {
           foreach(self::$mvtsSurveilles as $mvtLibelle => $mvtHash) {
               if ($detail->get($mvtHash) > 0) {
-                  $volumes[$detail->getFormattedLibelle().' - '.$mvtLibelle] = $detail->get($mvtHash);
+                  if (isset(self::$mvtsSurveillesHashConstraint[$mvtHash])) {
+                      $add = !empty(array_filter(self::$mvtsSurveillesHashConstraint[$mvtHash], fn($term) => strpos($detail->getHash(), $term) !== false));
+                  } else {
+                      $add = true;
+                  }
+                  if ($add) {
+                      $volumes[$detail->getFormattedLibelle().' - '.$mvtLibelle] = $detail->get($mvtHash);
+                  }
               }
           }
       }
