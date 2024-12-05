@@ -75,7 +75,7 @@
 <?php endif; ?>
 	  </entrees-capsules>
 <?php endif; ?>
-<?php if ($crd->sorties->utilisees || $crd->sorties->detruites || $crd->sorties->manquantes || $crd->entrees->autres): ?>
+<?php if ($crd->sorties->utilisees || $crd->sorties->detruites || $crd->sorties->manquantes || $crd->sorties->autres): ?>
 	  <sorties-capsules>
 <?php if ($crd->sorties->utilisees): ?>
 	    <utilisations><?php echo $crd->sorties->utilisees ?></utilisations>
