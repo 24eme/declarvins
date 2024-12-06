@@ -230,7 +230,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
               $produit->libelle = $complement_libelle;
     		}
 
-      		if ($isAutre) {
+      		if ($isAutre||($idDouane && $idDouane != $configurationProduit->getIdentifiantDouane())) {
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
 
