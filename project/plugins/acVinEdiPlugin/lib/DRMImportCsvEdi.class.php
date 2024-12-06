@@ -123,10 +123,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
     		$configurationProduit = null;
     		$isAutre = false;
+            $idDouane = $this->getIdDouane($datas);
             if (isset($this->cacheConfProduit[$this->getCacheKeyFromData($datas)])) {
                 $configurationProduit = $this->cacheConfProduit[$this->getCacheKeyFromData($datas)];
             }
-    		if (!$configurationProduit && ($idDouane = $this->getIdDouane($datas))) {
+    		if (!$configurationProduit && $idDouane) {
               $lp = '';
               $s = strpos($libelle, '(');
               $e = strpos($libelle, ')');
@@ -143,7 +144,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
     		}
 
-    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && $libelle) {
+    		if((!$configurationProduit) && $idDouane && $libelle) {
     		    $default_produit_hash = $this->configuration->getDefaultProduitHash($idDouane);
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
@@ -229,7 +230,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
               $produit->libelle = $complement_libelle;
     		}
 
-      		if ($isAutre||($idDouane && $idDouane != $configurationProduit->getIdentifiantDouane())) {
+      		if ($isAutre) {
       		    $produit->add('inao', $this->getIdDouane($datas));
       		}
 
