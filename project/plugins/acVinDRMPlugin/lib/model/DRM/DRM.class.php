@@ -241,10 +241,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return null;
     }
 
-    public function getProduitsByIdDouaneAndStockDebut($idDouane, $stockDebut, $acq = false) {
+    public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $stockDebut, $acq = false) {
         $produits = [];
         $droit = ($acq)? 'acq_total_debut_mois' : 'total_debut_mois';
         foreach ($this->getDetails() as $detail) {
+            if ($libelle && trim($libelle) != trim($detail->libelle)) {
+                continue;
+            }
             if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($droit), 5)) {
                 $produits[] = $detail;
             }
