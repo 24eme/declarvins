@@ -81,7 +81,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     public function createCacheProduits() {
         $numLigne = 0;
         $this->cache = array();
-        //$cache2datas = array();
         if($this->drm->canSetStockDebutMois()){
             $this->drm->remove("declaration");
             $this->drm->add("declaration");
@@ -124,10 +123,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
     		$configurationProduit = null;
     		$isAutre = false;
+            $idDouane = $this->getIdDouane($datas);
             if (isset($this->cacheConfProduit[$this->getCacheKeyFromData($datas)])) {
                 $configurationProduit = $this->cacheConfProduit[$this->getCacheKeyFromData($datas)];
             }
-    		if (!$configurationProduit && ($idDouane = $this->getIdDouane($datas))) {
+    		if (!$configurationProduit && $idDouane) {
               $lp = '';
               $s = strpos($libelle, '(');
               $e = strpos($libelle, ')');
@@ -144,7 +144,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
     		}
 
-    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && $libelle) {
+    		if((!$configurationProduit) && $idDouane && $libelle) {
     		    $default_produit_hash = $this->configuration->getDefaultProduitHash($idDouane);
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
@@ -230,21 +230,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
               $produit->libelle = $complement_libelle;
     		}
 
-      		if ($isAutre||($idDouane && $idDouane != $configurationProduit->getIdentifiantDouane())) {
-      		    $produit->add('inao', $this->getIdDouane($datas));
+      		if ($idDouane && ($isAutre||$idDouane != $produit->getIdentifiantDouane())) {
+      		    $produit->add('inao', $idDouane);
       		}
 
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
-            //echo $produit->getHash().' - '.$produit->getLibelle().' - '.$produit->getIdentifiantDouane().' - '.$produit->getTotalDebutMois()."\n";
-            /*$cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
-            $cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME] = $this->floatize($cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME]);
-            $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
-            $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
-            $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
-            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $produit->libelle;
-      		if ($isAutre) {
-                $cache2datas[$this->getCacheKeyFromData($datas)]['inao'] = $this->getIdDouane($datas);
-      		}*/
         }
         if($this->drm->canSetStockDebutMois()) {
             if ($this->drmPrecedente) {
@@ -265,111 +255,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 }
             }
         }
-        /*
-        //on prépare les vérifications
-        $check = array();
-        foreach ($this->cache as $cacheid => $produit) {
-            if (!isset($check[$produit->getHash()])) {
-                $check[$produit->getHash()] = array();
-            }
-            $check[$produit->getHash()][$cacheid] = 1;
-        }
-        // Cas d'un nouveau produit avec label ou complement et où un produit DEFAUT existe
-
-        foreach ($check as $hash => $array) {
-            if (count($array) <= 1) {
-                continue;
-            }
-            ksort($array);
-            $isfirst = true;
-            $typeDroit = null;
-            foreach($array as $cacheid => $null) {
-                if ($isfirst) {
-                    $isfirst = false;
-                    $typeDroit =  $cache2datas[$cacheid][13];
-                    continue;
-                }
-                if ($typeDroit != $cache2datas[$cacheid][13]) {
-                    continue;
-                }
-                $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['complement_libelle']);
-                $p->libelle = $cache2datas[$cacheid]['libelle'];
-                if (isset($cache2datas[$cacheid]['inao'])) {
-              		    $p->add('inao', $cache2datas[$cacheid]['inao']);
-                }
-                $this->cache[$cacheid] = $p;
-            }
-        }
-        //Préparation du repérage de changement de hash sur la base du stock de la DRM précédente
-        $noeuds = array();
-        foreach ($this->cache as $cacheid => $produit) {
-            if (!isset($noeuds[$produit->getLieu()->getHash()])) {
-                $noeuds[$produit->getLieu()->getHash()] = array();
-            }
-            $noeuds[$produit->getLieu()->getHash()][$cacheid] = 1;
-        }
-        //gestion des multidetails
-        foreach($noeuds as $hash => $array_cache) {
-            $volume2hash = array();
-            if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash) && !$this->drm->canSetStockDebutMois()) {
-                foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
-                    foreach(array("total", "acq_total") as $totalKey) {
-                        $total_fin_mois = self::floatizeVal($d->get($totalKey) * 1);
-                        if (!$total_fin_mois) {
-                            continue;
-                        }
-                        if (!isset($volume2hash["$total_fin_mois"])) {
-                            $volume2hash["$total_fin_mois"] = array();
-                        }
-                        $volume2hash["$total_fin_mois"][$d->getHash()] = 1;
-                    }
-                }
-            }
-            foreach($array_cache as $cacheid => $null)  {
-                $total_debut_mois = self::floatizeVal($cache2datas[$cacheid][self::CSV_CAVE_VOLUME] * 1);
-                if (!$total_debut_mois) {
-                    continue;
-                }
-                if (!isset($volume2hash["$total_debut_mois"]))  {
-                    continue;
-                }
-                if (isset($volume2hash["$total_debut_mois"][$this->cache[$cacheid]->getHash()])) {
-                    continue;
-                }
-                if (count(array_keys($volume2hash["$total_debut_mois"])) > 1) {
-                    $current_cepage_hash = $this->cache[$cacheid]->getCepage()->getHash();
-                    $nb = 0;
-                    foreach(array_keys($volume2hash["$total_debut_mois"]) as $a_hash_volume) {
-                        if (preg_replace('/.details.[^\/]*$/', '', $a_hash_volume) == $current_cepage_hash) {
-                            $nb++;
-                            $new_hash = $a_hash_volume;
-                        }
-                    }
-                    if (!$nb) {
-                        throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.$this->cache[$cacheid]->getHash());
-                    }
-                    unset($volume2hash["$total_debut_mois"][$new_hash]);
-                }else{
-                    $new_hashes = array_keys($volume2hash["$total_debut_mois"]);
-                    $new_hash = array_shift($new_hashes);
-                    unset($volume2hash["$total_debut_mois"][$new_hash]);
-                }
-                if ($this->drmPrecedente ==! null) {
-                    if (!$this->drmPrecedente->exist($this->cache[$cacheid]->getCepage()->getHash())
-                        || !$this->drmPrecedente->get($this->cache[$cacheid]->getCepage()->getHash())->details->exist($this->cache[$cacheid]->getKey())
-                    ) {
-                        $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
-                    }
-                }
-                $p = $this->drm->getOrAdd($new_hash);
-                $p->libelle = $cache2datas[$cacheid]['libelle'];
-                $p->labels = array($cache2datas[$cacheid]['label']);
-                if (isset($cache2datas[$cacheid]['inao'])) {
-              		    $p->add('inao', $cache2datas[$cacheid]['inao']);
-                }
-                $this->cache[$cacheid] = $p;
-            }
-        }*/
     }
 
     public function getProduitFromCache($datas) {
