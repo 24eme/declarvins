@@ -755,4 +755,13 @@ class DRMDetail extends BaseDRMDetail {
       }
       return false;
     }
+
+    public function getVolumeSortieChai() {
+        $mvts = ['vrac', 'vrac_export', 'export', 'factures', 'crd', 'crd_acquittes', 'consommation'];
+        $volume = 0;
+        foreach ($mvts as $mvt) {
+            $volume += $this->sorties->get($mvt);
+        }
+        return round($volume, 5);
+    }
 }

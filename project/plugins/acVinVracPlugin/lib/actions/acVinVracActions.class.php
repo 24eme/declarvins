@@ -640,7 +640,7 @@ class acVinVracActions extends sfActions
             }
             $result[$c->id]['numero'] = $c->value[VracHistoryView::VRAC_VIEW_NUM];
             $result[$c->id]['acheteur'] = $c->value[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM];
-            $result[$c->id]['code_douane'] = ($conf && $conf->exist('inao'))? trim($conf->inao) : '';
+            $result[$c->id]['code_douane'] = ($conf && $conf->exist('inao'))? substr(trim($conf->inao), 0, 5) : '';
             $result[$c->id]['produit'] = $c->value[VracHistoryView::VRAC_VIEW_PRODUIT_ID];
             $result[$c->id]['volume'] = $c->value[VracHistoryView::VRAC_VIEW_VOLPROP];
         }

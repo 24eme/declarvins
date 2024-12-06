@@ -53,7 +53,17 @@
                 <?php include_partial('shortcutKeys') ?>
 
                 <?php foreach ($drm->getProduitsReserveInterpro($drm_lieu->getHash()) as $p): ?>
-                    <p style="text-align:center;border:1px solid red;padding:5px;margin:5px;"><?php if (!$p->getReserveInterpro()): ?>Réserve de <?php echo $p->getLibelle(); ?> libérée<?php else: ?>Votre volume de <?php echo $p->getLibelle(); ?> mis en réserve est de : <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl<?php endif; ?></p>
+                    <p style="text-align:center;border:1px solid red;padding:5px;margin:5px;">
+                        <?php if (!$p->getReserveInterpro()): ?>
+                            Réserve de <?php echo $p->getLibelle(); ?> libérée
+                        <?php else: ?>
+                            Votre volume de <?php echo $p->getLibelle(); ?> mis en réserve est de : <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl
+                        <?php endif; ?>
+                        <?php if ($p->hasCapaciteCommercialisation()): ?>
+                            <br />Capacité de commercialisation : <strong><?php echoFloat($p->getCapaciteCommercialisation()); ?></strong>&nbsp;hl
+                            <br />Sorties de chai depuis le 01/12 : <strong><?php echoFloat($p->getSuiviSortiesChais()); ?></strong>&nbsp;hl
+                        <?php endif; ?>
+                    </p>
                 <?php endforeach; ?>
 
                 <?php include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu,
