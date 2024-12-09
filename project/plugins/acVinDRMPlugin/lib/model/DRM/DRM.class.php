@@ -242,17 +242,26 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $stockDebut) {
-        $inaoProduits = [];
+        $inaoLibelleProduits = [];
         $libelleProduits = [];
+        $inaoProduits = [];
         foreach ($this->getDetails() as $detail) {
-            if (trim($libelle) == trim($detail->libelle) && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
-                $inaoProduits[] = $detail;
+            if (strpos(trim($libelle), trim($detail->libelle)) !== false && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+                $inaoLibelleProduits[] = $detail;
             }
-            if (trim($libelle) == trim($detail->libelle) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+            if (strpos(trim($libelle), trim($detail->libelle)) !== false && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
                 $libelleProduits[] = $detail;
             }
+            if (strpos(trim($libelle), trim($detail->libelle)) !== false && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+                $inaoProduits[] = $detail;
+            }
         }
-        return ($inaoProduits)? $inaoProduits : $libelleProduits;
+        if ($inaoLibelleProduits) {
+            return $inaoLibelleProduits;
+        } elseif ($libelleProduits) {
+            return $libelleProduits;
+        }
+        return $inaoProduits;
     }
 
     public function getDetailsVracSansContrat() {
