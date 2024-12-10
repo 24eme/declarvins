@@ -80,6 +80,13 @@ EOF;
             }
 		}
   		$this->logSection('vrac-expiration', 'Expiration du contrat '.$vrac->_id);
+        if ($vrac->hasVersion()) {
+        	if ($mother = $vrac->getMother()) {
+        		$mother->referente = 1;
+        		$mother->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+        		$mother->save();
+        	}
+        }
   		$vrac->delete();
   	}
   }
