@@ -541,8 +541,8 @@ class DRMDetail extends BaseDRMDetail {
             $mouvement->facture = 0;
             $mouvement->interpro = $this->interpro;
             $etablissement = $this->getDocument()->getEtablissementObject();
-            if ($etablissement && ($societe = $etablissement->getSociete())) {
-                $mouvement->region = $societe->getRegionViticole();
+            if ($etablissement) {
+                $mouvement->region = $etablissement->getRegion();
             } else {
                 $mouvement->region = EtablissementClient::REGION_HORS_CVO;
             }
