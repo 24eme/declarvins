@@ -83,7 +83,7 @@ trait ReserveInterpro
     public function updateSuiviSortiesChais()
     {
         if ($this->hasCapaciteCommercialisation()) {
-            $vol = (substr($this->getDocument()->periode, -2) == 12)? 0 : round($this->getSuiviSortiesChais() + $this->getVolumeSortieChai(), 2);
+            $vol = round($this->getSuiviSortiesChais() + $this->getVolumeSortieChai(), 2);
             $this->add('reserve_interpro_suivi_sorties_chais', $vol);
         }
     }
