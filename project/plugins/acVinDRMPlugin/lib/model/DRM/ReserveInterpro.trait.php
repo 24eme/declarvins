@@ -38,6 +38,7 @@ trait ReserveInterpro
         foreach ($this->getOrAdd('reserve_interpro_details') as $millesime => $volume) {
             $volumeTotalEnReserve += $volume;
         }
+        $this->getOrAdd('reserve_interpro');
         $this->_set('reserve_interpro', round($volumeTotalEnReserve, 5));
     }
 
