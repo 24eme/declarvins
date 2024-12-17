@@ -53,17 +53,23 @@
                 <?php include_partial('shortcutKeys') ?>
 
                 <?php foreach ($drm->getProduitsReserveInterpro($drm_lieu->getHash()) as $p): ?>
-                    <p style="text-align:center;border:1px solid red;padding:5px;margin:5px;">
-                        <?php if (!$p->getReserveInterpro()): ?>
-                            Réserve de <?php echo $p->getLibelle(); ?> libérée
-                        <?php else: ?>
-                            Votre volume de <?php echo $p->getLibelle(); ?> mis en réserve est de : <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl
-                        <?php endif; ?>
+                    <table style="width:100%; border:1px solid red;margin: 5px 0;">
+                        <tr>
+                            <td <?php if ($p->hasCapaciteCommercialisation()): ?>rowspan="3"<?php endif; ?> style="vertical-align : middle;text-align:center;"><strong><?php echo $p->getLibelle(); ?></strong></td>
+                            <td align="right" style="padding: 5px;">
+                                <?php if (!$p->getReserveInterpro()): ?>
+                                    Réserve libérée
+                                <?php else: ?>
+                                    Volume  mis en réserve : <strong><?php echoLongFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+
                         <?php if ($p->hasCapaciteCommercialisation()): ?>
-                            <br />Capacité de commercialisation : <strong><?php echoFloat($p->getCapaciteCommercialisation()); ?></strong>&nbsp;hl
-                            <br />Sorties de chai depuis le 01/12 : <strong><?php echoFloat($p->getSuiviSortiesChais()); ?></strong>&nbsp;hl
+                            <tr><td align="right" style="padding: 0 5px;">Capacité de commercialisation : <strong><?php echoLongFloat($p->getCapaciteCommercialisation()); ?></strong>&nbsp;hl</td></tr>
+                            <tr><td align="right" style="padding: 5px;">Sorties de chai depuis le 01/12/24 : <strong><?php echoLongFloat($p->getSuiviSortiesChais()); ?></strong>&nbsp;hl</td></tr>
                         <?php endif; ?>
-                    </p>
+                    </table>
                 <?php endforeach; ?>
 
                 <?php include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu,
