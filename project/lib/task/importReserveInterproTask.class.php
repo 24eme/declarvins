@@ -13,6 +13,7 @@ class importReserveInterproTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('checking', null, sfCommandOption::PARAMETER_REQUIRED, 'Cheking mode', 0),
+      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'interpro'),
     ));
 
     $this->namespace        = 'import';
@@ -33,9 +34,15 @@ EOF;
 
     $csvFile = $arguments['csvFile'];
     $checkingMode = $options['checking'];
+    $interpro = 'INTERPRO-'.str_replace('INTERPRO-', '', strtoupper($options['interpro']));
+
+    if (!$interpro) {
+        echo "interpro required\n";
+        return;
+    }
 
     if (!file_exists($csvFile)) {
-        echo "file doesn't exist";
+        echo "file doesn't exist\n";
         return;
     }
 
@@ -44,11 +51,27 @@ EOF;
         $cvi = str_pad(trim($datas[0]), 10, "0", STR_PAD_LEFT);
         $identifiant = $datas[1];
         $hash = $datas[2];
-        $volume = str_replace(',', '.', $datas[3])*1;
-        $etablissement = $conf->identifyEtablissement($cvi);
+        $millesime = $datas[3];
+        $volume = (trim($datas[4]))? round(str_replace(',', '.', trim($datas[4]))*1, 5) : null;
+        $capaciteCom = (isset($datas[5]))? round(str_replace(',', '.', trim($datas[5]))*1, 5) : null;
+
+        if (!$volume) {
+            continue;
+        }
+
+        $etablissement = ($cvi)? $conf->identifyEtablissement($cvi) : null;
         if (!$etablissement) {
-            if (strpos($identifiant, '-') === false) {
-                $identifiant .= '-01';
+            if (strpos($identifiant, 'CIVP') === false && strpos($identifiant, '-') === false) {
+                $ids = DRMReserveInterproView::getInstance()->identifyEtablissement("INTERPRO-IR", $identifiant);
+                if (count($ids) > 1) {
+                    echo "etablissement unidentifiable $identifiant ($cvi)\n";
+                    continue;
+                }
+                if (!$ids) {
+                    $identifiant .= '-01';
+                } else {
+                    $identifiant = $ids[0];
+                }
             }
             $etablissement = EtablissementClient::getInstance()->find($identifiant);
         }
@@ -59,27 +82,23 @@ EOF;
 
         $historique = new DRMHistorique($etablissement->identifiant);
         $lastDRM = $historique->getLastDRM();
-        $prevDRM = null;
+        $drms = [$lastDRM];
         if (!$lastDRM->isValidee()) {
-            $prevDRM = $historique->getPreviousDRM($lastDRM->getPeriode());
-            if ($prevDRM->exist($hash)) {
-                $produit = $prevDRM->get($hash);
-                $produit->add('reserve_interpro', $volume);
-                $prevDRM->save();
-                if (!$checkingMode) echo $prevDRM->_id." add reserve $volume hl\n";
+            $drms[] = $historique->getPreviousDRM($lastDRM->getPeriode());
+        }
+        foreach ($drms as $drm) {
+            if ($drm->exist($hash)) {
+                $produit = $drm->get($hash);
+                $produit->setReserveInterpro($volume, $millesime);
+                if ($capaciteCom) {
+                    $produit->add('reserve_interpro_capacite_commercialisation', $capaciteCom);
+                }
+                if (!$checkingMode) $drm->save();
+                echo $drm->_id." add reserve $millesime : $volume hl for $hash\n";
             } else {
-                echo $prevDRM->_id." produit manquant $hash\n";
+                echo $drm->_id." produit manquant $hash\n";
             }
         }
-        if ($lastDRM->exist($hash)) {
-            $produit = $lastDRM->get($hash);
-            $produit->add('reserve_interpro', $volume);
-            if (!$checkingMode) $lastDRM->save();
-            echo $lastDRM->_id." add reserve $volume hl\n";
-        } else {
-            echo $lastDRM->_id." produit manquant $hash\n";
-        }
     }
-
   }
 }
