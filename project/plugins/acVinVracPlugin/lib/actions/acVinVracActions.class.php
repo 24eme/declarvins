@@ -634,6 +634,9 @@ class acVinVracActions extends sfActions
         $confProduit = ConfigurationProduitClient::getInstance()->getByInterpro('IVSE');
         $result= array();
         foreach($contrats as $c){
+            if ($c->value[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'vrac') {
+                continue;
+            }
             $conf = $confProduit->getProduits($c->value[VracHistoryView::VRAC_VIEW_PRODUIT_ID]);
             if ($conf && count($conf) > 0) {
                 $conf = array_values($conf)[0];
