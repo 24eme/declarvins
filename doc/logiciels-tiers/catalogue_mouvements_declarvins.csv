@@ -51,9 +51,11 @@ acquitte,complement,observation,Observation d'un produit
 crd,entrees,achats,Mouvement pour la partie CRD
 crd,entrees,excedents,Mouvement pour la partie CRD
 crd,entrees,retours,Mouvement pour la partie CRD
+crd,entrees,autres,Mouvement pour la partie CRD
 crd,sorties,utilisees,Mouvement pour la partie CRD
 crd,sorties,detruites,Mouvement pour la partie CRD
 crd,sorties,manquantes,Mouvement pour la partie CRD
+crd,sorties,autres,Mouvement pour la partie CRD
 crd,stocks,total_debut_mois,Stock pour la partie CRD
 crd,stocks,total_fin_mois,Stock pour la partie CRD
 annexe,empreinte,debut,Début de période du numéro d'empreinte utilisé
