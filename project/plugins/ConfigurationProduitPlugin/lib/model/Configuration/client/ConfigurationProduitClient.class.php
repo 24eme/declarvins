@@ -36,7 +36,7 @@ class ConfigurationProduitClient extends acCouchdbClient
 	
 	public function getByInterpro($interpro, $date = null)
 	{
-	    $configuration = ConfigurationClient::getCurrent($date);
+	    $configuration = ConfigurationClient::getConfiguration($date);
 	    $i = 'INTERPRO-'.$this->getIdentifiantInterpro($interpro);
 	    if ($configuration->produits->exist($i)) {
 	        return $this->find($configuration->produits->get($i));

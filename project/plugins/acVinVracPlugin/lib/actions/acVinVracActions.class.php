@@ -35,7 +35,7 @@ class acVinVracActions extends sfActions
         $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(true), array('TOUS'))));
 		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
-        $this->configurationProduit = ConfigurationProduitClient::getInstance()->find($this->interpro->configuration_produits);
+        $this->configurationProduit = ConfigurationProduitClient::getInstance()->getByInterpro($this->interpro->_id);
 
         $this->vracs = array();
 
