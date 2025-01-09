@@ -237,6 +237,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && strtoupper($idcomplement) == strtoupper($detail->getKey())) {
                 return $detail;
             }
+            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && KeyInflector::slugify($complement_libelle) == KeyInflector::slugify($detail->getLibelle())) {
+                return $detail;
+            }
         }
         return null;
     }
