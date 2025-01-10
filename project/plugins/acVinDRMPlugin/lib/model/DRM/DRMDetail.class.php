@@ -764,4 +764,8 @@ class DRMDetail extends BaseDRMDetail {
         }
         return round($volume, 5);
     }
+
+    public function isVin() {
+        return in_array($this->getCertification()->getKey(), ['AOP', 'IGP', 'VINSSANSIG', 'AOC']);
+    }
 }
