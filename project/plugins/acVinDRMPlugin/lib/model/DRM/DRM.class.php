@@ -244,11 +244,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return null;
     }
 
-    public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $stockDebut) {
+    public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $label, $stockDebut) {
         $inaoLibelleProduits = [];
         $libelleProduits = [];
         $inaoProduits = [];
         foreach ($this->getDetails() as $detail) {
+            if ($label && !in_array($label, $detail->labels->toArray(true,false)) {
+                continue;
+            }
             if (strpos(trim($libelle), trim($detail->libelle)) !== false && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
                 $inaoLibelleProduits[] = $detail;
             }
@@ -395,9 +398,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees()), $droitCvo->taux, 0, $droitCvo->libelle);
             }
             if ($droitDouane) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $droitDouane->libelle, $detail->tav);
+                $tav = (!$detail->isVin())? $detail->tav : null;
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $droitDouane->libelle, $tav);
                 $codeTotal = DRMDroitsCirculation::getCorrespondanceCode($droitDouane->code).'_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL;
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $codeTotal, $detail->tav);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $codeTotal, $tav);
             }
         }
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);
