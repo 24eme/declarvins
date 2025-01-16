@@ -47,9 +47,6 @@ streamTransactionEdi:
 streamVracEtablissementEdi:
   url: /edi/etablissement/vrac/:etablissement/:datedebut
   param: {module: edi, action: streamVracEtablissement, datedebut: null}
-streamDAIDSEdi:
-  url: /edi/daids/:interpro/:datedebut
-  param: {module: edi, action: streamDAIDS}
 streamStatistiquesBilanDrm:
   url: /edi/statistiques-bilan-drm/:interpro/:campagne
   param: {module: edi, action: streamStatistiquesBilanDrm}

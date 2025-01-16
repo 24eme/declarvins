@@ -68,25 +68,6 @@ class ediActions extends sfActions
     }
   }
 
-  public function executeStreamDAIDS(sfWebRequest $request)
-  {
-  	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);
-    $date = $request->getParameter('datedebut');
-    $interpro = $request->getParameter('interpro');
-    $this->securizeInterpro($interpro);
-    if (!$date) {
-		return $this->renderText("Pas de date définie");
-    }
-    if (!preg_match('/^INTERPRO-/', $interpro)) {
-		$interpro = 'INTERPRO-'.$interpro;
-    }
-    $dateTime = new DateTime($date);
-    $dateForView = new DateTime($date);
-    $daids = DAIDSDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'));
-    return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, "DAIDS", $dateTime->format('c'), $interpro, array(DAIDSDateView::VALUE_IDENTIFIANT_DECLARANT));
-  }
-
   public function executeStreamVrac(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
