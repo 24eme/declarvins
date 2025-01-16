@@ -18,7 +18,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
     <tbody>
         <?php foreach ($produits as $p) : ?>
                     <tr>
-                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?><?php if (!$p->hasReserveInterproMultiMillesime()): ?> - <span style="opacity:80%; font-size:95%;">régulation <?php echo $p->getMillesimeForReserveInterpro() ?> / <?php echo $p->getMillesimeForReserveInterpro()+1 ?></span><?php endif; ?></td>
+                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?><?php if (!$p->hasReserveInterproMultiMillesime()): ?> - <span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation() ?></span><?php endif; ?></td>
                         <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
                         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve) && !$p->hasReserveInterproMultiMillesime()): ?>
                         <td style="background: #f1f1f1;border: none;text-align: left;">
@@ -39,8 +39,8 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                             </svg>
                                         </a>
                                     </p>
-                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> régulation  <strong><?php echo $p->getMillesimeForReserveInterpro() ?> / <?php echo $p->getMillesimeForReserveInterpro()+1 ?></strong> est de <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</p>
-                                    <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve pour la régulation <?php echo $p->getMillesimeForReserveInterpro() ?> / <?php echo $p->getMillesimeForReserveInterpro()+1 ?> : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
+                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation() ?> est de <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</p>
+                                    <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $p->printMillesimeOrRegulation() ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
                                     <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                 </form>
                             </dialog>
@@ -49,7 +49,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                     </tr>
                     <?php if ($p->hasReserveInterproMultiMillesime()): foreach ($p->getReserveInterproDetails() as $millesime => $volume): ?>
                         <tr>
-                            <td style="text-align: right"><span style="opacity:80%; font-size:95%;">régulation <?php echo $millesime ?> / <?php echo $millesime+1 ?></span></td>
+                            <td style="text-align: right"><span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation($millesime) ?></span></td>
                             <td style="text-align: right"><?php echoFloat($volume); ?></strong>&nbsp;hl</td>
                             <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>
                             <td style="background: #f1f1f1;border: none;text-align: left;">
@@ -70,8 +70,8 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                                 </svg>
                                             </a>
                                         </p>
-                                        <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> régulation <strong><?php echo $millesime ?> / <?php echo $millesime+1 ?></strong> est de <strong><?php echoFloat($volume); ?></strong>&nbsp;hl</p>
-                                        <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve pour la régulation <?php echo $millesime ?> / <?php echo $millesime+1 ?> : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
+                                        <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation($millesime) ?> est de <strong><?php echoFloat($volume); ?></strong>&nbsp;hl</p>
+                                        <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $p->printMillesimeOrRegulation($millesime) ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
                                         <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                     </form>
                                 </dialog>
