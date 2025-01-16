@@ -314,15 +314,6 @@ DRM:
                                                                                                             total_sorties_interpro: { type: float }
                                                                                                             total_interpro: { type: float }
                                                                                                             interpro: { required: false }
-                                                                                                            reserve_interpro: { required: false }
-                                                                                                            reserve_interpro_details:
-                                                                                                              required: false
-                                                                                                              type: collection
-                                                                                                              definition:
-                                                                                                                fields:
-                                                                                                                  '*': { }
-                                                                                                            reserve_interpro_capacite_commercialisation: { required: false }
-                                                                                                            reserve_interpro_suivi_sorties_chais: { required: false }
                                                                                                             labels:
                                                                                                               type: array_collection
                                                                                                               definition:

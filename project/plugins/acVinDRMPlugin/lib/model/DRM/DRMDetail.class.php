@@ -1,12 +1,9 @@
 <?php
-include_once("ReserveInterpro.trait.php");
 /**
  * Model for DRMDetail
  *
  */
 class DRMDetail extends BaseDRMDetail {
-
-    use ReserveInterpro;
 
     protected $_config = null;
     const START_FACTURATION_MVT_AT = "2022-01-31";
