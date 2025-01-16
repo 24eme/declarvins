@@ -968,15 +968,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return ($annee - 1) . '-' . $annee;
     }
 
-    public function hasDaidsCampagnePrecedente() {
-        $campagne = $this->getCampagnePrecedente();
-        return (DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $campagne)) ? true : false;
-    }
-
-    public function hasDaids() {
-        return (DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $this->campagne)) ? true : false;
-    }
-
     public function getCurrentEtapeRouting() {
         $etape = sfConfig::get('app_drm_etapes_' . $this->etape);
 

@@ -28,8 +28,6 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('acVinDouanePlugin');
 		$this->enablePlugins('EmailPlugin');
 		$this->enablePlugins('acVinDocumentPlugin');
-		$this->enablePlugins('acVinAlertePlugin');
-		$this->enablePlugins('DAIDSPlugin');
 		$this->enablePlugins('acExceptionNotifierPlugin');
         $this->enablePlugins('acElasticaPlugin');
         $this->enablePlugins('ConfigurationProduitPlugin');

@@ -47,7 +47,6 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
     const CREDENTIAL_ACCES_EDI_DRM = 'edi_drm';
     const CREDENTIAL_ACCES_EDI_VRAC = 'edi_vrac';
     const CREDENTIAL_ACCES_EDI_TRANSACTION = 'edi_transaction';
-    const CREDENTIAL_ACCES_EDI_DAIDS = 'edi_daids';
 
     protected $_couchdb_type_namespace_compte= array("CompteTiers" => self::NAMESPACE_COMPTE_TIERS, 
                                                      "CompteProxy" => self::NAMESPACE_COMPTE_PROXY, 

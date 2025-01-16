@@ -31,7 +31,7 @@ endif;
         </td>
     <td style="padding: 5px;">
         <?php if ($drm->isNew()): ?>
-            <?php if (1 == 2 && $drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>
+            <?php if (1 == 2 && $drm->isDebutCampagne()): ?>
                 Vous devez saisir votre <strong>DRM <?php echo $drm->getCampagnePrecedente() ?></strong>
             <?php else: ?>
                 <a data-popup="#popup_selection_dti" class="btn_popup" href="">Démarrer la DRM</a>

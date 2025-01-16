@@ -24,13 +24,6 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
-        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'daids')): ?>
-        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-        <li<?php if ($active == 'daids'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('daids_mon_espace', $etablissement) ?>">DAI/DS</a>
-        </li>
-        <?php endif; ?>
-        <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCEUPLOAD))): ?>
         <li<?php if ($active == 'dsnegoce'): ?> class="actif"<?php endif; ?>>

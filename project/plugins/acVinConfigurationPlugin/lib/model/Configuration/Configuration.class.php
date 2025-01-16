@@ -504,10 +504,6 @@ class Configuration extends BaseConfiguration {
         return $this->vrac->interpro->get($interpro);
     }
 
-    public function getConfigurationDAIDS($interpro) {
-        return $this->daids->interpro->get($interpro);
-    }
-
     public function getAllZones() {
         if (is_null($this->_zones)) {
             $this->_zones = array();

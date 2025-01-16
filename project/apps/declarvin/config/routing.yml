@@ -258,9 +258,6 @@ etablissement_login:
 etablissement_login_subvention:
   url: /admin/etablissements/subvention
   param: {module: admin, action: etablissementSubventionLogin}
-etablissement_login_daids:
-  url: /admin/etablissements/daids
-  param: {module: admin, action: etablissementDAIDSLogin}
 etablissement_profil_login:
   url: /admin/etablissements-profil
   param: {module: admin, action: etablissementProfilLogin}

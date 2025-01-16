@@ -90,27 +90,6 @@ class adminActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
-  public function executeEtablissementDAIDSLogin(sfWebRequest $request)
-  {
-  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('familles' => array("producteur")));
-    if ($request->isMethod(sfWebRequest::POST)) {
-    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
-    		$this->form->bind($request->getParameter('etablissement_selection_nav'));
-    	} else {
-      	$this->form->bind($request->getParameter($this->form->getName()));
-    	}
-
-      if ($this->form->isValid()) {
-        	return $this->redirect("daids_mon_espace", $this->form->getEtablissement());
-      }
-    }
-  }
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
   public function executeEtablissementProfilLogin(sfWebRequest $request)
   {
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();

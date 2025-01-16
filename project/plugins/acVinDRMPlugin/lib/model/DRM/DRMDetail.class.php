@@ -346,18 +346,6 @@ class DRMDetail extends BaseDRMDetail {
         $this->observations = null;
         $this->selecteur = 1;
         $this->pas_de_mouvement_check = 0;
-        if ($nextCampagne != $this->getDocument()->campagne) {
-            $daids = DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getDocument()->identifiant, $this->getDocument()->campagne);
-            if ($daids) {
-                if ($daids->exist($this->getHash())) {
-                    $detailDAIDS = $daids->get($this->getHash());
-                    $this->total_debut_mois = $detailDAIDS->stock_chais;
-                    if ($this->has_vrac) {
-                        $this->total_debut_mois_interpro = $detailDAIDS->stock_chais;
-                    }
-                }
-            }
-        }
 
         $this->remove('cvo');
         $this->add('cvo');
