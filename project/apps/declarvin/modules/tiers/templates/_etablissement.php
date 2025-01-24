@@ -71,6 +71,10 @@
                     <br />
                     <br />
                 </form>
+            <?php else: ?>
+                <ul>
+                    <li>Mois de saisie du stock : <strong><?php $dateFormat = new sfDateFormat('fr_FR'); echo ucfirst($dateFormat->format(date('Y').'-'.$etablissement->getMoisToSetStock().'-01', 'MMMM')); ?></strong>
+                </ul>
 			<?php endif; ?>
 
 		</div>
