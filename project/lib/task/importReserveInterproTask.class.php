@@ -56,7 +56,7 @@ EOF;
         $capaciteCom = (isset($datas[5]))? round(floatval(str_replace(',', '.', trim($datas[5]))), 5) : null;
 
         if (!$volume) {
-            continue;
+            $volume = 0;
         }
 
         $etablissement = ($cvi)? $conf->identifyEtablissement($cvi) : null;
