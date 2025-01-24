@@ -52,8 +52,8 @@ EOF;
         $identifiant = $datas[1];
         $hash = $datas[2];
         $millesime = $datas[3];
-        $volume = (trim($datas[4]))? round(str_replace(',', '.', trim($datas[4]))*1, 5) : null;
-        $capaciteCom = (isset($datas[5]))? round(str_replace(',', '.', trim($datas[5]))*1, 5) : null;
+        $volume = (trim($datas[4]))? round(floatval(str_replace(',', '.', trim($datas[4]))), 5) : null;
+        $capaciteCom = (isset($datas[5]))? round(floatval(str_replace(',', '.', trim($datas[5]))), 5) : null;
 
         if (!$volume) {
             continue;
