@@ -149,6 +149,7 @@ class ConfigurationClient extends acCouchdbClient
 			$this->countries['QU'] = 'Pays et territoires non déterminés';
 			$this->countries['QW'] = 'Pays et territoires non déterminés';
 			$this->countries['CS'] = 'Serbie et Monténégro';
+            $this->countries['CW'] = 'Curaçao';
 		}
 		return $this->countries;
 	}
