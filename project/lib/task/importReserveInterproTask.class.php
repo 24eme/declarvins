@@ -82,6 +82,10 @@ EOF;
 
         $historique = new DRMHistorique($etablissement->identifiant);
         $lastDRM = $historique->getLastDRM();
+        if (!$lastDRM) {
+            echo "pas de drm pour l'etablissement $etablissement->identifiant ($cvi)\n";
+            continue;
+        }
         $drms = [$lastDRM];
         if (!$lastDRM->isValidee()) {
             $drms[] = $historique->getPreviousDRM($lastDRM->getPeriode());
