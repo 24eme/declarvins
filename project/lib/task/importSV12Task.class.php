@@ -50,7 +50,7 @@ EOF;
     $documents = array();
     foreach($items as $datas) {
         $campagne = $datas[1];
-        $cvi = str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT);
+        $cvi = (isset($datas[3]))? str_pad(trim($datas[3]), 10, "0", STR_PAD_LEFT) : $datas[2];
         $idProduit = trim($datas[16]);
         if (!in_array($datas[19], ['15VF', '15M'])) {
             continue;
