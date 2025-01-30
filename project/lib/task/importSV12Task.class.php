@@ -58,7 +58,7 @@ EOF;
         if ($campagneOpt && $campagneOpt != $campagne) {
             continue;
         }
-        $contratType = ($datas[19] == '15M') ? strtoupper(VracClient::TYPE_TRANSACTION_MOUTS) : SV12Client::SV12_TYPEKEY_VENDANGE;
+        $contratType = ($datas[19] == '15M') ? VracClient::TYPE_TRANSACTION_MOUTS : SV12Client::SV12_TYPEKEY_VENDANGE;
         $volume = str_replace(',', '.', $datas[21])*1;
         $produit = ($this->isHashProduit($idProduit))? $conf->identifyProduct($idProduit) : $conf->identifyProduct(null, "($idProduit)");
         if (!$produit && !$this->isHashProduit($idProduit) && substr($idProduit, -3, 1) == ' ' && strlen($idProduit) == 8) {
