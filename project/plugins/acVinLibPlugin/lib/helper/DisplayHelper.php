@@ -35,9 +35,11 @@ function display_latex_string($string, $sep = '', $limit = null, $nb_max = null)
 
     if ($sep)
         $disp = str_replace($sep, " \\\\ ", $disp);
+
     if($nb_max!=null && substr_count($disp, " \\\\ ") >= $nb_max) return $disp;
 
-    $len = strlen(strstr($disp," \\\\ "));
+    $len = strlen($disp);
+
     if ($limit!=null && $len > $limit) {
         $d = substr($disp, 0, $limit);
         $pos = strrpos($d, ' ');
