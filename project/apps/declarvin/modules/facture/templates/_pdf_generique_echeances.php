@@ -31,11 +31,11 @@ $echeances = $facture->getEcheancesPapillon();
                               \centering \small{~} &
                               <?php endif; ?>
                               \centering \small{\textbf{<?php echo format_date($echeance->echeance_date,'dd/MM/yyyy'); ?>}} &
-                              \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+                              \centering \fontsize{8}{9}\selectfont \FactureRefCodeComptableClient~/~\FactureNum &
                               \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($echeance->montant_ttc); ?>~\texteuro{}}}}  \\
                        <?php $first = false; endforeach; else: ?>
                               \centering \small{\textbf{<?php echo format_date($facture->date_echeance,'dd/MM/yyyy'); ?>}} &
-                              \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+                              \centering \fontsize{8}{9}\selectfont \FactureRefCodeComptableClient~/~\FactureNum &
                               \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}  \\
                        <?php endif; ?>
 
@@ -62,11 +62,11 @@ $echeances = $facture->getEcheancesPapillon();
 \centering \small{~} &
 <?php endif; ?>
 \centering \small{\textbf{<?php echo format_date($echeance->echeance_date,'dd/MM/yyyy'); ?>}} &
-\centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+\centering \fontsize{8}{9}\selectfont \FactureRefCodeComptableClient~/~\FactureNum &
 \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($echeance->montant_ttc); ?>~\texteuro{}}}}  \\
 <?php $first = false; endforeach; else: ?>
                 \centering \small{\textbf{<?php echo format_date($papillon->echeance_date,'dd/MM/yyyy'); ?>}} &
-                \centering \small{\FactureRefCodeComptableClient~/~\FactureNum} &
+                \centering \fontsize{8}{9}\selectfont \FactureRefCodeComptableClient~/~\FactureNum &
                 \multicolumn{1}{r}{\small{\textbf{<?php echo echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}  \\
 <?php endif; ?>
 
