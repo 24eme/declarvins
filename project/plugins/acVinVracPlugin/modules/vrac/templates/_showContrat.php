@@ -174,7 +174,7 @@
 			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> € HT / HL</span>
+				<span><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> € HT / HL. Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</span>
 			</li>
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
