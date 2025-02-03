@@ -199,7 +199,7 @@
   	<?php endif; ?>
 
 
-    <?php if ($drm->periode == '2025-01' && count($drm->getDetails('INTERPRO-IR')) > 0): ?>
+    <?php if ($drm->periode == '2025-01' && $drm->hasAppellationsAdelphe()): ?>
   	<div id="popup_adelphe" class="popup_contenu popup_form" style="display:none;">
   		<p>Avez-vous sorti du vin bénéficiant des appellations CDR, CDRV ou Crus  en conditionné (bouteille, bib, ...) au cours de l'année 2024 ?</p>
   		<br />

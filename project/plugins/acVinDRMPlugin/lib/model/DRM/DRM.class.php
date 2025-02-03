@@ -23,6 +23,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected static $mvtsSurveillesHashConstraint = array(
         'entrees/recolte' => ["appellations/CVG/mentions/DEFAUT/lieux/LAU"]
     );
+    protected static $appellationsPopupAdelphe = ['CDR', 'CVS', 'CVG', 'BEA', 'CDP', 'CGR', 'COD', 'COR', 'CRO', 'CRH', 'GIG', 'HER', 'LIR', 'RTA', 'SJO', 'SPT', 'TAV', 'VAC', 'VBR', 'CAR', 'GRI', 'LAU', 'SPE', 'SPB'];
 
     public function __construct() {
         parent::__construct();
@@ -1983,5 +1984,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
           }
       }
       return $items;
+  }
+
+  public function hasAppellationsAdelphe()
+  {
+      foreach ($this->getDetails() as $detail) {
+          if (in_array($detail->getAppellation()->getKey(), self::$appellationsPopupAdelphe)) {
+              return true;
+          }
+      }
+      return false;
   }
 }
