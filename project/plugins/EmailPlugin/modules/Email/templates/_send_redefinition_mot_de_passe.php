@@ -4,9 +4,9 @@ Bonjour,<br /><br />
 Vous souhaitez créer un nouveau mot de passe pour accéder à la plateforme Declarvins.net.<br /><br />
 Le ou les comptes suivants sont liés à votre adresse email :<br />
 <ul>
-<?php if ($compte): ?>
+<?php if (!is_array($compte)): ?>
     <li>Login : <strong><?php echo $compte->login ?></strong>, merci de suivre la procédure suivante en cliquant sur ce lien : <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('compte_password', array('login' => $compte->login, 'rev' => $compte->_rev), true); ?>">Redéfinition de mon mot de passe</a></li>
-<?php elseif(count($logins) > 0): foreach ($logins as $c): ?>
+<?php else: foreach ($compte as $c): ?>
 	<li>Login : <strong><?php echo $c->login ?></strong>, merci de suivre la procédure suivante en cliquant sur ce lien : <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('compte_password', array('login' => $c->login, 'rev' => $c->_rev), true); ?>">Redéfinition de mon mot de passe</a></li>
 <?php endforeach; endif; ?>
 </ul><br />

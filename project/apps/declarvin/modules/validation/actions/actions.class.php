@@ -365,14 +365,14 @@ class validationActions extends sfActions {
     	$response->setHttpHeader('Pragma', '');
     	$response->setHttpHeader('Cache-Control', 'public');
     	$response->setHttpHeader('Expires', '0');
-    	 
+
     	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
 	  }
-  
+
   public function executeRedefinitionPassword(sfWebRequest $request)
   {
      $this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
-     Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email, array($compte->login));
+     Email::getInstance()->sendRedefinitionMotDePasse($compte);
      $this->getUser()->setFlash('notice', 'Demande de redéfinition du mot de passe envoyée');
      if ($compte->exist('contrat')) {
      	if ($contrat = ContratClient::getInstance()->find($compte->contrat)) {
