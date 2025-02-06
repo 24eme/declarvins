@@ -86,13 +86,13 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 $compte = _CompteClient::getInstance()->retrieveByLogin($login);
                 $comptes = [];
                 if (!$compte) {
-                    foreach (CompteEmailView::getInstance()->findByEmail($values['login'])->rows as $row) {
+                    foreach (CompteEmailView::getInstance()->findByEmail($login)->rows as $row) {
                         if ($c = _CompteClient::getInstance()->retrieveByLogin($row->value[CompteEmailView::VALUE_LOGIN])) {
                             $comptes[] = $c;
                         }
                     }
                 }
-     			Email::getInstance()->sendRedefinitionMotDePasse($compte, $comptes);
+     			Email::getInstance()->sendRedefinitionMotDePasse($comptes);
      			$this->getUser()->setFlash('notice', 'Une demande de redéfinition de votre mot de passe vous a été envoyé');
      			$this->redirect('@compte_lost_password');
             }

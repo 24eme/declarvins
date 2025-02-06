@@ -14,8 +14,10 @@ class ValidatorLoginCompteExist extends sfValidatorSchema {
             if (acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login'])) {
                 return $values;
             }
-            if(count(CompteEmailView::getInstance()->findByEmail($values['login'])->rows) > 0) {
-                return $values;
+            foreach (CompteEmailView::getInstance()->findByEmail($values['login'])->rows as $row) {
+                if (_CompteClient::getInstance()->retrieveByLogin($row->value[CompteEmailView::VALUE_LOGIN])) {
+                    return $values;
+                }
             }
         } else {
             return $values;
