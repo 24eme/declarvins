@@ -403,20 +403,21 @@ class Email {
         return $this->getMailer()->send($message);
     }
 
-    public function sendRedefinitionMotDePasse($compte, $destinataire, $logins)
+    public function sendRedefinitionMotDePasse($compte)
     {
     	$interpros = array();
-        $compteisnull = is_null($compte);
-        if ($compteisnull) {
-            $compte = $logins[0];
-        }
-    	foreach ($compte->interpro as $id => $values) {
+        if (is_array($compte)) {
+            $c = $compte[0];
+        } else {
+			$c = $compte;
+		}
+    	foreach ($c->interpro as $id => $values) {
     		$interpros[] = InterproClient::getInstance()->find($id);
     	}
         $from = $this->getFromEmailInterpros($interpros,true);
-        $to = array($destinataire);
+        $to = array($c->email);
         $subject = 'Redéfinition du mot de passe';
-        $body = $this->getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => ($compteisnull)? null : $compte, 'logins' => $logins));
+        $body = $this->getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => $compte));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return $this->getMailer()->send($message);
