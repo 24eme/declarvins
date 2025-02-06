@@ -11,26 +11,13 @@ class ValidatorLoginCompteExist extends sfValidatorSchema {
 
     protected function doClean($values) {
     	if (isset($values['login']) && !empty($values['login'])) {
-    		$logins = array();
-            if ($compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login'])) {
-            	$values['logins'] = array($values['login']);
+            if (acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login'])) {
                 return $values;
             }
-            $comptes = CompteEmailView::getInstance()->findByEmail($values['login'])->rows;
-            $login = null;
-            foreach ($comptes as $compte) {
-            	if ($l = $compte->value[CompteEmailView::VALUE_LOGIN]) {
-            		$login = $l;
-            		$logins[] = $l;
-            	}
+            if(count(CompteEmailView::getInstance()->findByEmail($values['login'])->rows) > 0) {
+                return $values;
             }
-            if ($login) {
-            	$values['login'] = $login;
-            	$values['logins'] = $logins;
-            	return $values;
-            }
-        }
-        else {
+        } else {
             return $values;
         }
         if ($this->getOption('throw_global_error')) {

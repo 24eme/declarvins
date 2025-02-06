@@ -76,16 +76,23 @@ class acVinCompteActions extends BaseacVinCompteActions {
             }
         }
     }
-    
+
     public function executeLostPassword(sfWebRequest $request) {
         $this->form = new CompteLostPasswordForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $login = $this->form->getValue('login');
-                $logins = $this->form->getValue('logins');
                 $compte = _CompteClient::getInstance()->retrieveByLogin($login);
-     			Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email, $logins);
+                $comptes = [];
+                if (!$compte) {
+                    foreach (CompteEmailView::getInstance()->findByEmail($values['login'])->rows as $row) {
+                        if ($c = _CompteClient::getInstance()->retrieveByLogin($row->value[CompteEmailView::VALUE_LOGIN])) {
+                            $comptes[] = $c;
+                        }
+                    }
+                }
+     			Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email, $comptes);
      			$this->getUser()->setFlash('notice', 'Une demande de redéfinition de votre mot de passe vous a été envoyé');
      			$this->redirect('@compte_lost_password');
             }
