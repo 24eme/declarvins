@@ -5,10 +5,10 @@ use_helper('Float');
 
 \noindent{
 \begin{minipage}[b]{1\textwidth}
+
 \noindent{
 \begin{flushleft}
-
-\begin{minipage}[b]{0.75\textwidth}
+\begin{minipage}[b]{0.70\textwidth}
 \begin{tiny}
 <?php if ($facture->isAvoir()): ?>
    <?php echo $factureConfiguration->getReglementAvoir(); ?>
@@ -19,37 +19,42 @@ use_helper('Float');
 \end{minipage}
 \end{flushleft}
 }
-\vspace{-2.7cm}
+
+\vspace{-5cm}
+
 \begin{flushright}
-\begin{minipage}[b]{0.205\textwidth}
-\vspace{-2.6cm}
-\begin{tikzpicture}
-\node[inner sep=1pt] (tab2){
-\begin{tabular}{>{\columncolor{lightgray}} l | p{22mm}}
 
-\centering \small{\textbf{Montant HT}} &
-\multicolumn{1}{r}{\small{<?php echoArialFloat($facture->total_ht); ?>~\texteuro{}}} \\
+\begin{minipage}[b]{0.25\textwidth}
 
-\centering \small{} &
-\multicolumn{1}{r}{~~~~~~~~~~~~~~~~~~~~~~~~} \\
+\begin{flushright}
 
-                    \centering \small{\textbf{TVA <?php echo number_format($facture->getTauxTva(), 1, '.', ' ');?>~\%}} &
-\multicolumn{1}{r}{\small{<?php echoArialFloat($facture->taxe); ?>~\texteuro{}}} \\
-
-\centering \small{} &
-\multicolumn{1}{r}{~~~~~~~~~~~~~~~~~~~~~~~~} \\
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{| >{\columncolor{lightgray}} l | p{25mm} |}
 \hline
-\centering \small{} &
-\multicolumn{1}{r}{~~~~~~~~~~~~~~~~~~~~~~~~} \\
 
-\centering \small{\textbf{Montant TTC}} &
-\multicolumn{1}{r}{\small{<?php echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}   \\
+\centering \textbf{\normalsize{Montant HT}} &
+\multicolumn{1}{>{\raggedleft}p{25mm}|}{\normalsize{<?php echoArialFloat($facture->total_ht); ?>~\texteuro{}}} \\
+
+\centering \textbf{\normalsize{TVA <?php echo number_format($facture->getTauxTva(), 1, '.', ' ');?>~\%}} &
+\multicolumn{1}{>{\raggedleft}p{25mm}|}{\normalsize{<?php echoArialFloat($facture->taxe); ?>~\texteuro{}}} \\
+
+\hline
+
+\centering \textbf{\normalsize{Montant TTC}} &
+\multicolumn{1}{>{\raggedleft}p{25mm}|}{\textbf{\normalsize{<?php echoArialFloat($facture->total_ttc); ?>~\texteuro{}}}}   \\
+
+\hline
 \end{tabular}
-};
-\node[draw=gray, inner sep=0pt, rounded corners=3pt, line width=2pt, fit=(tab2.north west) (tab2.north east) (tab2.south east) (tab2.south west)] {};
-\end{tikzpicture}
+
+\end{flushright}
+
 \end{minipage}
 \end{flushright}
 \end{minipage}
 }
-\vspace{2.8cm}
+
+<?php if ($facture->getMessageCommunicationWithDefault()): ?>
+\vspace{2.4cm}
+<?php else: ?>
+\vspace{2.6cm}
+<?php endif; ?>
