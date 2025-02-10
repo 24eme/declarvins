@@ -196,10 +196,15 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             $produit = $this->drm->getProduitByIdDouane($hash, ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
 
+
             if (!$produit) {
                 $produits = $this->drm->getProduitsByIdDouaneAndStockDebut(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $complement_libelle, $label, $this->floatize($datas[self::CSV_CAVE_VOLUME]));
                 if (count($produits) > 1) {
-                    throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane()));
+                    if ($this->drm->canSetStockDebutMois()) {
+                        $produits = [];
+                    } else {
+                        throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane()));
+                    }
                 }
                 if (count($produits) == 1) {
                     $produit = $produits[0];
