@@ -13,6 +13,7 @@ $echeances = $facture->getEcheancesPapillon();
             \hline
 	\multicolumn{2}{|>{\columncolor[rgb]{0.8,0.8,0.8}}c|}{\centering \small{\textbf{Modalités de règlement}}} &
 	\multicolumn{3}{>{\columncolor[rgb]{0.8,0.8,0.8}}c|}{\centering \small{\textbf{Références de facturation}}} \\
+            \hline
 
         \CutlnPapillonEntete
         <?php if($facture->getNbPaiementsAutomatique() && $facture->getSociete()->getMandatSepa()): ?>
@@ -50,7 +51,7 @@ $echeances = $facture->getEcheancesPapillon();
     \multicolumn{1}{c|}{\small{Montant TTC}} \\
 
                 \centering \small{~} &
-                \centering \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN \\
+                \centering \textbf{IBAN~:}~\InterproIBAN~\textbf{BIC~:}~\InterproBIC \\
                 \centering \fontsize{7}{8}\selectfont ou par chèque à l'ordre : <?php echo ($chequesOrdre)? $chequesOrdre : "Ordre chèque"; ?> &
 
 <?php if ($multiEcheances = $facture->getEcheancesArray(true)->getRawValue()): ?>

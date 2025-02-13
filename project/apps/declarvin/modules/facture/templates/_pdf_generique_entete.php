@@ -21,6 +21,7 @@ use_helper('Display');
 
 	\textbf{<?php echo ($avoir)? 'AVOIR' : 'FACTURE'; ?>} <?php if($facture->numero_piece_comptable_origine): ?>\small{(Facture n°~<?php echo $facture->numero_piece_comptable_origine ?>)}<?php endif; ?> \\
 	\vspace{0.2cm}
+    \setlength{\arrayrulewidth}{1pt}
     \renewcommand{\arraystretch}{1.5}
 			\begin{tabular}{|c|c|c|}
                 \hline
