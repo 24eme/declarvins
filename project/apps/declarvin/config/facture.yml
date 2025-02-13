@@ -76,7 +76,7 @@ all:
         identifiant_prefix: "FA"
         discrimine_type_archive: true
       type_sv:
-        identifiant_prefix: "FASV"
+        identifiant_prefix: "FAVF"
         discrimine_type_archive: true
       paiements_actif: false
       pdf_ordre_cheque: 'CIVP'
