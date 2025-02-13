@@ -18,8 +18,8 @@ include_partial('facture/pdf_facture_def', array('facture' => $facture, 'facture
 include_partial('facture/pdf_generique_entete', array('facture' => $facture, 'avoir' => $avoir, 'factureConfiguration' => $factureConfiguration));
 ?>
 \centering
-
-                        \renewcommand{\arraystretch}{1.4}
+            \setlength{\arrayrulewidth}{1pt}
+            \renewcommand{\arraystretch}{1.4}
 			\begin{tabular}{|p{120mm} |p{20mm}|p{12mm}|p{24mm}p{0mm}|}
             \hline
   			\rowcolor{lightgray}
