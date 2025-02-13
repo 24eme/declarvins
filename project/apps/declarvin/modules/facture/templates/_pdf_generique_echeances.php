@@ -13,6 +13,7 @@ $echeances = $facture->getEcheancesPapillon();
             \hline
 	\multicolumn{2}{|>{\columncolor[rgb]{0.8,0.8,0.8}}c|}{\centering \small{\textbf{Modalités de règlement}}} &
 	\multicolumn{3}{>{\columncolor[rgb]{0.8,0.8,0.8}}c|}{\centering \small{\textbf{Références de facturation}}} \\
+            \hline
 
         \CutlnPapillonEntete
         <?php if($facture->getNbPaiementsAutomatique() && $facture->getSociete()->getMandatSepa()): ?>
