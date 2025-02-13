@@ -51,7 +51,7 @@ $echeances = $facture->getEcheancesPapillon();
     \multicolumn{1}{c|}{\small{Montant TTC}} \\
 
                 \centering \small{~} &
-                \centering \textbf{BIC~:}~\InterproBIC~\textbf{IBAN~:}~\InterproIBAN \\
+                \centering \textbf{IBAN~:}~\InterproIBAN~\textbf{BIC~:}~\InterproBIC \\
                 \centering \fontsize{7}{8}\selectfont ou par chèque à l'ordre : <?php echo ($chequesOrdre)? $chequesOrdre : "Ordre chèque"; ?> &
 
 <?php if ($multiEcheances = $facture->getEcheancesArray(true)->getRawValue()): ?>
