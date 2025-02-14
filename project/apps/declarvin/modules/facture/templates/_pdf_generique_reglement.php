@@ -57,8 +57,8 @@ use_helper('Float');
         \vspace{1.6cm}
 <?php else: ?>
     <?php if (strlen($facture->declarant->adresse) > 39): ?>
-        \vspace{2.4cm}
+        \vspace{2.2cm}
     <?php else: ?>
-        \vspace{2.6cm}
+        \vspace{2.4cm}
     <?php endif; ?>
 <?php endif; ?>
