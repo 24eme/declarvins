@@ -233,6 +233,12 @@ login:
 logout:
   url: /logout
   param: {module: acVinCompte, action: logout}
+header:
+  url: /header
+  param: {module: global, action: header}
+footer:
+  url: /footer
+  param: {module: global, action: footer}
 
 # BO
 admin:

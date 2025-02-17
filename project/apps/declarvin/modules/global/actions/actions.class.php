@@ -14,4 +14,15 @@ class globalActions extends sfActions
         //if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN))
         //return $this->redirect("@tiers");
     }
+
+    public function executeHeader(sfWebRequest $request) {
+        $header = $this->getPartial("global/header");
+        $header .= $this->getPartial("global/navTop", ['active' => null, 'configuration' => ConfigurationClient::getCurrent(), 'etablissement' => EtablissementClient::getInstance()->retrieveById($this->getRequest()->getParameter('identifiant'))]);
+        echo $header;exit;
+    }
+
+    public function executeFooter(sfWebRequest $request) {
+        $footer = $this->getPartial("global/footer");
+        echo $footer;exit;
+    }
 }
