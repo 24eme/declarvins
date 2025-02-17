@@ -39,7 +39,7 @@ use_helper('Text');
         <?php if ($etablissement->interpro == 'INTERPRO-IR'): ?>
         <style><!--
             #barre_navigation #nav_principale li.vrr a:hover {
-                background: url(/images/fonds/bg_nav_principale_vvr.png) left 0 no-repeat;
+                background: url('<?php echo image_path('/images/fonds/bg_nav_principale_vvr.png', true) ?>') left 0 no-repeat;
             }
         --></style>
         <li class="vrr">
@@ -110,17 +110,17 @@ use_helper('Text');
                 <span><?php echo $etablissement->getDenomination(); ?></span>
             </a>
         </li>
-        <li class="quitter"><a href="<?php echo url_for('@tiers') ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
+        <li class="quitter"><a href="<?php echo url_for('@tiers') ?>"><img src="<?php echo image_path('/images/boutons/btn_quitter_etablissement.png', true) ?>" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
 <?php $compte = $etablissement->getCompteObject(); if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement && $compte): ?>
 <div style="text-align: right; background: #fff; height: 16px; padding-top: 5px;">
-<a href="<?php echo url_for('tiers_connexion_email', array('login' => $compte->login)); ?>" style="background: url('/images/pictos/pi_usurpation_in.png') left 0 no-repeat; padding: 0px 5px 0 20px;">Accéder au compte</a>
+<a href="<?php echo url_for('tiers_connexion_email', array('login' => $compte->login)); ?>" style="background: url('<?php echo image_path('/images/pictos/pi_usurpation_in.png', true) ?>') left 0 no-repeat; padding: 0px 5px 0 20px;">Accéder au compte</a>
 </div>
 <?php  endif; ?>
 <?php if ($etablissement && $sf_user->isUsurpationMode()): ?>
 <div style="text-align: right; background: #fff; height: 16px; padding-top: 5px;">
-<a href="<?php echo url_for('tiers_connexion_initial', $etablissement); ?>" style="background: url('/images/pictos/pi_usurpation_out.png') left 0 no-repeat; padding: 0px 5px 0 20px;">Retour compte admin</a>
+<a href="<?php echo url_for('tiers_connexion_initial', $etablissement); ?>" style="background: url('<?php echo image_path('/images/pictos/pi_usurpation_out.png', true) ?>') left 0 no-repeat; padding: 0px 5px 0 20px;">Retour compte admin</a>
 </div>
 <?php  endif; ?>
 
@@ -155,7 +155,7 @@ use_helper('Text');
 <?php if ($info): ?>
 <div id="flash_message" style="padding-top: 0px">
     <div class="flash_error" style="color: #fff; background-color: #8faf6e; border: 1px solid #4D6D2C;">
-    	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>
+    	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="<?php echo image_path('/images/pictos/info2.png', true) ?>" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>
     	<?php echo $info ?>
 	</div>
 </div>

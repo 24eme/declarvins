@@ -12,7 +12,7 @@
     </nav>
 
     <div id="logo">
-        <h1><a href="<?php echo url_for('ac_vin_login') ?>" title="Declarvin - Retour à l'accueil"><img src="/images/visuels/logo_declarvins.png" alt="Declarvin" /></a></h1>
+        <h1><a href="<?php echo url_for('ac_vin_login') ?>" title="Declarvin - Retour à l'accueil"><img src="<?php echo image_path("/images/visuels/logo_declarvins.png", true) ?>" alt="Declarvin" /></a></h1>
         <?php if(sfConfig::get('app_instance') == 'preprod' ): ?>
         <p style="font-weight: bold; text-align:center;">/!\ PREPROD V2 /!\</p>
         <?php else: ?>
