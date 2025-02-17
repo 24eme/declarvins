@@ -51,7 +51,7 @@ use_helper('Text');
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>
         </li>
         <?php endif; ?>
-        <?php if ($configuration->isApplicationOuverte($sf_user->getCompte()->getGerantInterpro()->_id, 'factures')||$etablissement->hasFacture()): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'factures')||$etablissement->hasFacture()): ?>
         <li<?php if ($active == 'factures'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('facture_societe', $etablissement) ?>">
             Factures
