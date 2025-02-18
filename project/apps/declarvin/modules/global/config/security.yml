@@ -1,0 +1,13 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/08-Security
+
+# for all modules
+
+error404:
+  is_secure: false
+
+header:
+  is_secure: false
+
+footer:
+  is_secure: false
