@@ -46,7 +46,7 @@ class cravateApiSuiviReserveTask extends sfBaseTask
             $result['TELEPHONE'] = $etablissement->email;
         }
 
-        echo json_encode($result);
+        echo json_encode(['form' => $result], JSON_PRETTY_PRINT);
     }
 
 }
