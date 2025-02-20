@@ -1,12 +1,19 @@
 #!/bin/bash
 
-if [ "$#" -ne 2 ]; then
-    echo "2 arguments attendus : $0 dossier_cible identifiant" >&2
+if [ "$#" -ne 1 ]; then
+    echo "1 argument attendus : $0 dossier_cible" >&2
     exit 1
 fi
 
-mkdir -p "$1/$2/"
+if [ ! -d "$1" ]; then
+    echo "$1 n'est pas un dossier valide ou n'existe pas." >&2
+    exit 1
+fi
 
-php symfony cravate-api:suivi-reserve $2 > "$1/$2/form.json"
+dir="${1%/}"
+dirname=$(basename "$dir")
+identifiant=$(echo "$dirname" | cut -d '_' -f2)
 
-echo "fichier créé avec succès : $1/$2/form.json"
+php symfony cravate-api:suivi-reserve $identifiant > "$dir/metas.json"
+
+echo "fichier créé avec succès : $dir/metas.json"
