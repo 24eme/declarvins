@@ -68,6 +68,14 @@ use_helper('Text');
         </li>
         <?php endif; ?>
 
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'cravate', $etablissement)): ?>
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI))): ?>
+        <li<?php if ($active == 'cravate'): ?> class="actif"<?php endif; ?>>
+            <a href="#">Dossiers</a>
+        </li>
+        <?php endif; ?>
+        <?php endif; ?>
+
         <?php if(($etablissement->hasDocuments()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'documents'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('fichiers_etablissement', $etablissement) ?>">Documents</a>

@@ -17,7 +17,7 @@ class globalActions extends sfActions
 
     public function executeHeader(sfWebRequest $request) {
         $header = $this->getPartial("global/header");
-        $header .= $this->getPartial("global/navTop", ['active' => null, 'configuration' => ConfigurationClient::getCurrent(), 'etablissement' => EtablissementClient::getInstance()->retrieveById($this->getRequest()->getParameter('identifiant'))]);
+        $header .= $this->getPartial("global/navTop", ['active' => $this->getRequest()->getParameter('nav'), 'configuration' => ConfigurationClient::getCurrent(), 'etablissement' => EtablissementClient::getInstance()->retrieveById($this->getRequest()->getParameter('identifiant'))]);
         echo $header;exit;
     }
 
