@@ -101,7 +101,7 @@ use_helper('Text');
     </ul>
     <?php if ($etablissement->canAdhesionCiel()): ?>
     <ul id="nav_infociel">
-    	<li><span style="cursor: auto;" class="<?php if($etablissement->isTransmissionCiel()): ?>ciel_connect<?php else: ?>ciel_disconnect<?php endif; ?>" title="<?php if($etablissement->isTransmissionCiel()): ?>Transmission CIEL activée<?php else: ?>Aucune transmission CIEL<?php endif; ?>">CIEL</span></li>
+    	<li style="margin:0;"><span style="cursor: auto;" class="<?php if($etablissement->isTransmissionCiel()): ?>ciel_connect<?php else: ?>ciel_disconnect<?php endif; ?>" title="<?php if($etablissement->isTransmissionCiel()): ?>Transmission CIEL activée<?php else: ?>Aucune transmission CIEL<?php endif; ?>">&nbsp;</span></li>
     </ul>
     <?php endif; ?>
 </nav>
