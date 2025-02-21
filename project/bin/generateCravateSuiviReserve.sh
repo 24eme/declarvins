@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $(dirname $0)/..
+
 if [ "$#" -ne 1 ]; then
     echo "1 argument attendus : $0 dossier_cible" >&2
     exit 1
