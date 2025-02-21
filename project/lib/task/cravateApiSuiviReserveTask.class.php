@@ -51,26 +51,20 @@ class cravateApiSuiviReserveTask extends sfBaseTask
         $vracs = VracAllView::getInstance()->findByEtablissement($etablissement->identifiant);
         foreach ($vracs->rows as $c) {
             if ($c->key[VracAllView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOLDE) {
-                if (!isset($contrats[$c->key[VracAllView::VRAC_VIEW_PRODUIT]])) {
-                    $contrats[$c->key[VracAllView::VRAC_VIEW_PRODUIT]] = [];
-                }
                 $vrac = VracClient::getInstance()->find($c->key[VracAllView::VRAC_VIEW_ID]);
                 if ($vrac->type_transaction != 'vrac') {
                     continue;
                 }
-                $contrats[$c->key[VracAllView::VRAC_VIEW_PRODUIT]][$vrac->_id] = [
-                    'NUMVISA' => $vrac->numero_contrat,
-                    'PRODUIT_LIBELLE' => trim($vrac->produit_libelle),
-                    'LABELS' => $vrac->labels_libelle,
-                    'MILLESIME' => $vrac->millesime,
-                    'VOLUME' => $vrac->volume_propose,
-                    'URL' => ProjectConfiguration::getAppRouting()->generate('vrac_visualisation', ['sf_subject' => $vrac, 'etablissement' => $etablissement->identifiant], true)
-                ];
+                if (!in_array($vrac->produit_detail->appellation->code, ['CP', 'CVP', 'CAP'])||$vrac->produit_detail->couleur->code != 2) {
+                    continue;
+                }
+                $libelle = 'Contrat vrac '.$vrac->numero_contrat.' : '.trim($vrac->produit_libelle).' '.$vrac->labels_libelle.' '.$vrac->millesime.' '.number_format($vrac->volume_propose, 2, ',', ' ').' hl';
+                $contrats[$libelle] = ProjectConfiguration::getAppRouting()->generate('vrac_visualisation', ['sf_subject' => $vrac, 'etablissement' => $etablissement->identifiant], true);
            }
 
         }
 
-        echo json_encode(['form' => $result, 'CONTRAT_VRAC' => $contrats], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
+        echo json_encode(['form' => $result, 'annexes' => $contrats], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
     }
 
 }
