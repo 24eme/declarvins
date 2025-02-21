@@ -71,7 +71,7 @@ use_helper('Text');
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'cravate', $etablissement)): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI))): ?>
         <li<?php if ($active == 'cravate'): ?> class="actif"<?php endif; ?>>
-            <a href="#">Dossiers</a>
+            <a href="<?php echo url_for('redirect2dossier', $etablissement) ?>">Dossiers</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>
