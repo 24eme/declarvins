@@ -278,4 +278,14 @@ class tiersActions extends sfActions
     $this->redirect('/wine-tracker/?id='.$request->getParameter('identifiant'));
   }
 
+  public function executeRedirect2Dossier(sfWebRequest $request)
+  {
+    $identifiant = $request->getParameter('identifiant');
+    $etablissement = EtablissementClient::getInstance()->find($identifiant);
+    if (!$etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        $this->redirect('/');
+    }
+    $_SESSION['etablissement_id'] = $request->getParameter('identifiant');
+    $this->redirect('/cravate-pdf/');
+  }
 }
