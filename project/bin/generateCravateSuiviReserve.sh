@@ -16,6 +16,6 @@ dir="${1%/}"
 dirname=$(basename "$dir")
 identifiant=$(echo "$dirname" | cut -d '_' -f2)
 
-php symfony cravate-api:suivi-reserve $identifiant > "$dir/metas.json"
+php symfony cravate-api:suivi-reserve $identifiant > "$dir/00_metas.json"
 
-echo "fichier créé avec succès : $dir/metas.json"
+echo "fichier créé avec succès : $dir/00_metas.json"
