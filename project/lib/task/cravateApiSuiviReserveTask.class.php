@@ -64,7 +64,7 @@ class cravateApiSuiviReserveTask extends sfBaseTask
 
         }
 
-        echo json_encode(['form' => $result, 'annexes' => $contrats], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
+        echo json_encode(['form' => $result, 'annexes' => ["Contrat_vente_en_vrac" => $contrats]], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
     }
 
 }
