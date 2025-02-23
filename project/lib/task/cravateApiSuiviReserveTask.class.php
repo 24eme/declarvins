@@ -45,7 +45,7 @@ class cravateApiSuiviReserveTask extends sfBaseTask
             $result['CVI'] = $etablissement->cvi;
             $result['NUMCIVP'] = $etablissement->identifiant;
             $result['EMAIL'] = $etablissement->email;
-            $result['TELEPHONE'] = $etablissement->email;
+            $result['TELEPHONE'] = $etablissement->telephone;
         }
 
         $vracs = VracAllView::getInstance()->findByEtablissement($etablissement->identifiant);
