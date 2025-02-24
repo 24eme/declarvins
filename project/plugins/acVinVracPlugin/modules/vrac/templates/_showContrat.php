@@ -371,14 +371,16 @@
 							<thead>
 								<tr>
 									<th>Millésime</th>
-									<th>Pourcentage (%)</th>
+									<th>Pourcentage</th>
+									<th>Volume</th>
 				            	</tr>
 				            </thead>
 				            <tbody>
 								<?php foreach ($lot->millesimes as $millesime): ?>
 								<tr>
 									<td><?php echo $millesime->annee ?></td>
-									<td><?php echo $millesime->pourcentage ?></td>
+									<td><?php echo $millesime->pourcentage ?>&nbsp;%</td>
+									<td><?php echo round($cuve->volume * $millesime->pourcentage / 100, 2) ?>&nbsp;hl</td>
 								</tr>
 								<?php endforeach; ?>
 				            </tbody>
