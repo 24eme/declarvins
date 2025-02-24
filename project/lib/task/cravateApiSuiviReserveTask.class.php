@@ -45,7 +45,7 @@ class cravateApiSuiviReserveTask extends sfBaseTask
             $result['CVI'] = $etablissement->cvi;
             $result['NUMCIVP'] = $etablissement->identifiant;
             $result['EMAIL'] = $etablissement->email;
-            $result['TELEPHONE'] = $etablissement->email;
+            $result['TELEPHONE'] = $etablissement->telephone;
         }
 
         $vracs = VracAllView::getInstance()->findByEtablissement($etablissement->identifiant);
@@ -64,7 +64,7 @@ class cravateApiSuiviReserveTask extends sfBaseTask
 
         }
 
-        echo json_encode(['form' => $result, 'annexes' => $contrats], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
+        echo json_encode(['form' => $result, 'annexes' => ["Contrat_vente_en_vrac" => $contrats]], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
     }
 
 }
