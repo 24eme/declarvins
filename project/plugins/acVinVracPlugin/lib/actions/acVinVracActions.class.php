@@ -426,7 +426,7 @@ class acVinVracActions extends sfActions
     }
 
     private function notifiePrixNonCoherent($vrac) {
-        if ($vrac->isVolumesAppellationsEnAlerte()) {
+        if ($vrac->isVolumesAppellationsEnAlerte() && $vrac->type_prix != 'acompte') {
             Email::getInstance()->prixNonCoherent($vrac);
         }
     }
