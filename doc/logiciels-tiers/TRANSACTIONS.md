@@ -90,3 +90,5 @@ Chaque ligne du fichier correspond à une transaction.
 78. Numéro d'Accises de l'Acheteur
 78. Numéro d'Accises du Vendeur
 79. Type de retiraison : vrac (Retiraison/Livraison en Vrac) / tire_bouche (Retiraison/Livraison en Tiré Bouché) / lattes (Retiraison/Livraison sur Lattes)
+80. Commune de l'acheteur
+81. Pays de l'acheteur
