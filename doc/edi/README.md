@@ -129,7 +129,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 64. ID de cette DRM : concaténation de DRM-IDDeclarant-AnnéeDRM-MoisDRM-RevisionDRM
 65. Identifiant IVSE
 66. Numéro du contrat : Pour enregistrement « CONTRAT »
-67. Volume du contrat : Pour enregistrement « CONTRAT »
+67. Volume retiré sur le contrat : Pour enregistrement « CONTRAT »
 68. Commentaires DRM saisis en back office par l'opérateur  
 69. DRM référente : 0 ou 1
 70. Contrat Vrac manquant : 0 ou 1

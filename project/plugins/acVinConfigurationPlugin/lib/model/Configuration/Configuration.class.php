@@ -30,7 +30,7 @@ class Configuration extends BaseConfiguration {
     );
 
     protected static $stocks_debut = array(
-        'bloque' => 'Dont Vin bloqué / Reserve',
+        'bloque' => 'Dont Vin bloqué',
         'warrante' => 'Dont Vin warranté',
         'instance' => 'Dont Vin en instance'
     );
@@ -81,7 +81,7 @@ class Configuration extends BaseConfiguration {
         'acq_autres' => 'Autres'
     );
     protected static $stocks_fin = array(
-        'bloque' => 'Dont Vin bloqué / Reserve',
+        'bloque' => 'Dont Vin bloqué',
         'warrante' => 'Dont Vin warranté',
         'instance' => 'Dont Vin en instance',
     );

@@ -227,12 +227,25 @@ redirect2stat:
   url: /redirect2stat/:identifiant
   param: { module: tiers, action: redirect2Stat }
   options: { model: Etablissement, type: object }
+
+redirect2dossier:
+  class: EtablissementRoute
+  url: /redirect2dossier/:identifiant
+  param: { module: tiers, action: redirect2Dossier }
+  options: { model: Etablissement, type: object }
+
 login:
   url: /login
   param: {module: acVinCompte, action: login}
 logout:
   url: /logout
   param: {module: acVinCompte, action: logout}
+header:
+  url: /header
+  param: {module: global, action: header}
+footer:
+  url: /footer
+  param: {module: global, action: footer}
 
 # BO
 admin:
