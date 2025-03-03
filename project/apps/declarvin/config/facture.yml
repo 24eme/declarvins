@@ -62,7 +62,7 @@ all:
       export_csv_facture_detailed: true
       export_shell: "%sf_root_dir%/bin/exportComptableIR.sh"
       echeance: "+90 days"
-      echeance_fin_de_mois: true
+      echeance_fin_de_mois: false
       echeance_date_mvt: true
       seuil_minimum: 50
       globalise_calcul_taxe: true
