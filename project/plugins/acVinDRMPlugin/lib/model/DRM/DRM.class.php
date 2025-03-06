@@ -256,7 +256,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             if (trim($libelle) == trim($detail->libelle) && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
                 $inaoLibelleProduits[] = $detail;
             }
-            if (trim($libelle) == trim($detail->libelle) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+            if ($libelle && trim($libelle) == trim($detail->libelle) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
                 $libelleProduits[] = $detail;
             }
             if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
