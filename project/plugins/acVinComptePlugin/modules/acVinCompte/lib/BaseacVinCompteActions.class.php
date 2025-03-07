@@ -217,8 +217,11 @@ class BaseacVinCompteActions extends sfActions
         $login = $request->getParameter('login');
         $compte = acCouchdbManager::getClient('Compte')->retrieveByLogin($login);
         if (!$compte) {
-            http_response_code(401);
-            die("Unauthorized $login");
+            $compte = acCouchdbManager::getClient('Compte')->retrieveByLogin(strtolower($login));
+            if (!$compte) {
+                http_response_code(401);
+                die("Unauthorized $login");
+            }
         }
         $this->entities = array('raison_sociale' => [], 'cvi' => [], 'siret' => [], 'ppm' => [], 'accise' => [], 'tva' => []);
         $this->entities_number = 0;
