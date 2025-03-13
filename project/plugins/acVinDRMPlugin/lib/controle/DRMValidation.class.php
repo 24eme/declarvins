@@ -291,6 +291,20 @@ class DRMValidation
 		if ($detail->tav && ($detail->tav < 0.5 || $detail->tav > 100)) {
 			$this->errors['tav_value_'.$detail->getIdentifiantHTML()] = new DRMControleError('tav_value', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
+		foreach ($detail->vrac as $id => $values) {
+            $vrac = VracClient::getInstance()->findByNumContrat($id);
+            $volume = $vrac->volume_propose - $vrac->volume_enleve;
+            if ($volume < 0) {
+                $volume = 0;
+            }
+            $volume = round($volume * (1+self::ECART_VRAC), 5);
+			if (!$vrac) {
+                $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': Il n\'existe pas de contrat numéro '.$id);
+            }
+            if (isset($values['volume']) && round($values['volume'],5) > $volume) {
+                $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': Le volume de vrac ('.round($values['volume'],5).' hl) est nettement supérieur au volume restant ('.round($vrac->volume_propose - $vrac->volume_enleve,5).' hl) du contrat '.$id);
+            }
+		}
 	}
 
 	private function controleWarnings($detail)
