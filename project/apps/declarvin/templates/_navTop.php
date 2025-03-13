@@ -17,7 +17,7 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
-        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'sv12') && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'sv12') && ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)||$isAdmin)): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_SV12)): ?>
         <li<?php if ($active == 'sv12'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('sv12_etablissement', $etablissement) ?>">SV12</a>
@@ -76,7 +76,7 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
 
-        <?php if(($etablissement->hasDocuments()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if(($etablissement->hasDocuments()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)||$isAdmin)): ?>
         <li<?php if ($active == 'documents'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('fichiers_etablissement', $etablissement) ?>">Documents</a>
         </li>
