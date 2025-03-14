@@ -27,7 +27,7 @@ class DRMValidation
 		$this->warnings = array();
 		$this->errors = array();
 		$this->etablissement = $drm->getEtablissementObject();
-		$this->isAdmin = (in_array($this->drm->mode_de_saisie, array(DRMClient::MODE_DE_SAISIE_PAPIER, DRMClient::MODE_DE_SAISIE_EDI)))? true : false;
+		$this->isAdmin = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER);
 		$this->isCiel = ($this->etablissement->isTransmissionCiel() || $drm->isNegoce());
 		if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
 			$this->isCiel = false;
