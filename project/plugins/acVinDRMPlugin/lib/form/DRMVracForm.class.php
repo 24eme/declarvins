@@ -86,8 +86,10 @@ class DRMVracForm extends acCouchdbForm
     		if ($drm->exist($hash)) {
     			$produit = $drm->get($hash);
     			foreach ($contrats['contrats'] as $v) {
-    				$contrat = $produit->get('vrac')->add(trim($v['vrac']));
-        			$contrat->volume = $v['volume'];
+                    if (trim($v['vrac']) && $v['volume']) {
+        				$contrat = $produit->get('vrac')->add(trim($v['vrac']));
+            			$contrat->volume = $v['volume'];
+                    }
     			}
     		}
     	}
