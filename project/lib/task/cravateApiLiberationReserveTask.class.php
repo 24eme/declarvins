@@ -58,7 +58,7 @@ class cravateApiLiberationReserveTask extends sfBaseTask
                 $this->logs[] = $path.$arguments['conf_filename']." erreur de lecture";
                 continue;
             }
-            $result[$path.$arguments['conf_filename']] = json_decode($content);
+            $result[$path] = json_decode($content);
         }
 
         if ($this->logs) {
@@ -72,19 +72,19 @@ class cravateApiLiberationReserveTask extends sfBaseTask
             $millesime = (isset($conf->form) && isset($conf->form->MILLESIME))? $conf->form->MILLESIME : null;
             $empty = false;
             if (!$identifiant) {
-                $this->logs[] = "NUMCIVP non trouvé dans la conf $path";
+                $this->logs[] = "NUMCIVP non trouvé dans la conf $path".$arguments['conf_filename'];
                 $empty = true;
             }
             if (!$volume) {
-                $this->logs[] = "VOLUME non trouvé dans la conf $path";
+                $this->logs[] = "VOLUME non trouvé dans la conf $path".$arguments['conf_filename'];
                 $empty = true;
             }
             if (!$hash) {
-                $this->logs[] = "PRODUIT non trouvé dans la conf $path";
+                $this->logs[] = "PRODUIT non trouvé dans la conf $path".$arguments['conf_filename'];
                 $empty = true;
             }
             if (!$millesime) {
-                $this->logs[] = "MILLESIME non trouvé dans la conf $path";
+                $this->logs[] = "MILLESIME non trouvé dans la conf $path".$arguments['conf_filename'];
                 $empty = true;
             }
             if ($empty) {
@@ -100,22 +100,43 @@ class cravateApiLiberationReserveTask extends sfBaseTask
             if (!$lastDRM->isValidee()) {
                 $drms[] = $historique->getPreviousDRM($lastDRM->getPeriode());
             }
+            $executedTask = false;
             foreach ($drms as $drm) {
                 if (!$drm->exist($hash)) {
                     $this->logs[] = "Pas de produit $hash dans la drm $drm->_id";
                     continue;
                 }
+                if (!$executedTask) {
+                    $task = sfConfig::get('app_cravate_updateTask');
+                    $status = sfConfig::get('app_cravate_updateStatus');
+                    $comment = sfConfig::get('app_cravate_updateComment').$drm->_id;
+                    $taskResult = shell_exec(escapeshellcmd("$task $path $status \"$comment\""));
+                    if (!$taskResult) {
+                        $this->logs[] = "Une erreur est survenue lors de l'appel de la tâche $task";
+                        continue;
+                    }
+                    if (strpos($taskResult, 'SUCCES') === false) {
+                        $this->logs[] = "Erreur dans l'execution de la tâche $task : $taskResult";
+                        continue;
+                    }
+                    $this->logs[] = $taskResult;
+                    $executedTask = true;
+                }
                 $produit = $drm->get($hash);
                 $produit->setReserveInterpro($volume, $millesime);
                 $drm->save();
-                $this->logs[] = "Réserve libérée sur la DRM $drm->_id conformement au dossier $path";
+                $this->logs[] = "Réserve libérée : $drm->_id";
             }
         }
         $this->rapport();
     }
 
     private function rapport() {
-        var_dump($this->logs);exit;
+        $interpro = InterproClient::getInstance()->retrieveById('CIVP');
+        $to = [sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription];
+		$mail = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Libérations auto. de réserve interpro.", implode(PHP_EOL, $this->logs))->setContentType('text/plain');
+		$this->getMailer()->sendNextImmediately()->send($mail);
+        echo implode(PHP_EOL, $this->logs);
     }
 
 }
