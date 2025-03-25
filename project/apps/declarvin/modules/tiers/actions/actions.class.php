@@ -84,6 +84,7 @@ class tiersActions extends sfActions
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
   	if ($login = $this->getUser()->getAttribute('initial_user', null)) {
+        unset($_SESSION['etablissement_id']);
   	    $this->getUser()->setAttribute('initial_user', null);
   		$this->getUser()->signOut();
   		$this->getUser()->signIn($login);
