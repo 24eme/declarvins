@@ -38,6 +38,9 @@ class tiersActions extends sfActions
       		return $this->redirect('tiers_forbidden');
       }
       if ($nbEtablissement == 1) {
+          $_SESSION['etablissement_id'] = current($etablissements)->identifiant;
+
+          $this->redirect('/cravate-pdf/');
     		return $this->redirect("tiers_mon_espace", current($etablissements));
       }
 
@@ -46,6 +49,8 @@ class tiersActions extends sfActions
   	  if ($request->isMethod(sfWebRequest::POST)) {
     		$this->form->bind($request->getParameter($this->form->getName()));
     		$tiers = $this->form->process();
+            $_SESSION['etablissement_id'] = $tiers->identifiant;
+
       		return $this->redirect("tiers_mon_espace", $tiers);
 	  }
   }
@@ -79,6 +84,7 @@ class tiersActions extends sfActions
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
   	if ($login = $this->getUser()->getAttribute('initial_user', null)) {
+        unset($_SESSION['etablissement_id']);
   	    $this->getUser()->setAttribute('initial_user', null);
   		$this->getUser()->signOut();
   		$this->getUser()->signIn($login);
@@ -285,7 +291,7 @@ class tiersActions extends sfActions
     if (!$etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         $this->redirect('/');
     }
-    $_SESSION['etablissement_id'] = $request->getParameter('identifiant');
+    //$_SESSION['etablissement_id'] = $request->getParameter('identifiant');
     $this->redirect('/cravate-pdf/');
   }
 }
