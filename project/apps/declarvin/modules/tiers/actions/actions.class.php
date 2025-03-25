@@ -291,7 +291,7 @@ class tiersActions extends sfActions
     if (!$etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         $this->redirect('/');
     }
-    //$_SESSION['etablissement_id'] = $request->getParameter('identifiant');
-    $this->redirect('/cravate-pdf/');
+    $_SESSION['etablissement_id'] = $request->getParameter('identifiant');
+    $this->redirect('/cravate-pdf/procedures/'.$request->getParameter('identifiant'));
   }
 }
