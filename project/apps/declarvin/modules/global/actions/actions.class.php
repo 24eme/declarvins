@@ -16,8 +16,18 @@ class globalActions extends sfActions
     }
 
     public function executeHeader(sfWebRequest $request) {
-        $header = $this->getPartial("global/header", ['isAdmin' => $this->getRequest()->getParameter('isAdmin', false)]);
-        $header .= $this->getPartial("global/navTop", ['active' => $this->getRequest()->getParameter('nav'), 'configuration' => ConfigurationClient::getCurrent(), 'isAdmin' => $this->getRequest()->getParameter('isAdmin', false), 'etablissement' => EtablissementClient::getInstance()->retrieveById($this->getRequest()->getParameter('identifiant'))]);
+        $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)||$this->getRequest()->getParameter('isAdmin', false);
+        $etablissement = EtablissementClient::getInstance()->retrieveById($this->getRequest()->getParameter('identifiant'));
+        $header = $this->getPartial("global/header", ['isAdmin' => $isAdmin]);
+        if ($etablissement) {
+            $header .= $this->getPartial("global/navTop", ['active' => $this->getRequest()->getParameter('nav'), 'configuration' => ConfigurationClient::getCurrent(), 'isAdmin' => $isAdmin, 'etablissement' => $etablissement]);
+        } elseif ($isAdmin) {
+            $interpro = ($this->getUser()) ? $this->getUser()->getCompte()->getGerantInterpro() : null;
+            $header .= $this->getPartial("global/navBack", ['active' => $this->getRequest()->getParameter('nav'), 'configuration' => ConfigurationClient::getCurrent(), 'interpro' => $interpro]);
+        } else {
+            throw new Exception("Header not printable");
+
+        }
         echo $header;exit;
     }
 
