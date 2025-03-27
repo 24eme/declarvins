@@ -195,7 +195,7 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
         return $this->_compte;
     }
 
-    protected function hasCompte()
+    public function hasCompte()
     {
         return (!is_null($this->_compte));
     }
