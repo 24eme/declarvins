@@ -96,7 +96,7 @@
 
 <nav id="sous_barre_navigation">
 	<ul id="actions_etablissement">
-		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $sf_user->getCompte() ?: $interpro->identifiant ?></span></a></li>
+		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $sf_user->hasCompte() ? $sf_user->getCompte() : $interpro->identifiant ?></span></a></li>
 		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
