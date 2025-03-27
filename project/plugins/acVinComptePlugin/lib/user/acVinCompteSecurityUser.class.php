@@ -164,6 +164,7 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
         if ($compte->type == 'CompteProxy') {
             $this->signInCompte(acCouchdbManager::getClient()->retrieveDocumentById($compte->compte_reference));
         }
+        $this->_compte = $compte;
     }
 
     /**
@@ -192,6 +193,11 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
             }
         }
         return $this->_compte;
+    }
+
+    protected function hasCompte()
+    {
+        return (!is_null($this->_compte));
     }
 
     protected function getNamespaceCompte()
