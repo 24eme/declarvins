@@ -39,9 +39,7 @@ class tiersActions extends sfActions
       }
       if ($nbEtablissement == 1) {
           $_SESSION['etablissement_id'] = current($etablissements)->identifiant;
-
-          $this->redirect('/cravate-pdf/');
-    		return $this->redirect("tiers_mon_espace", current($etablissements));
+    	  return $this->redirect("tiers_mon_espace", current($etablissements));
       }
 
   	  $this->form = new TiersLoginForm($this->compte, true, $etablissements);
