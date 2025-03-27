@@ -13,6 +13,11 @@
         <li<?php if ($active == 'statistiques'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Rapports</a>
 		</li>
+        <?php if ($configuration->isApplicationOuverte($interpro->_id, 'cravate')): ?>
+        <li<?php if ($active == 'cravate'): ?> class="actif"<?php endif; ?>>
+            <a href="/cravate-pdf/procedure/LiberationReserveInterpro/submissions">Dossiers</a>
+        </li>
+        <?php endif; ?>
 		<li>
 			<a href="/exports/<?php echo str_replace('INTERPRO-', '', $sf_user->getCompte()->getGerantInterpro()->_id) ?>/">Exports</a>
 		</li>
