@@ -9,7 +9,7 @@
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
-		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)||$isAdmin): ?>
         <li<?php if ($active == 'statistiques'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Rapports</a>
 		</li>
@@ -19,7 +19,7 @@
         </li>
         <?php endif; ?>
 		<li>
-			<a href="/exports/<?php echo str_replace('INTERPRO-', '', $sf_user->getCompte()->getGerantInterpro()->_id) ?>/">Exports</a>
+			<a href="/exports/<?php echo str_replace('INTERPRO-', '', $interpro->_id) ?>/">Exports</a>
 		</li>
         <li>
 			<a href="/metabase/">Métabase</a>
@@ -67,7 +67,7 @@
 				<a href="<?php echo url_for('@interpro_upload_csv_volumes_bloques') ?>">Volumes bloqués</a>
 			</li>
 		<?php elseif ($active == 'comptes'): ?>
-			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)||$isAdmin): ?>
 			<li<?php if ($subactive == 'comptes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_comptes') ?>">Opérateurs</a>
 			</li>
@@ -82,7 +82,7 @@
 				<a href="<?php echo url_for('@oioc_comptes') ?>">OIOC</a>
 			</li>
 		<?php elseif ($active == 'statistiques'): ?>
-			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)||$isAdmin): ?>
 			<li<?php if ($subactive == 'bilan_drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Bilan DRM</a>
 			</li>
@@ -96,7 +96,7 @@
 
 <nav id="sous_barre_navigation">
 	<ul id="actions_etablissement">
-		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $sf_user->getCompte() ?></span></a></li>
+		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $interpro->identifiant ?></span></a></li>
 		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
