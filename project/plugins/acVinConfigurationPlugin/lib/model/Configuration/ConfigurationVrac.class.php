@@ -24,17 +24,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
             '110' => array('champ_application_raisin', 'report_numero_contrat'),
             '101' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
             '111' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
-        ),
-        'INTERPRO-CIVP' => [
-            '000' => ['liberte_contractuelle'],
-            '001' => ['liberte_contractuelle'],
-            '010' => ['liberte_contractuelle'],
-            '011' => ['liberte_contractuelle'],
-            '100' => ['liberte_contractuelle'],
-            '101' => ['liberte_contractuelle'],
-            '110' => ['liberte_contractuelle'],
-            '111' => ['liberte_contractuelle'],
-            ]
+        )
     );
 
     public function getVendeurs() {
