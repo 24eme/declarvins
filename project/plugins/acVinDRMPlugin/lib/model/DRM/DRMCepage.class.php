@@ -221,7 +221,7 @@ class DRMCepage extends BaseDRMCepage {
     public function getMillesimeForReserveInterpro() {
         $details = $this->getOrAdd('reserve_interpro_details')->toArray(true,false);
         if (!count($details)) {
-            throw new sfException('Il manque le detail de la réserve interpro');
+            return null;
         }
         krsort($details);
         return array_key_first($details);
