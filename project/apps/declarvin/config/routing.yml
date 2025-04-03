@@ -229,10 +229,8 @@ redirect2stat:
   options: { model: Etablissement, type: object }
 
 redirect2dossier:
-  class: EtablissementRoute
-  url: /redirect2dossier/:identifiant
+  url: /redirect2dossier
   param: { module: tiers, action: redirect2Dossier }
-  options: { model: Etablissement, type: object }
 
 login:
   url: /login
