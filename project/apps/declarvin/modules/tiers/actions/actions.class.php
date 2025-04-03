@@ -284,12 +284,9 @@ class tiersActions extends sfActions
 
   public function executeRedirect2Dossier(sfWebRequest $request)
   {
-    $identifiant = $request->getParameter('identifiant');
-    $etablissement = EtablissementClient::getInstance()->find($identifiant);
-    if (!$etablissement && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        $this->redirect('/');
+    if(!$request->getParameter('url')) {
+        return $this->redirect('/cravate-pdf/');
     }
-    $_SESSION['etablissement_id'] = $request->getParameter('identifiant');
-    $this->redirect('/cravate-pdf/procedures/'.$request->getParameter('identifiant'));
+    return $this->redirect($request->getParameter('url'));
   }
 }
