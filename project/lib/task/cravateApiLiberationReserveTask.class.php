@@ -134,7 +134,7 @@ class cravateApiLiberationReserveTask extends sfBaseTask
 
     private function rapport() {
         $interpro = InterproClient::getInstance()->retrieveById('CIVP');
-        $to = [sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription];
+        $to = [sfConfig::get('app_email_to_notification'), $interpro->email_dsnegoce];
 		$mail = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Libérations auto. de réserve interpro.", implode(PHP_EOL, $this->logs))->setContentType('text/plain');
 		$this->getMailer()->sendNextImmediately()->send($mail);
         echo implode(PHP_EOL, $this->logs);
