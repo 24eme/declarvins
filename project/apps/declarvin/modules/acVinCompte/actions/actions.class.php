@@ -125,7 +125,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
         	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
                $url = null;
            } else {
-	  		   $url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
+               $url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . urlencode($request->getUri());
             }
             return $this->redirectAfterLogin($url);
         }
