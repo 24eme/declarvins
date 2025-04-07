@@ -92,3 +92,4 @@ Chaque ligne du fichier correspond à une transaction.
 79. Type de retiraison : vrac (Retiraison/Livraison en Vrac) / tire_bouche (Retiraison/Livraison en Tiré Bouché) / lattes (Retiraison/Livraison sur Lattes)
 80. Commune de l'acheteur
 81. Pays de l'acheteur
+82. Observations : texte saisi par le télédéclarant
