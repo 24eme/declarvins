@@ -91,6 +91,8 @@ class acVinCompteActions extends BaseacVinCompteActions {
                             $comptes[] = $c;
                         }
                     }
+                } else {
+                    $comptes = $compte;
                 }
      			Email::getInstance()->sendRedefinitionMotDePasse($comptes);
      			$this->getUser()->setFlash('notice', 'Une demande de redéfinition de votre mot de passe vous a été envoyé');
