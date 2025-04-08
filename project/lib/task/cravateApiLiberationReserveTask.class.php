@@ -34,11 +34,13 @@ class cravateApiLiberationReserveTask extends sfBaseTask
         if (!is_dir($arguments['submissions_path'])) {
             $this->logs[] = $arguments['submissions_path']." n'est pas un dossier valide";
             $this->rapport();
+            exit;
         }
         $submissions = scandir($arguments['submissions_path']);
         if ($submissions === false) {
             $this->logs[] = $arguments['submissions_path']." une erreur est survenue au scan";
             $this->rapport();
+            exit;
         }
         $result = [];
         foreach ($submissions as $submission) {
@@ -63,6 +65,7 @@ class cravateApiLiberationReserveTask extends sfBaseTask
 
         if ($this->logs) {
             $this->rapport();
+            exit;
         }
 
         foreach ($result as $path => $conf) {
@@ -129,7 +132,9 @@ class cravateApiLiberationReserveTask extends sfBaseTask
                 $this->logs[] = "Réserve libérée : $drm->_id";
             }
         }
-        $this->rapport();
+        if ($this->logs) {
+            $this->rapport();
+        }
     }
 
     private function rapport() {
