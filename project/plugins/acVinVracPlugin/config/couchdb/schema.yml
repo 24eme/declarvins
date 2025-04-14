@@ -238,6 +238,7 @@ Vrac:
       date_debut_retiraison: {  }
       contrat_pluriannuel: {  }
       reference_contrat_pluriannuel: {  }
+      duree_contrat_pluriannuel: {  }
       delai_paiement: {  }
       delai_paiement_autre: {  }
       echeancier_paiement: {  }
