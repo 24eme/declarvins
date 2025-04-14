@@ -201,7 +201,7 @@
             <?php if(isset($form['dispense_acompte'])): ?>
             <div class="vracs_ligne_form" style="margin: 10px 0 0 208px;">
                 <?php echo $form['dispense_acompte']->renderError() ?>
-                <?php echo $form['dispense_acompte']->render() ?>
+                <?php echo $form['dispense_acompte']->render(array('style' => 'margin-top: 0px;vertical-align: top;')) ?>
                 <?php echo $form['dispense_acompte']->renderLabel() ?>
             </div>
             <?php endif; ?>
