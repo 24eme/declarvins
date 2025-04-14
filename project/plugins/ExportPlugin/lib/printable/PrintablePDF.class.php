@@ -48,14 +48,21 @@ class PrintablePDF extends PrintableOutput {
     	$this->pdf->load_html($html);
     }
 
-    public function generatePDF() {   
+    public function generatePDF() {
 		$this->pdf->render();
 		if ($this->annexe) {
 		    file_put_contents('/tmp/'.$this->filename,  $this->pdf->output());
-		    file_put_contents('/tmp/annexe_'.$this->filename,  $this->annexe);
-		    exec("pdftk /tmp/".$this->filename." /tmp/annexe_".$this->filename." cat output ".$this->pdf_file);
+            $annexes = '';
+            foreach ($this->annexe as $k => $annexe) {
+                $fname = '/tmp/'.$this->filename.'_annexe_'.$k;
+		        file_put_contents($fname,  $annexe);
+                $annexes .= $fname.' ';
+            }
+		    exec("pdftk /tmp/".$this->filename." ".$annexes." cat output ".$this->pdf_file);
 		    unlink('/tmp/'.$this->filename);
-		    unlink('/tmp/annexe_'.$this->filename);
+            foreach ($this->annexe as $k => $annexe) {
+    		    unlink('/tmp/'.$this->filename.'_annexe_'.$k);
+            }
 		} else {
 		  file_put_contents($this->pdf_file,  $this->pdf->output());
 		}
