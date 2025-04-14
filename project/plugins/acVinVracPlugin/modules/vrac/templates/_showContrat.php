@@ -429,9 +429,9 @@
 				<span><?php echo $vrac->autres_conditions ?></span>
 			</li>
 			<?php endif ?>
-			<?php if (count($vrac->_attachments) > 0): foreach ($vrac->_attachments as $filename => $fileinfos): ?>
+			<?php if (count($vrac->_attachments) > 0): $i = 0; foreach ($vrac->_attachments as $filename => $fileinfos): $i++; ?>
 			<li>
-				<span>Annexe :</span>
+				<span>Annexe <?php echo sprintf("%02d", $i); ?>:</span>
 				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?file=<?php echo $filename ?>"><?php echo $filename ?></a></span>
 			</li>
             <?php endforeach; endif; ?>
