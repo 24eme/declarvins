@@ -4,6 +4,7 @@ class VracClauseIvseForm extends VracClauseForm
 {
     public function configure() {
         parent::configure();
+        unset($this['clause_initiative_contractuelle_producteur']);
 
         $this->setWidget('clause_resiliation_cas', new sfWidgetFormInputText());
         $this->getWidget('clause_resiliation_cas')->setLabel('Cas de résiliation:');
