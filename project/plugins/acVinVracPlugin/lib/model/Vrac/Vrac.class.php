@@ -991,52 +991,37 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     /*     * ** FIN DE VERSION *** */
 
-
-    public function storeAnnexe($file) {
+    public function storeAnnexe($file, $name) {
         if (!is_file($file)) {
             throw new sfException($file." n'est pas un fichier valide");
         }
         $pathinfos = pathinfo($file);
         $extension = (isset($pathinfos['extension']) && $pathinfos['extension'])? strtolower($pathinfos['extension']): null;
-        $fileName = ($extension)? uniqid().'.'.$extension : uniqid();
-        $couchinfos = $this->getFileinfos($pathinfos['extension']);
-        $store4real = true;
-        if (isset($couchinfos['digest'])) {
-            $digest = explode('-', $couchinfos['digest']);
-            if ($digest[1] == base64_encode(hex2bin(md5_file($file)))) {
-                $store4real = false;
-            }else{
-                $this->deleteFichier($couchinfos->getKey());
-                $this->save();
-            }
+        if ($extension) {
+            $name .= ".$extension";
         }
-        if ($store4real) {
-            $mime = mime_content_type($file);
-            $this->storeAttachment($file, $mime, $fileName);
+        if ($this->deleteAnnexe($name)) {
+            $this->save();
         }
-        return $store4real;
+        $this->storeAttachment($file, mime_content_type($file), $name);
     }
 
-    public function getFileinfos($ext)
-    {
-    	foreach ($this->_attachments as $filename => $fileinfos) {
-    		if (preg_match('/([a-zA-Z0-9]*)\.([a-zA-Z0-9]*)$/', $filename, $m)) {
-    			if (strtolower($m[2]) == strtolower($ext)) {
-    				$fileinfos->add('filename', $filename);
-    				return $fileinfos;
-    			}
-    		}
-    	}
-    	return null;
-    }
-
-    public function deleteFichier($filename = null) {
-        if (!$filename) {
-            $this->remove('_attachments');
-            $this->add('_attachments');
-        } elseif ($this->_attachments->exist($filename)) {
+    public function deleteAnnexe($annexe) {
+        if ($filename = $this->getAnnexeFilename($annexe)) {
             $this->_attachments->remove($filename);
+            return true;
         }
+        return false;
+    }
+
+    public function getAnnexeFilename($annexe) {
+        if(!$this->exist('_attachments')) {
+            return null;
+        }
+        foreach ($this->_attachments as $filename => $fileinfos) {
+            if (strpos($filename, $annexe) !== false) return $filename;
+        }
+        return null;
     }
 
     public function isPrimeur() {
