@@ -88,7 +88,7 @@
 <?= $form['autres_conditions']->render(array('style' => 'width:99%;height:120px;')) ?>
 <?php endif; ?>
 
-<?php if (isset($form['annexe'])||isset($form['annexe_precontractuelle'])): ?>
+<?php if (isset($form['annexe_autre'])||isset($form['annexe_precontractuelle'])): ?>
 <h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
 <?php if(isset($form['annexe_precontractuelle'])): ?>
 <div class="section_label_strong" style="margin: 15px 0;">
