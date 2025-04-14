@@ -429,18 +429,12 @@
 				<span><?php echo $vrac->autres_conditions ?></span>
 			</li>
 			<?php endif ?>
-			<?php if ($file = $vrac->getAnnexeFilename('annexe_precontractuelle')): ?>
+			<?php if (count($vrac->_attachments) > 0): foreach ($vrac->_attachments as $filename => $fileinfos): ?>
 			<li>
-				<span>Annexe précontractuelle :</span>
-				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?type=annexe_precontractuelle"><?php echo $file ?></a></span>
+				<span>Annexe :</span>
+				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?file=<?php echo $filename ?>"><?php echo $filename ?></a></span>
 			</li>
-			<?php endif; ?>
-			<?php if ($file = $vrac->getAnnexeFilename('annexe_autre')): ?>
-			<li>
-				<span>Autre annexe :</span>
-				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?type=annexe_autre"><?php echo $file ?></a></span>
-			</li>
-			<?php endif; ?>
+            <?php endforeach; endif; ?>
 		</ul>
     		<?php if($editer_etape): ?>
     			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
