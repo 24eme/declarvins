@@ -96,7 +96,7 @@
     <?php echo $form['annexe_precontractuelle']->renderLabel() ?>
     <?php echo $form['annexe_precontractuelle']->render(array('style' => 'display: inline-block;')) ?>
     <?php if($file = $form->getObject()->getAnnexeFilename('annexe_precontractuelle')): ?>
-    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?type=annexe_precontractuelle" target="_blank"><?php echo $file ?></a>
+    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?file=<?php echo $file ?>" target="_blank"><?php echo $file ?></a>
     <?php endif; ?>
 </div>
 <?php endif; ?>
@@ -106,7 +106,7 @@
     <?php echo $form['annexe_autre']->renderLabel() ?>
     <?php echo $form['annexe_autre']->render(array('style' => 'display: inline-block;')) ?>
     <?php if($file = $form->getObject()->getAnnexeFilename('annexe_autre')): ?>
-    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?type=annexe_autre" target="_blank"><?php echo $file ?></a>
+    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?file=<?php echo $file ?>" target="_blank"><?php echo $file ?></a>
     <?php endif; ?>
 </div>
 <?php endif; ?>
