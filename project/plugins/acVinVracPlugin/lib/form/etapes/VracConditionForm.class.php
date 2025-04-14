@@ -27,8 +27,8 @@ class VracConditionForm extends VracForm
         ));
         $this->setValidators(array(
             'is_contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array('0','1'))),
-        	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => true)),
-            'duree_contrat_pluriannuel' => new sfValidatorInteger(array('required' => true, 'min' => 2), array('min' => 'Un contrat pluriannuel à une durée minimale de 2 ans')),
+        	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
+            'duree_contrat_pluriannuel' => new sfValidatorInteger(array('required' => false, 'min' => 2), array('min' => 'Un contrat pluriannuel à une durée minimale de 2 ans')),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),

@@ -19,6 +19,11 @@ class VracConditionValidator extends sfValidatorBase {
     	    $hasError = true;
     	}
 
+    	if ($values['contrat_pluriannuel'] == 1 && isset($values['duree_contrat_pluriannuel']) && !$values['duree_contrat_pluriannuel']) {
+    	    $errorSchema->addError(new sfValidatorError($this, 'required'), 'duree_contrat_pluriannuel');
+    	    $hasError = true;
+    	}
+
         if (isset($values['pluriannuel_campagne_debut']) && isset($values['pluriannuel_campagne_fin'])) {
             if ($values['pluriannuel_campagne_fin'] < 2) {
                 $errorSchema->addError(new sfValidatorError($this, 'impossible_campagne'), 'pluriannuel_campagne_debut');
