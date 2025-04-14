@@ -88,13 +88,28 @@
 <?= $form['autres_conditions']->render(array('style' => 'width:99%;height:120px;')) ?>
 <?php endif; ?>
 
-<?php if (isset($form['annexe_file'])): ?>
+<?php if (isset($form['annexe'])||isset($form['annexe_precontractuelle'])): ?>
 <h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
-<div class="section_label_strong" style="margin: 5px 0;">
-    <?php echo $form['annexe_file']->renderError() ?>
-    <?php echo $form['annexe_file']->renderLabel() ?>
-    <?php echo $form['annexe_file']->render() ?>
+<?php if(isset($form['annexe_precontractuelle'])): ?>
+<div class="section_label_strong" style="margin: 15px 0;">
+    <?php echo $form['annexe_precontractuelle']->renderError() ?>
+    <?php echo $form['annexe_precontractuelle']->renderLabel() ?>
+    <?php echo $form['annexe_precontractuelle']->render(array('style' => 'display: inline-block;')) ?>
+    <?php if($file = $form->getObject()->getAnnexeFilename('annexe_precontractuelle')): ?>
+    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?type=annexe_precontractuelle" target="_blank"><?php echo $file ?></a>
+    <?php endif; ?>
 </div>
+<?php endif; ?>
+<?php if(isset($form['annexe_autre'])): ?>
+<div class="section_label_strong" style="margin: 5px 0;">
+    <?php echo $form['annexe_autre']->renderError() ?>
+    <?php echo $form['annexe_autre']->renderLabel() ?>
+    <?php echo $form['annexe_autre']->render(array('style' => 'display: inline-block;')) ?>
+    <?php if($file = $form->getObject()->getAnnexeFilename('annexe_autre')): ?>
+    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?type=annexe_autre" target="_blank"><?php echo $file ?></a>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
 <?php endif; ?>
 
 <div class="ligne_form_btn">

@@ -429,10 +429,16 @@
 				<span><?php echo $vrac->autres_conditions ?></span>
 			</li>
 			<?php endif ?>
-			<?php if (count($vrac->_attachments) > 0): ?>
+			<?php if ($file = $vrac->getAnnexeFilename('annexe_precontractuelle')): ?>
 			<li>
-				<span>Annexe PDF :</span>
-				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>"><?php echo $vrac->annexe_file ?></a></span>
+				<span>Annexe précontractuelle :</span>
+				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?type=annexe_precontractuelle"><?php echo $file ?></a></span>
+			</li>
+			<?php endif; ?>
+			<?php if ($file = $vrac->getAnnexeFilename('annexe_autre')): ?>
+			<li>
+				<span>Autre annexe :</span>
+				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?type=annexe_autre"><?php echo $file ?></a></span>
 			</li>
 			<?php endif; ?>
 		</ul>

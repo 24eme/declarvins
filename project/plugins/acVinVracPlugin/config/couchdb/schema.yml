@@ -217,6 +217,8 @@ Vrac:
       poids: { type: float }
       annexe: {  }
       annexe_file: {  }
+      annexe_autre: {  }
+      annexe_precontractuelle: {  }
       prix_unitaire: { type: float }
       type_prix: {  }
       determination_prix_date: {  }
