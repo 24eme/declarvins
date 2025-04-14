@@ -20,21 +20,21 @@
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_resiliation_cas']->renderError() ?>
         <?php echo $form['clause_resiliation_cas']->renderLabel() ?>
-        <?php echo $form['clause_resiliation_cas']->render() ?>
+        <?php echo $form['clause_resiliation_cas']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php if (isset($form['clause_resiliation_preavis'])): ?>
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_resiliation_preavis']->renderError() ?>
         <?php echo $form['clause_resiliation_preavis']->renderLabel() ?>
-        <?php echo $form['clause_resiliation_preavis']->render() ?>
+        <?php echo $form['clause_resiliation_preavis']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php if (isset($form['clause_resiliation_indemnite'])): ?>
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_resiliation_indemnite']->renderError() ?>
         <?php echo $form['clause_resiliation_indemnite']->renderLabel() ?>
-        <?php echo $form['clause_resiliation_indemnite']->render() ?>
+        <?php echo $form['clause_resiliation_indemnite']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php endif; ?>
@@ -43,7 +43,7 @@
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_revision_prix']->renderError() ?>
         <?php echo $form['clause_revision_prix']->renderLabel() ?>
-        <?php echo $form['clause_revision_prix']->render() ?>
+        <?php echo $form['clause_revision_prix']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php endif; ?>
@@ -72,7 +72,7 @@
 
     <div class="section_label" style="text-align: right; padding: 10px 0;">
         <?= $form[$key]->renderError() ?>
-        <span><?= $form[$key]->render() ?> <?= $form[$key]->renderLabel() ?></span>
+        <span><?= $form[$key]->render(array('style' => 'margin-top: 0px;vertical-align: top;')) ?> <?= $form[$key]->renderLabel() ?></span>
     </div>
 <?php endforeach; ?>
 <?php endif; ?>
