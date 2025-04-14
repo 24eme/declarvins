@@ -131,16 +131,12 @@ class acVinVracActions extends sfActions
 	public function executeAnnexe(sfWebRequest $request)
 	{
         $this->vrac = $this->getRoute()->getVrac();
-        $fname = null;
-	    foreach ($this->vrac->_attachments as $filename => $fileinfos) {
-    		$fname = $filename;
-    	}
-        $file = file_get_contents($this->vrac->getAttachmentUri($fname));
+        $file = file_get_contents($this->vrac->getAttachmentUri($request->getParameter('file')));
         if(!$file) {
             return $this->forward404($filename." n'existe pas pour ".$this->vrac->_id);
         }
         $this->getResponse()->setHttpHeader('Content-Type', 'application/pdf');
-        $this->getResponse()->setHttpHeader('Content-disposition', sprintf('attachment; filename="%s"', $this->vrac->annexe_file));
+        $this->getResponse()->setHttpHeader('Content-disposition', sprintf('attachment; filename="%s"', $this->vrac->numero_contrat.'_'.$request->getParameter('file')));
         $this->getResponse()->setHttpHeader('Content-Transfer-Encoding', 'binary');
         $this->getResponse()->setHttpHeader('Pragma', '');
         $this->getResponse()->setHttpHeader('Cache-Control', 'public');
