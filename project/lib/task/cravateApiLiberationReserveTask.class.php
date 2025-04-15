@@ -113,7 +113,11 @@ class cravateApiLiberationReserveTask extends sfBaseTask
                     $task = sfConfig::get('app_cravate_updateTask');
                     $status = sfConfig::get('app_cravate_updateStatus');
                     $comment = sfConfig::get('app_cravate_updateComment').$drm->_id;
-                    $taskResult = shell_exec(escapeshellcmd("$task '$path' $status \"$comment\""));
+                    $cmd = escapeshellcmd($task).' '.
+                           escapeshellarg($path).' '.
+                           escapeshellarg($status).' '.
+                           escapeshellarg($comment);
+                    $taskResult = shell_exec($cmd);
                     if (!$taskResult) {
                         $this->logs[] = "Une erreur est survenue lors de l'appel de la tâche $task";
                         continue;
