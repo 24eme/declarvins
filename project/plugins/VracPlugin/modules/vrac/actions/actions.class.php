@@ -72,7 +72,7 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
-		if ($vrac->exist('oioc') && $vrac->oioc->identifiant && $vrac->has_transaction && $vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
+		if ($vrac->exist('oioc') && $vrac->oioc->identifiant && $vrac->has_transaction) {
 			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 			$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
