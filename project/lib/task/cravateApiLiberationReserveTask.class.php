@@ -130,7 +130,7 @@ class cravateApiLiberationReserveTask extends sfBaseTask
                     $executedTask = true;
                 }
                 $produit = $drm->get($hash);
-                $newVolume = round($produit->getReserveInterpro() - $volume, 5);
+                $newVolume = round($produit->getReserveInterpro($millesime) - floatval(str_replace(',', '.', $volume)), 5);
                 $produit->setReserveInterpro($newVolume, $millesime);
                 $drm->save();
                 $this->logs[] = "Réserve libérée : $drm->_id";
