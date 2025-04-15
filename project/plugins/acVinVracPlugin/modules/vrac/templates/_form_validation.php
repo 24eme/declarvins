@@ -29,7 +29,7 @@
         $warningPrix = true;
     }
 ?>
-	<?php if($warningMiseEnMarche || $warningExport || $warningFourchette || $warningAnnexePrecontractuelle): ?>
+	<?php if($warningMiseEnMarche || $warningExport || $warningFourchette || $warningAnnexePrecontractuelle || $warningPrix): ?>
 	<div class="vigilance_list">
 	    <h3 style="margin-top: 10px;">Points de vigilance</h3>
 	    <ol>
