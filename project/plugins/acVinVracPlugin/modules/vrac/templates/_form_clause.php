@@ -20,21 +20,21 @@
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_resiliation_cas']->renderError() ?>
         <?php echo $form['clause_resiliation_cas']->renderLabel() ?>
-        <?php echo $form['clause_resiliation_cas']->render() ?>
+        <?php echo $form['clause_resiliation_cas']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php if (isset($form['clause_resiliation_preavis'])): ?>
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_resiliation_preavis']->renderError() ?>
         <?php echo $form['clause_resiliation_preavis']->renderLabel() ?>
-        <?php echo $form['clause_resiliation_preavis']->render() ?>
+        <?php echo $form['clause_resiliation_preavis']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php if (isset($form['clause_resiliation_indemnite'])): ?>
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_resiliation_indemnite']->renderError() ?>
         <?php echo $form['clause_resiliation_indemnite']->renderLabel() ?>
-        <?php echo $form['clause_resiliation_indemnite']->render() ?>
+        <?php echo $form['clause_resiliation_indemnite']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php endif; ?>
@@ -43,7 +43,7 @@
     <div class="section_label_strong" style="margin: 5px 0;">
         <?php echo $form['clause_revision_prix']->renderError() ?>
         <?php echo $form['clause_revision_prix']->renderLabel() ?>
-        <?php echo $form['clause_revision_prix']->render() ?>
+        <?php echo $form['clause_revision_prix']->render(array('style' => 'width:50%;')) ?>
     </div>
     <?php endif; ?>
     <?php endif; ?>
@@ -72,7 +72,7 @@
 
     <div class="section_label" style="text-align: right; padding: 10px 0;">
         <?= $form[$key]->renderError() ?>
-        <span><?= $form[$key]->render() ?> <?= $form[$key]->renderLabel() ?></span>
+        <span><?= $form[$key]->render(array('style' => 'margin-top: 0px;vertical-align: top;')) ?> <?= $form[$key]->renderLabel() ?></span>
     </div>
 <?php endforeach; ?>
 <?php endif; ?>
@@ -88,13 +88,28 @@
 <?= $form['autres_conditions']->render(array('style' => 'width:99%;height:120px;')) ?>
 <?php endif; ?>
 
-<?php if (isset($form['annexe_file'])): ?>
+<?php if (isset($form['annexe_autre'])||isset($form['annexe_precontractuelle'])): ?>
 <h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
-<div class="section_label_strong" style="margin: 5px 0;">
-    <?php echo $form['annexe_file']->renderError() ?>
-    <?php echo $form['annexe_file']->renderLabel() ?>
-    <?php echo $form['annexe_file']->render() ?>
+<?php if(isset($form['annexe_precontractuelle'])): ?>
+<div class="section_label_strong" style="margin: 15px 0;">
+    <?php echo $form['annexe_precontractuelle']->renderError() ?>
+    <?php echo $form['annexe_precontractuelle']->renderLabel() ?>
+    <?php echo $form['annexe_precontractuelle']->render(array('style' => 'display: inline-block;')) ?>
+    <?php if($file = $form->getObject()->getAnnexeFilename('annexe_precontractuelle')): ?>
+    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?file=<?php echo $file ?>" target="_blank"><?php echo $file ?></a>
+    <?php endif; ?>
 </div>
+<?php endif; ?>
+<?php if(isset($form['annexe_autre'])): ?>
+<div class="section_label_strong" style="margin: 5px 0;">
+    <?php echo $form['annexe_autre']->renderError() ?>
+    <?php echo $form['annexe_autre']->renderLabel() ?>
+    <?php echo $form['annexe_autre']->render(array('style' => 'display: inline-block;')) ?>
+    <?php if($file = $form->getObject()->getAnnexeFilename('annexe_autre')): ?>
+    <a style="display: inline-block;" href="<?php echo url_for('vrac_annexe', $form->getObject()) ?>?file=<?php echo $file ?>" target="_blank"><?php echo $file ?></a>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
 <?php endif; ?>
 
 <div class="ligne_form_btn">

@@ -49,7 +49,7 @@
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
-            <?php if($form->getObject()->isAdossePluriannuel()): ?>
+            <?php if($form->getObject()->isAdossePluriannuel() && $form->getObject()->pluriannuel_prix_plancher): ?>
                 <p style="padding-left: 210px;">
                     <svg style="vertical-align: -.35em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                       <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -62,7 +62,7 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_unitaire']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong><?php if($form->getObject()->type_transaction == 'vrac' && $form->getObject()->premiere_mise_en_marche): ?><span id="vrac_cotisation_interpro" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT / HL de cotisation interprofessionnelle acheteur (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%)*.</span><p style="padding-left:440px;">(*) Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</p><?php endif; ?>
+                <?php echo $form['prix_unitaire']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong><?php if($form->getObject()->type_transaction == 'vrac' && $form->getObject()->premiere_mise_en_marche): ?><span id="vrac_cotisation_interpro" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT / HL de cotisation interprofessionnelle<?php if(!$form->conditionneIVSE()): ?> acheteur<?php endif; ?> (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%)*.</span><p style="padding-left:440px;">(*) Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</p><?php endif; ?>
             </div>
             <?php if (isset($form['prix_total_unitaire'])): ?>
             <div class="section_label_strong">
@@ -195,13 +195,13 @@
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
                 <?php if ($form->hasAcompteInfo()&&!$form->getObject()->isPluriannuel()&&!$form->getObject()->isAdossePluriannuel()): ?>
-                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
+                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire d'au moins 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
                 <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($form['dispense_acompte'])): ?>
             <div class="vracs_ligne_form" style="margin: 10px 0 0 208px;">
                 <?php echo $form['dispense_acompte']->renderError() ?>
-                <?php echo $form['dispense_acompte']->render() ?>
+                <?php echo $form['dispense_acompte']->render(array('style' => 'margin-top: 0px;vertical-align: top;')) ?>
                 <?php echo $form['dispense_acompte']->renderLabel() ?>
             </div>
             <?php endif; ?>

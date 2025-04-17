@@ -3,6 +3,8 @@
 	$warningMiseEnMarche = false;
 	$warningExport = false;
 	$warningFourchette = false;
+    $warningAnnexePrecontractuelle = false;
+    $warningPrix = false;
     $errorMentions = false;
     $errorTypeVendeur = false;
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
@@ -20,20 +22,28 @@
     if ($form->getObject()->type_transaction != 'raisin' && $form->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN) {
         $errorTypeVendeur = true;
     }
+    if ($form->conditionneIVSE() && !$form->getObject()->getAnnexeFilename('annexe_precontractuelle')) {
+        $warningAnnexePrecontractuelle = true;
+    }
+    if ($form->conditionneIVSE() && $form->getObject()->type_prix != 'definitif' && $form->getObject()->cas_particulier != 'union' && !in_array($form->getObject()->acheteur->sous_famille, [EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,EtablissementFamilles::SOUS_FAMILLE_UNION])) {
+        $warningPrix = true;
+    }
 ?>
-	<?php if($warningMiseEnMarche || $warningExport || $warningFourchette): ?>
+	<?php if($warningMiseEnMarche || $warningExport || $warningFourchette || $warningAnnexePrecontractuelle || $warningPrix): ?>
 	<div class="vigilance_list">
-	    <h3>Points de vigilance</h3>
+	    <h3 style="margin-top: 10px;">Points de vigilance</h3>
 	    <ol>
 	    	<?php if ($warningMiseEnMarche): ?><li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li><?php endif; ?>
 	    	<?php if ($warningExport): ?><li>Attention, vous êtes sur le point de valider un contrat pour le marché français (étape &laquo;Marché&raquo;, champs &laquo;Expédition export&raquo;).</li><?php endif; ?>
             <?php if ($warningFourchette): ?><li>Attention, le prix indiqué ne respecte pas la fourchette de prix défini dans le contrat cadre.</li><?php endif; ?>
+            <?php if ($warningAnnexePrecontractuelle): ?><li>Attention, vous n'avez pas annexé de document précontractuel d'initiative du producteur.</li><?php endif; ?>
+            <?php if ($warningPrix): ?><li>Attention, vous devez convenir d'un prix définitif.</li><?php endif; ?>
 	    </ol>
 	</div>
 	<?php endif; ?>
 	<?php if($errorMentions||$errorTypeVendeur): ?>
 	<div class="error_list">
-	    <h3>Points bloquants</h3>
+	    <h3 style="margin-top: 10px;">Points bloquants</h3>
 	    <ol>
         <?php if($errorMentions): ?>
 	    	<li>Vous ne pouvez pas mentionner de domaine et autre terme règlementé pour un contrat de type raisin ou moûts : <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'produit', 'etablissement' => $etablissement)) ?>">Rectifier</a></li>

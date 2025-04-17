@@ -19,7 +19,7 @@
             </div>
             <?php endif; ?>
             <?php if (isset($form['is_contrat_pluriannuel'])): ?>
-            <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel">
+            <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel|#bloc_duree_pluriannuel">
                 <?php echo $form['is_contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['is_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['is_contrat_pluriannuel']->render() ?>
@@ -30,6 +30,13 @@
                 <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($form['duree_contrat_pluriannuel'])): ?>
+            <div class="section_label_strong bloc_conditionner" id="bloc_duree_pluriannuel" data-condition-value="1">
+                <?php echo $form['duree_contrat_pluriannuel']->renderError() ?>
+                <?php echo $form['duree_contrat_pluriannuel']->renderLabel() ?>
+                <?php echo $form['duree_contrat_pluriannuel']->render() ?>
             </div>
             <?php endif; ?>
             <?php if (isset($form['pluriannuel_campagne_debut'])&&isset($form['pluriannuel_campagne_fin'])): ?>

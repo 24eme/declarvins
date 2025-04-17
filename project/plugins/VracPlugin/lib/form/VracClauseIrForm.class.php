@@ -23,15 +23,15 @@ class VracClauseIrForm extends VracClauseForm
         $this->getWidget('clause_revision_prix')->setLabel('Critères et modalités :');
         $this->setValidator('clause_revision_prix', new sfValidatorString(array('required' => false)));
 
-        $this->setWidget('annexe_file', new sfWidgetFormInputFile(array('label' => 'fichier PDF:')));
-        $this->setValidator('annexe_file', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
+        $this->setWidget('annexe_autre', new sfWidgetFormInputFile(array('label' => 'fichier PDF:')));
+        $this->setValidator('annexe_autre', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
 
         $this->editablizeInputPluriannuel();
     }
     
     public function processValues($values) {
-        if (array_key_exists('annexe_file', $values) && !$values['annexe_file']) {
-            unset($values['annexe_file']);
+        if (array_key_exists('annexe_autre', $values) && !$values['annexe_autre']) {
+            unset($values['annexe_autre']);
         }
         
         return parent::processValues($values);
@@ -52,13 +52,13 @@ class VracClauseIrForm extends VracClauseForm
             }
             $this->getObject()->clauses_complementaires = implode(',', $clauses);
         }
-        $file = $this->getValue('annexe_file');
+        $file = $this->getValue('annexe_autre');
         if ($file && !$file->isSaved()) {
             $file->save();
         }
         if ($file) {
             try {
-                $this->getObject()->storeAnnexe($file->getSavedName());
+                $this->getObject()->storeAnnexe($file->getSavedName(), 'annexe_autre');
             } catch (sfException $e) {
                 throw new sfException($e);
             }

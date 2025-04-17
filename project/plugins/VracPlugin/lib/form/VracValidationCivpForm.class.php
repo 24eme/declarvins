@@ -10,4 +10,8 @@ class VracValidationCivpForm extends VracValidationForm
     public function hasClauses() {
         return false;
     }
+
+    public function conditionneIVSE() {
+      return false;
+    }
 }

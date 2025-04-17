@@ -6,6 +6,7 @@ class VracConditionForm extends VracForm
   		$this->setWidgets(array(
   		    'is_contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel cadre'),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
+            'duree_contrat_pluriannuel' => new sfWidgetFormInputText(),
   		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
         	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
     		'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -16,6 +17,7 @@ class VracConditionForm extends VracForm
         $this->widgetSchema->setLabels(array(
         	'is_contrat_pluriannuel' => 'Type de contrat:',
         	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel cadre adossé à ce contrat*:',
+            'duree_contrat_pluriannuel' => 'Durée en année du contrat pluriannuel*:',
             'cas_particulier' => 'Condition particulière*:',
         	'export' => 'Expédition export*:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
@@ -26,6 +28,7 @@ class VracConditionForm extends VracForm
         $this->setValidators(array(
             'is_contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array('0','1'))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
+            'duree_contrat_pluriannuel' => new sfValidatorInteger(array('required' => false, 'min' => 2), array('min' => 'Un contrat pluriannuel à une durée minimale de 2 ans')),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
@@ -40,7 +43,7 @@ class VracConditionForm extends VracForm
         }
 
         if ($this->getConfiguration()->isContratPluriannuelActif()) {
-            unset($this['reference_contrat_pluriannuel'], $this['is_contrat_pluriannuel']);
+            unset($this['reference_contrat_pluriannuel'], $this['duree_contrat_pluriannuel'], $this['is_contrat_pluriannuel']);
             if ($this->getObject()->isPluriannuel()) {
                 $this->configurePluriannuel();
             }
@@ -89,6 +92,7 @@ class VracConditionForm extends VracForm
     protected function doUpdateObject($values) {
       if (isset($values['is_contrat_pluriannuel']) && !$values['is_contrat_pluriannuel']) {
           $values['reference_contrat_pluriannuel'] = null;
+          $values['duree_contrat_pluriannuel'] = null;
       }
       parent::doUpdateObject($values);
       if (isset($values['is_contrat_pluriannuel'])) {

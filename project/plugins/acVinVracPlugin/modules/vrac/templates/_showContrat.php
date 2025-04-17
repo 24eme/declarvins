@@ -429,12 +429,12 @@
 				<span><?php echo $vrac->autres_conditions ?></span>
 			</li>
 			<?php endif ?>
-			<?php if (count($vrac->_attachments) > 0): ?>
+			<?php if (count($vrac->_attachments) > 0): $i = 0; foreach ($vrac->_attachments as $filename => $fileinfos): $i++; ?>
 			<li>
-				<span>Annexe PDF :</span>
-				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>"><?php echo $vrac->annexe_file ?></a></span>
+				<span>Annexe <?php echo sprintf("%02d", $i); ?>:</span>
+				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>?file=<?php echo $filename ?>"><?php echo $filename ?></a></span>
 			</li>
-			<?php endif; ?>
+            <?php endforeach; endif; ?>
 		</ul>
     		<?php if($editer_etape): ?>
     			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>

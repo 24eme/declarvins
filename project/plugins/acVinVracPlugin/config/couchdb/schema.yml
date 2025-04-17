@@ -217,6 +217,8 @@ Vrac:
       poids: { type: float }
       annexe: {  }
       annexe_file: {  }
+      annexe_autre: {  }
+      annexe_precontractuelle: {  }
       prix_unitaire: { type: float }
       type_prix: {  }
       determination_prix_date: {  }
@@ -238,6 +240,7 @@ Vrac:
       date_debut_retiraison: {  }
       contrat_pluriannuel: {  }
       reference_contrat_pluriannuel: {  }
+      duree_contrat_pluriannuel: {  }
       delai_paiement: {  }
       delai_paiement_autre: {  }
       echeancier_paiement: {  }

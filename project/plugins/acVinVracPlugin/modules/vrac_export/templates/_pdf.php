@@ -136,7 +136,7 @@
                 <?php if ($vrac->prix_unitaire): ?>
                 <th>Prix unitaire net HT hors cotisation</th>
 				<?php if ($vrac->has_cotisation_cvo && $vrac->premiere_mise_en_marche && $vrac->type_transaction == 'vrac'): ?>
-				<th>Part cotisation payée par l'acheteur</th>
+				<th>Part cotisation (50%)</th>
 				<?php endif; ?>
 				<th>Type de prix</th>
                 <?php endif; ?>
@@ -166,13 +166,6 @@
 	<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
-		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && ($vrac->isConditionneIr()||$vrac->isConditionneIvse())): ?>
-            <?php if (!$vrac->dispense_acompte): ?>
-                <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
-            <?php else: ?>
-                <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
-            <?php endif; ?>
-        <?php endif; ?>
 	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
 	<p>Echéancier de paiements : </p>
@@ -195,19 +188,13 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
-<<<<<<< HEAD
-	<?php if ($vrac->hasAcompteInfo()): ?>
-		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
-	<?php endif; ?>
-=======
 	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
         <?php if (!$vrac->dispense_acompte): ?>
-            <p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+            <p>Rappel : Acompte obligatoire d'au moins 15% dans les 10 jours suivants la signature du contrat. Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
         <?php else: ?>
             <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
         <?php endif; ?>
     <?php endif; ?>
->>>>>>> prod
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
 	<?php if (!$vrac->isConditionneIvse()): ?><p>Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><?php if($vrac->type_retiraison): ?> : <?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?><?php endif; ?></p><?php endif; ?>
@@ -283,7 +270,7 @@
 		<?php if ($vrac->isConditionneIvse() && ($k=='resiliation'||$k=='force_majeure')): continue; endif; ?>
     <h3><?= $clause['nom'] ?></h3>
     <p>
-        <?= $clause['description'] ?>
+        <?php echo htmlspecialchars_decode($clause['description']); ?>
         <?php if ($k == 'liberte_contractuelle'): ?>
 			<?php if (!$vrac->clause_initiative_contractuelle_producteur): ?>
 			Non mais le présent contrat a été négocié dans le respect de la liberté contractuelle du producteur, ce dernier ayant pu faire valoir ses propositions préalablement à la signature du contrat et n\'ayant pas souhaité effectuer une proposition de contrat.

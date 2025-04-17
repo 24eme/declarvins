@@ -18,7 +18,7 @@
                 <?php echo $form['millesime']->renderLabel() ?>
                 <?php echo $form['millesime']->render(); ?>
                 <?php if(isset($form['non_millesime'])): ?>
-                <?php echo $form['non_millesime']->render() ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;float:none;">Non millésimé</label>
+                <?php echo $form['non_millesime']->render(array('style' => 'margin-top: 0px;vertical-align: middle;')) ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;float:none;">Non millésimé</label>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
