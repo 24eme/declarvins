@@ -190,7 +190,7 @@
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
 	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
         <?php if (!$vrac->dispense_acompte): ?>
-            <p>Rappel : Acompte obligatoire d'au moins 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
+            <p>Rappel : Acompte obligatoire d'au moins 15% dans les 10 jours suivants la signature du contrat. Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
         <?php else: ?>
             <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
         <?php endif; ?>
