@@ -24,7 +24,7 @@ class ExportVracPdf extends ExportVrac
 		$document->addHtml($this->getContent());
 		$fname = null;
         foreach ($this->vrac->_attachments as $filename => $fileinfos) {
-            $document->setAnnexe(file_get_contents($this->vrac->getAttachmentUri($filename));
+            $document->setAnnexe(file_get_contents($this->vrac->getAttachmentUri($filename)));
         }
 		$content = $document->output();
 		$document->addHeaders($response);
