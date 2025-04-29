@@ -69,6 +69,7 @@ EOF;
             continue;
         }
         if ($produit->getDocument()->interpro != "INTERPRO-$interpro") {
+            echo "product from ".$produit->getDocument()->interpro." : $datas[17] $datas[16]\n";
             continue;
         }
         $labels = $this->getLabels($datas[35]);
