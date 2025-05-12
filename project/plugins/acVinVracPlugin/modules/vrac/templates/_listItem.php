@@ -36,7 +36,7 @@ if (in_array($elt[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_C
 <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire): ?>
 <tr class="<?php echo $statusColor ?>" >
   <td>
-  	<?php if (!$validated && $isOperateur): ?>
+  	<?php if (!$validated && $isOperateur && $elt[VracHistoryView::VRAC_VIEW_STATUT] != VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION): ?>
   	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
   	<?php endif; ?>
 	<span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>"></span>
