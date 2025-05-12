@@ -69,6 +69,7 @@ EOF;
             continue;
         }
         if ($produit->getDocument()->interpro != "INTERPRO-$interpro") {
+            echo "product from ".$produit->getDocument()->interpro." : $datas[17] $datas[16]\n";
             continue;
         }
         $labels = $this->getLabels($datas[35]);
@@ -138,8 +139,8 @@ EOF;
         $sv12Contrat->produit_libelle = $this->getProduitLibelleWithLabel($produit->getLibelleFormat(null, "%format_libelle% %la%"), $labels);
         $sv12Contrat->add('labels', $labels);
         $result[$key] = $sv12;
-
     }
+    $grandTotal = 0;
     foreach($result as $sv12) {
         $avoir = null;
         if ($sv12->hasVersion()) {
@@ -171,6 +172,7 @@ EOF;
         if ($avoir) {
             $sv12->avoiriserMvts($avoir);
         }
+        $petitTotal = 0;
         foreach($sv12->mouvements as $mouvements) {
             foreach($mouvements as $mouvement) {
                 $mouvement->add('interpro', "INTERPRO-$interpro");
@@ -181,14 +183,16 @@ EOF;
                     $mouvement->facturable = 0;
                     $mouvement->facture = 0;
                 }
+                $grandTotal += $mouvement->volume * - 1;
+                $petitTotal += $mouvement->volume * - 1;
             }
         }
         if (!$checkingMode) {
             $sv12->save();
         }
-        echo "SV12 created $sv12->_id\n";
+        echo "SV12 created $sv12->_id : ".round($petitTotal,2)."\n";
     }
-
+    echo "Volume total des SV12 importées : ".round($grandTotal,2)."\n";
   }
   public function getLabels($str) {
       $correspondances = ['BIO' => 'biol', 'DEMETER' => 'biod', 'CONVERSION_BIO' => 'bioc', 'HVE' => 'hve'];

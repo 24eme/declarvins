@@ -84,7 +84,7 @@
             )), JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?>'
             class="<?php echo $statusColor ?> hamzastyle-item vertical-center">
 			  <td class="text-center" style="padding: 0;">
-			  	<?php if ((!$validated||$pluriannuel) && $isAdmin): ?>
+			  	<?php if ((!$validated||$pluriannuel) && $isAdmin && $elt[VracHistoryView::VRAC_VIEW_STATUT] != VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION): ?>
 			  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
 			  	<?php endif; ?>
                 <?php if (empty($statusColor)): ?>
