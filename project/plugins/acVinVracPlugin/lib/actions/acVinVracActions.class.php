@@ -109,7 +109,7 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 
-        if ($this->vrac->date_validation) {
+        if ($this->vrac->valide->date_validation) {
             throw new sfException('Le contrat a été validé');
         }
 
