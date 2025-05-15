@@ -75,7 +75,7 @@ all:
       type_cvo:
         identifiant_prefix: "FADRM"
       type_libre:
-        identifiant_prefix: "FA"
+        identifiant_prefix: "FADRM"
         discrimine_type_archive: true
       type_sv:
         identifiant_prefix: "FAVF"
