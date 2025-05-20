@@ -1,14 +1,6 @@
-function(doc) { 
-	if (doc.type == "Vrac" && doc.valide.date_validation) { 
+function(doc) {
+	if (doc.type == "Vrac" && doc.valide.date_validation) {
 
-		var dateEnglishFormat = function(date) {
-			if (!date) {
-				return null;
-			}
-			var d = date.split('/');
-			return d[2]+'-'+d[1]+'-'+d[0];
-		}
-		
 		var vrac_id = doc.numero_contrat;
 		var vrac_version = (doc.version)? doc.version : null;
 		var vrac_referente = (doc.referente === null || doc.referente === undefined)? 1 : doc.referente;
