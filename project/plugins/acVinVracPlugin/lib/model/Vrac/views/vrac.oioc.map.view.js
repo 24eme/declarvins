@@ -236,9 +236,10 @@ function(doc) {
 				 vrac_addr_stockage_has,
 				 vrac_acheteur_ea,
 				 vrac_vendeur_ea,
-				 vrac_type_retiraison,
-				 doc.acheteur.commune,
-				 doc.acheteur.pays
+                 vrac_type_retiraison,
+doc.acheteur.commune,
+doc.acheteur.pays,
+vrac_observation
                 		 ]);
 			}
 		}
