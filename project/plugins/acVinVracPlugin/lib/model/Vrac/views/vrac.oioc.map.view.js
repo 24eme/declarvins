@@ -1,14 +1,6 @@
-function(doc) { 
-	if (doc.type == "Vrac" && doc.valide.date_validation) { 
+function(doc) {
+	if (doc.type == "Vrac" && doc.valide.date_validation) {
 
-		var dateEnglishFormat = function(date) {
-			if (!date) {
-				return null;
-			}
-			var d = date.split('/');
-			return d[2]+'-'+d[1]+'-'+d[0];
-		}
-		
 		var vrac_id = doc.numero_contrat;
 		var vrac_version = (doc.version)? doc.version : null;
 		var vrac_referente = (doc.referente === null || doc.referente === undefined)? 1 : doc.referente;
@@ -163,7 +155,8 @@ function(doc) {
 						}
 					}
 				}
-				emit([doc.oioc.identifiant, doc.oioc.statut, vrac_type_transaction, doc.valide.date_validation, doc._id, doc.produit],
+				var date = (doc.annulation && doc.annulation.date_annulation)? doc.annulation.date_annulation : doc.valide.date_validation;
+				emit([doc.oioc.identifiant, doc.oioc.statut, vrac_type_transaction, date, doc._id, doc.produit],
                 		[vrac_id,
                 		 vrac_date_stat,
                 		 vrac_date_signature,
@@ -243,9 +236,10 @@ function(doc) {
 				 vrac_addr_stockage_has,
 				 vrac_acheteur_ea,
 				 vrac_vendeur_ea,
-				 vrac_type_retiraison,
-				 doc.acheteur.commune,
-				 doc.acheteur.pays
+                 vrac_type_retiraison,
+doc.acheteur.commune,
+doc.acheteur.pays,
+vrac_observation
                 		 ]);
 			}
 		}

@@ -75,6 +75,7 @@ class DRMCrd extends BaseDRMCrd {
 		foreach ($this->sorties as $sortie => $stock) {
 			$this->sorties->set($sortie, null);
 		}
+        $this->observations = null;
 	}
 
 	public function needObservation() {
