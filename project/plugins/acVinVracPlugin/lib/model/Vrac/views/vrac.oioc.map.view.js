@@ -155,7 +155,8 @@ function(doc) {
 						}
 					}
 				}
-				emit([doc.oioc.identifiant, doc.oioc.statut, vrac_type_transaction, doc.valide.date_validation, doc._id, doc.produit],
+				var date = (doc.annulation && doc.annulation.date_annulation)? doc.annulation.date_annulation : doc.valide.date_validation;
+				emit([doc.oioc.identifiant, doc.oioc.statut, vrac_type_transaction, date, doc._id, doc.produit],
                 		[vrac_id,
                 		 vrac_date_stat,
                 		 vrac_date_signature,
