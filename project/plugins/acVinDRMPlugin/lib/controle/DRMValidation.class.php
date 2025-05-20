@@ -138,7 +138,7 @@ class DRMValidation
 								if ($produit->getInterpro() == 'INTERPRO-CIVP') {
 									$this->errors['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleError('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
 								} else {
-									$this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleError('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
+									$this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
 								}
             } elseif (($produit->total / $produit->getReserveInterpro()) < 1.2) {
                 $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
