@@ -264,6 +264,21 @@ class DRMCepage extends BaseDRMCepage {
         }
     }
 
+    public function updateAutoReserveInterpro()
+    {
+        $capacite = $this->getCapaciteCommercialisation();
+        $cumul = $this->getSuiviSortiesChais();
+        if ($capacite > 0 && $cumul > $capacite) {
+            $millesime = $this->getMillesimeForReserveInterpro();
+            $reserve = $this->getReserveInterpro($millesime) - ($cumul - $capacite);
+            if ($reserve < 0) {
+                $reserve = 0;
+            }
+            $this->setReserveInterpro($reserve, $millesime);
+            $this->updateVolumeReserveInterpro();
+        }
+    }
+
     public function printMillesimeOrRegulation($millesime = null)
     {
         if (!$millesime) {
