@@ -266,6 +266,9 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateAutoReserveInterpro()
     {
+        if ($this->getAppellation()->getKey() == 'RTA') {
+            return;
+        }
         $capacite = $this->getCapaciteCommercialisation();
         $cumul = $this->getSuiviSortiesChais();
         if ($capacite > 0 && $cumul > $capacite) {
