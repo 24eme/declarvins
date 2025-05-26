@@ -3,9 +3,11 @@
 class WidgetFacture extends sfWidgetFormChoice
 {
     protected $identifiant = null;
+    public $interpro = null;
 
-    public function __construct($options = array(), $attributes = array())
+    public function __construct($interpro, $options = array(), $attributes = array())
     {
+        $this->interpro = $interpro;
         parent::__construct($options, $attributes);
         $this->setOption('choices', array());
         $this->setAttribute('data-ajax', $this->getUrlAutocomplete());
@@ -19,7 +21,7 @@ class WidgetFacture extends sfWidgetFormChoice
     }
 
     public function getUrlAutocomplete() {
-        return sfContext::getInstance()->getRouting()->generate('facture_autocomplete');
+        return sfContext::getInstance()->getRouting()->generate('facture_autocomplete').'?interpro='.$this->interpro->_id;
     }
 
     public function render($name, $value = null, $attributes = array(), $errors = array())

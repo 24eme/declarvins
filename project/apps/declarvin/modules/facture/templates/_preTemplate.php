@@ -9,7 +9,7 @@ endif;
   <?php if ($sf_context->getInstance()->getRouting()->getCurrentRouteName() == 'facture'): ?>
     <div class="clearfix" id="application_dr">
         <div id="mon_compte">
-            <?php include_partial('admin/etablissement_login_form', array('form' => new FactureSelectionForm(), 'route' => '@etablissement_login_factures')) ?>
+            <?php include_partial('admin/etablissement_login_form', array('form' => new FactureSelectionForm($sf_user->getCompte()->getGerantInterpro()), 'route' => '@etablissement_login_factures')) ?>
         </div>
     </div>
   <?php endif; ?>

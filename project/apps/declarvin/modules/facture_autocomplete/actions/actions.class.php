@@ -4,28 +4,27 @@ class facture_autocompleteActions extends sfActions
 {
 
   	public function executeAll(sfWebRequest $request) {
-    	$this->json = $this->matchFactures(FactureEtablissementView::getInstance()->getAllFacturesForCompta(),
-    								   $request->getParameter('q'),
-    								   $request->getParameter('limit', 100));
+        $interpro = $request->getParameter('interpro');
+        $term = $request->getParameter('q');
+        $factures = FactureEtablissementView::getInstance()->getFactureNonPaye();
+        $this->json = [];
+        $nb = 0;
+        foreach ($factures as $facture) {
+            if ($interpro && $facture->key[FactureEtablissementView::KEYS_INTERPRO] != $interpro) {
+                continue;
+            }
+            $idEtablissement = self::getEtablissementIdentifiant($facture->id);
+  	        $text = self::makeFactureLibelleForAutocomplete($facture->value, $idEtablissement);
+  	        if (Search::matchTerm($term, $text)) {
+  	            $this->json[$idEtablissement] = $text;
+                $nb++;
+  	        }
+  	        if ($nb >= 10) {
+  	            break;
+  	         }
+        }
 		$this->setTemplate('index');
   	}
-
-    protected function matchFactures($factures, $term, $limit) {
-    	$json = array();
-        $nb = 0;
-	  	foreach($factures as $key => $facture) {
-          $idEtablissement = self::getEtablissementIdentifiant($facture->id);
-	      $text = self::makeFactureLibelleForAutocomplete($facture->value, $idEtablissement);
-	      if (Search::matchTerm($term, $text)) {
-	        $json[$idEtablissement] = $text;
-            $nb++;
-	      }
-	      if ($nb >= $limit) {
-	        break;
-	      }
-	    }
-	    return $json;
-	}
 
     public static function getEtablissementIdentifiant($factureId) {
         return substr(str_replace('FACTURE-', '', $factureId), 0, -11);
