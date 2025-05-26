@@ -111,7 +111,8 @@ class adminActions extends sfActions
 
   public function executeEtablissementFacturesLogin(sfWebRequest $request)
   {
-    $this->form = new FactureSelectionForm();
+    $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+    $this->form = new FactureSelectionForm($this->interpro);
     if ($request->isMethod(sfWebRequest::POST)) {
       $this->form->bind($request->getParameter($this->form->getName()));
       if ($this->form->isValid()) {

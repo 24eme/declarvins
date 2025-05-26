@@ -6,16 +6,19 @@
 
 class FactureSelectionForm extends baseForm {
 
-  	public function __construct($defaults = array(), $options = array(), $CSRFSecret = null)
+    public $interpro = null;
+
+  	public function __construct($interpro, $defaults = array(), $options = array(), $CSRFSecret = null)
   	{
+        $this->interpro = $interpro;
     	parent::__construct($defaults, $options, $CSRFSecret);
   	}
 
     public function configure()
     {
-        $this->setWidget('identifiant', new WidgetFacture($this->getOptions()));
+        $this->setWidget('identifiant', new WidgetFacture($this->interpro, $this->getOptions()));
 
-        $this->widgetSchema->setLabel('identifiant', 'Facture :');
+        $this->widgetSchema->setLabel('identifiant', 'Factures non payées :');
 
         $this->setValidator('identifiant', new acValidatorCouchdbDocument(array('required' => true, 'type' => 'Etablissement', 'prefix' => 'ETABLISSEMENT-')));
 
