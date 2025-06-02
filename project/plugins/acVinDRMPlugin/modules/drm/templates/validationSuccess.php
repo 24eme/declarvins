@@ -12,14 +12,34 @@
 
     <!-- #principal -->
     <section id="principal">
-    	<?php if ($drmCiel->hasErreurs() && $etablissement->isTransmissionCiel()): ?>
-    	<div class="error_list" style="margin-bottom: 20px;">
-		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
-		    <ol style="font-weight: normal;">
-		        <?php foreach ($drmCiel->getErreurs() as $erreur): ?>
-		            <li><?php if($erreur == "CielService Error : null"): ?>Le service de reception des DRM de la Douane est indisponible pour le moment<?php else: ?><?php echo $erreur ?><?php endif; ?><?php if($erreur == 'Les données économiques ont déjà été reçues pour la période.'): ?> Contacter votre interprofession pour débloquer le flux de communication DRM<?php endif; ?></li>
-		        <?php endforeach; ?>
-		    </ol>
+    	<?php if ($drmCiel->hasErreurs() && $etablissement->isTransmissionCiel()):
+            $error_msg = '';
+            $error_title = "Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)";
+            $error_class= 'error_list';
+            foreach ($drmCiel->getErreurs() as $erreur) {
+                $error_msg .= '<li>';
+                if($erreur == "CielService Error : null") {
+                    $error_title = "Problème à la douane";
+                    $error_msg .= 'Le service de reception des DRM de la Douane est indisponible pour le moment. Veuillez réessayer plus tard.';
+                } elseif ($erreur == "CielService Error : INVALID_CERTIFICATE : invalid certificate") {
+                    $error_title = "🚨 ⚠️ Problème à la douane ⚠️  🚨";
+                    $error_msg .= "Le service de reception des DRM de la Douane est malheureusement indisponible pour le moment. Votre DRM ne pourra être validée qu'une fois que problème corrigé à la douane, sans doute dans quelques heures.";
+                    $error_class = 'vigilance_list';
+                } else {
+                    $error_msg .= $erreur;
+                }
+                if ($erreur == 'Les données économiques ont déjà été reçues pour la période.') {
+                    $error_msg .= ' : contacter votre interprofession pour débloquer le flux de communication DRM';
+                }
+                $error_msg .= '</li>';
+            }
+        ?>
+
+    	<div class="<?php echo $error_class; ?>" style="margin-bottom: 20px;">
+		    <h3 style="margin-bottom: 15px;"><?php echo $error_title; ?>&nbsp;:</h3>
+		    <ul style="font-weight: normal;">
+                <?php echo $error_msg; ?>
+		    </ul>
 
             <?php if ($sf_user->isAdmin()): ?>
               <div style="margin-top:10px">
