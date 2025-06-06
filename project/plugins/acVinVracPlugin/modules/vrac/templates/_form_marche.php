@@ -160,8 +160,10 @@
                 }
                 ?>
                 <p>&nbsp;</p>
-                <?php if(!$form->getObject()->isConditionneIvse()): ?>
+                <?php if($form->getObject()->isConditionneIr()): ?>
                 <p>Les accord interprofessionnels impliquent que la totalité du montant de la transaction soit réglée au plus tard le <?php echo $fin ?> et la moitié du montant, soit <span id="prix_moitie_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?>, avant le <?php echo $moitie ?></p>
+                <?php elseif($form->getObject()->isConditionneCivp()): ?>
+                <p>le délai devra respecter le cadre légal</p>
                 <?php endif; ?>
                 <table id="table_paiements">
                     <thead>
