@@ -55,7 +55,7 @@ echo "#DAE;date;famille;sous famille;code postal;certifications;genres;appellati
 echo "" > $TMPI/export_rapport_depots_dae.csv
 
 if [[ $INTERPRO -eq "IR" ]] ; then
-	curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae | sed -f bin/unicode2alpha | tr -d '\r' | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep 'DAE-' | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g' | sed 's/Leclerc, Carrefour.../Leclerc \/ Carrefour.../g' | sed 's/LIDL, ALDI, Leader Price.../LIDL \/ ALDI \/ Leader Price.../g' | sed 's/,/;/g' | sed 's/"//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "DAE;"$2";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$19";"$20";"$21";"$22";"$23";"$26";"$27";"$28";"$30";"$31";"$32";"$33";"$34";" }' | sed 's/null//g'  >> $TMPI/export_bi_daes.csv
+	curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae | sed -f bin/unicode2alpha | tr -d '\r' | jq '.rows[] | ["DAE", .value[0], .value[4], .value[5], .value[6], .value[7], .value[8], .value[9], .value[10], .value[11], .value[12], .value[13], "", .value[16], .value[17], .value[18], .value[19], .value[22], .value[23], .value[24], .value[26], .value[27], .value[28], .value[29], .value[30], ""] | join(";")' | sed 's/"//g' | sed 's/null//g'  >> $TMPI/export_bi_daes.csv
   php symfony dae:rapport-depots --application="declarvin" > $TMPI/export_rapport_depots_dae.csv
 fi
 
