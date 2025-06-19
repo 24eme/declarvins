@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="fr">
     <head>
         <?php include_http_metas() ?>
         <?php include_metas() ?>
@@ -15,6 +15,7 @@
         <meta name="Content-Language" content="fr-FR" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="copyright" content="DéclarVins - 2011" />
+        <meta name="google" content="notranslate">
 
         <style type="text/css">
             .rectifier {
