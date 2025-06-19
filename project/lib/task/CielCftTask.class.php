@@ -97,6 +97,7 @@ EOF;
 							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
 							$drm_rectificative->add('ciel', $drm->ciel);
 							$drm_rectificative->ciel->xml = null;
+							$drm_rectificative->ciel->valide = 0;
 							$drm_rectificative->ciel->diff = $xmlIn->asXML();
                             if (!$checkingMode)
 							    $drm_rectificative->save();
