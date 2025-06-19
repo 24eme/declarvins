@@ -532,7 +532,7 @@ class DRMDetail extends BaseDRMDetail {
                 $mouvement->region = EtablissementClient::REGION_HORS_CVO;
             }
             $mouvement->cvo = $this->getCVOTaux();
-            if (!$this->getDocument()->isProducteur()) {
+            if (!$this->getDocument()->isProducteur()||!$this->isVin()) {
               $mouvement->facturable = 0;
             } else {
               $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
