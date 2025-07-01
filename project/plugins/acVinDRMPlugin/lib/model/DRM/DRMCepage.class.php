@@ -29,6 +29,11 @@ class DRMCepage extends BaseDRMCepage {
     	return $this->getCouleur()->getLieu();
   	}
 
+	public function getAppellation() {
+
+    	return $this->getCouleur()->getLieu()->getAppellation();
+  	}
+
   	public function getProduits($interpro = null) {
         $produits = array();
         if ($interpro && !is_array($interpro)) {
