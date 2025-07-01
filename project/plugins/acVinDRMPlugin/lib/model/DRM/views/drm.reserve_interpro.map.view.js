@@ -201,6 +201,12 @@ function(doc) {
                                         if (detail.hasOwnProperty('reserve_interpro')) {
                                             reserve_interpro['TOTAL'] = detail.reserve_interpro;
                                         }
+	                            	if (detail.hasOwnProperty('reserve_interpro_capacite_commercialisation')) {
+	                                    reserve_interpro['CAPACITE_COMMERCIALISATION'] = detail.reserve_interpro_capacite_commercialisation;
+	                            	}
+	                            	if (detail.hasOwnProperty('reserve_interpro_suivi_sorties_chais')) {
+	                                    reserve_interpro['CUMUL_SORTIES_CHAIS'] = detail.reserve_interpro_suivi_sorties_chais;
+	                            	}
                                         if (reserve_interpro) {
 				            for(millesime in reserve_interpro) {
 		                                emit([detail.interpro, drm_identifiant, drm_annee+drm_mois, millesime], [
@@ -245,6 +251,12 @@ function(doc) {
                                     }
                                     if (cepage.hasOwnProperty('reserve_interpro')) {
                                         reserve_interpro['TOTAL'] = cepage.reserve_interpro;
+                                    }
+                                    if (cepage.hasOwnProperty('reserve_interpro_capacite_commercialisation')) {
+                                        reserve_interpro['CAPACITE_COMMERCIALISATION'] = cepage.reserve_interpro_capacite_commercialisation;
+                                    }
+                                    if (cepage.hasOwnProperty('reserve_interpro_suivi_sorties_chais')) {
+                                        reserve_interpro['CUMUL_SORTIES_CHAIS'] = cepage.reserve_interpro_suivi_sorties_chais;
                                     }
                                     if (reserve_interpro) {
 			                for(millesime in reserve_interpro) {
