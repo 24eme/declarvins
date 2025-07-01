@@ -29,6 +29,11 @@ class DRMCepage extends BaseDRMCepage {
     	return $this->getCouleur()->getLieu();
   	}
 
+	public function getAppellation() {
+
+    	return $this->getCouleur()->getLieu()->getAppellation();
+  	}
+
   	public function getProduits($interpro = null) {
         $produits = array();
         if ($interpro && !is_array($interpro)) {
@@ -266,6 +271,9 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateAutoReserveInterpro()
     {
+        if (!$this->hasCapaciteCommercialisation()||!$this->hasSuiviSortiesChais()) {
+            return;
+        }
         if ($this->getAppellation()->getKey() == 'RTA') {
             return;
         }
