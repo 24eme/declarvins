@@ -551,7 +551,12 @@ class drmActions extends sfActions {
         }
         // CIEL ===============
 
-        $this->drm->save();
+        try {
+            $this->drm->save();
+        } catch(Exception $e) {
+            $this->drm->devalide();
+            throw $e;
+        }
 
         if ($this->drmCiel->isTransfere()) {
         	Email::getInstance()->cielSended($this->drm);
