@@ -50,6 +50,9 @@ EOF;
             if ($vrac->type_prix == 'definitif') {
                 continue;
             }
+            if ($vrac->interpro == 'INTERPRO-CIVP') {
+                continue;
+            }
             if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE || $vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
                 $current_minus_7 = null;
                 if (! $vrac->date_seconde_relance && $vrac->date_relance && $vrac->date_relance > $vrac->valide->date_validation) {
