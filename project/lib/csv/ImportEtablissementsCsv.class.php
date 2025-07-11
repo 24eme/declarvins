@@ -396,7 +396,9 @@ class ImportEtablissementsCsv {
 		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
-					$this->_errors[$ligne] = array($e->getMessage().' : '.implode(', ', $line));
+                    if (!isset($this->_errors[$ligne])) {
+    					$this->_errors[$ligne] = array($e->getMessage().' : '.implode(', ', $line));
+      				}
 					continue;
 				}
 			}
