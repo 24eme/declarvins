@@ -35,7 +35,7 @@
     <h1>Import des établissements</h1>
     <p>Merci de fournir le fichier de vos établissements au format <strong><u>CSV</u></strong>.</p>
     <br />
-    <?php if (count($import->getErrors()) > 0): ?>
+    <?php if (isset($import) && count($import->getErrors()) > 0): ?>
     <div id="flash_message">
 		<div class="flash_error">
 			<table width="100%">
