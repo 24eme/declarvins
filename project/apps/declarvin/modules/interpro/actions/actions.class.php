@@ -16,7 +16,6 @@ class interproActions extends sfActions
     	ini_set('memory_limit', '1024M');
     	set_time_limit(0);
         $this->formUploadCsv = new UploadCSVForm();
-		$this->hasErrors = false;
         if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
 	        $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
 	          if ($this->formUploadCsv->isValid()) {
@@ -27,7 +26,7 @@ class interproActions extends sfActions
 
 	            $nb = $this->import->updateOrCreate();
 	            $this->getUser()->setFlash('notice', "$nb établissements ont été importés");
-	            if (! count($this->import->getErrors())) {
+	            if (!count($this->import->getErrors())) {
                     $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
 	            }
             }
