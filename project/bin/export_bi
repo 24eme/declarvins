@@ -110,3 +110,7 @@ cp $TMPI/export_bi_sv12.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_rapport_depots_dae.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_reserves_interpro_drm.csv $EXPORTDIR_INTERPRO/
+
+if [ -f $TMPI/export_suivi_liberation_reserve.csv ]; then
+  cp $TMPI/export_suivi_liberation_reserve.csv $EXPORTDIR_INTERPRO/
+fi
