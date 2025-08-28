@@ -6,3 +6,32 @@ TMPI=$TMP/$1
 
 echo "#RESERVE;Période;Identifiant;Raison Sociale;Famille;Sous Famille;Campagne;Année;Mois;Version;Référente;Certification;Code Certification;Genre;Code Genre;Appellation;Code Appellation;Lieu;Code Lieu;Couleur;Code Couleur;Cépage; Code Cépage;Libellé produit;INAO;Libellé fiscal;Label;Code Label;Millésime;Volume;DRM" > $TMPI/export_bi_reserves_interpro_drm.csv
 curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/reserve_interpro | grep "INTERPRO-$1" | sed -f bin/unicode2alpha | sed 's/{"id"://' | sed 's/"key":\[//' | sed 's/\],"value":\[*/,/' | sed 's/\]*\},*//' | grep '^"DRM-' | sed -r 's/"([a-zA-Z ]+),([a-zA-Z ]+)"/\1 \2/g' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed 's/;"0";/;0;/' | awk -F";" '{print "RESERVE;" $4 ";" $6 ";" $7 ";" $8 ";" $9 ";" $10 ";" $11 ";" $12 ";" $13 ";" $14 ";" $15 ";" $16 ";" $17 ";" $18 ";" $19 ";" $20 ";" $21 ";" $22 ";" $23 ";" $24 ";" $25 ";" $26 ";" $27 ";" $28 ";" $29 ";" $30 ";" $31 ";" $32 ";" $33 ";" $1 }' >> $TMPI/export_bi_reserves_interpro_drm.csv
+
+if [ -d ~/cravate-pdf_prod ] && [ "$1" == "CIVP" ]; then
+    echo "AOP;Millésime;Raison sociale;Email;Téléphone;Numéro CIVP;Total volume bloqué;Demande de libération;Volume restant;Date de la demande;Condition de la liberation;Date de validation;Nombre de demande" > "$TMPI/suivi_liberation_reserve.csv"
+    cd ~/cravate-pdf_prod || return
+
+    bash task/export2csv.sh > "$TMPI/liberations_clotures.csv"
+
+    cat "$TMPI/liberations_clotures.csv" | while read -r line; do
+      # Exemple de ligne
+      # "CP","2024","SARL EXAMPLE","dev@mail.fr","+0101010101","CIVPXXXX","%VOLUME_BLOQUE%","1.5","%VOLUME_RESTANT%","2025-03-31T16:42:44+02:00","CONDITIONNEMENT_VIN","2025-04-01T21:37:43+02:00","1"
+
+      _MILLESIME=$(echo "$line" | cut -d'"' -f4)
+      _NUM=$(echo "$line" | cut -d'"' -f12)
+      _VOL=$(echo "$line" | cut -d'"' -f16)
+      _LIGNE=$(echo "$line" | cut -d'"' -f26) # numéro de libération effectuée
+
+      _RESERVE=$(grep -a "$_NUM" "$TMPI/export_bi_reserves_interpro_drm.csv" | cut -d";" -f 2,3,17,29,30 | grep -v '"TOTAL"' | grep "\"$_MILLESIME\"" | sort)
+      TOTAL=$(echo "$_RESERVE" | head -n1 | cut -d";" -f5)
+
+      RESTANT=$(grep "$_NUM" "$TMPI/liberations_clotures.csv" \
+          | awk -F '"' '($12 == "'"$_NUM"'" && $26 <= '"$_LIGNE"') {sum+=$16;} END {print '"$TOTAL"' - sum}'
+      )
+
+      echo "$line" | sed "s/%VOLUME_BLOQUE%/$TOTAL/" | sed "s/%VOLUME_RESTANT%/$RESTANT/" \
+          | sed 's/"1"$/"1ère"/' | sed 's#"\([2-9]\)"$#"\1ème"#' | sed 's/","/";"/g'
+    done
+
+    cd - || return
+fi
