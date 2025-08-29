@@ -23,7 +23,7 @@ if [ -d ~/cravate-pdf_prod ] && [ "$1" == "CIVP" ]; then
       _VOL=$(echo "$line" | cut -d'"' -f16)
       _LIGNE=$(echo "$line" | cut -d'"' -f26) # numéro de libération effectuée
 
-      _RESERVE=$(grep -a "$_NUM" "$TMPI/export_bi_reserves_interpro_drm.csv" | cut -d";" -f 2,3,17,29,30 | grep -v '"TOTAL"' | grep "\"$_MILLESIME\"" | sort)
+      _RESERVE=$(grep -a "$_NUM" "$TMPI/export_bi_reserves_interpro_drm.csv" | cut -d";" -f 2,3,17,29,30 | grep -v '"TOTAL"' | grep "\"$_MILLESIME\"" | sort | grep -v ";0$")
       TOTAL=$(echo "$_RESERVE" | grep "$_PRODUIT" | head -n1 | cut -d";" -f5)
 
       RESTANT=$(grep "$_NUM" "$TMPI/liberations_clotures.csv" \
