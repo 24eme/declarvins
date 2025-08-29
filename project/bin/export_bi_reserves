@@ -28,6 +28,7 @@ if [ -d ~/cravate-pdf_prod ] && [ "$1" == "CIVP" ]; then
 
       RESTANT=$(grep "$_NUM" "$TMPI/liberations_clotures.csv" \
           | grep "$_PRODUIT" \
+          | grep "$_MILLESIME" \
           | awk -F '"' '($12 == "'"$_NUM"'" && $26 <= '"$_LIGNE"') {sum+=$16;} END {print '"$TOTAL"' - sum}'
       )
 
