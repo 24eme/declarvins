@@ -17,15 +17,18 @@ if [ -d ~/cravate-pdf_prod ] && [ "$1" == "CIVP" ]; then
       # Exemple de ligne
       # "CP","2024","SARL EXAMPLE","dev@mail.fr","+0101010101","CIVPXXXX","%VOLUME_BLOQUE%","1.5","%VOLUME_RESTANT%","2025-03-31T16:42:44+02:00","CONDITIONNEMENT_VIN","2025-04-01T21:37:43+02:00","1"
 
+      _PRODUIT=$(echo "$line" | cut -d'"' -f2)
       _MILLESIME=$(echo "$line" | cut -d'"' -f4)
       _NUM=$(echo "$line" | cut -d'"' -f12)
       _VOL=$(echo "$line" | cut -d'"' -f16)
       _LIGNE=$(echo "$line" | cut -d'"' -f26) # numéro de libération effectuée
 
-      _RESERVE=$(grep -a "$_NUM" "$TMPI/export_bi_reserves_interpro_drm.csv" | cut -d";" -f 2,3,17,29,30 | grep -v '"TOTAL"' | grep "\"$_MILLESIME\"" | sort)
-      TOTAL=$(echo "$_RESERVE" | head -n1 | cut -d";" -f5)
+      _RESERVE=$(grep -a "$_NUM" "$TMPI/export_bi_reserves_interpro_drm.csv" | cut -d";" -f 2,3,17,29,30 | grep -v '"TOTAL"' | grep "\"$_MILLESIME\"" | sort | grep -v ";0$")
+      TOTAL=$(echo "$_RESERVE" | grep "$_PRODUIT" | head -n1 | cut -d";" -f5)
 
       RESTANT=$(grep "$_NUM" "$TMPI/liberations_clotures.csv" \
+          | grep "$_PRODUIT" \
+          | grep "$_MILLESIME" \
           | awk -F '"' '($12 == "'"$_NUM"'" && $26 <= '"$_LIGNE"') {sum+=$16;} END {print '"$TOTAL"' - sum}'
       )
 
