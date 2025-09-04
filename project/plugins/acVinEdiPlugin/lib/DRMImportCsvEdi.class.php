@@ -250,7 +250,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                             $produitAddReserve->remove('reserve_interpro_details');
                             $produitAddReserve->add('reserve_interpro_details');
                             $produitAddReserve->reserve_interpro_details = $produitReserve->reserve_interpro_details;
-                            $this->drm->updateVolumeReserveInterpro();
+                            $produitAddReserve->updateVolumeReserveInterpro();
 
                             if ($produitReserve->hasCapaciteCommercialisation()) {
                                 $produitAddReserve->add('reserve_interpro_capacite_commercialisation', $produitReserve->getCapaciteCommercialisation());
