@@ -74,7 +74,9 @@ class VracConditionForm extends VracForm
 
     public function getCampagneChoicesDebut() {
         $campagnes = array();
-        for($d=date('Y'),$i=$d-2;$i<$d+2;$i++) {
+        $cm = new CampagneManager('08-01');
+        $y = substr($cm->getCurrent(), 0, 4);
+        for($i=$y;$i<$y+2;$i++) {
             $campagnes[$i.'-'.($i+1)] = $i.'-'.($i+1);
         }
         return $campagnes;
