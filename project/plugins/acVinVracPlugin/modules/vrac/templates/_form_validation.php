@@ -22,7 +22,7 @@
     if ($form->getObject()->type_transaction != 'raisin' && $form->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN) {
         $errorTypeVendeur = true;
     }
-    if ($form->conditionneIVSE() && !$form->getObject()->getAnnexeFilename('annexe_precontractuelle')) {
+    if (!$form->getObject()->getAnnexeFilename('annexe_precontractuelle')) {
         $warningAnnexePrecontractuelle = true;
     }
     if ($form->conditionneIVSE() && $form->getObject()->type_prix != 'definitif' && $form->getObject()->cas_particulier != 'union' && !in_array($form->getObject()->acheteur->sous_famille, [EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,EtablissementFamilles::SOUS_FAMILLE_UNION])) {

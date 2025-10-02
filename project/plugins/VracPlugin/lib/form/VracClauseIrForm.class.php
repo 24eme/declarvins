@@ -23,20 +23,27 @@ class VracClauseIrForm extends VracClauseForm
         $this->getWidget('clause_revision_prix')->setLabel('Critères et modalités :');
         $this->setValidator('clause_revision_prix', new sfValidatorString(array('required' => false)));
 
+        $this->setWidget('annexe_precontractuelle', new sfWidgetFormInputFile(array('label' => 'Document précontractuel : <a href="" class="msg_aide" data-msg="help_popup_vrac_annexe_precontractuelle" title="Message aide"></a>')));
+        $this->setValidator('annexe_precontractuelle', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
+
+
         $this->setWidget('annexe_autre', new sfWidgetFormInputFile(array('label' => 'fichier PDF:')));
         $this->setValidator('annexe_autre', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
 
         $this->editablizeInputPluriannuel();
     }
-    
+
     public function processValues($values) {
         if (array_key_exists('annexe_autre', $values) && !$values['annexe_autre']) {
             unset($values['annexe_autre']);
         }
-        
+        if (array_key_exists('annexe_precontractuelle', $values) && !$values['annexe_precontractuelle']) {
+            unset($values['annexe_precontractuelle']);
+        }
+
         return parent::processValues($values);
     }
-    
+
      protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
         if ($this->getObject()->type_transaction != 'vrac') {
@@ -52,17 +59,21 @@ class VracClauseIrForm extends VracClauseForm
             }
             $this->getObject()->clauses_complementaires = implode(',', $clauses);
         }
-        $file = $this->getValue('annexe_autre');
-        if ($file && !$file->isSaved()) {
-            $file->save();
-        }
-        if ($file) {
-            try {
-                $this->getObject()->storeAnnexe($file->getSavedName(), 'annexe_autre');
-            } catch (sfException $e) {
-                throw new sfException($e);
+
+
+        foreach (['annexe_autre','annexe_precontractuelle'] as $annexe) {
+            $file = $this->getValue($annexe);
+            if ($file && !$file->isSaved()) {
+                $file->save();
             }
-            unlink($file->getSavedName());
+            if ($file) {
+                try {
+                    $this->getObject()->storeAnnexe($file->getSavedName(), $annexe);
+                } catch (sfException $e) {
+                    throw new sfException($e);
+                }
+                unlink($file->getSavedName());
+            }
         }
     }
 
