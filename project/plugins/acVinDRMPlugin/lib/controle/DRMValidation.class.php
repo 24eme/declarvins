@@ -140,7 +140,7 @@ class DRMValidation
 								} else {
 									$this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
 								}
-            } elseif (($produit->total / $produit->getReserveInterpro()) < 1.2) {
+            } elseif ($produit->getReserveInterpro() > 0 && ($produit->total / $produit->getReserveInterpro()) < 1.2) {
                 $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
             }
         }
