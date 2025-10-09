@@ -634,13 +634,13 @@ class DRMDetail extends BaseDRMDetail {
             return 'VT_IG_IGP';
         }
         if (preg_match('/^1[RBS][^M]*$/', $this->getInao())) {
-            return 'VT_IG_AOC';
+            return 'VT_IG_AOP';
         }
         if (preg_match('/^3[RBS].*M/', $this->getInao())) {
             return 'VM_IG_IGP';
         }
         if (preg_match('/^1[RBS].*M/', $this->getInao())) {
-            return 'VM_IG_AOC';
+            return 'VM_IG_AOP';
         }
         return null;
     }
