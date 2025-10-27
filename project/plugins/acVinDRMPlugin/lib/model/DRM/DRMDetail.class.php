@@ -727,6 +727,12 @@ class DRMDetail extends BaseDRMDetail {
       if (($this->entrees->crd > 0)||($this->entrees->excedent > 0)) {
         return true;
       }
+      if (($this->entrees->mouvement > 0) || ($this->entrees->embouteillage > 0) || ($this->entrees->travail) || ($this->entrees->distillation > 0)) {
+          return true;
+      }
+      if (($this->sorties->mouvement > 0) || ($this->sorties->embouteillage > 0) || ($this->sorties->travail) || ($this->sorties->distillation > 0)) {
+          return true;
+      }
       if (($this->sorties->autres > 0)||($this->sorties->pertes > 0)) {
         return true;
       }
