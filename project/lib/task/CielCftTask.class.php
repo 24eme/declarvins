@@ -92,7 +92,7 @@ EOF;
                             if ($sendVigneronEmailNotification)
 							    Email::getInstance()->cielValide($drm);
 							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
-    					} elseif ($compare->hasDiff() && $drm->isVersionnable()) {
+    					} elseif ($compare->hasDiff() && $drm->isVersionnable() && !$drm->isRectificative()) {
 							$drm_rectificative = $drm->generateRectificative(true);
 							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
 							$drm_rectificative->add('ciel', $drm->ciel);
