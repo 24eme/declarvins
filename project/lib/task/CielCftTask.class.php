@@ -101,7 +101,7 @@ EOF;
 							$drm_rectificative->ciel->diff = $xmlIn->asXML();
                             if (!$checkingMode)
 							    $drm_rectificative->save();
-                            if ($sendVigneronEmailNotification && $drm->isMaster()->isRectificative())
+                            if ($sendVigneronEmailNotification)
 							    Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff(), $interpro);
     						$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' doit être rectifiée suite aux rectifications suivantes : '.$this->getDiffHtmlList($compare);
     						$files[] = $item;
