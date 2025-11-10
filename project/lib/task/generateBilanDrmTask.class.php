@@ -21,6 +21,7 @@ class generateBilanDrmTask extends sfBaseTask {
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
             new sfCommandOption('lastcampagne', null, sfCommandOption::PARAMETER_OPTIONAL, 'Campagne -1 pour le bilan', false),
+            new sfCommandOption('sendRelance', null, sfCommandOption::PARAMETER_OPTIONAL, 'Envoi un mail de relance', false),
         ));
         $this->addArguments(array(
             new sfCommandArgument('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'The interprofession name'),
@@ -69,6 +70,7 @@ EOF;
         // Initialisation des fichiers avec entetes
         $bilanCsv = $this->getEnteteBilanCsv($periodes);
         $bilanPeriodesCsv = [];
+        $periode_actuelle = $periodes[count($periodes) - 2];
         foreach($periodes as $periode) {
             $bilanPeriodesCsv[$periode] = $this->getEnteteBilanPeriodeCsv($this->getPeriodeLastYear($periode));
         }
@@ -93,9 +95,21 @@ EOF;
                 } else {
                     $statut = DRMClient::DRM_STATUS_BILAN_A_SAISIR;
                 }
+                if ($options['sendRelance'] && ($periode == $periode_actuelle)) {
+                    if (!in_array($statuts[count($statuts) - 1 ], [DRMClient::DRM_STATUS_BILAN_A_SAISIR, DRMClient::DRM_STATUS_BILAN_NON_VALIDE])) {
+                        if ($statut == DRMClient::DRM_STATUS_BILAN_A_SAISIR) {
+                            Email::getInstance()->cielRelanceNonSaisie($etablissement);
+                        }
+                        if ($statut == DRMClient::DRM_STATUS_BILAN_NON_VALIDE) {
+                            Email::getInstance()->cielRelanceNonValidee($etablissement);
+                        }
+                    }
+                }else {
+                    $previous_periode = $periode;
+                }
                 $statuts[] = $libellesStatuts[$statut];
                 // On peuple les données periodique N-1
-                if (in_array($statut, [DRMClient::DRM_STATUS_BILAN_A_SAISIR,DRM_STATUS_BILAN_NON_VALIDE])) {
+                if (in_array($statut, [DRMClient::DRM_STATUS_BILAN_A_SAISIR,DRMClient::DRM_STATUS_BILAN_NON_VALIDE])) {
                     if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissement[EtablissementCsv::COL_ID], $this->getPeriodeLastYear($periode))) {
             			foreach ($drm->getDetails() as $detail) {
             				if ($detail->interpro != $interpro->_id) {
