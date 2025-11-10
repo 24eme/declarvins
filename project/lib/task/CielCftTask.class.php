@@ -164,7 +164,7 @@ EOF;
           exec('mkdir -p '.$target.date('Ymd').'/');
           foreach ($files as $file) {
               $split = explode('/', $file);
-              exec('wget -O '.$target.date('Ymd').'/'.$split[count($split) - 1].' '.$file);
+              exec('wget -q -O '.$target.date('Ymd').'/'.$split[count($split) - 1].' '.$file);
           }
           exec('zip -j -r '.$target.$zipname.' '.$target.date('Ymd').'/');
           $message->attach(Swift_Attachment::fromPath($target.$zipname));
