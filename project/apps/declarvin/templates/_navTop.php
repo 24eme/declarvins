@@ -89,7 +89,7 @@ use_helper('Text');
         <?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
         <?php if($etablissement->canAdhesionCiel() && !$etablissement->isTransmissionCiel()): ?>
         <?php
-            $convention = $sf_user->getCompte()->getConventionCiel();
+            $convention = $etablissement->getCompteObject()->getConventionCiel();
             if (!$convention || !$convention->valide):
         ?>
         <li<?php if ($active == 'ciel'): ?> class="actif"<?php endif; ?>>
