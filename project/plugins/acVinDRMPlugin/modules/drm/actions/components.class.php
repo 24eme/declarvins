@@ -136,7 +136,7 @@ class drmComponents extends sfComponents {
                 }
             }
         }
-        foreach (DRMClient::getInstance()->findCSVDRM($this->etablissement->identifiant, $this->drms[min(array_keys($this->drms))]['drm']->getPeriode()) as $k => $o) {
+        foreach (CSVDRMClient::getInstance()->findCSVDRM($this->etablissement->identifiant, $this->drms[min(array_keys($this->drms))]['drm']->getPeriode()) as $k => $o) {
             $drm_key = str_replace('CSV-', '', $k);
             $this->drms[$drm_key]['csv'] = $k;
         }
