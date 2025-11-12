@@ -611,4 +611,27 @@ class Email {
         }
         return ($interpro->email_contrat_inscription)? array($interpro->email_contrat_inscription => $interpro->nom) : array($referente->email_contrat_inscription => $referente->nom);
     }
+
+
+    public function daeRelance($etablissement, $interpro_id, & $email_to)
+    {
+        if (!$etablissement) {
+            return;
+        }
+        $compte = $etablissement->getCompteObject();
+        if (!$compte->email) {
+            return;
+        }
+        $interpro = InterproClient::getInstance()->getById($interpro_id);
+        $from = $this->getFromEmailInterpros(array($interpro),true);
+        $email_to = array($compte->email);
+        $body = $this->getBodyFromPartial('dae_relance', array('etablissement' => $etablissement));
+        $message = $this->getMailer()->compose($from, $to, '[Declarvins] Dépot de vos données de commercialisation', $body)->setContentType('text/html');
+        if ($interpro) {
+            $cc = array($interpro->email_contrat_inscription);
+            $message->setCc($cc);
+        }
+        return $this->getMailer()->send($message);
+    }
+
 }
