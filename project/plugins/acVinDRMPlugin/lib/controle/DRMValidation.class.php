@@ -319,10 +319,11 @@ class DRMValidation
 			  }
 			}
 		}
-		if ($detail->sorties->mouvement > 0) {
-			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
-		}
         $hasTmpMvt = false;
+        if ($detail->sorties->mouvement > 0) {
+            $this->warnings['mouvement'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
 		if ($detail->sorties->embouteillage > 0) {
 			$this->warnings['embouteillage_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
             $hasTmpMvt = true;
@@ -335,6 +336,22 @@ class DRMValidation
 			$this->warnings['distillation_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
             $hasTmpMvt = true;
 		}
+        if ($detail->entrees->mouvement > 0) {
+            $this->warnings['mouvement'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($detail->entrees->embouteillage > 0) {
+            $this->warnings['embouteillage_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($detail->entrees->travail > 0) {
+            $this->warnings['travail_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($detail->entrees->distillation > 0) {
+            $this->warnings['distillation_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
         if ($hasTmpMvt && !$detail->observations) {
             $this->warnings['observations_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire_observations', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
         }
