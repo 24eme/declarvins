@@ -12,7 +12,7 @@ class DRMVolumes
   public static function getEntreesReciproque($merge = array()) {
     return array_merge(self::$entrees_reciproque, $merge);
   }
-  static $sorties_nettes = array('sorties/vrac', 'sorties/vrac_export', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/consommation', 'sorties/pertes');
+  static $sorties_nettes = array('sorties/vrac', 'sorties/vrac_export', 'sorties/vrac_sans_contrat', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/consommation', 'sorties/pertes');
   public static function getSortiesNettes($merge = array()) {
     return array_merge(self::$sorties_nettes, $merge);
   }
@@ -25,7 +25,7 @@ class DRMVolumes
   public static function getEntreesSuspendus($merge = array()) {
   	return array_merge(self::$entrees_suspendus, $merge);
   }
-  static $sorties_suspendus = array('sorties/vrac', 'sorties/vrac_export', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes', 'sorties/consommation', 'sorties/pertes', 'sorties/declassement', 'sorties/repli', 'sorties/mouvement', 'sorties/distillation', 'sorties/lies', 'sorties/mutage', 'sorties/vci', 'sorties/embouteillage', 'sorties/travail', 'sorties/autres', 'sorties/autres_interne');
+  static $sorties_suspendus = array('sorties/vrac', 'sorties/vrac_export', 'sorties/vrac_sans_contrat', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes', 'sorties/consommation', 'sorties/pertes', 'sorties/declassement', 'sorties/repli', 'sorties/mouvement', 'sorties/distillation', 'sorties/lies', 'sorties/mutage', 'sorties/vci', 'sorties/embouteillage', 'sorties/travail', 'sorties/autres', 'sorties/autres_interne');
   public static function getSortiesSuspendus($merge = array()) {
   	return array_merge(self::$sorties_suspendus, $merge);
   }
