@@ -85,7 +85,8 @@ class DRMCsvFile extends CsvFile
 		$line[DRMDateView::VALUE_DETAIL_ENTREES_CRD] = $detail->entrees->crd;
 		$line[DRMDateView::VALUE_DETAIL_SORTIES] = $detail->total_sorties;
 		$line[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $detail->sorties->vrac;
-		$line[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT] = $detail->sorties->vrac_export;
+        $line[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT] = $detail->sorties->vrac_export;
+        $line[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_SANS_CONTRAT] = $detail->sorties->vrac_sans_contrat;
 		$line[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT] = $detail->sorties->export;
 		$line[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES] = $detail->sorties->factures;
 		$line[DRMDateView::VALUE_DETAIL_SORTIES_CRD] = $detail->sorties->crd;

@@ -613,7 +613,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getTotalVrac() {
-      return $this->sorties->vrac + $this->sorties->vrac_export;
+      return $this->sorties->vrac + $this->sorties->vrac_export + $this->sorties->vrac_sans_contrat;
     }
 
     public function getStockBilan()
@@ -748,7 +748,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getVolumeSortieChai() {
-        $mvts = ['vrac', 'vrac_export', 'export', 'factures', 'crd', 'crd_acquittes', 'consommation'];
+        $mvts = ['vrac', 'vrac_export', 'vrac_sans_contrat', 'export', 'factures', 'crd', 'crd_acquittes', 'consommation'];
         $volume = 0;
         foreach ($mvts as $mvt) {
             $volume += $this->sorties->get($mvt);
