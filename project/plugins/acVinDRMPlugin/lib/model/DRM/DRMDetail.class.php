@@ -613,7 +613,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getTotalVrac() {
-      return $this->sorties->vrac + $this->sorties->vrac_export;
+      return $this->sorties->vrac + $this->sorties->vrac_export + $this->sorties->vrac_sans_contrat;
     }
 
     public function getStockBilan()
@@ -727,10 +727,10 @@ class DRMDetail extends BaseDRMDetail {
       if (($this->entrees->crd > 0)||($this->entrees->excedent > 0)) {
         return true;
       }
-      if (($this->entrees->mouvement > 0) || ($this->entrees->embouteillage > 0) || ($this->entrees->travail) || ($this->entrees->distillation > 0)) {
+      if (($this->entrees->mouvement > 0) || ($this->entrees->embouteillage > 0) || ($this->entrees->travail > 0) || ($this->entrees->distillation > 0)) {
           return true;
       }
-      if (($this->sorties->mouvement > 0) || ($this->sorties->embouteillage > 0) || ($this->sorties->travail) || ($this->sorties->distillation > 0)) {
+      if (($this->sorties->mouvement > 0) || ($this->sorties->embouteillage > 0) || ($this->sorties->travail > 0) || ($this->sorties->distillation > 0)) {
           return true;
       }
       if (($this->sorties->autres > 0)||($this->sorties->pertes > 0)) {
@@ -748,7 +748,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getVolumeSortieChai() {
-        $mvts = ['vrac', 'vrac_export', 'export', 'factures', 'crd', 'crd_acquittes', 'consommation'];
+        $mvts = ['vrac', 'vrac_export', 'vrac_sans_contrat', 'export', 'factures', 'crd', 'crd_acquittes', 'consommation'];
         $volume = 0;
         foreach ($mvts as $mvt) {
             $volume += $this->sorties->get($mvt);

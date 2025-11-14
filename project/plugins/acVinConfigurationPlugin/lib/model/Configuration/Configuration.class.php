@@ -56,6 +56,7 @@ class Configuration extends BaseConfiguration {
     protected static $stocks_sortie = array(
         'vrac' => 'Vrac national / Vente Négoce',
         'vrac_export' => 'Vrac export',
+        'vrac_sans_contrat' => 'Vrac sans contrat (hors interpro)',
         'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
         'crd' => 'CRD France',
@@ -105,6 +106,7 @@ class Configuration extends BaseConfiguration {
     protected static $mouvement_coefficient_sortie = array(
         'vrac' => -1,
         'vrac_export' => -1,
+        'vrac_sans_contrat' => -1,
         'export' => -1,
         'factures' => -1,
         'crd' => -1,

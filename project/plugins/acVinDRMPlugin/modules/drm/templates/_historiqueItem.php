@@ -24,6 +24,9 @@ endif;
     <td style="padding: 5px;">
     <?php echo $drm->commentaires; ?>
     <?php if ($drm->ciel->diff): ?>Il existe une différence entre la DRM Declarvins et sa version <a href="<?php echo url_for('drm_xml', $drm) ?>">XML Ciel</a>.<?php endif; ?>
+    <?php if ($csv): ?>
+        <a href="<?php echo url_for('drm_csv', array('id' => $csv,'identifiant' => $drm->getIdentifiant())); ?>">Voir le CSV importé</a>
+    <?php endif; ?>
     </td>
     <?php endif; ?>
         <td style="padding: 5px;">

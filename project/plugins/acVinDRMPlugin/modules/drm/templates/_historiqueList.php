@@ -13,18 +13,13 @@
 	</thead>
 	<tbody>
 		<?php $i=0; ?>
-		<?php if($new_drm && !$historique): ?>
-		<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
-															   'drm' => $new_drm,
-															   'etablissement' => $etablissement,
-															   'formImport' => $formImport)); $i++; ?>
-		<?php endif; ?>
-		<?php foreach ($drms as $key => $drm): ?>
-			<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
-															   'drm' => $drm,
+        <?php foreach ($drms as $key => $drm_info): ?>
+			<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0,
+                                                               'drm' => $drm_info['drm'],
+                                                               'csv' => isset($drm_info['csv']) ? $drm_info['csv'] : null,
 															   'etablissement' => $etablissement,
 															   'formImport' => $formImport)) ?>
-		<?php $i++; if (isset($limit) && $limit == $i) break; 
+		<?php $i++; if (isset($limit) && $limit == $i) break;
 		endforeach; ?>
 	</tbody>
 </table>
