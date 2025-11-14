@@ -95,7 +95,7 @@ EOF;
                 }
                 $statuts[] = $libellesStatuts[$statut];
                 // On peuple les données periodique N-1
-                if (in_array($statut, [DRMClient::DRM_STATUS_BILAN_A_SAISIR,DRM_STATUS_BILAN_NON_VALIDE])) {
+                if (in_array($statut, [DRMClient::DRM_STATUS_BILAN_A_SAISIR,DRMClient::DRM_STATUS_BILAN_NON_VALIDE])) {
                     if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissement[EtablissementCsv::COL_ID], $this->getPeriodeLastYear($periode))) {
             			foreach ($drm->getDetails() as $detail) {
             				if ($detail->interpro != $interpro->_id) {
