@@ -128,8 +128,7 @@ EOF;
             				$str .=  $detail->sorties->export.";";
             				$str .=  $detail->sorties->factures.";";
             				$str .=  $detail->sorties->crd.";";
-                            $str .=  $detail->sorties->vrac_export.";";
-                            $str .=  $detail->sorties->vrac_sans_contrat."\n";
+            				$str .=  $detail->sorties->vrac_export."\n";
                             $bilanPeriodesCsv[$periode] .= str_replace(DRM::DEFAULT_KEY, '', $str);
             			}
             		}

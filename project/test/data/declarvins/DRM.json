@@ -215,7 +215,6 @@
                                                                        "sorties": {
                                                                            "vrac": null,
                                                                            "vrac_export": null,
-                                                                           "vrac_sans_contrat": null,
                                                                            "export": null,
                                                                            "factures": null,
                                                                            "crd": 100,
@@ -450,7 +449,6 @@
                                                                        "sorties": {
                                                                            "vrac": null,
                                                                            "vrac_export": null,
-                                                                           "vrac_sans_contrat": null,
                                                                            "export": null,
                                                                            "factures": null,
                                                                            "crd": 100,

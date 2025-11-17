@@ -114,8 +114,7 @@ class DRMDetailImport
       	$detail->entrees->mouvement = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT]);
       	$detail->entrees->crd = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_CRD]);
       	$detail->sorties->vrac = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC]);
-        $detail->sorties->vrac_export = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]);
-        $detail->sorties->vrac_sans_contrat = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_SANS_CONTRAT]);
+				$detail->sorties->vrac_export = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]);
       	$detail->sorties->export = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT]);
       	$detail->sorties->factures = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES]);
       	$detail->sorties->crd = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CRD]);
