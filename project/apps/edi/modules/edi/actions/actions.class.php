@@ -1032,9 +1032,6 @@ class ediActions extends sfActions
             if ($interpro == 'INTERPRO-IR' && $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT]) {
                 $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT];
             }
-            if ($interpro == 'INTERPRO-IR' && $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_SANS_CONTRAT]) {
-                $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] = $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_EXPORT] + $item->value[DRMDateView::VALUE_DETAIL_SORTIES_VRAC_SANS_CONTRAT];
-            }
 			foreach ($numberValues as $val) {
 				if ($item->value[$val]) {
 					$item->value[$val] = number_format($item->value[$val], 5, '.', '');

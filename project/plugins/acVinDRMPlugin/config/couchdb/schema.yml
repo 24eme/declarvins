@@ -397,7 +397,6 @@ DRM:
                                                                                                                 fields:
                                                                                                                   vrac: { type: float }
                                                                                                                   vrac_export: { type: float }
-                                                                                                                  vrac_sans_contrat: { type: float }
                                                                                                                   export: { type: float }
                                                                                                                   factures: { type: float }
                                                                                                                   crd: { type: float }
