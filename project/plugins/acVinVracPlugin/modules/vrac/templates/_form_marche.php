@@ -40,6 +40,28 @@
                 <p style="padding: 10px 0 0 210px;"><em>La production revendiquée dans l'appellation d’origine contrôlée objet du contrat, provenant de son exploitation et récoltés sur <strong>la surface</strong> en production mentionnées.</em></p>
             </div>
             <?php endif; ?>
+            <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
+            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
+                <?php echo $form['type_prix_1']->renderError() ?>
+                <?php echo $form['type_prix_1']->renderLabel() ?>
+                <?php echo $form['type_prix_1']->render() ?>
+            </div>
+            <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                <?php echo $form['type_prix_2']->renderError() ?>
+                <?php echo $form['type_prix_2']->renderLabel() ?>
+                <?php echo $form['type_prix_2']->render() ?>
+            </div>
+            <?php endif; ?>
+            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                <?php echo $form['determination_prix_date']->renderError() ?>
+                <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
+                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
+            </div>
+            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                <?php echo $form['determination_prix']->renderError() ?>
+                <?php echo $form['determination_prix']->renderLabel() ?>
+                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
+            </div>
             <?php if (isset($form['contractualisation'])): ?>
                 <div id="bloc_volume_propose" class="section_label_strong bloc_conditionner" data-condition-value="volume">
             <?php else: ?>
@@ -100,28 +122,6 @@
                 <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
-            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
-                <?php echo $form['type_prix_1']->renderError() ?>
-                <?php echo $form['type_prix_1']->renderLabel() ?>
-                <?php echo $form['type_prix_1']->render() ?>
-            </div>
-            <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['type_prix_2']->renderError() ?>
-                <?php echo $form['type_prix_2']->renderLabel() ?>
-                <?php echo $form['type_prix_2']->render() ?>
-            </div>
-            <?php endif; ?>
-            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['determination_prix_date']->renderError() ?>
-                <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
-                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
-            </div>
-            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['determination_prix']->renderError() ?>
-                <?php echo $form['determination_prix']->renderLabel() ?>
-                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
-            </div>
             <h1>Paiement</h1>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
                 <?php echo $form['conditions_paiement']->renderError() ?>
