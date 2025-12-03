@@ -78,75 +78,14 @@ function statusLibelle($status, $pluriannuel = null)
     }
 }
 
-function showRecapPrixUnitaire($vrac)
-{
-    if($type = $vrac->type_transaction)
-    {
-        switch ($type)
-        {
-            case 'raisins': return $vrac->prix_unitaire.' €/kg';
-            case 'mouts': return $vrac->prix_unitaire.' €/hl';
-            case 'vin_vrac': return $vrac->prix_unitaire.' €/hl';                   
-            case 'vin_bouteille': 
-                if ($vrac->bouteilles_quantite == 0 || $vrac->bouteilles_contenance_volume == 0) {
-                    return 0;
-                }
-                return $vrac->prix_unitaire.' €/btle, soit '.
-                    $vrac->prix_total/($vrac->bouteilles_quantite*($vrac->bouteilles_contenance_volume)).' €/hl';
-        }
-    }    
-    return '';
-}
-
-function showType($vrac)
-{
-    if($type = $vrac->type_transaction)
-    {
-        return showTypeFromLabel($type);
-    }    
-    return '';
-}
-
 function showTypeFromLabel($type)
 {
     switch ($type)
         {
-            case 'vin_vrac': return 'vin vrac';                   
+            case 'vin_vrac': return 'vin vrac';
             case 'vin_bouteille': return 'vin conditionné';
             default: return $type;
         }
-}
-
-function showRecapVolumePropose($vrac)
-{
-    if($type = $vrac->type_transaction)
-    {
-        switch ($type)
-        {
-            case 'raisins': return $vrac->raisin_quantite.' kg (raisins), soit '.$vrac->volume_propose.' hl';
-            case 'mouts': return $vrac->volume_propose.' hl (moûts)';
-            case 'vin_vrac': return $vrac->volume_propose.' hl (vin vrac)';                   
-            case 'vin_bouteille': 
-                return $vrac->bouteilles_quantite.
-                    ' bouteilles, soit '.$vrac->volume_propose.' hl';
-        }
-    }    
-    return '';
-}
-
-function showUnite($vrac)
-{
-    if($type = $vrac->type_transaction)
-    {
-        switch ($type)
-        {
-            case 'raisins': return 'kg';
-            case 'mouts': return 'hl';
-            case 'vin_vrac': return 'hl';                    
-            case 'vin_bouteille': return 'btle';
-        }
-    }    
-    return '';
 }
 
 function getTypeIcon($type)
