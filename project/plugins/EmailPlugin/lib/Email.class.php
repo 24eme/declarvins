@@ -306,7 +306,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Relance : Demande du prix définitif d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Relance : Demande du prix déterminé d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_determination_prix', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = Swift_Message::newInstance()
         ->setFrom($from)

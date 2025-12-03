@@ -37,7 +37,7 @@
 	    	<?php if ($warningExport): ?><li>Attention, vous êtes sur le point de valider un contrat pour le marché français (étape &laquo;Marché&raquo;, champs &laquo;Expédition export&raquo;).</li><?php endif; ?>
             <?php if ($warningFourchette): ?><li>Attention, le prix indiqué ne respecte pas la fourchette de prix défini dans le contrat cadre.</li><?php endif; ?>
             <?php if ($warningAnnexePrecontractuelle): ?><li>Attention, vous n'avez pas annexé de document précontractuel d'initiative du producteur.</li><?php endif; ?>
-            <?php if ($warningPrix): ?><li>Attention, vous devez convenir d'un prix définitif.</li><?php endif; ?>
+            <?php if ($warningPrix): ?><li>Attention, vous devez convenir d'un prix déterminé.</li><?php endif; ?>
 	    </ol>
 	</div>
 	<?php endif; ?>

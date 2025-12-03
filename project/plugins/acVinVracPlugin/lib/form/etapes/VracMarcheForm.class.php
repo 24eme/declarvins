@@ -3,8 +3,8 @@ class VracMarcheForm extends VracForm
 {
    	public function configure()
     {
-   	    $typePrix1 = array('definitif' => 'Définitif', 'non_definitif' => 'Prix non définitif');
-   	    $typePrix2 = array('objectif' => 'D\'objectif', 'acompte' => 'D\'acompte');
+            $typePrix1 = array('determine' => 'Déterminé', 'non_definitif' => 'Prix non définitif');
+            $typePrix2 = array('objectif' => 'D\'objectif', 'acompte' => 'D\'acompte');
 
     		$this->setWidgets(array(
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
@@ -32,8 +32,8 @@ class VracMarcheForm extends VracForm
             'prix_unitaire' => 'Prix unitaire net HT*:',
         	'type_prix_1' => 'Type de prix*:',
         	'type_prix_2' => 'Préciser*:',
-        	'determination_prix' => 'Modalité de fixation du prix définitif ou de révision du prix*: (celui-ci sera communiqué à l\'interprofession par les parties au contrat)',
-        	'determination_prix_date' => 'Date de détermination du prix définitif*:',
+            'determination_prix' => 'Modalité de fixation du prix déterminé ou de révision du prix*: (celui-ci sera communiqué à l\'interprofession par les parties au contrat)',
+            'determination_prix_date' => 'Date de fixation du prix déterminé*:',
         	'prix_total' => 'Prix total HT:',
         	'part_cvo' => 'Part CVO:',
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
@@ -161,7 +161,7 @@ class VracMarcheForm extends VracForm
 
         }
 
-        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : 'definitif';
+        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : 'déterminé';
 
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
@@ -198,7 +198,7 @@ class VracMarcheForm extends VracForm
           $this->setDefault('type_prix_1', 'non_definitif');
           $this->setDefault('type_prix_2', $this->getObject()->type_prix);
       } else {
-          $this->setDefault('type_prix_1', 'definitif');
+          $this->setDefault('type_prix_1', 'déterminé');
           $this->setDefault('type_prix_2', null);
       }
       if ($this->getObject()->pourcentage_recolte) {
