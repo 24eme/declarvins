@@ -359,6 +359,7 @@ class ImportEtablissementsCsv {
             if (!$societe) {
                 $societe = $etab->getGenerateSociete();
             }
+            $societe->raison_sociale = $etab->raison_sociale;
             if (isset($line[EtablissementCsv::COL_NB_PAIEMENT_SV12]) && $line[EtablissementCsv::COL_NB_PAIEMENT_SV12] > 1) {
                 $societe->setMetasForFacturation(FactureClient::TYPE_FACTURE_MOUVEMENT_SV12, [Societe::FACTURATION_NB_PAIEMENTS_NODE => round($line[EtablissementCsv::COL_NB_PAIEMENT_SV12])]);
             } else {

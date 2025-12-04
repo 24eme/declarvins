@@ -634,13 +634,13 @@ class DRMDetail extends BaseDRMDetail {
             return 'VT_IG_IGP';
         }
         if (preg_match('/^1[RBS][^M]*$/', $this->getInao())) {
-            return 'VT_IG_AOC';
+            return 'VT_IG_AOP';
         }
         if (preg_match('/^3[RBS].*M/', $this->getInao())) {
             return 'VM_IG_IGP';
         }
         if (preg_match('/^1[RBS].*M/', $this->getInao())) {
-            return 'VM_IG_AOC';
+            return 'VM_IG_AOP';
         }
         return null;
     }
@@ -726,6 +726,12 @@ class DRMDetail extends BaseDRMDetail {
     public function needObservation() {
       if (($this->entrees->crd > 0)||($this->entrees->excedent > 0)) {
         return true;
+      }
+      if (($this->entrees->mouvement > 0) || ($this->entrees->embouteillage > 0) || ($this->entrees->travail > 0) || ($this->entrees->distillation > 0)) {
+          return true;
+      }
+      if (($this->sorties->mouvement > 0) || ($this->sorties->embouteillage > 0) || ($this->sorties->travail > 0) || ($this->sorties->distillation > 0)) {
+          return true;
       }
       if (($this->sorties->autres > 0)||($this->sorties->pertes > 0)) {
         return true;

@@ -290,8 +290,16 @@ class DRMRouting {
                                                                 'must_be_valid' => false,
                               									'must_be_not_valid' => false)));
 
-        $r->prependRoute('drm_mouvements_generaux', new DRMRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux', 
-                                                          array('module' => 'drm_mouvements_generaux', 
+        $r->prependRoute('drm_csv', new EtablissementRoute('/drm/:identifiant/csv/:id',
+                                                          array('module' => 'drm',
+                                                                'action' => 'getCsv'),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'Etablissement',
+                                                            'type' => "object")));
+
+
+        $r->prependRoute('drm_mouvements_generaux', new DRMRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux',
+                                                          array('module' => 'drm_mouvements_generaux',
                                                                 'action' => 'index'),
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',

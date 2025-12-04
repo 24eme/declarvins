@@ -51,7 +51,7 @@ use_helper('Text');
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>
         </li>
         <?php endif; ?>
-        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'factures')||$etablissement->hasFacture()): ?>
+        <?php if (!($etablissement->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN) && ($configuration->isApplicationOuverte($etablissement->interpro, 'factures')||$etablissement->hasFacture())): ?>
         <li<?php if ($active == 'factures'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('facture_societe', $etablissement) ?>">
             Factures
@@ -89,7 +89,7 @@ use_helper('Text');
         <?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
         <?php if($etablissement->canAdhesionCiel() && !$etablissement->isTransmissionCiel()): ?>
         <?php
-            $convention = $sf_user->getCompte()->getConventionCiel();
+            $convention = $etablissement->getCompteObject()->getConventionCiel();
             if (!$convention || !$convention->valide):
         ?>
         <li<?php if ($active == 'ciel'): ?> class="actif"<?php endif; ?>>

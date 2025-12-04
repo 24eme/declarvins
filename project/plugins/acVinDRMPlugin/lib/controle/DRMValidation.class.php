@@ -140,7 +140,7 @@ class DRMValidation
 								} else {
 									$this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
 								}
-            } elseif (($produit->total / $produit->getReserveInterpro()) < 1.2) {
+            } elseif ($produit->getReserveInterpro() > 0 && ($produit->total / $produit->getReserveInterpro()) < 1.2) {
                 $this->warnings['reserve_interpro_'.$produit->getIdentifiantHTML()] = new DRMControleWarning('reserve_interpro', $this->generateUrl('drm_recap', $produit->getLieu()), $produit->makeFormattedLibelle().': %message%');
             }
         }
@@ -319,18 +319,42 @@ class DRMValidation
 			  }
 			}
 		}
-		if ($detail->sorties->mouvement > 0) {
-			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
-		}
+        $hasTmpMvt = false;
+        if ($detail->sorties->mouvement > 0) {
+            $this->warnings['mouvement'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
 		if ($detail->sorties->embouteillage > 0) {
 			$this->warnings['embouteillage_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
 		}
 		if ($detail->sorties->travail > 0) {
 			$this->warnings['travail_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
 		}
 		if ($detail->sorties->distillation > 0) {
 			$this->warnings['distillation_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
 		}
+        if ($detail->entrees->mouvement > 0) {
+            $this->warnings['mouvement'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($detail->entrees->embouteillage > 0) {
+            $this->warnings['embouteillage_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($detail->entrees->travail > 0) {
+            $this->warnings['travail_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($detail->entrees->distillation > 0) {
+            $this->warnings['distillation_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire', $this->generateUrl('drm_recap_detail', $detail).'#entrees', $detail->makeFormattedLibelle().': %message%');
+            $hasTmpMvt = true;
+        }
+        if ($hasTmpMvt && !$detail->observations) {
+            $this->warnings['observations_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mvttemporaire_observations', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->makeFormattedLibelle().': %message%');
+        }
 		/*if (!$detail->hasCvo() || !$detail->hasDouane()) {
 			$this->warnings['droits_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('droits', $this->generateUrl('drm_recap_detail', $detail));
 		}*/

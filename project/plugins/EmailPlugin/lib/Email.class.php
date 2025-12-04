@@ -493,19 +493,50 @@ class Email {
     	return $this->getMailer()->send($message);
     }
 
+    public function cielRelanceNonValidee($etablissement_row) {
+        return sendCielRelance($etablissement_row, "Rappel : DRM non validée sur DeclarVins", 'ciel_relance_nonvalidee');
+    }
+
+    public function cielRelanceNonSaisie($etablissement_row) {
+        return sendCielRelance($etablissement_row, "Rappel : votre DRM n'a pas été saisie sur DeclarVins", 'ciel_relance_nonsaisie');
+    }
+
+    private function sendCielRelance($etablissement_row, $subject, $partial) {
+        $etablissement = EtablissementClient::getInstance()->retrieveById($etablissement_row[EtablissementCsv::COL_ID]);
+        if (!$etablissement) {
+            return;
+        }
+        $compte = $etablissement->getCompteObject();
+        if (!$compte->email) {
+            return;
+        }
+        $from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
+        $to = array($compte->email);
+        $body = $this->getBodyFromPartial($partial, array('etablissement' => $etablissement));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+        if ($interpro) {
+            $cc = array($interpro->email_contrat_inscription);
+            if ($interpro->identifiant == 'CIVP') {
+                $cc[] = $interpro->email_assistance_ciel;
+            }
+            $message->setCc($cc);
+        }
+        return $this->getMailer()->send($message);
+    }
+
     public function cielValide($drm)
     {
-    	$etablissement = $drm->getEtablissement();
-    	$compte = $etablissement->getCompteObject();
-    	if (!$compte->email) {
-    		return null;
-    	}
-    	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
-    	$to = array($compte->email);
-    	$subject = "Validation de votre DRM sur CIEL";
-    	$body = $this->getBodyFromPartial('ciel_valide', array('drm' => $drm, 'etablissement' => $etablissement));
-    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-    	return $this->getMailer()->send($message);
+        $etablissement = $drm->getEtablissement();
+        $compte = $etablissement->getCompteObject();
+        if (!$compte->email) {
+            return null;
+        }
+        $from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
+        $to = array($compte->email);
+        $subject = "Validation de votre DRM sur CIEL";
+        $body = $this->getBodyFromPartial('ciel_valide', array('drm' => $drm, 'etablissement' => $etablissement));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+        return $this->getMailer()->send($message);
     }
 
     public function volumesSurveilles($drm, $volumes, $interpro)
@@ -580,4 +611,27 @@ class Email {
         }
         return ($interpro->email_contrat_inscription)? array($interpro->email_contrat_inscription => $interpro->nom) : array($referente->email_contrat_inscription => $referente->nom);
     }
+
+
+    public function daeRelance($etablissement, $interpro_id, & $email_to)
+    {
+        if (!$etablissement) {
+            return;
+        }
+        $compte = $etablissement->getCompteObject();
+        if (!$compte->email) {
+            return;
+        }
+        $interpro = InterproClient::getInstance()->getById($interpro_id);
+        $from = $this->getFromEmailInterpros(array($interpro),true);
+        $email_to = array($compte->email);
+        $body = $this->getBodyFromPartial('dae_relance', array('etablissement' => $etablissement));
+        $message = $this->getMailer()->compose($from, $to, '[Declarvins] Dépot de vos données de commercialisation', $body)->setContentType('text/html');
+        if ($interpro) {
+            $cc = array($interpro->email_contrat_inscription);
+            $message->setCc($cc);
+        }
+        return $this->getMailer()->send($message);
+    }
+
 }

@@ -92,7 +92,7 @@ EOF;
                             if ($sendVigneronEmailNotification)
 							    Email::getInstance()->cielValide($drm);
 							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
-    					} elseif ($compare->hasDiff() && $drm->isVersionnable()) {
+    					} elseif ($compare->hasDiff() && $drm->isVersionnable() && !$drm->isRectificative()) {
 							$drm_rectificative = $drm->generateRectificative(true);
 							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
 							$drm_rectificative->add('ciel', $drm->ciel);
@@ -101,7 +101,7 @@ EOF;
 							$drm_rectificative->ciel->diff = $xmlIn->asXML();
                             if (!$checkingMode)
 							    $drm_rectificative->save();
-                            if ($sendVigneronEmailNotification)
+                            if ($sendVigneronEmailNotification && $drm->isRectificative())
 							    Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff(), $interpro);
     						$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' doit être rectifiée suite aux rectifications suivantes : '.$this->getDiffHtmlList($compare);
     						$files[] = $item;
@@ -164,7 +164,7 @@ EOF;
           exec('mkdir -p '.$target.date('Ymd').'/');
           foreach ($files as $file) {
               $split = explode('/', $file);
-              exec('wget -O '.$target.date('Ymd').'/'.$split[count($split) - 1].' '.$file);
+              exec('wget -q -O '.$target.date('Ymd').'/'.$split[count($split) - 1].' '.$file);
           }
           exec('zip -j -r '.$target.$zipname.' '.$target.date('Ymd').'/');
           $message->attach(Swift_Attachment::fromPath($target.$zipname));

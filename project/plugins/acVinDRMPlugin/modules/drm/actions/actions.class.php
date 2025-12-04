@@ -818,4 +818,14 @@ class drmActions extends sfActions {
         return $this->renderText(file_get_contents($path));
     }
 
+    public function executeGetCsv(sfWebRequest $request) {
+        $csv = CSVClient::getInstance()->find($request->getParameter('id'));
+        $this->forward404Unless($csv);
+
+        $this->getResponse()->setHttpHeader('Content-Type', 'text/csv');
+        $this->getResponse()->setHttpHeader('Content-disposition', 'attachment; filename="' . $csv->getFileName() . '"');
+
+        return $this->renderText($csv->getFileContent());
+    }
+
 }
