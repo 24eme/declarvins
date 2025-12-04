@@ -39,7 +39,7 @@ Courtier :<br />
 <br />
 <?php endif; ?>
 Observations : <?php echo $vrac->observations ?><br /><br />
-Merci d’avance de nous faire connaitre le prix déterminé, <strong>par retour de mail uniquement</strong>, pour que nous mettions à jour votre contrat.<br /><br />
+Merci d’avance de nous faire connaitre le prix définitif, <strong>par retour de mail uniquement</strong>, pour que nous mettions à jour votre contrat.<br /><br />
 Pour toute information, vous pouvez <a href="<?php echo $url['contact']; ?>">contacter votre interprofession</a><br /><br />
 Cordialement,<br /><br />
 L'équipe Declarvins.net 

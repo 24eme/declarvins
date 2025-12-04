@@ -11,7 +11,7 @@ class VracMarcheCivpForm extends VracMarcheForm
         $this->getWidget('conditions_paiement')->setOption('multiple', true);
         $this->getValidator('conditions_paiement')->setOption('multiple', true);
 
-        $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix déterminé ou de révision du prix*:');
+        $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix définitif ou de révision du prix*:');
 
         $this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
         $this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
