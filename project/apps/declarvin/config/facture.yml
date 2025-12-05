@@ -20,7 +20,7 @@ all:
       pdf_nom_ref_client: "N° INTERPRO / N° CLIENT"
       pdf_nom_taux: "Taux"
       pdf_display_code_comptable: true
-      echeance: "+30 days"
+      echeance: "+45 days"
       sans_categories: false
       exercice: "comptable"
       taux_tva:
@@ -40,7 +40,7 @@ all:
       pdf_ordre_cheque: 'InterVins sud-est'
       pdf_nom_interpro: 'InterVins sud-est'
       pdf_logo_interpro: 'logo_ivse.png'
-      reglement: '\textbf{Règlement à reception } \\\\ Les informations recueillies sont nécessaires pour le fonctionnement de l’interprofession. Elles font l’objet d’un traitement informatique et sont destinées aux services économique et comptable d’InterVins sud-est. En application des articles 39 et suivants de la loi du 6 janvier 1978, vous bénéficiez d’un droit de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adressez au siège social d’InterVins sud-est. \\\\ Nous vous remercions de vous acquitter de cette cotisation, par virement en précisant le numéro de la facture ou par chèque bancaire ou postal, en joignant obligatoirement le talon ci-dessous.\\\\ &nbsp; \\\\ &nbsp; \\\\'
+      reglement: '\textbf{ } \\\\ Les informations recueillies sont nécessaires pour le fonctionnement de l’interprofession. Elles font l’objet d’un traitement informatique et sont destinées aux services économique et comptable d’InterVins sud-est. En application des articles 39 et suivants de la loi du 6 janvier 1978, vous bénéficiez d’un droit de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adressez au siège social d’InterVins sud-est. \\\\ Nous vous remercions de vous acquitter de cette cotisation, par virement en précisant le numéro de la facture ou par chèque bancaire ou postal, en joignant obligatoirement le talon ci-dessous.\\\\ &nbsp; \\\\ &nbsp; \\\\'
       reglement_avoir: '\textbf{ } \\\\ Les informations recueillies sont nécessaires pour le fonctionnement de l’interprofession. Elles font l’objet d’un traitement informatique et sont destinées aux services économique et comptable d’InterVins sud-est. En application des articles 39 et suivants de la loi du 6 janvier 1978, vous bénéficiez d’un droit de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adressez au siège social d’InterVins sud-est.\\\\ &nbsp; \\\\ &nbsp; \\\\ &nbsp; \\\\'
       export_shell: "%sf_root_dir%/bin/exportComptableIVSE.sh"
       export_relances: "%sf_root_dir%/bin/exportRelanceFactureIVSE.sh"
