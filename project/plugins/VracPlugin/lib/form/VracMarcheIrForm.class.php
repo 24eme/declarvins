@@ -3,6 +3,9 @@ class VracMarcheIrForm extends VracMarcheForm
 {
     public function configure() {
         parent::configure();
+
+        $typePrix1 = array('determine' => 'Déterminé', 'non_definitif' => 'Prix non définitif');
+
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
 		$this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
@@ -15,7 +18,14 @@ class VracMarcheIrForm extends VracMarcheForm
 		if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche) {
 		   unset($this['prix_total_unitaire']);
 		}
+
+		$this->setWidget('type_prix_1', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $typePrix1)));
+        $this->getWidget('type_prix_1')->setLabel('Type de prix*:');
+
+        $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix déterminé ou de révision du prix*: (celui-ci sera communiqué à l\'interprofession par les parties au contrat)');
+        $this->getWidget('determination_prix_date')->setLabel('Date de détermination du prix déterminé*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>');
     }
+
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
     	$this->getObject()->has_cotisation_cvo = 1;
