@@ -4,7 +4,11 @@ class VracMarcheIrForm extends VracMarcheForm
     public function configure() {
         parent::configure();
 
-        $typePrix1 = array('determine' => 'Déterminé', 'non_definitif' => 'Prix non définitif');
+        if ($this->isEgalim()) {
+            $typePrix1 = array('determine' => 'Déterminé', 'determinable' => 'Déterminable');
+        } else {
+            $typePrix1 = array('determine' => 'Déterminé', 'non_definitif' => 'Prix non définitif');
+        }
 
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
 		$this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
@@ -21,9 +25,13 @@ class VracMarcheIrForm extends VracMarcheForm
 
 		$this->setWidget('type_prix_1', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $typePrix1)));
         $this->getWidget('type_prix_1')->setLabel('Type de prix*:');
+        $this->setValidator('type_prix_1', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($typePrix1))));
+
 
         $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix déterminé ou de révision du prix*: (celui-ci sera communiqué à l\'interprofession par les parties au contrat)');
         $this->getWidget('determination_prix_date')->setLabel('Date de détermination du prix déterminé*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>');
+
+
     }
 
     protected function doUpdateObject($values) {

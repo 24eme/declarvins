@@ -112,7 +112,7 @@
                 <?php echo $form['type_prix_2']->render() ?>
             </div>
             <?php endif; ?>
-            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif|determinable">
                 <?php echo $form['determination_prix_date']->renderError() ?>
                 <?php if ($form->getObject()->isConditionneIr()) : ?>
                     <?php echo $form['determination_prix_date']->renderLabel() ?>
@@ -121,7 +121,7 @@
                 <?php endif; ?>
                 <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
             </div>
-            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif|determinable">
                 <?php echo $form['determination_prix']->renderError() ?>
                 <?php echo $form['determination_prix']->renderLabel() ?>
                 <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
