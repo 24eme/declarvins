@@ -80,4 +80,11 @@ class VracMarcheIrForm extends VracMarcheForm
     public function hasAcompteInfo() {
       return ($this->getObject()->type_transaction == 'raisin')? false : true;
     }
+
+    public function isEgalim() {
+        if ($this->getObject()->type_contrat == VracClient::TYPE_CONTRAT_EGALIM) {
+            return true;
+        }
+    }
+
 }
