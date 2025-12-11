@@ -128,7 +128,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $configurationProduit = $this->cacheConfProduit[$this->getCacheKeyFromData($datas)];
             }
     		if (!$configurationProduit && $idDouane) {
-              $lp = '';
+              $lp = $libelle;
               $s = strpos($libelle, '(');
               $e = strpos($libelle, ')');
               $codeDouaneDansLibelle = (substr(trim($libelle), -1) == ')');
