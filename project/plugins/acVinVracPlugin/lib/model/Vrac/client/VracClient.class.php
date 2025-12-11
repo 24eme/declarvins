@@ -54,6 +54,8 @@ class VracClient extends acCouchdbClient {
     const VERSEMENT_FA_ANNULATION = 'SC';
     const VERSEMENT_FA_TRANSMIS = 'TRANSMIS';
 
+    const TYPE_CONTRAT_EGALIM = 'egalim';
+
     protected $_statuts_vin = array(VracClient::STATUS_VIN_RETIRE => 'Retiré',
                      VracClient::STATUS_VIN_LIVRE => 'Livré');
 

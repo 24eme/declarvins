@@ -18,4 +18,14 @@ class VracConditionIrForm extends VracConditionForm
         $this->setDefault('ramasseur_raisin', 'vendeur');
       }
     }
+
+    protected function doUpdateObject($values) {
+        parent::doUpdateObject($values);
+        if ($values['cas_particulier'] == ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY) {
+             $this->getObject()->type_contrat = VracClient::TYPE_CONTRAT_EGALIM;
+        }
+        else {
+            $this->getObject()->type_contrat = null;
+        }
+    }
 }
