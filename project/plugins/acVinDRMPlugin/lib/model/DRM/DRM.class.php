@@ -245,22 +245,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return null;
     }
 
-    public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $label, $stockDebut) {
+    public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $label, $stockDebut, $acq = false) {
         $inaoLibelleProduits = [];
         $libelleProduits = [];
         $inaoProduits = [];
         $configLibelle = str_replace($label, '', $libelle);
+        $stockDebutNode = ($acq)? 'acq_total_debut_mois' : 'total_debut_mois';
         foreach ($this->getDetails() as $detail) {
             if ($label && !in_array($label, $detail->labels->toArray(true,false))) {
                 continue;
             }
-            if ((trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+            if ((trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
                 $inaoLibelleProduits[] = $detail;
             }
-            if ($libelle && (trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+            if ($libelle && (trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
                 $libelleProduits[] = $detail;
             }
-            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get('total_debut_mois'), 5)) {
+            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
                 $inaoProduits[] = $detail;
             }
         }
