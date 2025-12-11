@@ -158,7 +158,7 @@ EOF;
       $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $interpro->email_contrat_inscription, "DeclarVins // Rapport CFT ".$interpro->nom, $contenuRapport)->setContentType('text/html');
       $message->setCc($cc);
       if (count($files) > 0) {
-          $target = '/tmp/cielxml/';
+          $target = '/tmp/cielxml/'.$interpro.'/';
           $zipname = date('Ymd').'_xml.zip';
           exec('mkdir -p '.$target);
           exec('mkdir -p '.$target.date('Ymd').'/');
