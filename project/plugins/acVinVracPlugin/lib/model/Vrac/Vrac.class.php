@@ -1114,4 +1114,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
         return $this->cas_particulier == 'union';
     }
+
+    public function setPacteCooperatif()
+    {
+        $this->cas_particulier = 'union';
+        $this->cas_particulier_libelle = 'Union';
+    }
+
+
 }

@@ -66,9 +66,10 @@
     </div>
 </section>
 <div id="popup_vrac_ponctuel_nouveau" class="popup_contenu popup_form" style="display:none;">
-    <div class="bloc_condition" data-condition-cible="#bloc_vrac_application_choices|#bloc_vrac_ponctuel|#bloc_vrac_pluriannuel">
+    <div class="bloc_condition" data-condition-cible="#bloc_vrac_application_choices|#bloc_vrac_ponctuel|#bloc_vrac_pluriannuel|#bloc_vrac_pacte_cooperatif">
         <ul class="radio_list">
             <li><input name="creation_type" type="radio" value="vierge" id="creation_type_vierge" checked="checked">&nbsp;<label for="creation_type_vierge" style="font-weight:normal;">Création d'un contrat ponctuel</label></li>
+            <li><input name="creation_type" type="radio" value="pacte_cooperatif" id="creation_type_pacte_cooperatif">&nbsp;<label for="creation_type_pacte_cooperatif" style="font-weight:normal;">Création d'un contrat d'application du <strong>pacte coopératif</strong> entre une union et une cave associée</label></li>
             <li><input name="creation_type" type="radio" value="pluriannuel" id="creation_type_pluriannuel">&nbsp;<label for="creation_type_pluriannuel" style="font-weight:normal;">Création d'un contrat <strong>pluriannuel</strong> cadre</label></li>
             <li><input name="creation_type" type="radio" value="application" id="creation_type_application">&nbsp;<label for="creation_type_application" style="font-weight:normal;">Création d'un contrat d'application adossé au contrat contrat <strong>pluriannuel</strong> cadre :</label></li>
         </ul>
@@ -101,6 +102,13 @@
         <ul class="nav nav-pills text-center" style="margin: 20px 40px 20px 0; justify-content: right; display: flex;">
             <li style="padding: 0 5px; width: 235px;">
                 <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat</a>
+            </li>
+        </ul>
+    </div>
+    <div id="bloc_vrac_pacte_cooperatif" class="bloc_conditionner" data-condition-value="pacte_cooperatif">
+        <ul class="nav nav-pills text-center" style="margin: 20px 40px 20px 0; justify-content: right; display: flex;">
+            <li style="padding: 0 5px; width: 235px;">
+                <a style="padding: 5px; background-color:#ec971f; font-weight: bold;" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement, 'pacte_cooperatif' => 1)) ?>"><span class="glyphicon glyphicon-plus-sign"></span> Créer le contrat</a>
             </li>
         </ul>
     </div>

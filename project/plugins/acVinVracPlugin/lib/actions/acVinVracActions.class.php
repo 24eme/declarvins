@@ -84,15 +84,17 @@ class acVinVracActions extends sfActions
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
-		$vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
+		$this->pacte_cooperatif = (int)$request->getParameter('pacte_cooperatif', 0);
+		$vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel, $this->pacte_cooperatif);
 		$this->redirect(array('sf_route' => 'vrac_etape',
                               'sf_subject' => $vrac,
                               'step' => $this->configurationVracEtapes->next($vrac->etape),
                               'etablissement' => $this->etablissement,
-                              'pluriannuel' => $this->pluriannuel));
+                              'pluriannuel' => $this->pluriannuel,
+						  	  'pacte_cooperatif' => $this->pacte_cooperatif));
 	}
 
-	private function getNewVrac($etablissement, $pluriannuel = 0)
+	private function getNewVrac($etablissement, $pluriannuel = 0, $pacte_cooperatif = 0)
 	{
 		$vrac = new Vrac();
 		$this->init($vrac, $etablissement);
@@ -101,6 +103,9 @@ class acVinVracActions extends sfActions
 		$vrac->add('referente', 1);
 		$vrac->add('version', null);
 		$vrac->contrat_pluriannuel = ($pluriannuel)? 1 : 0;
+		if ($pacte_cooperatif) {
+			$vrac->setPacteCooperatif();
+		}
 		return $vrac;
 	}
 
@@ -220,6 +225,7 @@ class acVinVracActions extends sfActions
 			throw new sfException('Compte required');
 		}
 		$this->pluriannuel = (int)$request->getParameter('pluriannuel', 0);
+        $this->pacte_cooperatif = (int)$request->getParameter('pacte_cooperatif', 0);
         $this->etablissement = $this->getRoute()->getEtablissement();
         if (!$this->etablissement) {
         	if ($etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'))) {
@@ -228,7 +234,7 @@ class acVinVracActions extends sfActions
         }
         $this->vrac = $this->getRoute()->getVrac();
         if ($this->vrac->isNew()) {
-        	$this->vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel);
+        	$this->vrac = $this->getNewVrac($this->etablissement, $this->pluriannuel, $this->pacte_cooperatif);
         }
 		$this->init($this->vrac, $this->etablissement);
 		$this->pluriannuel = $this->vrac->isPluriannuel();

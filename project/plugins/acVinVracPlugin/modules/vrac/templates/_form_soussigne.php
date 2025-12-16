@@ -6,7 +6,7 @@ Ces documents pourront être déposés sur Déclarvins avant la validation du co
 </p>
 <?php endif; ?>
 
-<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement, 'pluriannuel' => $pluriannuel)) ?>">
+<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement, 'pluriannuel' => $pluriannuel, 'pacte_cooperatif' => $pacte_cooperatif)) ?>">
     <?php echo $form->renderHiddenFields() ?>
     <?php echo $form->renderGlobalErrors() ?>
 
