@@ -35,7 +35,7 @@
 
             <div id="bloc_vrac_determination_prix" class="section_label_strong_2 bloc_conditionner" data-condition-value="determinable">
                 <?php echo $form['determination_prix']->renderLabel("Modalité de fixation du prix déterminé ou de révision du prix*: <br /> (celui-ci sera communiqué à l'interprofession par les parties au contrat)") ?>
-                <span style="width:570px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
+                <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
                 <?php echo $form['determination_prix']->renderError() ?>
                 <?php echo $form['determination_prix']->render(array("style" => "height: 60px;width:570px;")) ?>
             </div>
