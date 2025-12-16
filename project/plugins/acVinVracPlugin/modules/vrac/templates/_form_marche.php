@@ -104,11 +104,14 @@
                 <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <?php endif; ?>
-            <div class="section_label_strong">
+            <div class="section_label_strong" style="margin-bottom:0px !important;">
             	<label>Prix total HT:</label>
             	<strong><span id="prix_total_contrat">0.0</span> € HT</strong>
             </div>
             <?php endif; ?>
+             <?php if ($form->getObject()->isConditionneIr()) : ?>
+             <em style="width:580px; display:block;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
+             <?php endif; ?>
             <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
