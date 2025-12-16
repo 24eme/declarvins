@@ -4017,6 +4017,12 @@ p#date_drm {
   width: auto !important;
   padding: 2px 0 2px 20px;
 }
+
+.vracs .section_label_strong_2 > label {
+  font-weight: bold;
+  width: 600px;
+}
+
 .vracs .contenu_onglet {
   border: 1px solid #e9e9e9;
   background: #f1f1f1;

@@ -466,3 +466,4 @@ Configuration:
                           definition:
                             fields:
                               '*': {  }
+                        prix_determinable: {  }
