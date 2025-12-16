@@ -47,6 +47,12 @@
     </div>
     <?php endif; ?>
     <?php endif; ?>
+    <?php if (isset($form['clause_cadre_'.$k])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_cadre_'.$k]->renderError() ?>
+        <?php echo $form['clause_cadre_'.$k]->render(array('style' => 'width:99%;height:60px;')) ?>
+    </div>
+    <?php endif; ?>
 
 <?php endforeach; ?>
 <?php if (count($clauses_complementaires) > 0): ?>
@@ -60,6 +66,14 @@
 
     <h2><?= $clause['nom'] ?></h2>
     <p><?= html_entity_decode($clause['description']) ?></p>
+
+
+    <?php if (isset($form['clause_cadre_'.$key])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_cadre_'.$key]->renderError() ?>
+        <?php echo $form['clause_cadre_'.$key]->render(array('style' => 'width:99%;height:60px;')) ?>
+    </div>
+    <?php endif; ?>
 
     <div class="section_label" style="text-align: right; padding: 10px 0;">
         <?= $form[$key]->renderError() ?>

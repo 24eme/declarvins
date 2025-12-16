@@ -30,6 +30,15 @@ class VracClauseIrForm extends VracClauseForm
         $this->setWidget('annexe_autre', new sfWidgetFormInputFile(array('label' => 'fichier PDF:')));
         $this->setValidator('annexe_autre', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
 
+        $this->setWidget('clause_cadre_force_majeure', new sfWidgetFormTextarea());
+        $this->setValidator('clause_cadre_force_majeure', new sfValidatorString(['required'=>false]));
+
+        $this->setWidget('clause_cadre_transfert_propriete', new sfWidgetFormTextarea());
+        $this->setValidator('clause_cadre_transfert_propriete', new sfValidatorString(['required'=>false]));
+
+        $this->setWidget('clause_cadre_emission_facture', new sfWidgetFormTextarea());
+        $this->setValidator('clause_cadre_emission_facture', new sfValidatorString(['required'=>false]));
+
         $this->editablizeInputPluriannuel();
     }
 
