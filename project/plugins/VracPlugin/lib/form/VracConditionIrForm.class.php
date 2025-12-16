@@ -22,7 +22,7 @@ class VracConditionIrForm extends VracConditionForm
 
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        if ($values['cas_particulier'] == ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY) {
+        if ($this->getObject()->cas_particulier == "aucune" || $this->getObject()->cas_particulier == "interne") {
              $this->getObject()->type_contrat = VracClient::TYPE_CONTRAT_EGALIM;
         }
         else {
