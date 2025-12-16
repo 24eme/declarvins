@@ -2,6 +2,17 @@
 
 class VracConditionValidator extends sfValidatorBase {
 
+
+    protected $vrac = null;
+
+    public function __construct($vrac, $options = array(), $messages = array())
+    {
+        if ($vrac) {
+            $this->vrac = $vrac;
+        }
+        parent::__construct($options, $messages);
+    }
+
     public function configure($options = array(), $messages = array()) {
         $this->addMessage('impossible_volume', "La somme des volumes ne correspond pas au volume total proposé");
         $this->addMessage('impossible_date', "La date limite doit être supérieur ou égale aux dates de l'échéancier");
