@@ -294,7 +294,7 @@
 	<div class="clauses">
 	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
     <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?>
+    <p><?= htmlspecialchars_decode($clause['description']) ?>
     <?php if ($cc == 'transfert_propriete' && $vrac->isConditionneIvse()): ?>
         <?php $complements = explode(',', $vrac->clauses_complementaires) ?>
         <?php if (!in_array('transfert_propriete', $complements)): ?>
