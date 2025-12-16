@@ -279,6 +279,9 @@
 			<?php endif ?>
 		<?php endif ?>
     </p>
+    <?php if ($s = $vrac->get('clause_cadre_'.$k)): ?>
+    <p style="border:1px solid grey;"><?php echo $s ?></p>
+    <?php endif; ?>
     <?php if ($k == 'resiliation'): ?>
     <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
     <?php if($vrac->clause_resiliation_preavis||$vrac->isConditionneIvse()): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
@@ -301,6 +304,9 @@
         <?php endif ?>
     <?php endif ?>
     </p>
+    <?php if ($s = $vrac->get('clause_cadre_'.$cc)): ?>
+    <p style="border:1px solid grey;"><?php echo $s ?></p>
+    <?php endif; ?>
 	<?php endforeach; ?>
 	</div>
 	<?php endif; ?>
