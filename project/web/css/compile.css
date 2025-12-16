@@ -5032,3 +5032,8 @@ input[type="text"]:read-only,
   background-color: #000;
   opacity: 0.75;
 }
+
+.text-underline {
+    text-decoration: underline;
+    color: #86005b;
+}
