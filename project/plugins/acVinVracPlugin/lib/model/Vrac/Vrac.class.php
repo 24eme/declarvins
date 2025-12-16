@@ -644,8 +644,27 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
     }
 
+	public function updateClauses()
+	{
+		if ($this->isPacteCooperatif()) {
+			$remove = ['relations_precontractuelles', 'resiliation', 'duree_contrat', 'prix', 'report_numero_contrat', 'reglement_litiges', 'tracabilite_ingredients'];
+	        $this->remove('clauses_complementaires');
+	        $this->add('clauses_complementaires');
+			foreach ($remove as $r) {
+				if ($this->clauses->exist($r)) {
+					$this->clauses->remove($r);
+				}
+			}
+		} else {
+			if ($this->clauses->exist('report_numero_pacte_cooperatif')) {
+				$this->clauses->remove('report_numero_pacte_cooperatif');
+			}
+		}
+	}
+
     public function save($updateStatutSolde = true) {
     	$this->updateVolumeEnleve();
+		$this->updateClauses();
     	if ($updateStatutSolde) {
     		$this->updateStatutSolde();
     	}
@@ -1089,5 +1108,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         } else {
             return true;
         }
+    }
+
+    public function isPacteCooperatif()
+    {
+        return $this->cas_particulier == 'union';
     }
 }

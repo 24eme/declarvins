@@ -1,5 +1,6 @@
 <?php $clauses = $form->getObject()->clauses ?>
 <?php $clauses_complementaires = $configurationVrac->clauses_complementaires; ?>
+<?php if ($form->getObject()->isConditionneIr() && $form->getObject()->isPacteCooperatif()) $clauses_complementaires = []; ?>
 
 <style>
 #informations_complementaires table td, #informations_complementaires table th {
