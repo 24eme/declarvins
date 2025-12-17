@@ -5037,3 +5037,10 @@ input[type="text"]:read-only,
     text-decoration: underline;
     color: #86005b;
 }
+
+.text-delai-paiement {
+    margin: 3px;
+    display: inline-block;
+    font-style: italic;
+    width: 115px;
+}
