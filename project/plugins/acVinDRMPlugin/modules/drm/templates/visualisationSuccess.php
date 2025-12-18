@@ -122,7 +122,6 @@
         <?php endif; ?>
         <div id="contenu_onglet">
             <?php include_partial('global/metabaseControles', array('modele' => 'drm', 'doc' => $drm)) ?>
-            <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
             <?php if (($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation)) ?>
@@ -130,6 +129,7 @@
                 <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
             <?php endif; ?>
 
+            <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
 
             <?php if ($drm->isIncomplete()): ?>
                 <div class="vigilance_list">
