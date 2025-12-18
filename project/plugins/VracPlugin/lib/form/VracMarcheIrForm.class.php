@@ -31,7 +31,12 @@ class VracMarcheIrForm extends VracMarcheForm
         $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix déterminé ou de révision du prix*: (celui-ci sera communiqué à l\'interprofession par les parties au contrat)');
         $this->getWidget('determination_prix_date')->setLabel('Date de détermination du prix déterminé*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>');
 
-
+        $this->setWidget('pluriannuel_prix_plancher', new sfWidgetFormInputFloat());
+        $this->setWidget('pluriannuel_prix_plafond', new sfWidgetFormInputFloat());
+        $this->getWidget('pluriannuel_prix_plancher')->setLabel('Prix plancher (minimum)');
+        $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond (maximum)');
+        $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => false)));
+        $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => false)));
     }
 
     protected function doUpdateObject($values) {

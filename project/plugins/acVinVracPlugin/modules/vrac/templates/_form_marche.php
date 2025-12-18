@@ -82,6 +82,29 @@
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
+                    <?php if ($form->getObject()->isPluriannuel()): ?>
+                        <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
+                            <div id="bloc_vrac_pluriannuel_prix" data-condition-value="determinable">
+                                <div class="section_label_strong">
+                                    <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
+                                    <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
+                                    <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                                </div>
+                                <div class="section_label_strong">
+                                    <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
+                                    <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
+                                    <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                                    <p style="padding: 10px 0 0 210px;">Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
+                                </div>
+                                <div class="section_label_strong">
+                                    <?php echo $form['pluriannuel_clause_indexation']->renderError() ?>
+                                    <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
+                                    <?php echo $form['pluriannuel_clause_indexation']->render() ?>
+                                    <p style="padding: 10px 0 0 210px;"><em>Les indicateurs pouvant être pris en compte sont ceux relatifs aux coûts pertinents de production en agriculture et à l’évolution de ces coûts, ceux relatifs aux prix des produits agricoles et alimentaires constatés sur le ou les marchés où opère l’acheteur et à l’évolution de ces prix ou encore ceux relatifs aux quantités, à la composition, à la qualité, à la traçabilité des produits ou au respect d’un cahier des charges.</em></p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php endif; ?>
             <?php if($form->getObject()->isAdossePluriannuel() && $form->getObject()->pluriannuel_prix_plancher): ?>
                 <p style="padding-left: 210px;">
                     <svg style="vertical-align: -.35em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -387,6 +410,19 @@ $( document ).ready(function() {
 
     updatePrixTotal();
 
+    function makeInputPrixRequired() {
+        document.getElementById("vrac_marche_type_prix_1_determinable").addEventListener('change', function(){
+            document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
+            document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
+        })
+
+        document.getElementById("vrac_marche_type_prix_1_determine").addEventListener('change', function(){
+            document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = !this.checked ;
+            document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = !this.checked ;
+        })
+    }
+
+    makeInputPrixRequired();
 
 });
 </script>
