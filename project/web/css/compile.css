@@ -5038,6 +5038,10 @@ input[type="text"]:read-only,
     color: #86005b;
 }
 
+.text-underline-simple {
+    text-decoration: underline;
+}
+
 .text-delai-paiement {
     margin: 3px;
     display: inline-block;
