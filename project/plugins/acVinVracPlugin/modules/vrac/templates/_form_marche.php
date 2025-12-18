@@ -19,38 +19,6 @@
 
         	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix applicables</h1>
 
-        <?php if ($form->getObject()->isConditionneIr()) : ?>
-            <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
-                <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
-                    <?php echo $form['type_prix_1']->renderError() ?>
-                    <?php echo $form['type_prix_1']->renderLabel() ?>
-                    <?php echo $form['type_prix_1']->render() ?>
-                </div>
-                <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                    <?php echo $form['type_prix_2']->renderError() ?>
-                    <?php echo $form['type_prix_2']->renderLabel() ?>
-                    <?php echo $form['type_prix_2']->render() ?>
-                </div>
-            <?php endif; ?>
-
-            <div id="bloc_vrac_determination_prix" class="section_label_strong_2 bloc_conditionner" data-condition-value="determinable">
-                <?php echo $form['determination_prix']->renderLabel("Modalité de fixation du prix déterminé ou de révision du prix*: <br /> (celui-ci sera communiqué à l'interprofession par les parties au contrat)") ?>
-                <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
-                <?php echo $form['determination_prix']->renderError() ?>
-                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;width:570px;")) ?>
-            </div>
-            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif|determinable">
-                <?php echo $form['determination_prix_date']->renderError() ?>
-                    <?php echo $form['determination_prix_date']->renderLabel() ?>
-                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
-            </div>
-            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['determination_prix']->renderError() ?>
-                <?php echo $form['determination_prix']->renderLabel() ?>
-                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
-            </div>
-        <?php endif; ?>
-
             <?php if (isset($form['contractualisation'])): ?>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_pourcentage_recolte|#bloc_surface|#bloc_volume_propose">
                 <?php echo $form['contractualisation']->renderError() ?>
@@ -82,6 +50,21 @@
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
+            <?php if ($form->getObject()->isConditionneIr()) : ?>
+                    <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
+                        <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date|#bloc_vrac_pluriannuel_prix|#bloc_vrac_prix_unitaire|#bloc_vrac_prix_total_unitaire">
+                            <?php echo $form['type_prix_1']->renderError() ?>
+                            <?php echo $form['type_prix_1']->renderLabel() ?>
+                            <?php echo $form['type_prix_1']->render() ?>
+                        </div>
+                        <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                            <?php echo $form['type_prix_2']->renderError() ?>
+                            <?php echo $form['type_prix_2']->renderLabel() ?>
+                            <?php echo $form['type_prix_2']->render() ?>
+                        </div>
+                        <em style="width:470px; display:block;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
+                    <?php endif; ?>
+
                     <?php if ($form->getObject()->isPluriannuel()): ?>
                         <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
                             <div id="bloc_vrac_pluriannuel_prix" data-condition-value="determinable">
@@ -105,6 +88,28 @@
                             </div>
                         <?php endif; ?>
                         <?php endif; ?>
+                    <div id="bloc_vrac_determination_prix" class="section_label_strong_2 bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?> "determine"<?php else : ?>"determinable"<?php endif; ?>>
+                        <?php if ($form->getObject()->isPluriannuel()): ?>
+                            <?php echo $form['determination_prix']->renderLabel("<strong>REVISION DU PRIX DETERMINE</strong><br /><em>Clause obligatoire si la durée du contrat est égale ou supérieure à 3 ans.</em>") ?>
+                            <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->revision_prix_determine) ?></span>
+                            <?php else : ?>
+                        <?php echo $form['determination_prix']->renderLabel("Modalité de fixation du prix déterminé ou de révision du prix*: <br /> (celui-ci sera communiqué à l'interprofession par les parties au contrat)") ?>
+                        <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
+                        <?php endif; ?>
+                        <?php echo $form['determination_prix']->renderError() ?>
+                        <?php echo $form['determination_prix']->render(array("style" => "height: 60px;width:570px;")) ?>
+                    </div>
+                    <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?> "determine"<?php else : ?>"non_definitif|determinable""<?php endif; ?>>
+                        <?php echo $form['determination_prix_date']->renderError() ?>
+                            <?php echo $form['determination_prix_date']->renderLabel("Date de fixation du prix définitif*:") ?>
+                        <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
+                    </div>
+                    <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                        <?php echo $form['determination_prix']->renderError() ?>
+                        <?php echo $form['determination_prix']->renderLabel() ?>
+                        <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
+                    </div>
+            <?php endif; ?>
             <?php if($form->getObject()->isAdossePluriannuel() && $form->getObject()->pluriannuel_prix_plancher): ?>
                 <p style="padding-left: 210px;">
                     <svg style="vertical-align: -.35em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
