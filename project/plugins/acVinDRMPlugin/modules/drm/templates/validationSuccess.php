@@ -128,7 +128,6 @@
                 <?php } ?>
 
                 <div id="contenu_onglet">
-                    <?php include_partial('drm/reserveinterpro', array('drm' => $drm, 'hideFormReserve' => true)) ?>
                     <?php if(($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
@@ -144,6 +143,13 @@
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>
                 </div>
+
+                <div style="background: #f1f1f1; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
+                    <div style="padding: 10px;">
+                        <?php include_partial('drm/reserveinterpro', array('drm' => $drm, 'hideFormReserve' => true)) ?>
+                    </div>
+                </div>
+
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">

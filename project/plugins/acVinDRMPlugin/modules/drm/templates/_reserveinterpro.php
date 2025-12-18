@@ -3,13 +3,27 @@ use_helper('Float');
 $produits = $drm->getProduitsReserveInterpro();
 if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
 <div class="tableau_ajouts_liquidations">
-<h2><strong>Réserve</strong> interprofessionnelle</h2>
+<h2><strong>Réserve interprofessionnelle</strong></h2>
 <p style="padding: 10px;">L'assemblée générale de votre interprofession a voté la mise en place d'une réserve interprofessionnelle. Le tableau suivant récapitule les volumes de votre réserve :</p>
+<?php
+$has_reserve_plus = false;
+foreach ($produits as $p)  {
+    if ($p->hasCapaciteCommercialisation()) {
+        $has_reserve_plus = true;
+        break;
+    }
+}
+
+?>
 <table class="tableau_recap" style="width:100%;">
     <thead>
         <tr>
             <td style="font-weight: bold; border: none; width: 330px;">&nbsp;</td>
             <th style="font-weight: bold; border: none; width: 120px;">Volumes en réserve</th>
+<?php if ($has_reserve_plus): ?>
+            <th style="font-weight: bold; border: none; width: 120px;">Capacité de commercialisation</th>
+            <th style="font-weight: bold; border: none; width: 120px;">Sorties de chai</th>
+<?php endif; ?>
             <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <td style="font-weight: bold; border: none; width: 33px;">&nbsp;</td>
             <?php endif; ?>
@@ -18,8 +32,22 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
     <tbody>
         <?php foreach ($produits as $p) : ?>
                     <tr>
-                        <td style="text-align: left;"><?php echo $p->getFormattedLibelle(ESC_RAW); ?><?php if (!$p->hasReserveInterproMultiMillesime()): ?> - <span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation() ?></span><?php endif; ?></td>
-                        <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</td>
+                        <td style="text-align: left;"><strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong>
+                            <?php if (!$p->hasReserveInterproMultiMillesime()): ?> - <span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation() ?></span><?php endif; ?>
+                        </td>
+                        <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?>&nbsp;hl</strong></td>
+                    <?php if ($has_reserve_plus): ?>
+                        <?php if ($p->getCapaciteCommercialisation()) : ?>
+                        <td style="text-align: right;"><strong><?php echoFloat($p->getCapaciteCommercialisation()); ?>&nbsp;hl</strong></td>
+                        <?php else: ?>
+                        <td style="text-align: center;">-</td>
+                        <?php endif; ?>
+                        <?php if ($p->getSuiviSortiesChais()) : ?>
+                        <td style="text-align: right;"><strong><?php echoFloat($p->getSuiviSortiesChais()); ?>&nbsp;hl</strong></td>
+                        <?php else: ?>
+                        <td style="text-align: center;">-</td>
+                        <?php endif; ?>
+                    <?php endif; ?>
                         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve) && !$p->hasReserveInterproMultiMillesime()): ?>
                         <td style="background: #f1f1f1;border: none;text-align: left;">
                             <a onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>').showModal()">
@@ -39,7 +67,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                             </svg>
                                         </a>
                                     </p>
-                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation() ?> est de <strong><?php echoFloat($p->getReserveInterpro()); ?></strong>&nbsp;hl</p>
+                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation() ?> est de <strong><?php echoFloat($p->getReserveInterpro()); ?>&nbsp;hl</strong></p>
                                     <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $p->printMillesimeOrRegulation() ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
                                     <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                 </form>
@@ -47,10 +75,22 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                         </td>
                         <?php endif; ?>
                     </tr>
-                    <?php if ($p->hasReserveInterproMultiMillesime()): foreach ($p->getReserveInterproDetails() as $millesime => $volume): ?>
+                    <?php if ($p->hasReserveInterproMultiMillesime()):
+                        $reserve_details = array();
+                        foreach ($p->getReserveInterproDetails() as $millesime => $volume) {
+                            $reserve_details[$millesime] = $volume;
+                        }
+                        krsort($reserve_details);
+                        $first_millesime = true;
+                        foreach($reserve_details as $millesime => $volume):
+                        ?>
                         <tr>
                             <td style="text-align: right"><span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation($millesime) ?></span></td>
-                            <td style="text-align: right"><?php echoFloat($volume); ?></strong>&nbsp;hl</td>
+                            <td style="text-align: right"><?php echoFloat($volume); ?>&nbsp;hl</td>
+                        <?php if ($has_reserve_plus): ?>
+                            <td style="text-align: <?php if ($first_millesime && $p->getCapaciteCommercialisation()) echo "right"; else echo "center"; ?>"><?php if ($first_millesime && $p->getCapaciteCommercialisation()) {echoFloat($p->getCapaciteCommercialisation()); echo " hl";}else{echo " - ";} ?></td>
+                            <td style="text-align: <?php if ($first_millesime && $p->getSuiviSortiesChais()) echo "right"; else echo "center"; ?>"><?php if ($first_millesime && $p->getSuiviSortiesChais()) {echoFloat($p->getSuiviSortiesChais()); echo " hl";}else{echo " - ";} ?></td>
+                        <?php endif; ?>
                             <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>
                             <td style="background: #f1f1f1;border: none;text-align: left;">
                                 <a onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>_<?php echo $millesime ?>').showModal()">
@@ -70,7 +110,7 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                                                 </svg>
                                             </a>
                                         </p>
-                                        <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation($millesime) ?> est de <strong><?php echoFloat($volume); ?></strong>&nbsp;hl</p>
+                                        <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation($millesime) ?> est de <strong><?php echoFloat($volume); ?>&nbsp;hl</strong></p>
                                         <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $p->printMillesimeOrRegulation($millesime) ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
                                         <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                     </form>
@@ -78,7 +118,10 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
                             </td>
                             <?php endif; ?>
                         </tr>
-                    <?php endforeach; endif; ?>
+                    <?php
+                        $first_millesime = false ;
+                        endforeach; endif;
+                    ?>
         <?php endforeach; ?>
     </tbody>
 </table>
