@@ -50,7 +50,7 @@ class VracMarcheForm extends VracForm
         $this->setValidators(array(
         	'has_cotisation_cvo' => new ValidatorPass(),
         	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
-        	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
+         'prix_unitaire' => new sfValidatorNumber(array('required' => false)),
         	'type_prix_1' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($typePrix1))),
             'type_prix_2' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($typePrix2))),
         	'determination_prix' => new sfValidatorString(array('required' => false)),

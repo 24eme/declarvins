@@ -166,39 +166,41 @@
 				<span><?php echo $vrac->volume_propose ?><?php if($vrac->type_transaction == 'raisin'): ?> Kg<?php else: ?> HL<?php endif; ?></span>
 			</li>
             <?php endif; ?>
-            <?php if ($vrac->prix_unitaire): ?>
-			<li>
-				<span>Prix unitaire net :</span>
-				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
-			</li>
-			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche): ?>
-			<li>
-				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> € HT / HL. Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</span>
-			</li>
-			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
-			<li>
-				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> € HT / HL</span>
-			</li>
-			<li>
-				<span>Prix total :</span>
-				<span><?php echo round($vrac->volume_propose * $vrac->getTotalUnitaire(),2) ?> € HT</span>
-			</li>
-			<?php else: ?>
-			<li>
-				<span>Prix total :</span>
-				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
-			</li>
-			<?php endif; ?>
-			<?php else: ?>
-			<li>
-				<span>Prix total :</span>
-				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
-			</li>
-			<?php endif; ?>
+            <?php if (!($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond)) : ?>
+                <?php if ($vrac->prix_unitaire): ?>
+    			<li>
+    				<span>Prix unitaire net :</span>
+    				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
+    			</li>
+    			<?php if ($vrac->type_transaction == 'vrac' && $vrac->premiere_mise_en_marche): ?>
+    			<li>
+    				<span>Cotisation interprofessionnelle :</span>
+    				<span><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> € HT / HL. Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</span>
+    			</li>
+    			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
+    			<li>
+    				<span>Prix total unitaire :</span>
+    				<span><?php echo $vrac->getTotalUnitaire() ?> € HT / HL</span>
+    			</li>
+    			<li>
+    				<span>Prix total :</span>
+    				<span><?php echo round($vrac->volume_propose * $vrac->getTotalUnitaire(),2) ?> € HT</span>
+    			</li>
+    			<?php else: ?>
+    			<li>
+    				<span>Prix total :</span>
+    				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+    			</li>
+    			<?php endif; ?>
+    			<?php else: ?>
+    			<li>
+    				<span>Prix total :</span>
+    				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+    			</li>
+    			<?php endif; ?>
+                <?php endif; ?>
             <?php endif; ?>
-            <?php if(!$vrac->contrat_pluriannuel): ?>
+            <?php if($vrac->isConditionneIr() || !$vrac->contrat_pluriannuel): ?>
 			<li>
 				<span>Type de prix :</span>
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
