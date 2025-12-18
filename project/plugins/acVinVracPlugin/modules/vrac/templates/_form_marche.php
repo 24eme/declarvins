@@ -132,39 +132,36 @@
                 <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <?php endif; ?>
-            <div class="section_label_strong" style="margin-bottom:0px !important;">
+            <div class="section_label_strong" <?php if ($form->getObject()->isPluriannuel()) : ?> id="bloc_vrac_prix_total_unitaire" data-condition-value="determine"> <?php endif; ?>
             	<label>Prix total HT:</label>
             	<strong><span id="prix_total_contrat">0.0</span> € HT</strong>
             </div>
             <?php endif; ?>
-             <?php if ($form->getObject()->isConditionneIr()) : ?>
-             <em style="width:580px; display:block;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
-             <?php endif; ?>
-            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
-                <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
-                <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
-                <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
-                <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
-                <p style="padding: 10px 0 0 210px;">Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_clause_indexation']->renderError() ?>
-                <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
-                <?php echo $form['pluriannuel_clause_indexation']->render() ?>
-                <p style="padding: 10px 0 0 210px;"><em>Les indicateurs pouvant être pris en compte sont ceux relatifs aux coûts pertinents de production en agriculture et à l’évolution de ces coûts, ceux relatifs aux prix des produits agricoles et alimentaires constatés sur le ou les marchés où opère l’acheteur et à l’évolution de ces prix ou encore ceux relatifs aux quantités, à la composition, à la qualité, à la traçabilité des produits ou au respect d’un cahier des charges.</em></p>
-            </div>
-            <div class="section_label_strong">
-                <label>Prix applicable</label>
-                <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
-                <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
-            </div>
-            <?php endif; ?>
-            <?php if (! $form->getObject()->isConditionneIr()) : ?>
+             <?php if (! $form->getObject()->isConditionneIr()) : ?>
+                <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
+                <div class="section_label_strong">
+                    <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
+                    <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
+                    <?php echo $form['pluriannuel_prix_plancher']->render(array( 'required' => 'required')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                </div>
+                <div class="section_label_strong">
+                    <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
+                    <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
+                    <?php echo $form['pluriannuel_prix_plafond']->render(array( 'required' => 'required')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                    <p style="padding: 10px 0 0 210px;">Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
+                </div>
+                <div class="section_label_strong">
+                    <?php echo $form['pluriannuel_clause_indexation']->renderError() ?>
+                    <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
+                    <?php echo $form['pluriannuel_clause_indexation']->render() ?>
+                    <p style="padding: 10px 0 0 210px;"><em>Les indicateurs pouvant être pris en compte sont ceux relatifs aux coûts pertinents de production en agriculture et à l’évolution de ces coûts, ceux relatifs aux prix des produits agricoles et alimentaires constatés sur le ou les marchés où opère l’acheteur et à l’évolution de ces prix ou encore ceux relatifs aux quantités, à la composition, à la qualité, à la traçabilité des produits ou au respect d’un cahier des charges.</em></p>
+                </div>
+                <div class="section_label_strong">
+                    <label>Prix applicable</label>
+                    <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
+                    <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
+                </div>
+                <?php endif; ?>
                 <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
                 <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                     <?php echo $form['type_prix_1']->renderError() ?>
