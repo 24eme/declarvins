@@ -120,7 +120,7 @@
                 </p>
             <?php endif; ?>
             <?php if (isset($form['prix_unitaire'])&&isset($form['prix_unitaire'])): ?>
-            <div class="section_label_strong">
+            <div class="section_label_strong" <?php if ($form->getObject()->isPluriannuel()) : ?> id="bloc_vrac_prix_unitaire" data-condition-value="determine"> <?php endif; ?>
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
                 <?php echo $form['prix_unitaire']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong><?php if($form->getObject()->type_transaction == 'vrac' && $form->getObject()->premiere_mise_en_marche): ?><span id="vrac_cotisation_interpro" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT / HL de cotisation interprofessionnelle<?php if(!$form->conditionneIVSE()): ?> acheteur<?php endif; ?> (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%)*.</span><p style="padding-left:440px;">(*) Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</p><?php endif; ?>
