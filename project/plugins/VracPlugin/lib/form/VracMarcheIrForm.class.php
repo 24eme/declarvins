@@ -57,6 +57,19 @@ class VracMarcheIrForm extends VracMarcheForm
          $this->getObject()->type_prix = 'Déterminé';
      }
 
+
+     if ($values['type_prix_1'] == "determine") {
+         $this->getObject()->pluriannuel_prix_plancher = null;
+         $this->getObject()->pluriannuel_prix_plafond = null;
+     }
+
+     if ($values['type_prix_1'] == "determinable" && isset($values['pluriannuel_prix_plancher'])) {
+         $this->getObject()->prix_total = null;
+         $this->getObject()->prix_total_net = null;
+         $this->getObject()->prix_unitaire = null;
+     }
+
+
     }
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject();
