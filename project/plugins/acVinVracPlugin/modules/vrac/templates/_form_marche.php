@@ -268,12 +268,8 @@
                     </div>
                 </div>
                 <?php endif; ?>
-                <?php if ($form->hasAcompteInfo()&&!$form->getObject()->isPluriannuel()&&!$form->getObject()->isAdossePluriannuel()): ?>
-                    <?php if ($form->getObject()->isConditionneIr()) : ?>
-                        <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat (Article L. 665-3 du Code rural).</em></p>
-                        <?php else: ?>
-                        <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire d'au moins 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
-                    <?php endif; ?>
+                <?php if ($form->hasAcompteInfo()): ?>
+                    <p style="padding: 10px 0 0 210px;"><em><?php echo $form->getObject()->getAcompteInfos() ?></em></p>
                 <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($form['dispense_acompte'])): ?>

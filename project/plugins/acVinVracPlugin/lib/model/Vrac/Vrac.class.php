@@ -31,10 +31,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return $id;
     }
 
-		public function hasAcompteInfo() {
-			return ($this->isConditionneIr() && $this->type_transaction == 'raisin')? true : false;
-		}
-
     public function initClauses() {
         $this->remove('clauses');
         $this->remove('clauses_complementaires');
@@ -1119,6 +1115,17 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
         $this->cas_particulier = 'union';
         $this->cas_particulier_libelle = 'Union';
+    }
+
+	public function getAcompteInfos()
+    {
+        if ($this->isConditionneIr() && !$this->isPluriannuel() && !$this->isAdossePluriannuel() && $this->type_transaction != 'raisin') {
+            return 'Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat (Article L. 665-3 du Code rural).';
+        }
+        if ($this->isConditionneIvse()) {
+            return (!$this->dispense_acompte)? 'Acompte obligatoire d\'au moins 15% dans les 10 jours suivants la signature du contrat. Si la facture est établie par l\'acheteur, le délai commence à courir à compter de la date de livraison.' : 'Dérogation pour dispense d\'acompte selon accord interprofessionnel';
+        }
+        return '';
     }
 
 

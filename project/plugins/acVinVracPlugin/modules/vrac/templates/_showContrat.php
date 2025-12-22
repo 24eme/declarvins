@@ -235,14 +235,9 @@
 					<span>Paiement :</span>
 					<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
 				</li>
-				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->hasAcompteInfo()): ?>
+				<?php if ($acompte = $vrac->getAcompteInfos()): ?>
 					<li>
-						<span>Rappel:</span>
-						<?php if (!$vrac->dispense_acompte): ?>
-							<span>Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat.<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</span>
-						<?php else: ?>
-							<span>Dérogation pour dispense d'acompte selon accord interprofessionnel</span>
-						<?php endif; ?>
+						<span><?php echo $acompte ?></span>
 					</li>
 				<?php endif; ?>
 				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER && !$vrac->isPluriannuel()): ?>

@@ -49,10 +49,6 @@ class VracMarcheCivpForm extends VracMarcheForm
 
     public function hasAcompteInfo()
     {
-        if (in_array($this->getObject()->type_transaction, ['vrac', 'raisin', 'mout']) === true) {
-            return false;
-        } else {
-            return parent::hasAcompteInfo();
-        }
+        return false;
     }
 }
