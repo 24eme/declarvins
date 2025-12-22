@@ -409,28 +409,29 @@ $( document ).ready(function() {
     updatePrixTotal();
 
     function makeInputPrixRequired() {
-        document.getElementById("vrac_marche_type_prix_1_determinable").addEventListener('change', function(){
-            document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
-            document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
-
-            if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
-                document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
-                document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
-                document.getElementById("vrac_marche_prix_unitaire").value = '';
-            }
-
-
-        })
-
-        document.getElementById("vrac_marche_type_prix_1_determine").addEventListener('change', function(){
-            document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = !this.checked ;
-            document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = !this.checked ;
-
-            if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
-                document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
-                document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
-            }
-        })
+        const elDeterminable = document.getElementById("vrac_marche_type_prix_1_determinable");
+        if (elDeterminable) {
+            elDeterminable.addEventListener('change', function(){
+                document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
+                document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
+                if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
+                    document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
+                    document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
+                    document.getElementById("vrac_marche_prix_unitaire").value = '';
+                }
+            });
+        }
+        const elDetermine = document.getElementById("vrac_marche_type_prix_1_determine");
+        if (elDetermine) {
+            elDetermine.addEventListener('change', function(){
+                document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = !this.checked ;
+                document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = !this.checked ;
+                if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
+                    document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
+                    document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
+                }
+            });
+        }
     }
 
     makeInputPrixRequired();
