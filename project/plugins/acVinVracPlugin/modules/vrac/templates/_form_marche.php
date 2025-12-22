@@ -260,7 +260,7 @@
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo html_entity_decode($form['delai_paiement']->render()) ?>
                 <?php if(isset($form['delai_paiement_autre'])): ?>
-                <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre" style="display: flex;justify-content: flex-end;width: 735px;margin-top: -40px;">
+                <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre" style="display: flex;justify-content: flex-end;width: 735px;margin-top: 0px;">
                     <div style="width:195px;">
                         <?php echo $form['delai_paiement_autre']->renderError() ?>
                         <?php echo $form['delai_paiement_autre']->renderLabel() ?>
