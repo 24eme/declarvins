@@ -392,9 +392,9 @@ $( document ).ready(function() {
 
         var total = vol * prix;
 
-        $("#prix_total_contrat").html(total.toFixed(2));
+        $("#prix_total_contrat").html(new Intl.NumberFormat("fr-FR").format(total.toFixed(2)));
         if (total > 0) {
-        	$("#prix_moitie_contrat").html((total/2).toFixed(2));
+        	$("#prix_moitie_contrat").html(new Intl.NumberFormat("fr-FR").format((total/2).toFixed(2)));
         }
 	}
 
