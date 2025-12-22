@@ -165,7 +165,7 @@ class VracMarcheForm extends VracForm
 
         }
 
-        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : 'definitif';
+        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : $values['type_prix_1'];
 
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
@@ -202,7 +202,7 @@ class VracMarcheForm extends VracForm
           $this->setDefault('type_prix_1', 'non_definitif');
           $this->setDefault('type_prix_2', $this->getObject()->type_prix);
       } else {
-          $this->setDefault('type_prix_1', 'definitif');
+          $this->setDefault('type_prix_1', $this->getObject()->type_prix);
           $this->setDefault('type_prix_2', null);
       }
       if ($this->getObject()->pourcentage_recolte) {
@@ -221,7 +221,7 @@ class VracMarcheForm extends VracForm
 
     public function getTypePrixNeedDetermination() {
 
-      return array("objectif", "acompte");
+      return array("objectif", "acompte", "determinable");
     }
 
 

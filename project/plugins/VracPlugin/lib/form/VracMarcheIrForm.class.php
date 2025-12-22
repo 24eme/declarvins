@@ -50,14 +50,6 @@ class VracMarcheIrForm extends VracMarcheForm
     	    $this->getObject()->paiements = array();
     	}
 
-     if (($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))) {
-         $this->getObject()->type_prix = $values['type_prix_2'];
-     } elseif ($values['type_prix_1'] == 'determinable') {
-         $this->getObject()->type_prix = 'Déterminable';
-     } else {
-         $this->getObject()->type_prix = 'Déterminé';
-     }
-
 
      if ($values['type_prix_1'] == "determine") {
          $this->getObject()->pluriannuel_prix_plancher = null;
