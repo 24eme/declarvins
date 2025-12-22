@@ -17,7 +17,8 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->getValidator('delai_paiement')->setOption('required', false);
 		$this->setWidget('delai_paiement_autre', new sfWidgetFormInputText());
 		$this->getWidget('delai_paiement_autre')->setLabel('Précisez le délai*:');
-		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
+		$this->setValidator('delai_paiement_autre', new sfValidatorInteger(array('required' => false, 'max' => $this->getObject()->type_transaction == 'raisin'? 30 : 60, 'min' => 1), array('min' => 'La valeur doit être supérieure ou égale à %min%.','max' => 'La valeur doit être inférieure ou égale à %max%.')));
+
 		unset($this['clause_reserve_retiraison']);
 		if ($this->getObject()->type_transaction != 'vrac'||!$this->getObject()->premiere_mise_en_marche || $this->getObject()->isPluriannuel()) {
 		   unset($this['prix_total_unitaire']);
