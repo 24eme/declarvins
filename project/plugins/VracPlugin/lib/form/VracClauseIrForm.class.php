@@ -10,18 +10,14 @@ class VracClauseIrForm extends VracClauseForm
         $this->setWidget('clause_resiliation_cas', new sfWidgetFormInputText());
         $this->getWidget('clause_resiliation_cas')->setLabel('Cas de résiliation:');
         $this->setValidator('clause_resiliation_cas', new sfValidatorString(array('required' => false)));
-        
+
         $this->setWidget('clause_resiliation_preavis', new sfWidgetFormInputText());
         $this->getWidget('clause_resiliation_preavis')->setLabel('Délai de préavis:');
         $this->setValidator('clause_resiliation_preavis', new sfValidatorString(array('required' => false)));
-        
+
         $this->setWidget('clause_resiliation_indemnite', new sfWidgetFormInputText());
         $this->getWidget('clause_resiliation_indemnite')->setLabel('Indemnité:');
         $this->setValidator('clause_resiliation_indemnite', new sfValidatorString(array('required' => false)));
-
-        $this->setWidget('clause_revision_prix', new sfWidgetFormInputText());
-        $this->getWidget('clause_revision_prix')->setLabel('Critères et modalités :');
-        $this->setValidator('clause_revision_prix', new sfValidatorString(array('required' => false)));
 
         $this->setWidget('annexe_precontractuelle', new sfWidgetFormInputFile(array('label' => 'Document précontractuel : <a href="" class="msg_aide" data-msg="help_popup_vrac_annexe_precontractuelle" title="Message aide"></a>')));
         $this->setValidator('annexe_precontractuelle', new sfValidatorFile(array('required' => false, 'path' => sfConfig::get('sf_cache_dir'), 'mime_types' => array('application/pdf')), array('mime_types' => 'Format PDF obligatoire')));
