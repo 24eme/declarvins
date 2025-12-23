@@ -276,7 +276,7 @@
 		<?php endif ?>
     </p>
     <?php if ($vrac->exist('clause_cadre_'.$k)): ?>
-    <p style="border:1px solid grey;"><?php echo $vrac->get('clause_cadre_'.$k) ?? '&nbsp;' ?></p>
+    <p style="border:1px solid grey;padding: 2px;"><?php echo $vrac->get('clause_cadre_'.$k) ?? '&nbsp;' ?></p>
     <?php endif; ?>
     <?php if ($k == 'resiliation'): ?>
     <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
@@ -301,7 +301,7 @@
     <?php endif ?>
     </p>
     <?php if ($vrac->exist('clause_cadre_'.$cc)): ?>
-    <p style="border:1px solid grey;"><?php echo $vrac->get('clause_cadre_'.$cc) ?? '&nbsp;'  ?></p>
+    <p style="border:1px solid grey;padding: 2px;"><?php echo $vrac->get('clause_cadre_'.$cc) ?? '&nbsp;'  ?></p>
     <?php endif; ?>
 	<?php endforeach; ?>
 	</div>
