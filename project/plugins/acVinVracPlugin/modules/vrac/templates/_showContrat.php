@@ -184,18 +184,18 @@
     			</li>
     			<li>
     				<span>Prix total :</span>
-    				<span><?php echo round($vrac->volume_propose * $vrac->getTotalUnitaire(),2) ?> € HT</span>
+    				<span><?php echo number_format($vrac->volume_propose * $vrac->getTotalUnitaire(),2, ',', ' ') ?> € HT</span>
     			</li>
     			<?php else: ?>
     			<li>
     				<span>Prix total :</span>
-    				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+    				<span><?php echo number_format($vrac->volume_propose * $vrac->prix_unitaire,2, ',', ' ') ?> € HT</span>
     			</li>
     			<?php endif; ?>
     			<?php else: ?>
     			<li>
     				<span>Prix total :</span>
-    				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+    				<span><?php echo number_format($vrac->volume_propose * $vrac->prix_unitaire,2, ',', ' ') ?> € HT</span>
     			</li>
     			<?php endif; ?>
                 <?php endif; ?>
