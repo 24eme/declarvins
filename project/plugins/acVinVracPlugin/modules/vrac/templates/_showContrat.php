@@ -237,6 +237,7 @@
 				</li>
 				<?php if ($acompte = $vrac->getAcompteInfos()): ?>
 					<li>
+						<span>&nbsp;</span>
 						<span><?php echo $acompte ?></span>
 					</li>
 				<?php endif; ?>
