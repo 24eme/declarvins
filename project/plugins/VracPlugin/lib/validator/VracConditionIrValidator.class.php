@@ -5,7 +5,7 @@ class VracConditionIrValidator extends VracConditionValidator {
     public function configure($options = array(), $messages = array()) {
         parent::configure($options, $messages);
         $this->addMessage('cas_particulier_type_transaction', "L'apport contractuel à une union n'est possible que pour les contrats de type vin");
-        $this->addMessage('cas_particulier_vendeur_union', "L'apport contractuel à une union n'est possible que pour les vendeurs producteur / union");
+        $this->addMessage('cas_particulier_vendeur_union', "L'apport contractuel à une union n'est possible qu'entre un vendeur coopérative vers son union (négoce)");
     }
 
     protected function doClean($values) {
@@ -20,7 +20,7 @@ class VracConditionIrValidator extends VracConditionValidator {
             $errorSchema->addError(new sfValidatorError($this, 'cas_particulier_type_transaction'), 'cas_particulier');
             $hasError = true;
         }
-        if ($cas_particulier == 'union' && $this->vrac && $this->vrac->vendeur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_UNION) {
+        if ($cas_particulier == 'union' && $this->vrac && $this->vrac->vendeur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE && $this->vrac->vendeur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_UNION) {
             $errorSchema->addError(new sfValidatorError($this, 'cas_particulier_vendeur_union'), 'cas_particulier');
             $hasError = true;
         }
