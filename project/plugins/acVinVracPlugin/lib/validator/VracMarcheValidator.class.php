@@ -52,8 +52,8 @@ class VracMarcheValidator extends sfValidatorBase {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
 
-    	if ($values['type_prix_1'] == 'non_definitif') {
-    		if (!isset($values['type_prix_2']) || !$values['type_prix_2']) {
+    	if ($values['type_prix_1'] == 'non_definitif'||$values['type_prix_1'] == 'determinable') {
+    		if ($values['type_prix_1'] == 'non_definitif' && (!isset($values['type_prix_2']) || !$values['type_prix_2'])) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'type_prix_2');
     			$hasError = true;
     		}
