@@ -5024,6 +5024,7 @@ p#date_drm {
 input[type=checkbox]:disabled + label,
 input[type=radio]:disabled + label,
 input[type="text"]:read-only,
+textarea:read-only,
 .input-disabled {
     background-color: #dddddd;
     opacity: 50%;
