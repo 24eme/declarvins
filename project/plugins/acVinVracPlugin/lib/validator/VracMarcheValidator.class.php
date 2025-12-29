@@ -73,6 +73,15 @@ class VracMarcheValidator extends sfValidatorBase {
                         $errorSchema->addError(new sfValidatorError($this, 'required'), 'surface');
             			$hasError = true;
             	}
+
+        		if (!$values['determination_prix']) {
+        			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');
+        			$hasError = true;
+        		}
+        		if (!$values['determination_prix_date']) {
+        			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix_date');
+        			$hasError = true;
+        		}
         } else {
         	if (isset($values['volume_propose']) && $values['volume_propose'] <= 0) {
         			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
