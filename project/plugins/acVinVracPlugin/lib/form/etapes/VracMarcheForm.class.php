@@ -256,7 +256,11 @@ class VracMarcheForm extends VracForm
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $delais[null] = 'Les parties fixeront les délais de paiement dans chacun des contrats d\'application';
         }
-    	return $delais;
+        $result = [];
+        foreach ($delais as $k => $delai) {
+            $result[$k]  = str_replace('(', '<br />(', $delai);
+        }
+    	return $result;
     }
 
     public function getChoixTypeRetiraison() {
