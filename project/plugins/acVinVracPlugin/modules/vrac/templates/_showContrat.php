@@ -226,7 +226,7 @@
 			<?php endif; ?>
 			<?php if ($vrac->determination_prix): ?>
 			<li>
-				<span>Mode de détermination du prix :</span>
+				<span>Modalités de fixation du prix :</span>
 				<span><?php echo $vrac->determination_prix ?></span>
 			</li>
 			<?php endif; ?>
