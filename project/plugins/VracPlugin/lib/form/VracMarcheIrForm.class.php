@@ -92,7 +92,7 @@ class VracMarcheIrForm extends VracMarcheForm
     public function getDelaisPaiement()
     {
       $delais = parent::getDelaisPaiement();
-      if ($this->getObject()->type_transaction == 'raisin') {
+      if ($this->getObject()->type_transaction == 'raisin' || $this->getObject()->type_transaction == 'mout') {
         if (isset($delais['45_jours']))
           unset($delais['45_jours']);
         if (isset($delais['60_jours']))
