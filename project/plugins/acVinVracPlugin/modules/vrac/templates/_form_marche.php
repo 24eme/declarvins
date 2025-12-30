@@ -168,13 +168,11 @@
                 <label for="prix">Prix: </label>
                 <em style="width:470px; display:inline;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
             </div>
-                <?php if ($form->getObject()->isPluriannuel()): ?>
-                    <div class="section_label_strong">
-                        <label>Prix applicable</label>
-                        <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
-                        <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
-                    </div>
-                <?php endif; ?>
+            <div class="section_label_strong">
+                <label>Prix applicable</label>
+                <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
+                <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
+            </div>
             <?php endif; ?>
             <h1>Paiement</h1>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
