@@ -128,10 +128,6 @@ class VracMarcheForm extends VracForm
         $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber());
         $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber());
 
-        $this->setWidget('pluriannuel_clause_indexation', new sfWidgetFormTextarea());
-        $this->getWidget('pluriannuel_clause_indexation')->setLabel('Clause d\'indexation des prix');
-        $this->setValidator('pluriannuel_clause_indexation', new sfValidatorString(array('required' => false)));
-
         $this->getValidator('volume_propose')->setOption('required', false);
         $this->getValidator('type_retiraison')->setOption('required', false);
 

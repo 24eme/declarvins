@@ -88,7 +88,7 @@ class VracMarcheValidator extends sfValidatorBase {
         			$hasError = true;
         	}
         }
-        if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0) {
+        if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0 && !$this->vrac->isPluriannuel()) {
                 $errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
                 $hasError = true;
         }
