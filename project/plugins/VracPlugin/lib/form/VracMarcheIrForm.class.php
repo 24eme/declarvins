@@ -6,7 +6,7 @@ class VracMarcheIrForm extends VracMarcheForm
 
         if ($this->isEgalim()) {
             $complement = ($this->getObject()->isPluriannuel())? ' pour la durée du contrat' : '';
-            $typePrix1 = array('determine' => "Déterminé$complement", 'determinable' => 'Déterminable');
+            $typePrix1 = array('determine' => "Déterminé$complement", 'determinable' => "Déterminable$complement");
         } else {
             $typePrix1 = array('determine' => 'Déterminé', 'non_definitif' => 'Prix non définitif');
         }
