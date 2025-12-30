@@ -62,11 +62,30 @@
                             <?php echo $form['type_prix_2']->renderLabel() ?>
                             <?php echo $form['type_prix_2']->render() ?>
                         </div>
-                        <em style="width:470px; display:block;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
                     <?php endif; ?>
 
                     <div id="bloc_vrac_determination_prix" class="section_label_strong2 bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?>"determine|determinable"<?php else : ?>"non_definitif|determinable"<?php endif; ?>>
                         <?php if ($form->getObject()->isPluriannuel()): ?>
+                            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])): ?>
+                                <div id="bloc_vrac_pluriannuel_prix" data-condition-value="determinable">
+                                    <div class="bloc_condition" data-condition-cible="#bloc_vrac_pluriannuel_prix_intervalles">
+                                        <input type="checkbox" id="checkbox_prix_intervalles" checked /> <label for="checkbox_prix_intervalles" style="margin-bottom: 0px; font-weight: normal;">les parties définissent un prix plancher et un prix plafond</label>
+                                    </div>
+                                    <div id="bloc_vrac_pluriannuel_prix_intervalles" data-condition-value="1">
+                                        <div class="section_label_strong">
+                                            <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
+                                            <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
+                                            <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                                        </div>
+                                        <div class="section_label_strong">
+                                            <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
+                                            <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
+                                            <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                                        </div>
+                                        <p>Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div id="bloc_vrac_determination_prix_texte_determine" class="bloc_conditionner" data-condition-value="determine">
                                 <?php echo $form['determination_prix']->renderLabel("<strong>REVISION DU PRIX DETERMINE</strong><br /><em>Clause obligatoire si la durée du contrat est égale ou supérieure à 3 ans.</em>") ?>
                                 <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->revision_prix_determine) ?></span>
@@ -89,29 +108,6 @@
                             <?php echo $form['determination_prix_date']->renderLabel("Date de fixation du prix définitif*:") ?>
                         <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
                     </div>
-                    <?php if ($form->getObject()->isPluriannuel()): ?>
-                        <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
-                            <div id="bloc_vrac_pluriannuel_prix" data-condition-value="determinable">
-                                <div class="section_label_strong">
-                                    <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
-                                    <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
-                                    <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
-                                </div>
-                                <div class="section_label_strong">
-                                    <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
-                                    <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
-                                    <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
-                                    <p style="padding: 10px 0 0 210px;">Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
-                                </div>
-                                <div class="section_label_strong">
-                                    <?php echo $form['pluriannuel_clause_indexation']->renderError() ?>
-                                    <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
-                                    <?php echo $form['pluriannuel_clause_indexation']->render() ?>
-                                    <p style="padding: 10px 0 0 210px;"><em>Les indicateurs pouvant être pris en compte sont ceux relatifs aux coûts pertinents de production en agriculture et à l’évolution de ces coûts, ceux relatifs aux prix des produits agricoles et alimentaires constatés sur le ou les marchés où opère l’acheteur et à l’évolution de ces prix ou encore ceux relatifs aux quantités, à la composition, à la qualité, à la traçabilité des produits ou au respect d’un cahier des charges.</em></p>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
             <?php endif; ?>
             <?php if($form->getObject()->isAdossePluriannuel() && $form->getObject()->pluriannuel_prix_plancher): ?>
                 <p style="padding-left: 210px;">
@@ -140,7 +136,7 @@
             	<span id="prix_total_contrat">0.0</span> € HT
             </div>
             <?php endif; ?>
-             <?php if (! $form->getObject()->isConditionneIr()) : ?>
+             <?php if (!$form->getObject()->isConditionneIr()) : ?>
                 <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
                 <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                     <?php echo $form['type_prix_1']->renderError() ?>
@@ -164,13 +160,10 @@
                     <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
                 </div>
             <?php endif; ?>
-            <?php if (!$form->getObject()->isPacteCooperatif()): ?>
             <div class="section_label_strong">
-                <label>Prix applicable</label>
-                <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
-                <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
+                <label>Prix</label>
+                <em><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
             </div>
-            <?php endif; ?>
             <h1>Paiement</h1>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
                 <?php echo $form['conditions_paiement']->renderError() ?>
@@ -398,10 +391,7 @@ $( document ).ready(function() {
         const elDeterminable = document.getElementById("vrac_marche_type_prix_1_determinable");
         if (elDeterminable) {
             elDeterminable.addEventListener('change', function(){
-                document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
-                document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
                 if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
-                    document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
                     document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
                     document.getElementById("vrac_marche_prix_unitaire").value = '';
                 }
@@ -410,12 +400,17 @@ $( document ).ready(function() {
         const elDetermine = document.getElementById("vrac_marche_type_prix_1_determine");
         if (elDetermine) {
             elDetermine.addEventListener('change', function(){
-                document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = !this.checked ;
-                document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = !this.checked ;
                 if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
                     document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
-                    document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
                 }
+            });
+        }
+        const intervalles = document.getElementById("checkbox_prix_intervalles");
+        if (intervalles) {
+            intervalles.addEventListener('change', function(){
+                console.log('YEP');
+                document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
+                document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
             });
         }
     }
