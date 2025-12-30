@@ -408,7 +408,6 @@ $( document ).ready(function() {
         const intervalles = document.getElementById("checkbox_prix_intervalles");
         if (intervalles) {
             intervalles.addEventListener('change', function(){
-                console.log('YEP');
                 document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
                 document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
             });
