@@ -77,7 +77,9 @@
                             </div>
                         <?php else : ?>
                             <?php echo $form['determination_prix']->renderLabel("Modalité de fixation du prix déterminé ou de révision du prix*: <br /> (celui-ci sera communiqué à l'interprofession par les parties au contrat)") ?>
+                            <?php if (!$form->getObject()->isPacteCooperatif()): ?>
                             <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <?php echo $form['determination_prix']->renderError() ?>
                         <?php echo $form['determination_prix']->render(array("style" => "height: 60px;width:570px;")) ?>
@@ -162,11 +164,13 @@
                     <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
                 </div>
             <?php endif; ?>
+            <?php if (!$form->getObject()->isPacteCooperatif()): ?>
             <div class="section_label_strong">
                 <label>Prix applicable</label>
                 <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
                 <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
             </div>
+            <?php endif; ?>
             <h1>Paiement</h1>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
                 <?php echo $form['conditions_paiement']->renderError() ?>
