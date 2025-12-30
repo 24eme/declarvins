@@ -39,6 +39,8 @@ class VracMarcheIrForm extends VracMarcheForm
         $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond (maximum)');
         $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => false)));
         $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => false)));
+
+        $this->editablizeInputPluriannuel();
     }
 
     protected function doUpdateObject($values) {

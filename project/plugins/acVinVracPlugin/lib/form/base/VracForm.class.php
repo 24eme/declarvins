@@ -26,7 +26,6 @@ class VracForm extends acCouchdbObjectForm
     	'millesime',
     	'prix_unitaire',
 		'delai_paiement',
-    	'type_retiraison',
     	'vin_livre',
     	'date_debut_retiraison',
     	'date_limite_retiraison',
