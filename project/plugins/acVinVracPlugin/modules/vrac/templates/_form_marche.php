@@ -62,7 +62,6 @@
                             <?php echo $form['type_prix_2']->renderLabel() ?>
                             <?php echo $form['type_prix_2']->render() ?>
                         </div>
-                        <em style="width:470px; display:block;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
                     <?php endif; ?>
 
                     <div id="bloc_vrac_determination_prix" class="section_label_strong2 bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?>"determine|determinable"<?php else : ?>"non_definitif|determinable"<?php endif; ?>>
@@ -162,6 +161,10 @@
                     <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
                 </div>
             <?php endif; ?>
+            <div class="section_label_strong">
+                <label for="prix">Prix: </label>
+                <em style="width:470px; display:inline;margin:5px 0px 20px 0px;"><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
+            </div>
             <div class="section_label_strong">
                 <label>Prix applicable</label>
                 <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
