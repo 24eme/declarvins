@@ -52,7 +52,7 @@
             </div>
             <?php if ($form->getObject()->isConditionneIr()) : ?>
                     <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
-                        <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix_texte_determine|#bloc_vrac_determination_prix_texte_determinable|#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date|#bloc_vrac_pluriannuel_prix|#bloc_vrac_prix_unitaire|#bloc_vrac_prix_total_unitaire">
+                        <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix_texte_determine|#bloc_vrac_determination_prix_texte_determinable|#bloc_vrac_determination_prix_texte2_determinable|#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date|#bloc_vrac_pluriannuel_prix|#bloc_vrac_prix_unitaire|#bloc_vrac_prix_total_unitaire">
                             <?php echo $form['type_prix_1']->renderError() ?>
                             <?php echo $form['type_prix_1']->renderLabel() ?>
                             <?php echo $form['type_prix_1']->render() ?>
@@ -103,6 +103,11 @@
                         <?php echo $form['determination_prix']->renderError() ?>
                         <?php echo $form['determination_prix']->render(array("style" => "height: 60px;width:570px;")) ?>
                     </div>
+                    <?php if($form->getObject()->type_transaction == 'raisin'|| $form->getObject()->type_transaction == 'mout'): ?>
+                        <div id="bloc_vrac_determination_prix_texte2_determinable" class="bloc_conditionner" style="width:570px; margin-top:10px;" data-condition-value="determinable">
+                            <em>L’acheteur doit communiquer au vendeur le prix qui sera payé avant le premier jour de livraison des produits concernés, de manière lisible et compréhensible.  </em>
+                        </div>
+                    <?php endif; ?>
                     <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?>"determine|determinable"<?php else : ?>"non_definitif|determinable"<?php endif; ?>>
                         <?php echo $form['determination_prix_date']->renderError() ?>
                             <?php echo $form['determination_prix_date']->renderLabel("Date de fixation du prix définitif*:") ?>
