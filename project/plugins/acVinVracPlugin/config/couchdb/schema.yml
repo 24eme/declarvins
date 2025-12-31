@@ -263,6 +263,9 @@ Vrac:
       clause_resiliation_indemnite: {  }
       clause_revision_prix: { }
       clause_initiative_contractuelle_producteur: {  }
+      clause_cadre_force_majeure: { }
+      clause_cadre_transfert_propriete: { }
+      clause_cadre_emission_facture: { }
       export: {  }
       lots:
         type: array_collection

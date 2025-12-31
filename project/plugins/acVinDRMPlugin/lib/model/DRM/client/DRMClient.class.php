@@ -182,7 +182,7 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function getPeriodePrecedente($periode) {
-        $prevMonth = $this->getMois($periode) - 1;
+        $prevMonth = intval($this->getMois($periode)) - 1;
         $year = $this->getAnnee($periode);
 
         if ($prevMonth < 1) {

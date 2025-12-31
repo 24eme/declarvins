@@ -10,6 +10,7 @@ class VracConditionIrForm extends VracConditionForm
         $this->setWidget('ramasseur_raisin', new sfWidgetFormChoice(array('choices' => array('vendeur' => 'ramassé par le vendeur', 'acheteur' => 'ramassé par l\'acheteur'),'expanded' => true)));
         $this->getWidget('ramasseur_raisin')->setLabel('Le raisin sera:');
         $this->setValidator('ramasseur_raisin', new sfValidatorChoice(array('required' => true, 'choices' => array('vendeur','acheteur'))));
+        $this->validatorSchema->setPostValidator(new VracConditionIrValidator($this->getObject()));
     }
 
     protected function updateDefaultsFromObject() {
@@ -17,5 +18,15 @@ class VracConditionIrForm extends VracConditionForm
       if (is_null($this->getObject()->ramasseur_raisin)) {
         $this->setDefault('ramasseur_raisin', 'vendeur');
       }
+    }
+
+    protected function doUpdateObject($values) {
+        parent::doUpdateObject($values);
+        if ($this->getObject()->cas_particulier == "aucune" || $this->getObject()->cas_particulier == "interne") {
+             $this->getObject()->type_contrat = VracClient::TYPE_CONTRAT_EGALIM;
+        }
+        else {
+            $this->getObject()->type_contrat = null;
+        }
     }
 }

@@ -163,7 +163,7 @@
     </table>
     <p>(*) Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</p>
     <?php if ($vrac->determination_prix_date): ?><p>Date de détermination du prix : <?php echo Date::francizeDate($vrac->determination_prix_date) ?></p><?php endif; ?>
-	<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
+	<?php if ($vrac->determination_prix): ?><p>Modalités de fixation du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
 	<?php if($vrac->conditions_paiement): ?>
 		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
 	<?php endif; ?>
@@ -188,12 +188,8 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
-	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
-        <?php if (!$vrac->dispense_acompte): ?>
-            <p>Rappel : Acompte obligatoire d'au moins 15% dans les 10 jours suivants la signature du contrat. Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</p>
-        <?php else: ?>
-            <p>Dérogation pour dispense d'acompte selon accord interprofessionnel</p>
-        <?php endif; ?>
+	<?php if ($acompte = $vrac->getAcompteInfos()): ?>
+        <p><?php echo $acompte ?></p>
     <?php endif; ?>
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
@@ -279,6 +275,9 @@
 			<?php endif ?>
 		<?php endif ?>
     </p>
+    <?php if ($vrac->exist('clause_cadre_'.$k)): ?>
+    <p style="border:1px solid grey;padding: 2px;"><?php echo $vrac->get('clause_cadre_'.$k) ?? '&nbsp;' ?></p>
+    <?php endif; ?>
     <?php if ($k == 'resiliation'): ?>
     <?php if($vrac->clause_resiliation_cas||$vrac->isConditionneIvse()): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
     <?php if($vrac->clause_resiliation_preavis||$vrac->isConditionneIvse()): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
@@ -291,7 +290,7 @@
 	<div class="clauses">
 	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
     <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?>
+    <p><?= htmlspecialchars_decode($clause['description']) ?>
     <?php if ($cc == 'transfert_propriete' && $vrac->isConditionneIvse()): ?>
         <?php $complements = explode(',', $vrac->clauses_complementaires) ?>
         <?php if (!in_array('transfert_propriete', $complements)): ?>
@@ -301,6 +300,9 @@
         <?php endif ?>
     <?php endif ?>
     </p>
+    <?php if ($vrac->exist('clause_cadre_'.$cc)): ?>
+    <p style="border:1px solid grey;padding: 2px;"><?php echo $vrac->get('clause_cadre_'.$cc) ?? '&nbsp;'  ?></p>
+    <?php endif; ?>
 	<?php endforeach; ?>
 	</div>
 	<?php endif; ?>

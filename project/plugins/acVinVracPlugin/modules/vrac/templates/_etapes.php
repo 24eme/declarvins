@@ -1,10 +1,14 @@
 
 <?php if ($configurationVrac->isContratPluriannuelActif()): ?>
-<h1 style="margin:0px;">Nouveau contrat <?php if ($pluriannuel): ?>pluriannuel cadre<?php elseif($referenceContratPluriannuel): ?>adossé au contrat pluriannuel cadre n°<a target="_blank" href="<?php echo url_for('vrac_visualisation', array('contrat' => $referenceContratPluriannuel)) ?>"><?php echo $referenceContratPluriannuel ?></a><?php else: ?>ponctuel<?php endif; ?></h1>
+    <?php if($vrac->isPacteCooperatif()): ?>
+        <h1 style="margin:0px;">Nouveau contrat d'application d'un pacte union/cooperative</h1>
+    <?php else: ?>
+        <h1 style="margin:0px;">Nouveau contrat <?php if ($pluriannuel): ?>pluriannuel cadre<?php elseif($referenceContratPluriannuel): ?> d'application <?php echo $vrac->campagne ?> <small class="text-muted">adossé au contrat pluriannuel cadre n°<a target="_blank" href="<?php echo url_for('vrac_visualisation', array('contrat' => $referenceContratPluriannuel)) ?>"><?php echo $referenceContratPluriannuel ?></a></small><?php else: ?>ponctuel<?php endif; ?></h1>
+    <?php endif; ?>
 <?php endif; ?>
 <div id="contrats_etapes">
     <ol id="rail_etapes">
-            <?php 
+            <?php
                     $nbEtapes = count($etapes);
                     $counter = 0;
                     $first = true;

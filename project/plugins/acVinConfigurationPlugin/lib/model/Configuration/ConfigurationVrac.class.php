@@ -5,46 +5,46 @@
  */
 
 class ConfigurationVrac extends BaseConfigurationVrac {
-	
+
 	const FAMILLE_VENDEUR = 'Producteur';
 	const FAMILLE_ACHETEUR = 'Negociant';
 	const FAMILLE_MANDATAIRE = 'Courtier';
-	
+
 	const REPARTITION_CVO_ACHETEUR = 0.5;
-	
+
 	const CAS_PARTICULIER_DEFAULT_KEY = 'aucune';
 	const CONDITION_PAIEMENT_ECHEANCIER = 'echeancier_paiement';
 	const CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE = 'cadre_reglementaire';
 
     private static $clausesMask = array(
         'INTERPRO-IR' => array(
-            '000' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
-            '010' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
+            '000' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle', 'prix_applicable'),
+            '010' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'prix_applicable'),
             '100' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle', 'report_numero_contrat'),
             '110' => array('champ_application_raisin', 'report_numero_contrat'),
-            '101' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle'),
-            '111' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix'),
+            '101' => array('champ_application_vrac', 'agreage_vins', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'cotisation_interprofessionnelle', 'prix_applicable'),
+            '111' => array('champ_application_raisin', 'avenant', 'conciliation_arbitrage', 'revision_prix', 'prix_applicable'),
         )
     );
 
     public function getVendeurs() {
     	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_VENDEUR)->rows;
     }
-    
+
     public function getAcheteurs() {
     	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_ACHETEUR)->rows;
     }
-    
+
     public function getMandataires() {
     	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_MANDATAIRE)->rows;
     }
     /*
-     * @todo 
+     * @todo
      */
     public function getMandatants() {
     	return array();
     }
-    
+
     public function getConfig() {
     	return $this->getDocument();
     }

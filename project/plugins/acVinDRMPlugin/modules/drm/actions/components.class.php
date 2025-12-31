@@ -115,7 +115,10 @@ class drmComponents extends sfComponents {
         $this->drms = array();
         $this->formImport = new UploadCSVForm();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
-        $this->new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE) ? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
+        $new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE) ? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
+        if ($new_drm) {
+            $this->drms["DRM-".$new_drm->getIdentifiant().'-'.$new_drm->getPeriode()] = ['drm' => $new_drm ];
+        }
         //$this->limit = 1;
 
         if ((!isset($this->campagne) || !$this->campagne) && $this->new_drm) {
@@ -129,9 +132,13 @@ class drmComponents extends sfComponents {
         foreach ($historique->getDRMsByCampagne($this->campagne) as $key => $infos) {
             if ($drm = DRMClient::getInstance()->find($key)) {
                 if ($drm->isMaster()) {
-                    $this->drms[$key] = $drm;
+                    $this->drms[$key] = ['drm' => $drm];
                 }
             }
+        }
+        foreach (CSVDRMClient::getInstance()->findCSVDRM($this->etablissement->identifiant, $this->drms[min(array_keys($this->drms))]['drm']->getPeriode()) as $k => $o) {
+            $drm_key = str_replace('CSV-', '', $k);
+            $this->drms[$drm_key]['csv'] = $k;
         }
     }
 

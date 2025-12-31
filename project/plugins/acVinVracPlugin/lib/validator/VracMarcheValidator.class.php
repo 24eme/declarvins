@@ -52,8 +52,8 @@ class VracMarcheValidator extends sfValidatorBase {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
 
-    	if ($values['type_prix_1'] == 'non_definitif') {
-    		if (!isset($values['type_prix_2']) || !$values['type_prix_2']) {
+    	if ($values['type_prix_1'] == 'non_definitif'||$values['type_prix_1'] == 'determinable') {
+    		if ($values['type_prix_1'] == 'non_definitif' && (!isset($values['type_prix_2']) || !$values['type_prix_2'])) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'type_prix_2');
     			$hasError = true;
     		}
@@ -73,13 +73,22 @@ class VracMarcheValidator extends sfValidatorBase {
                         $errorSchema->addError(new sfValidatorError($this, 'required'), 'surface');
             			$hasError = true;
             	}
+
+        		if (!$values['determination_prix']) {
+        			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');
+        			$hasError = true;
+        		}
+        		if (!$values['determination_prix_date']) {
+        			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix_date');
+        			$hasError = true;
+        		}
         } else {
         	if (isset($values['volume_propose']) && $values['volume_propose'] <= 0) {
         			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
         			$hasError = true;
         	}
         }
-        if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0) {
+        if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0 && !$this->vrac->isPluriannuel()) {
                 $errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
                 $hasError = true;
         }

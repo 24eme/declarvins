@@ -50,7 +50,7 @@ class VracMarcheForm extends VracForm
         $this->setValidators(array(
         	'has_cotisation_cvo' => new ValidatorPass(),
         	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
-        	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
+         'prix_unitaire' => new sfValidatorNumber(array('required' => false)),
         	'type_prix_1' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($typePrix1))),
             'type_prix_2' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($typePrix2))),
         	'determination_prix' => new sfValidatorString(array('required' => false)),
@@ -89,10 +89,6 @@ class VracMarcheForm extends VracForm
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $this->configurePluriannuel();
         }
-        if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isAdossePluriannuel() && $this->getObject()->type_retiraison) {
-            $widget = $this->getWidget('type_retiraison');
-            $widget->setAttribute('readonly', 'readonly');
-        }
 
         $this->editablizeInputPluriannuel();
 
@@ -106,7 +102,11 @@ class VracMarcheForm extends VracForm
 
 
     public function configurePluriannuel() {
-        unset($this['prix_unitaire'], $this['prix_total_unitaire'], $this['type_prix_1'], $this['type_prix_2'], $this['date_debut_retiraison'], $this['date_limite_retiraison']);
+        if ($this->getObject()->isConditionneIr()) {
+            unset($this['prix_total_unitaire'], $this['date_debut_retiraison'], $this['date_limite_retiraison']);
+        } else {
+            unset($this['prix_unitaire'], $this['prix_total_unitaire'], $this['type_prix_1'], $this['type_prix_2'], $this['date_debut_retiraison'], $this['date_limite_retiraison']);
+        }
 
         $this->setWidget('contractualisation', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getContractualisationChoices(), 'multiple' => false)));
         $this->getWidget('contractualisation')->setLabel('Contractualisation sur:');
@@ -121,12 +121,8 @@ class VracMarcheForm extends VracForm
         $this->setWidget('pluriannuel_prix_plafond', new sfWidgetFormInputFloat());
         $this->getWidget('pluriannuel_prix_plancher')->setLabel('Prix plancher (minimum)');
         $this->getWidget('pluriannuel_prix_plafond')->setLabel('Prix plafond (maximum)');
-        $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber(array('required' => true)));
-        $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber(array('required' => true)));
-
-        $this->setWidget('pluriannuel_clause_indexation', new sfWidgetFormTextarea());
-        $this->getWidget('pluriannuel_clause_indexation')->setLabel('Clause d\'indexation des prix');
-        $this->setValidator('pluriannuel_clause_indexation', new sfValidatorString(array('required' => false)));
+        $this->setValidator('pluriannuel_prix_plancher', new sfValidatorNumber());
+        $this->setValidator('pluriannuel_prix_plafond', new sfValidatorNumber());
 
         $this->getValidator('volume_propose')->setOption('required', false);
         $this->getValidator('type_retiraison')->setOption('required', false);
@@ -161,7 +157,7 @@ class VracMarcheForm extends VracForm
 
         }
 
-        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : 'definitif';
+        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : $values['type_prix_1'];
 
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
@@ -198,7 +194,7 @@ class VracMarcheForm extends VracForm
           $this->setDefault('type_prix_1', 'non_definitif');
           $this->setDefault('type_prix_2', $this->getObject()->type_prix);
       } else {
-          $this->setDefault('type_prix_1', 'definitif');
+          $this->setDefault('type_prix_1', $this->getObject()->type_prix);
           $this->setDefault('type_prix_2', null);
       }
       if ($this->getObject()->pourcentage_recolte) {
@@ -217,7 +213,7 @@ class VracMarcheForm extends VracForm
 
     public function getTypePrixNeedDetermination() {
 
-      return array("objectif", "acompte");
+      return array("objectif", "acompte", "determinable");
     }
 
 
@@ -252,7 +248,11 @@ class VracMarcheForm extends VracForm
         if ($this->getConfiguration()->isContratPluriannuelActif() && $this->getObject()->isPluriannuel()) {
             $delais[null] = 'Les parties fixeront les délais de paiement dans chacun des contrats d\'application';
         }
-    	return $delais;
+        $result = [];
+        foreach ($delais as $k => $delai) {
+            $result[$k]  = str_replace('(', '<br />(', $delai);
+        }
+    	return $result;
     }
 
     public function getChoixTypeRetiraison() {

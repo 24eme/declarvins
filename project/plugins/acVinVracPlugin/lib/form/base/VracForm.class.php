@@ -26,7 +26,6 @@ class VracForm extends acCouchdbObjectForm
     	'millesime',
     	'prix_unitaire',
 		'delai_paiement',
-    	'type_retiraison',
     	'vin_livre',
     	'date_debut_retiraison',
     	'date_limite_retiraison',
@@ -211,15 +210,17 @@ class VracForm extends acCouchdbObjectForm
 
 
     protected function doUpdateObject($values) {
-        
+
         $this->getObject()->fromArray($values);
     }
-    
+
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
     {
         foreach ($this->embeddedForms as $key => $form) {
             if($form instanceof FormBindableInterface) {
-                $form->bind($taintedValues[$key], $taintedFiles[$key]);
+				if (isset($taintedValues[$key])) {
+                	$form->bind($taintedValues[$key], $taintedFiles[$key]);
+				}
                 $this->updateEmbedForm($key, $form);
             }
         }

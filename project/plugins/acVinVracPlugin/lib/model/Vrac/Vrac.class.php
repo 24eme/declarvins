@@ -31,10 +31,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return $id;
     }
 
-		public function hasAcompteInfo() {
-			return ($this->isConditionneIr() && $this->type_transaction == 'raisin')? true : false;
-		}
-
     public function initClauses() {
         $this->remove('clauses');
         $this->remove('clauses_complementaires');
@@ -644,8 +640,27 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
     }
 
+	public function updateClauses()
+	{
+		if ($this->isPacteCooperatif()) {
+			$remove = ['relations_precontractuelles', 'resiliation', 'duree_contrat', 'prix', 'report_numero_contrat', 'reglement_litiges', 'tracabilite_ingredients'];
+	        $this->remove('clauses_complementaires');
+	        $this->add('clauses_complementaires');
+			foreach ($remove as $r) {
+				if ($this->clauses->exist($r)) {
+					$this->clauses->remove($r);
+				}
+			}
+		} else {
+			if ($this->clauses->exist('report_numero_pacte_cooperatif')) {
+				$this->clauses->remove('report_numero_pacte_cooperatif');
+			}
+		}
+	}
+
     public function save($updateStatutSolde = true) {
     	$this->updateVolumeEnleve();
+		$this->updateClauses();
     	if ($updateStatutSolde) {
     		$this->updateStatutSolde();
     	}
@@ -1090,4 +1105,28 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
             return true;
         }
     }
+
+    public function isPacteCooperatif()
+    {
+        return $this->cas_particulier == 'union';
+    }
+
+    public function setPacteCooperatif()
+    {
+        $this->cas_particulier = 'union';
+        $this->cas_particulier_libelle = 'Union';
+    }
+
+	public function getAcompteInfos()
+    {
+        if ($this->isConditionneIr() && !$this->isPluriannuel() && !$this->isAdossePluriannuel() && $this->type_transaction != 'raisin') {
+            return 'Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat (Article L. 665-3 du Code rural).';
+        }
+        if ($this->isConditionneIvse()) {
+            return (!$this->dispense_acompte)? 'Acompte obligatoire d\'au moins 15% dans les 10 jours suivants la signature du contrat. Si la facture est établie par l\'acheteur, le délai commence à courir à compter de la date de livraison.' : 'Dérogation pour dispense d\'acompte selon accord interprofessionnel';
+        }
+        return '';
+    }
+
+
 }

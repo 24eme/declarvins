@@ -1,5 +1,5 @@
-cache/[^.]*
-log/[^.]*
+cache/
+log/
 config/databases.yml
 config/app.yml
 web/declarvin_dev.php
@@ -7,3 +7,4 @@ web/edi_dev.php
 bin/config.inc
 data/upload
 *.log
+web/exports

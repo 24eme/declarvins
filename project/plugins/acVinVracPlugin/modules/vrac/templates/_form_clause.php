@@ -1,5 +1,6 @@
 <?php $clauses = $form->getObject()->clauses ?>
 <?php $clauses_complementaires = $configurationVrac->clauses_complementaires; ?>
+<?php if ($form->getObject()->isConditionneIr() && $form->getObject()->isPacteCooperatif()) $clauses_complementaires = []; ?>
 
 <style>
 #informations_complementaires table td, #informations_complementaires table th {
@@ -38,14 +39,11 @@
     </div>
     <?php endif; ?>
     <?php endif; ?>
-    <?php if ($k == 'revision_prix'): ?>
-    <?php if (isset($form['clause_revision_prix'])): ?>
+    <?php if (isset($form['clause_cadre_'.$k])): ?>
     <div class="section_label_strong" style="margin: 5px 0;">
-        <?php echo $form['clause_revision_prix']->renderError() ?>
-        <?php echo $form['clause_revision_prix']->renderLabel() ?>
-        <?php echo $form['clause_revision_prix']->render(array('style' => 'width:50%;')) ?>
+        <?php echo $form['clause_cadre_'.$k]->renderError() ?>
+        <?php echo $form['clause_cadre_'.$k]->render(array('style' => 'width:99%;height:60px;')) ?>
     </div>
-    <?php endif; ?>
     <?php endif; ?>
 
 <?php endforeach; ?>
@@ -60,6 +58,14 @@
 
     <h2><?= $clause['nom'] ?></h2>
     <p><?= html_entity_decode($clause['description']) ?></p>
+
+
+    <?php if (isset($form['clause_cadre_'.$key])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_cadre_'.$key]->renderError() ?>
+        <?php echo $form['clause_cadre_'.$key]->render(array('style' => 'width:99%;height:60px;')) ?>
+    </div>
+    <?php endif; ?>
 
     <div class="section_label" style="text-align: right; padding: 10px 0;">
         <?= $form[$key]->renderError() ?>

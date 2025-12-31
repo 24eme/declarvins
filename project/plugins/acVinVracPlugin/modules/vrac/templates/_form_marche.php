@@ -18,6 +18,7 @@
             <?php endif; ?>
 
         	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix applicables</h1>
+
             <?php if (isset($form['contractualisation'])): ?>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_pourcentage_recolte|#bloc_surface|#bloc_volume_propose">
                 <?php echo $form['contractualisation']->renderError() ?>
@@ -49,6 +50,70 @@
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
+            <?php if ($form->getObject()->isConditionneIr()) : ?>
+                    <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
+                        <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix_texte_determine|#bloc_vrac_determination_prix_texte_determinable|#bloc_vrac_determination_prix_texte2_determinable|#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date|#bloc_vrac_pluriannuel_prix|#bloc_vrac_prix_unitaire|#bloc_vrac_prix_total_unitaire">
+                            <?php echo $form['type_prix_1']->renderError() ?>
+                            <?php echo $form['type_prix_1']->renderLabel() ?>
+                            <?php echo $form['type_prix_1']->render() ?>
+                        </div>
+                        <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                            <?php echo $form['type_prix_2']->renderError() ?>
+                            <?php echo $form['type_prix_2']->renderLabel() ?>
+                            <?php echo $form['type_prix_2']->render() ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <div id="bloc_vrac_determination_prix" class="section_label_strong2 bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?>"determine|determinable"<?php else : ?>"non_definitif|determinable"<?php endif; ?>>
+                        <?php if ($form->getObject()->isPluriannuel()): ?>
+                            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])): ?>
+                                <div id="bloc_vrac_pluriannuel_prix" data-condition-value="determinable">
+                                    <div class="bloc_condition" data-condition-cible="#bloc_vrac_pluriannuel_prix_intervalles">
+                                        <input type="checkbox" id="checkbox_prix_intervalles" checked /> <label for="checkbox_prix_intervalles" style="margin-bottom: 0px; font-weight: normal;">les parties définissent un prix plancher et un prix plafond</label>
+                                    </div>
+                                    <div id="bloc_vrac_pluriannuel_prix_intervalles" data-condition-value="1">
+                                        <div class="section_label_strong">
+                                            <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
+                                            <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
+                                            <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                                        </div>
+                                        <div class="section_label_strong">
+                                            <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
+                                            <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
+                                            <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+                                        </div>
+                                        <p>Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <div id="bloc_vrac_determination_prix_texte_determine" class="bloc_conditionner" data-condition-value="determine">
+                                <?php echo $form['determination_prix']->renderLabel("<strong>REVISION DU PRIX DETERMINE</strong><br /><em>Clause obligatoire si la durée du contrat est égale ou supérieure à 3 ans.</em>") ?>
+                                <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->revision_prix_determine) ?></span>
+                            </div>
+                            <div id="bloc_vrac_determination_prix_texte_determinable" class="bloc_conditionner" data-condition-value="determinable">
+                                <?php echo $form['determination_prix']->renderLabel(" ") ?>
+                                <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
+                            </div>
+                        <?php else : ?>
+                            <?php echo $form['determination_prix']->renderLabel("Modalité de fixation du prix déterminé ou de révision du prix*: <br /> (celui-ci sera communiqué à l'interprofession par les parties au contrat)") ?>
+                            <?php if (!$form->getObject()->isPacteCooperatif()): ?>
+                            <span style="width:580px; display:inline-block;margin-top:10px;"><?php echo html_entity_decode($configurationVrac->prix_determinable) ?></span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php echo $form['determination_prix']->renderError() ?>
+                        <?php echo $form['determination_prix']->render(array("style" => "height: 60px;width:570px;")) ?>
+                    </div>
+                    <?php if($form->getObject()->type_transaction == 'raisin'|| $form->getObject()->type_transaction == 'mout'): ?>
+                        <div id="bloc_vrac_determination_prix_texte2_determinable" class="bloc_conditionner" style="width:570px; margin-top:10px;" data-condition-value="determinable">
+                            <em>L’acheteur doit communiquer au vendeur le prix qui sera payé avant le premier jour de livraison des produits concernés, de manière lisible et compréhensible.  </em>
+                        </div>
+                    <?php endif; ?>
+                    <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value=<?php if ($form->getObject()->isPluriannuel()): ?>"determine|determinable"<?php else : ?>"non_definitif|determinable"<?php endif; ?>>
+                        <?php echo $form['determination_prix_date']->renderError() ?>
+                            <?php echo $form['determination_prix_date']->renderLabel("Date de fixation du prix définitif*:") ?>
+                        <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
+                    </div>
+            <?php endif; ?>
             <?php if($form->getObject()->isAdossePluriannuel() && $form->getObject()->pluriannuel_prix_plancher): ?>
                 <p style="padding-left: 210px;">
                     <svg style="vertical-align: -.35em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -59,10 +124,10 @@
                 </p>
             <?php endif; ?>
             <?php if (isset($form['prix_unitaire'])&&isset($form['prix_unitaire'])): ?>
-            <div class="section_label_strong">
+            <div class="section_label_strong" <?php if ($form->getObject()->isPluriannuel()) : ?> id="bloc_vrac_prix_unitaire" data-condition-value="determine"<?php endif; ?>>
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_unitaire']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong><?php if($form->getObject()->type_transaction == 'vrac' && $form->getObject()->premiere_mise_en_marche): ?><span id="vrac_cotisation_interpro" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT / HL de cotisation interprofessionnelle<?php if(!$form->conditionneIVSE()): ?> acheteur<?php endif; ?> (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%)*.</span><p style="padding-left:440px;">(*) Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</p><?php endif; ?>
+                <?php echo $form['prix_unitaire']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong><?php if($form->getObject()->type_transaction == 'vrac' && $form->getObject()->premiere_mise_en_marche): ?><span id="vrac_cotisation_interpro" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT / HL de cotisation interprofessionnelle<?php if(!$form->conditionneIVSE()): ?> acheteur<?php endif; ?> (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%)*.</span><p style="padding:10px 0 0 210px;">(*) Valeur indicative. Le taux CVO qui s’appliquera sera celui en vigueur au moment de la retiraison.</p><?php endif; ?>
             </div>
             <?php if (isset($form['prix_total_unitaire'])): ?>
             <div class="section_label_strong">
@@ -71,57 +136,46 @@
                 <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <?php endif; ?>
-            <div class="section_label_strong">
+            <div class="section_label_strong" <?php if ($form->getObject()->isPluriannuel()) : ?> id="bloc_vrac_prix_total_unitaire" data-condition-value="determine"<?php endif; ?>>
             	<label>Prix total HT:</label>
-            	<strong><span id="prix_total_contrat">0.0</span> € HT</strong>
+            	<span id="prix_total_contrat">0.0</span> € HT
             </div>
             <?php endif; ?>
-            <?php if (isset($form['pluriannuel_prix_plancher'])&&isset($form['pluriannuel_prix_plafond'])&&isset($form['pluriannuel_clause_indexation'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_prix_plancher']->renderError() ?>
-                <?php echo $form['pluriannuel_prix_plancher']->renderLabel() ?>
-                <?php echo $form['pluriannuel_prix_plancher']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_prix_plafond']->renderError() ?>
-                <?php echo $form['pluriannuel_prix_plafond']->renderLabel() ?>
-                <?php echo $form['pluriannuel_prix_plafond']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
-                <p style="padding: 10px 0 0 210px;">Pour chacune des campagnes suivantes, le prix plancher et le prix plafond sont déterminés en appliquant la clause d'indexation suivante :</p>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['pluriannuel_clause_indexation']->renderError() ?>
-                <?php echo $form['pluriannuel_clause_indexation']->renderLabel() ?>
-                <?php echo $form['pluriannuel_clause_indexation']->render() ?>
-                <p style="padding: 10px 0 0 210px;"><em>Les indicateurs pouvant être pris en compte sont ceux relatifs aux coûts pertinents de production en agriculture et à l’évolution de ces coûts, ceux relatifs aux prix des produits agricoles et alimentaires constatés sur le ou les marchés où opère l’acheteur et à l’évolution de ces prix ou encore ceux relatifs aux quantités, à la composition, à la qualité, à la traçabilité des produits ou au respect d’un cahier des charges.</em></p>
-            </div>
-            <div class="section_label_strong">
-                <label>Prix applicable</label>
-                <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
-                <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
-            </div>
+             <?php if (!$form->getObject()->isConditionneIr()) : ?>
+                <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
+                <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
+                    <?php echo $form['type_prix_1']->renderError() ?>
+                    <?php echo $form['type_prix_1']->renderLabel() ?>
+                    <?php echo $form['type_prix_1']->render() ?>
+                </div>
+                <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                    <?php echo $form['type_prix_2']->renderError() ?>
+                    <?php echo $form['type_prix_2']->renderLabel() ?>
+                    <?php echo $form['type_prix_2']->render() ?>
+                </div>
+                <?php endif; ?>
+                <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                    <?php echo $form['determination_prix_date']->renderError() ?>
+                        <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
+                    <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
+                </div>
+                <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                    <?php echo $form['determination_prix']->renderError() ?>
+                    <?php echo $form['determination_prix']->renderLabel() ?>
+                    <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
+                </div>
             <?php endif; ?>
-            <?php if (isset($form['type_prix_1'])&&isset($form['type_prix_2'])): ?>
-            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
-                <?php echo $form['type_prix_1']->renderError() ?>
-                <?php echo $form['type_prix_1']->renderLabel() ?>
-                <?php echo $form['type_prix_1']->render() ?>
+            <div class="section_label_strong">
+                <label>Prix</label>
+                <em><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
             </div>
-            <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['type_prix_2']->renderError() ?>
-                <?php echo $form['type_prix_2']->renderLabel() ?>
-                <?php echo $form['type_prix_2']->render() ?>
-            </div>
-            <?php endif; ?>
-            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['determination_prix_date']->renderError() ?>
-                <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
-                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?>
-            </div>
-            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
-                <?php echo $form['determination_prix']->renderError() ?>
-                <?php echo $form['determination_prix']->renderLabel() ?>
-                <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
-            </div>
+                <?php if ($form->getObject()->isPluriannuel() && $form->getObject()->isConditionneIr()): ?>
+                    <div class="section_label_strong">
+                        <label>Prix applicable</label>
+                        <span>Pour chaque campagne, les co-contractants déterminent librement pour le contrat d'application, le prix applicable, entre le prix plancher et le prix plafond.</span>
+                        <p style="padding: 10px 0 0 210px;"><em>A défaut, d'accord entre les parties, celles-ci se tourneront vers la Commission d'Ethique d'Inter-Rhône pour les aider à statuer.</em></p>
+                    </div>
+                <?php endif; ?>
             <h1>Paiement</h1>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
                 <?php echo $form['conditions_paiement']->renderError() ?>
@@ -161,7 +215,7 @@
                 ?>
                 <p>&nbsp;</p>
                 <?php if($form->getObject()->isConditionneIr()): ?>
-                <p>Les accord interprofessionnels impliquent que la totalité du montant de la transaction soit réglée au plus tard le <?php echo $fin ?> et la moitié du montant, soit <span id="prix_moitie_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?>, avant le <?php echo $moitie ?></p>
+                <p>Les accords interprofessionnels impliquent que la totalité du montant de la transaction soit réglée au plus tard le <?php echo $fin ?> et la moitié du montant, soit <span id="prix_moitie_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?>, avant le <?php echo $moitie ?></p>
                 <?php elseif($form->getObject()->isConditionneCivp()): ?>
                 <p>le délai devra respecter le cadre légal</p>
                 <?php endif; ?>
@@ -195,9 +249,18 @@
             <?php if(isset($form['delai_paiement'])): ?>
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
-                <?php echo $form['delai_paiement']->render() ?>
-                <?php if ($form->hasAcompteInfo()&&!$form->getObject()->isPluriannuel()&&!$form->getObject()->isAdossePluriannuel()): ?>
-                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire d'au moins 15%</strong> dans les 10 jours suivants la signature du contrat<br />Si la facture est établie par l'acheteur, le délai commence à courir à compter de la date de livraison.</em></p>
+                <?php echo html_entity_decode($form['delai_paiement']->render()) ?>
+                <?php if(isset($form['delai_paiement_autre'])): ?>
+                <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre" style="display: flex;justify-content: flex-end;width: 735px;margin-top: 0px;">
+                    <div style="width:195px;">
+                        <?php echo $form['delai_paiement_autre']->renderError() ?>
+                        <?php echo $form['delai_paiement_autre']->renderLabel() ?>
+                        <?php echo $form['delai_paiement_autre']->render(array("style" => "width:100px;")) ?><?php if ($form->getObject()->isConditionneIr()) : ?><span>&nbsp;jours</span><?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php if ($form->hasAcompteInfo()): ?>
+                    <p style="padding: 10px 0 0 210px;"><em><?php echo $form->getObject()->getAcompteInfos() ?></em></p>
                 <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($form['dispense_acompte'])): ?>
@@ -205,13 +268,6 @@
                 <?php echo $form['dispense_acompte']->renderError() ?>
                 <?php echo $form['dispense_acompte']->render(array('style' => 'margin-top: 0px;vertical-align: top;')) ?>
                 <?php echo $form['dispense_acompte']->renderLabel() ?>
-            </div>
-            <?php endif; ?>
-            <?php if(isset($form['delai_paiement_autre'])): ?>
-            <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre">
-                <?php echo $form['delai_paiement_autre']->renderError() ?>
-                <?php echo $form['delai_paiement_autre']->renderLabel() ?>
-                <?php echo $form['delai_paiement_autre']->render() ?>
             </div>
             <?php endif; ?>
             </div>
@@ -327,9 +383,9 @@ $( document ).ready(function() {
 
         var total = vol * prix;
 
-        $("#prix_total_contrat").html(total.toFixed(2));
+        $("#prix_total_contrat").html(new Intl.NumberFormat("fr-FR").format(total.toFixed(2)));
         if (total > 0) {
-        	$("#prix_moitie_contrat").html((total/2).toFixed(2));
+        	$("#prix_moitie_contrat").html(new Intl.NumberFormat("fr-FR").format((total/2).toFixed(2)));
         }
 	}
 
@@ -343,6 +399,34 @@ $( document ).ready(function() {
 
     updatePrixTotal();
 
+    function makeInputPrixRequired() {
+        const elDeterminable = document.getElementById("vrac_marche_type_prix_1_determinable");
+        if (elDeterminable) {
+            elDeterminable.addEventListener('change', function(){
+                if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
+                    document.getElementById("vrac_marche_prix_unitaire").required = !this.checked ;
+                    document.getElementById("vrac_marche_prix_unitaire").value = '';
+                }
+            });
+        }
+        const elDetermine = document.getElementById("vrac_marche_type_prix_1_determine");
+        if (elDetermine) {
+            elDetermine.addEventListener('change', function(){
+                if(document.getElementById("bloc_vrac_pluriannuel_prix")) {
+                    document.getElementById("vrac_marche_prix_unitaire").required = this.checked ;
+                }
+            });
+        }
+        const intervalles = document.getElementById("checkbox_prix_intervalles");
+        if (intervalles) {
+            intervalles.addEventListener('change', function(){
+                document.getElementById("vrac_marche_pluriannuel_prix_plancher").required = this.checked ;
+                document.getElementById("vrac_marche_pluriannuel_prix_plafond").required = this.checked ;
+            });
+        }
+    }
+
+    makeInputPrixRequired();
 
 });
 </script>
