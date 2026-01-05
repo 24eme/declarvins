@@ -165,10 +165,12 @@
                     <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?>
                 </div>
             <?php endif; ?>
+            <?php if ($form->getObject()->isConditionneIr()): ?>
             <div class="section_label_strong">
                 <label>Prix</label>
                 <em><?php echo html_entity_decode($configurationVrac->clauses->prix->description) ?></em>
             </div>
+            <?php endif; ?>
                 <?php if ($form->getObject()->isPluriannuel() && $form->getObject()->isConditionneIr()): ?>
                     <div class="section_label_strong">
                         <label>Prix applicable</label>
