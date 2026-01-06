@@ -1114,7 +1114,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     public function setPacteCooperatif()
     {
         $this->cas_particulier = 'union';
-        $this->cas_particulier_libelle = 'Union';
+        $this->type_transaction = 'vrac';
     }
 
 	public function getAcompteInfos()
@@ -1126,6 +1126,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
             return (!$this->dispense_acompte)? 'Acompte obligatoire d\'au moins 15% dans les 10 jours suivants la signature du contrat. Si la facture est établie par l\'acheteur, le délai commence à courir à compter de la date de livraison.' : 'Dérogation pour dispense d\'acompte selon accord interprofessionnel';
         }
         return '';
+    }
+
+    public function tiersIsPacteCooperatif()
+    {
+        return $this->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE && $this->acheteur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_UNION;
     }
 
 
