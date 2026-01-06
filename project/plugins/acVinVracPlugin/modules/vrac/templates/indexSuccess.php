@@ -76,7 +76,7 @@
     </div>
     <div id="bloc_vrac_application_choices" class="bloc_conditionner" data-condition-value="application">
         <form action="<?php echo url_for('vrac_pluriannuel', array('identifiant' => ($etablissement)? $etablissement->identifiant : VracRoute::ETABLISSEMENT_IDENTIFIANT_ADMIN)) ?>" method="post">
-            <select name="contrat" required>
+            <select name="contrat" style="max-width:900px;" required>
                 <option value="">Selectionner un contrat</option>
                 <?php foreach($pluriannuels as $pluriannuel): ?>
                     <?php
