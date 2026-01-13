@@ -643,7 +643,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	public function updateClauses()
 	{
 		if ($this->isPacteCooperatif()) {
-			$remove = ['relations_precontractuelles', 'resiliation', 'duree_contrat', 'prix', 'report_numero_contrat', 'reglement_litiges', 'tracabilite_ingredients'];
+			$remove = ['relations_precontractuelles', 'resiliation', 'duree_contrat', 'prix', 'report_numero_contrat', 'reglement_litiges', 'tracabilite_ingredients', 'champ_application_vrac', 'champ_application_raisin'];
 	        $this->remove('clauses_complementaires');
 	        $this->add('clauses_complementaires');
 			foreach ($remove as $r) {
@@ -654,6 +654,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 		} else {
 			if ($this->clauses->exist('report_numero_pacte_cooperatif')) {
 				$this->clauses->remove('report_numero_pacte_cooperatif');
+			}
+			if ($this->clauses->exist('champ_application_union')) {
+				$this->clauses->remove('champ_application_union');
 			}
 		}
 	}
@@ -1119,7 +1122,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
 	public function getAcompteInfos()
     {
-        if ($this->isConditionneIr() && !$this->isPluriannuel() && !$this->isAdossePluriannuel() && $this->type_transaction != 'raisin') {
+        if ($this->isConditionneIr() && !$this->isPluriannuel() && !$this->isAdossePluriannuel() && $this->type_transaction != 'raisin' && !$this->isPacteCooperatif()) {
             return 'Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat (Article L. 665-3 du Code rural).';
         }
         if ($this->isConditionneIvse()) {

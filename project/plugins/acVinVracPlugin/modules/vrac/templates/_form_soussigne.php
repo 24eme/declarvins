@@ -1,5 +1,5 @@
+<?php if(!$form->getObject()->isAdossePluriannuel() && !$form->getObject()->isPacteCooperatif()): ?>
 <p style="border: 1px solid #e3e2e2; padding: 20px;">
-<?php if(!$form->getObject()->isAdossePluriannuel()): ?>
 <strong>Relations précontractuelles : initiative du producteur</strong><br /><br />
 Le présent contrat doit être précédé d'une proposition préalable du vendeur. Au titre des critères et modalités de révision ou de détermination du prix, elle prend en compte un ou plusieurs indicateurs relatifs aux coûts pertinents de production en agriculture et à l'évolution de ces coûts. Elle constitue le socle de la négociation entre le vendeur et l'acheteur.<br />Tout refus, ou réserve de l'acheteur, portant sur la proposition doit être fait par écrit, motivé et doit être transmis au vendeur dans un délai raisonnable.<br />Le vendeur peut mandater son courtier pour qu'il fasse la proposition préalable en son nom et pour son compte. Dans ce cas, le mandat doit être écrit.<br />La proposition préalable du vendeur, ou son mandat au courtier accompagné de la proposition préalable faite en son nom, est annexée au présent contrat.<br /><br />
 Ces documents pourront être déposés sur Déclarvins avant la validation du contrat.
@@ -43,7 +43,9 @@ Ces documents pourront être déposés sur Déclarvins avant la validation du co
                                                             'field_adresse' => 'adresse_livraison',
                                                             'label_adresse' => 'Adresse de livraison différente')) ?>
 
+    <?php if(!$form->getObject()->isPacteCooperatif()): ?>
     <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
+    <?php endif; ?>
 
     <?php endif; ?>
 
