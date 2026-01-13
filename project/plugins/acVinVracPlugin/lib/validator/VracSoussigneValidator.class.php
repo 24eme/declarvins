@@ -67,7 +67,14 @@ class VracSoussigneValidator extends sfValidatorBase {
     	if (isset($values['mandataire_exist']) && !$values['mandataire_exist']) {
     		$values['mandataire_identifiant'] = null;
     	}
-    	
+
+        if (!$values['acheteur_identifiant'] && isset($values['vous_etes']) && $values['vous_etes'] == 'acheteur') {
+            $values['acheteur_identifiant'] = $values['vous_etes_identifiant'];
+        }
+        if (!$values['vendeur_identifiant'] && isset($values['vous_etes']) && $values['vous_etes'] == 'vendeur') {
+            $values['vendeur_identifiant'] = $values['vous_etes_identifiant'];
+        }
+
     	/*if ($values['mandataire_identifiant']) {
     	    if ($courtier = EtablissementClient::getInstance()->find($values['mandataire_identifiant'])) {
     	        if (!$courtier->no_carte_professionnelle) {

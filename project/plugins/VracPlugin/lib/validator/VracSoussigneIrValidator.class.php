@@ -20,7 +20,7 @@ class VracSoussigneIrValidator extends VracSoussigneValidator {
     }
 
     protected function doClean($values) {
-        parent::doClean($values);
+        $values = parent::doClean($values);
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
 
