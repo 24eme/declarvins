@@ -22,6 +22,7 @@
     <?php if ($form->getEtablissement()): ?>
     <div id="bloc_<?php echo $famille ?>_vous" class="soussigne_vous bloc_conditionner" data-condition-value="<?php echo $famille ?>">
         <h2><?php echo $sous_titre_vous ?></h2>
+        <?php echo $form[$famille.'_identifiant']->renderError() ?>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
             <?php echo ucfirst($form->getEtablissement()->getFamille()) ?> <?php echo ucfirst($form->getEtablissement()->getSousFamille()) ?>
