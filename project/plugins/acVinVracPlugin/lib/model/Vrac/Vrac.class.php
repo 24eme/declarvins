@@ -1122,7 +1122,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
 	public function getAcompteInfos()
     {
-        if ($this->isConditionneIr() && !$this->isPluriannuel() && !$this->isAdossePluriannuel() && $this->type_transaction != 'raisin') {
+        if ($this->isConditionneIr() && !$this->isPluriannuel() && !$this->isAdossePluriannuel() && $this->type_transaction != 'raisin' && !$this->isPacteCooperatif()) {
             return 'Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat (Article L. 665-3 du Code rural).';
         }
         if ($this->isConditionneIvse()) {
