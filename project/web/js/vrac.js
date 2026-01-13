@@ -556,27 +556,35 @@
 	        return false;
 	    });
 	}
-	
+
 	var initChoicesListener = function()
 	{
 		ajaxifyAutocomplete('#listener_acheteur_choice', 'acheteur', '#template_url_informations');
 		ajaxifyAutocomplete('#listener_vendeur_choice', 'vendeur', '#template_url_informations');
 		ajaxifyAutocomplete('#listener_mandataire_choice', 'mandataire', '#template_url_informations');
 	}
-	
+
 	var initProductListener = function()
 	{
 		ajaxifyProductAutocomplete('#listener_product');
 	}
-	
+
 	var ajaxifyAutocomplete = function(listenerChoice, type, templateUrl)
 	{
 		var select = $(listenerChoice+' select');
 		var input = $(listenerChoice+' input');
 		var container = $(select.attr('data-infos-container'));
 		input.live( "autocompleteselect", function(event, ui) {
-
-			var url = $(templateUrl).html().replace(/var---etablissement---/g, $(ui.item.option).val());
+			let etablissement = null;
+			if (ui) {
+				etablissement = $(ui.item.option).val();
+			} else {
+				const select = this.previousElementSibling;
+				if (select && select.tagName == 'SELECT') {
+					etablissement = select.options[select.selectedIndex].value;
+				}
+			}
+			var url = $(templateUrl).html().replace(/var---etablissement---/g, etablissement);
 				url = url.replace(/var---type---/g, type);
 				url = $.trim(url);
 

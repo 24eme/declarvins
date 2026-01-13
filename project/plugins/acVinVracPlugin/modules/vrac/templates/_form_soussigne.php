@@ -53,5 +53,14 @@ Ces documents pourront être déposés sur Déclarvins avant la validation du co
     </div>
 
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    $('input.ui-autocomplete-input').each(function () {
+        if ($(this).val()) {
+        $(this).trigger('autocompleteselect');
+        }
+    });
+});
+</script>
 <?php include_partial('url_etablissement_template', array('interpro' => $form->getInterpro(), 'etablissement' => $etablissement)); ?>
 <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement, 'etape' => $etape)); ?>
