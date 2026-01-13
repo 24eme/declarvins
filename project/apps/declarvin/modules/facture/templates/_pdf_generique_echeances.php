@@ -18,7 +18,7 @@ $echeances = $facture->getEcheancesPapillon();
         \CutlnPapillonEntete
         <?php if($facture->getNbPaiementsAutomatique() && $facture->getSociete()->getMandatSepa()): ?>
           &
-          \centering \fontsize{7}{8}\selectfont \textbf{Prélevé} sur le compte \textbf{<?php echo $facture->getSociete()->getMandatSepa()->getBanqueNom() ?>} \\ ~ &
+          \centering \fontsize{7}{8}\selectfont \textbf{Prélevé} sur le compte \textbf{<?php echo str_replace('&', '\&', $facture->getSociete()->getMandatSepa()->getBanqueNom()) ?>} \\ ~ &
 
            \centering \small{Echéance} &
            \centering \small{Client~/~Facture} &
