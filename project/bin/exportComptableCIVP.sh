@@ -27,13 +27,11 @@ cat $TMPE/factures.csv | grep ";ECHEANCE;" | while read line; do
     pdf=$(ls -t "$LATEX" 2>/dev/null | grep "${numfacture}_${date}" | head -n1)
 
     if [ -z "$pdf" ]; then
-        php symfony generate:AFacture $SYMFONYTASKOPTIONS --directory="/" "$factureid"
+        php symfony generate:AFacture $SYMFONYTASKOPTIONS --directory="/" "$factureid" 2>/dev/null
         pdf=$(ls -t "$LATEX" | grep "${numfacture}_${date}" | head -n1)
     fi
 
-    if [ -n "$pdf" ]; then
-        cp "$LATEX/$pdf" "$TMPE/pdf/${numfacture}.pdf"
-    fi
+    cp "$LATEX/$pdf" "$TMPE/pdf/${numfacture}.pdf"
 done
 
 zip -rjq $TMPE/factures.zip $TMPE/pdf
