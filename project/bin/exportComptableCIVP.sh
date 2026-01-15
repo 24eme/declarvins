@@ -19,7 +19,22 @@ cat $TMPE/factures.csv | awk -F ';' '{print $14}' | sort | uniq | grep 2[0-9][0-
 done
 
 
-cat $TMPE/factures.csv | awk -F ';' '{print $4" "$14}'  | sort -u | grep FACTURE- | while read id doc ; do doc=$(echo $doc|tail -c11); cp $(ls $LATEX/*"$id"*$doc*"pdf"  | sort -t _ -k5,5 -n -r | head -n 1) $TMPE/pdf/$id.pdf; done
+cat $TMPE/factures.csv | grep ";ECHEANCE;" | while read line; do
+    numfacture=$(echo "$line" | cut -d";" -f4)
+    factureid=$(echo "$line" | cut -d";" -f14)
+    date=$(echo "$factureid" | tail -c11)
+
+    pdf=$(ls -t "$LATEX" 2>/dev/null | grep "${numfacture}_${date}" | head -n1)
+
+    if [ -z "$pdf" ]; then
+        php symfony generate:AFacture $SYMFONYTASKOPTIONS --directory="/" "$factureid"
+        pdf=$(ls -t "$LATEX" | grep "${numfacture}_${date}" | head -n1)
+    fi
+
+    if [ -n "$pdf" ]; then
+        cp "$LATEX/$pdf" "$TMPE/pdf/${numfacture}.pdf"
+    fi
+done
 
 zip -rjq $TMPE/factures.zip $TMPE/pdf
 
