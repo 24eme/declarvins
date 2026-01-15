@@ -18,9 +18,6 @@ cat $TMPE/factures.csv | awk -F ';' '{print $14}' | sort | uniq | grep 2[0-9][0-
     php symfony facture:setexported $SYMFONYTASKOPTIONS $FACTUREID;
 done
 
-cat $TMPE/factures.csv|grep ";ECHEANCE;"|while read line; do php symfony generate:AFacture $SYMFONYTASKOPTIONS --directory="/" $(echo $line|cut -d";" -f14); cp $LATEX/$(ls -t $LATEX/|grep $(echo $line|cut -d";" -f4)"_"$(echo $line|cut -d";" -f14|tail -c11)|head -n1) $TMPE/pdf/$(echo $line|cut -d";" -f4).pdf; done
-
-
 cat $TMPE/factures.csv | grep ";ECHEANCE;" | while read line; do
     numfacture=$(echo "$line" | cut -d";" -f4)
     factureid=$(echo "$line" | cut -d";" -f14)
