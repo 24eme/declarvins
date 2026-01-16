@@ -39,4 +39,6 @@ zip -rjq $TMPE/factures.zip $TMPE/pdf
 
 echo "$TMPE/factures.json|factures.json|Export JSON des factures"
 echo "$TMPE/factures.csv|factures.csv|Export CSV des factures"
+if [ -f "$TMPE/factures.zip" ]; then
 echo "$TMPE/factures.zip|factures.zip|PDF des factures"
+fi

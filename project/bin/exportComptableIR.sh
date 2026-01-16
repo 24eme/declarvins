@@ -41,6 +41,8 @@ cat $TMPE/reliquats-drm.csv | php bin/convertExportFacture2Exantis.php > $TMPE/r
 
 echo "$TMPE/factures.json|factures.json|Export JSON des factures"
 echo "$TMPE/factures.csv|factures.csv|Export CSV des factures"
+if [ -f "$TMPE/factures.zip" ]; then
 echo "$TMPE/factures.zip|factures.zip|PDF des factures"
+fi
 echo "$TMPE/reliquats-drm.json|reliquats-drm.json|Export JSON des reliquats DRM"
 echo "$TMPE/reliquats-drm.csv|reliquats-drm.csv|Export CSV des reliquats DRM"
