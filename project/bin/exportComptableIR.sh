@@ -26,7 +26,7 @@ cat $TMPE/factures.csv | grep ";ECHEANCE;" | while read line; do
     pdf=$(ls -t "$LATEX" 2>/dev/null | grep "${numfacture}_${date}" | head -n1)
 
     if [ -z "$pdf" ]; then
-        php symfony generate:AFacture $SYMFONYTASKOPTIONS --directory="/" "$factureid" 2>/dev/null
+        php symfony generate:AFacture $SYMFONYTASKOPTIONS --directory="/" "$factureid" > /dev/null
         pdf=$(ls -t "$LATEX" | grep "${numfacture}_${date}" | head -n1)
     fi
 
