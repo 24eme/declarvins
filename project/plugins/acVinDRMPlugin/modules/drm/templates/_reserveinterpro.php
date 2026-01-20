@@ -13,85 +13,35 @@ foreach ($produits as $p)  {
         break;
     }
 }
-
 ?>
 <table class="tableau_recap" style="width:100%;">
     <thead>
         <tr>
-            <td style="font-weight: bold; border: none; width: 330px;">&nbsp;</td>
-            <th style="font-weight: bold; border: none; width: 120px;">Volumes en réserve</th>
+            <td style="font-weight: bold; border: 0px"> &nbsp; </td>
+            <th style="font-weight: bold;">Volumes<br/>en réserve</th>
 <?php if ($has_reserve_plus): ?>
-            <th style="font-weight: bold; border: none; width: 120px;">Capacité de commercialisation</th>
-            <th style="font-weight: bold; border: none; width: 120px;">Sorties de chai</th>
+            <th style="font-weight: bold;">Capacité de<br/>commercialisation</th>
+            <th style="font-weight: bold;">Sorties<br/>de chai</th>
 <?php endif; ?>
-            <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <td style="font-weight: bold; border: none; width: 33px;">&nbsp;</td>
-            <?php endif; ?>
+<?php endif; ?>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($produits as $p) : ?>
-                    <tr>
-                        <td style="text-align: left;"><strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong>
-                            <?php if (!$p->hasReserveInterproMultiMillesime()): ?> - <span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation() ?></span><?php endif; ?>
-                        </td>
-                        <td style="text-align: right;"><strong><?php echoFloat($p->getReserveInterpro()); ?>&nbsp;hl</strong></td>
-                    <?php if ($has_reserve_plus): ?>
-                        <?php if ($p->getCapaciteCommercialisation()) : ?>
-                        <td style="text-align: right;"><strong><?php echoFloat($p->getCapaciteCommercialisation()); ?>&nbsp;hl</strong></td>
-                        <?php else: ?>
-                        <td style="text-align: center;">-</td>
-                        <?php endif; ?>
-                        <?php if ($p->getSuiviSortiesChais()) : ?>
-                        <td style="text-align: right;"><strong><?php echoFloat($p->getSuiviSortiesChais()); ?>&nbsp;hl</strong></td>
-                        <?php else: ?>
-                        <td style="text-align: center;">-</td>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve) && !$p->hasReserveInterproMultiMillesime()): ?>
-                        <td style="background: #f1f1f1;border: none;text-align: left;">
-                            <a onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>').showModal()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                </svg>
-                            </a>
-                            <dialog id="modale_<?php echo $p->getIdentifiantHTML() ?>">
-                                <form method="post" action="<?php echo url_for('drm_update_reserve_produit', $drm) ?>?millesime=<?php echo $p->getMillesimeForReserveInterpro() ?>">
-                                    <input type="hidden" name="hashproduit" value="<?php echo $p->getHash() ?>" />
-                                    <p style="text-align: right;">
-                                        <a style="cursor:pointer;" onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>').close()">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                            </svg>
-                                        </a>
-                                    </p>
-                                    <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation() ?> est de <strong><?php echoFloat($p->getReserveInterpro()); ?>&nbsp;hl</strong></p>
-                                    <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $p->printMillesimeOrRegulation() ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
-                                    <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
-                                </form>
-                            </dialog>
-                        </td>
-                        <?php endif; ?>
-                    </tr>
-                    <?php if ($p->hasReserveInterproMultiMillesime()):
-                        $reserve_details = array();
-                        foreach ($p->getReserveInterproDetails() as $millesime => $volume) {
-                            $reserve_details[$millesime] = $volume;
-                        }
-                        krsort($reserve_details);
-                        $first_millesime = true;
-                        foreach($reserve_details as $millesime => $volume):
-                        ?>
+    <?php foreach ($produits as $p) :
+                foreach ($p->getReserveInterproDetails() as $millesime => $volume):  ?>
                         <tr>
-                            <td style="text-align: right"><span style="opacity:80%; font-size:95%;"><?php echo $p->printMillesimeOrRegulation($millesime) ?></span></td>
+                            <td style="text-align: right">
+                                <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> - <?php echo $millesime; ?></strong><br/>
+                                <span style="opacity:80%; font-size:95%;"><?php echo implode(' - ', $p->getReserveInterproPeriode($millesime, '%b %Y')->getRawValue()); ?></span>
+                            </td>
                             <td style="text-align: right"><?php echoFloat($volume); ?>&nbsp;hl</td>
                         <?php if ($has_reserve_plus): ?>
-                            <td style="text-align: <?php if ($first_millesime && $p->getCapaciteCommercialisation()) echo "right"; else echo "center"; ?>"><?php if ($first_millesime && $p->getCapaciteCommercialisation()) {echoFloat($p->getCapaciteCommercialisation()); echo " hl";}else{echo " - ";} ?></td>
-                            <td style="text-align: <?php if ($first_millesime && $p->getSuiviSortiesChais()) echo "right"; else echo "center"; ?>"><?php if ($first_millesime && $p->getSuiviSortiesChais()) {echoFloat($p->getSuiviSortiesChais()); echo " hl";}else{echo " - ";} ?></td>
+                            <td style="text-align: <?php if ($p->getCapaciteCommercialisation($millesime)) echo "right"; else echo "center"; ?>"><?php if ($p->getCapaciteCommercialisation($millesime)) {echoFloat($p->getCapaciteCommercialisation($millesime)); echo " hl";}else{echo " - ";} ?></td>
+                            <td style="text-align: <?php if ($p->getSuiviSortiesChais($millesime)) echo "right"; else echo "center"; ?>"><?php if ($p->getSuiviSortiesChais($millesime)) {echoFloat($p->getSuiviSortiesChais($millesime)); echo " hl";}else{echo " - ";} ?></td>
                         <?php endif; ?>
-                            <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>
+                        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>
                             <td style="background: #f1f1f1;border: none;text-align: left;">
                                 <a onclick="document.querySelector('#modale_<?php echo $p->getIdentifiantHTML() ?>_<?php echo $millesime ?>').showModal()">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -110,8 +60,8 @@ foreach ($produits as $p)  {
                                                 </svg>
                                             </a>
                                         </p>
-                                        <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $p->printMillesimeOrRegulation($millesime) ?> est de <strong><?php echoFloat($volume); ?>&nbsp;hl</strong></p>
-                                        <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $p->printMillesimeOrRegulation($millesime) ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
+                                        <p style="padding: 5px 0;">Le volume en réserve du <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?></strong> <?php echo $millesime; ?> est de <strong><?php echoFloat($volume); ?>&nbsp;hl</strong></p>
+                                        <p style="padding: 5px 0;"><label for="reserve">Nouveau volume en reserve (<?php echo $millesime ?>) : </label><input id="reserve" type="text" inputmode="numeric" name="reserve" required />&nbsp;hl</p>
                                         <p style="padding: 5px 0;text-align: center;"><input type="submit" name="submit" value="Valider" /></p>
                                     </form>
                                 </dialog>
@@ -119,10 +69,8 @@ foreach ($produits as $p)  {
                             <?php endif; ?>
                         </tr>
                     <?php
-                        $first_millesime = false ;
-                        endforeach; endif;
-                    ?>
-        <?php endforeach; ?>
+                endforeach;
+        endforeach; ?>
     </tbody>
 </table>
 </div>
