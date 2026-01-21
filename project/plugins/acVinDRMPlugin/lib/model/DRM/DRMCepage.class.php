@@ -57,15 +57,6 @@ class DRMCepage extends BaseDRMCepage {
   		throw new sfException('this function need to call before lieu tree');
   	}
 
-    public function getDetailsArray() {
-      	$details = array();
-      	foreach($this->details as $detail) {
-        	$details[$detail->getHash()] = $detail;
-      	}
-
-      	return $details;
-    }
-
   	public function getChildrenNode() {
 
     	return $this->details;
@@ -208,9 +199,33 @@ class DRMCepage extends BaseDRMCepage {
         $this->updateVolumeReserveInterpro();
     }
 
-    public function getReserveInterproDetails() {
+    public function getReserveInterproMillesimes() {
+        $millesimes = [];
+        foreach ($this->getReserveInterproDetails() as $millesime => $ignore) {
+            $millesimes[$millesime] = $millesime;
+        }
+        foreach ($this->getOrAdd('reserve_interpro_capacite_commercialisation_details') as $millesime => $ignore) {
+            $millesimes[$millesime] = $millesime;
+        }
+        return array_keys($millesimes);
+    }
 
+    public function getReserveInterproDetails() {
         if ($this->exist('reserve_interpro_details')) {
+            $millesime_to_delete = [];
+            foreach ($this->_get('reserve_interpro_details') as $millesime => $volume) {
+                if (!$volume) {
+                    $millesime_to_delete[] = $millesime;
+                }
+                /*
+                if (!$this->isInReserveInterproPeriode($millesime)) {
+                    $millesime_to_delete[] = $millesime;
+                }
+                */
+            }
+            foreach($millesime_to_delete as $m) {
+                $this->_get('reserve_interpro_details')->remove($m);
+            }
             return $this->_get('reserve_interpro_details');
         }
         return ['' => $this->_get('reserve_interpro')];
@@ -218,15 +233,38 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateVolumeReserveInterpro()
     {
+        $millesime_to_delete = [];
         $volumeTotalEnReserve = 0;
         foreach ($this->getOrAdd('reserve_interpro_details') as $millesime => $volume) {
-            $volumeTotalEnReserve += $volume;
+            if ($this->isInReserveInterproPeriode($millesime) && $volume)  {
+                $volumeTotalEnReserve += $volume;
+            }else{
+                $millesime_to_delete[] = $millesime;
+            }
         }
         $this->getOrAdd('reserve_interpro');
         if ($volumeTotalEnReserve < 0) {
             $volumeTotalEnReserve = 0;
         }
         $this->_set('reserve_interpro', round($volumeTotalEnReserve, 5));
+        foreach ($millesime_to_delete as $millesime) {
+            $this->getOrAdd('reserve_interpro_details')->remove($millesime);
+            $this->getOrAdd('reserve_interpro_capacite_commercialisation_details')->remove($millesime);
+            $this->getOrAdd('reserve_interpro_suivi_sorties_chais_details')->remove($millesime);
+        }
+        if (count($millesime_to_delete)) {
+            if (count($this->reserve_interpro_details)) {
+                $this->remove('reserve_interpro_details');
+            }
+            if (count($this->reserve_interpro_capacite_commercialisation_details)) {
+                $this->remove('reserve_interpro_capacite_commercialisation_details');
+                $this->remove('reserve_interpro_capacite_commercialisation');
+            }
+            if (count($this->reserve_interpro_suivi_sorties_chais_details)) {
+                $this->remove('reserve_interpro_suivi_sorties_chais_details');
+                $this->remove('reserve_interpro_suivi_sorties_chais');
+            }
+        }
     }
 
     public function hasReserveInterproMultiMillesime()
@@ -234,18 +272,9 @@ class DRMCepage extends BaseDRMCepage {
         return (count($this->getOrAdd('reserve_interpro_details')) > 1);
     }
 
-    public function getMillesimeForReserveInterpro() {
-        $details = $this->getOrAdd('reserve_interpro_details')->toArray(true,false);
-        if (!count($details)) {
-            return null;
-        }
-        krsort($details);
-        return array_key_first($details);
-    }
-
     public function hasCapaciteCommercialisation()
     {
-        return $this->exist('reserve_interpro_capacite_commercialisation');
+        return $this->exist('reserve_interpro_capacite_commercialisation') || $this->exist('reserve_interpro_capacite_commercialisation_details');
     }
 
     public function getCapaciteCommercialisation($millesime)
@@ -253,6 +282,19 @@ class DRMCepage extends BaseDRMCepage {
         if (!$this->hasCapaciteCommercialisation()) {
             return 0;
         }
+        if (!$this->isInReserveInterproPeriode($millesime)) {
+            return 0;
+        }
+
+        if ($this->exist('reserve_interpro_details') && !$this->exist('reserve_interpro_capacite_commercialisation_details')) {
+            if (count($this->reserve_interpro_details) == 1) {
+                $this->add('reserve_interpro_capacite_commercialisation_details');
+                foreach($this->reserve_interpro_details as $millesime => $volume) {
+                    $this->reserve_interpro_capacite_commercialisation_details->add($millesime, $this->_get('reserve_interpro_capacite_commercialisation'));
+                }
+            }
+        }
+
         if ($this->exist('reserve_interpro_capacite_commercialisation_details') && $this->reserve_interpro_capacite_commercialisation_details->exist($millesime)) {
             return $this->reserve_interpro_capacite_commercialisation_details->get($millesime);
         }
@@ -270,13 +312,24 @@ class DRMCepage extends BaseDRMCepage {
 
     public function hasSuiviSortiesChais()
     {
-        return $this->exist('reserve_interpro_suivi_sorties_chais');
+        return $this->exist('reserve_interpro_suivi_sorties_chais') || $this->exist('reserve_interpro_suivi_sorties_chais_details');
     }
 
     public function getSuiviSortiesChais($millesime)
     {
         if (!$this->hasSuiviSortiesChais()) {
             return ;
+        }
+        if (!$this->isInReserveInterproPeriode($millesime)) {
+            return ;
+        }
+        if ($this->exist('reserve_interpro_details') && !$this->exist('reserve_interpro_suivi_sorties_chais_details')) {
+            if (count($this->reserve_interpro_details) == 1) {
+                $this->add('reserve_interpro_suivi_sorties_chais_details');
+                foreach($this->reserve_interpro_details as $millesime => $volume) {
+                    $this->reserve_interpro_suivi_sorties_chais_details->add($millesime, $this->_get('reserve_interpro_suivi_sorties_chais'));
+                }
+            }
         }
         if ($this->exist('reserve_interpro_suivi_sorties_chais_details') && $this->reserve_interpro_suivi_sorties_chais_details->exist($millesime)) {
             return $this->reserve_interpro_suivi_sorties_chais_details->get($millesime);
@@ -305,17 +358,17 @@ class DRMCepage extends BaseDRMCepage {
     }
 
 
-    public function getReserveInterproPeriodeDebutDate($millesime, $format = 'Y-m-d') {
+    public function getReserveInterproPeriodeDebutDate($millesime, $format = '%Y-%m-%d') {
         $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
         return strftime($format, $date);
     }
 
-    public function getReserveInterproPeriodeFinDate($millesime, $format = 'Y-m-d') {
+    public function getReserveInterproPeriodeFinDate($millesime, $format = '%Y-%m-%d') {
         $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
         return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois').' months', $date));
     }
 
-    public function getReserveInterproPeriode($millesime, $format = 'Y-m-d') {
+    public function getReserveInterproPeriode($millesime, $format = '%Y-%m-%d') {
         if (!$millesime) {
             return array();
         }
@@ -324,33 +377,63 @@ class DRMCepage extends BaseDRMCepage {
         return [$debut, $fin];
     }
 
+    public function isInReserveInterproPeriode($millesime) {
+        if (!$millesime) {
+            return null;
+        }
+        $drm_date = $this->getDocument()->getPeriode().'-01';
+        $periode = $this->getReserveInterproPeriode($millesime);
+        if ($drm_date < $periode[0]) {
+            return false;
+        }
+        if ($drm_date > $periode[1]) {
+            return false;
+        }
+        return true;
+    }
+
     public function updateSuiviSortiesChais()
     {
         if ($this->hasCapaciteCommercialisation()) {
-            $vol = round($this->getSuiviSortiesChais() + $this->getVolumeSortieChai(), 2);
-            $this->add('reserve_interpro_suivi_sorties_chais', $vol);
+            foreach($this->getReserveInterproMillesimes() as $millesime) {
+                $is_in_reserve = $this->isInReserveInterproPeriode($millesime);
+                if ($is_in_reserve) {
+                    $vol = round($this->getSuiviSortiesChais($millesime) + $this->getVolumeSortieChai($millesime), 2);
+                    $this->setSuiviSortiesChais($vol, $millesime);
+                } elseif ($is_in_reserve !== null ) {
+                    $vol = round($this->getSuiviSortiesChais() + $this->getVolumeSortieChai(), 2);
+                    $this->setSuiviSortiesChais($vol);
+                }
+            }
         }
     }
 
     public function updateAutoReserveInterpro()
     {
+
         if (!$this->hasCapaciteCommercialisation()||!$this->hasSuiviSortiesChais()) {
             return;
         }
         if ($this->getAppellation()->getKey() == 'RTA') {
             return;
         }
-        $capacite = $this->getCapaciteCommercialisation();
-        $cumul = $this->getSuiviSortiesChais();
-        if ($capacite > 0 && $cumul > $capacite) {
-            $millesime = $this->getMillesimeForReserveInterpro();
-            $reserve = $this->getReserveInterpro($millesime) - ($cumul - $capacite);
-            if ($reserve < 0) {
-                $reserve = 0;
+        $this->updateSuiviSortiesChais();
+        foreach($this->getReserveInterproMillesimes() as $millesime) {
+            if ( !$this->isInReserveInterproPeriode($millesime) ) {
+                $this->setReserveInterpro(0, $millesime);
+                continue;
             }
-            $this->setReserveInterpro($reserve, $millesime);
-            $this->updateVolumeReserveInterpro();
+            $capacite = $this->getCapaciteCommercialisation($millesime);
+            $cumul = $this->getSuiviSortiesChais($millesime);
+            if ($capacite > 0 && $cumul > $capacite) {
+                $reserve = $this->getReserveInterpro($millesime) - ($cumul - $capacite);
+                if ($reserve < 0) {
+                    $reserve = 0;
+                }
+                $this->setReserveInterpro($reserve, $millesime);
+            }
         }
+        $this->updateVolumeReserveInterpro();
     }
 
 }

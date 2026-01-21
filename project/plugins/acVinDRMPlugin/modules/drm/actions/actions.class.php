@@ -455,6 +455,7 @@ class drmActions extends sfActions {
   		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
+        $this->drm->updateAutoReserveInterpro();
         $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
         if ($isAdmin) {
         	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
