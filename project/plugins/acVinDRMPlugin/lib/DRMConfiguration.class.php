@@ -23,23 +23,25 @@ class DRMConfiguration {
         return $this->configuration;
     }
 
-    public function getReserveInterproDureeMoisDefault() {
-        if (!isset($this->configuration['reserve_interpro']['default']['duree_mois'])) {
-            throw new Exception('non default duree_mois for reserve_interpro in drm.yml configuration file');
+    public function getReserveInterproParamDefault($param_key) {
+        if (!isset($this->configuration['reserve_interpro']['default'][$param_key])) {
+            throw new Exception('non default '.$param_key.' for reserve_interpro in drm.yml configuration file');
         }
-        return $this->configuration['reserve_interpro']['default']['duree_mois'];
+        return $this->configuration['reserve_interpro']['default'][$param_key];
     }
 
-    public function getReserveInterproDureeMois($hash) {
+    public function getReserveInterproParamValue($hash, $param_key) {
         foreach ($this->configuration['reserve_interpro'] as $ri_hash => $params) {
             if (strpos($hash, $ri_hash)) {
-                if (!isset($params['duree_mois'])) {
-                    return $this->getReserveInterproDureeMoisDefault();
+                if (!isset($params[$param_key])) {
+                    return $this->getReserveInterproParamDefault($param_key);
                 }
-                return $params['duree_mois'];
+                return $params[$param_key];
             }
         }
-        return $this->getReserveInterproDureeMoisDefault();
+        return $this->getReserveInterproParamDefault($param_key);
     }
+
+
 
 }

@@ -294,18 +294,33 @@ class DRMCepage extends BaseDRMCepage {
     }
 
 
-    public function getReserveInterproPeriodeMonth($millesime) {
-        return DRMConfiguration::getInstance()->getReserveInterproDureeMois($this->getHash());
+    public function getReserveInterproPeriodeTimeRecolte($millesime) {
+        setlocale(LC_ALL, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
+        return strtotime($millesime.'-09-01');
     }
 
-    public function getReserveInterproPeriode($millesime, $format = '%Y-%m-%d') {
+    public function getReserveInterproPeriodeTimeDebut($millesime) {
+        $date = $this->getReserveInterproPeriodeTimeRecolte($millesime);
+        return strtotime('+'.intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois') - 9).' months', $date);
+    }
+
+
+    public function getReserveInterproPeriodeDebutDate($millesime, $format = 'Y-m-d') {
+        $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
+        return strftime($format, $date);
+    }
+
+    public function getReserveInterproPeriodeFinDate($millesime, $format = 'Y-m-d') {
+        $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
+        return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois').' months', $date));
+    }
+
+    public function getReserveInterproPeriode($millesime, $format = 'Y-m-d') {
         if (!$millesime) {
             return array();
         }
-        setlocale(LC_ALL, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
-        $debut_time = strtotime($millesime.'-12-31');
-        $debut = strftime($format, $debut_time);
-        $fin = strftime($format, strtotime('last day of +'.$this->getReserveInterproPeriodeMonth($millesime).' months', $debut_time));
+        $debut = $this->getReserveInterproPeriodeDebutDate($millesime, $format);
+        $fin =   $this->getReserveInterproPeriodeFinDate($millesime, $format);
         return [$debut, $fin];
     }
 
