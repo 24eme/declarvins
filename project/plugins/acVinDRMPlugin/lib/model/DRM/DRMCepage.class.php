@@ -294,6 +294,10 @@ class DRMCepage extends BaseDRMCepage {
     }
 
 
+    public function getReserveInterproPeriodeMonth($millesime) {
+        return DRMConfiguration::getInstance()->getReserveInterproDureeMois($this->getHash());
+    }
+
     public function getReserveInterproPeriode($millesime, $format = '%Y-%m-%d') {
         if (!$millesime) {
             return array();
@@ -301,7 +305,7 @@ class DRMCepage extends BaseDRMCepage {
         setlocale(LC_ALL, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
         $debut_time = strtotime($millesime.'-12-31');
         $debut = strftime($format, $debut_time);
-        $fin = strftime($format, strtotime('last day of +18 months', $debut_time));
+        $fin = strftime($format, strtotime('last day of +'.$this->getReserveInterproPeriodeMonth($millesime).' months', $debut_time));
         return [$debut, $fin];
     }
 

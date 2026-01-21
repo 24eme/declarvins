@@ -2,9 +2,9 @@ all:
     configuration:
         drm:
             reserve_interpro:
-                certifications/AOP/genres/TRANQ/appellations/CDR:
-                    mois_duree: 12
+                default:
+                    duree_mois: 12
                 certifications/AOP/genres/TRANQ/appellations/CVS:
-                    mois_duree: 18
+                    duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVG:
-                    mois_duree: 18
+                    duree_mois: 19
