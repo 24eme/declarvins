@@ -11,3 +11,6 @@ all:
                 certifications/AOP/genres/TRANQ/appellations/CVG:
                     debut_mois: 12
                     duree_mois: 19
+                certifications/AOP/genres/TRANQ/appellations/CVX:
+                    debut_mois: 01
+                    duree_mois: 11
