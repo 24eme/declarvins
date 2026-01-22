@@ -20,8 +20,8 @@ foreach ($produits as $p)  {
             <td style="font-weight: bold; border: 0px"> &nbsp; </td>
             <th style="font-weight: bold;">Volumes<br/>en réserve</th>
 <?php if ($has_reserve_plus): ?>
-            <th style="font-weight: bold;">Capacité de<br/>commercialisation</th>
-            <th style="font-weight: bold;">Sorties<br/>de chai</th>
+            <th style="font-weight: bold;">Sorties de<br/>chai moyenne</th>
+            <th style="font-weight: bold;">Sorties de<br/>chai en cours</th>
 <?php endif; ?>
 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <td style="font-weight: bold; border: none; width: 33px;">&nbsp;</td>
@@ -33,13 +33,22 @@ foreach ($produits as $p)  {
                 foreach ($p->getReserveInterproDetails() as $millesime => $volume):  ?>
                         <tr>
                             <td style="text-align: right">
-                                <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> - <?php echo $millesime; ?></strong><br/>
+                                <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo $millesime."-".($millesime + 1); ?></strong><br/>
                                 <span style="opacity:80%; font-size:95%;"><?php echo implode(' - ', $p->getReserveInterproPeriode($millesime, '%b %Y')->getRawValue()); ?></span>
                             </td>
                             <td style="text-align: right"><?php echoFloat($volume); ?>&nbsp;hl</td>
                         <?php if ($has_reserve_plus): ?>
-                            <td style="text-align: <?php if ($p->getCapaciteCommercialisation($millesime)) echo "right"; else echo "center"; ?>"><?php if ($p->getCapaciteCommercialisation($millesime)) {echoFloat($p->getCapaciteCommercialisation($millesime)); echo " hl";}else{echo " - ";} ?></td>
-                            <td style="text-align: <?php if ($p->getSuiviSortiesChais($millesime)) echo "right"; else echo "center"; ?>"><?php if ($p->getSuiviSortiesChais($millesime)) {echoFloat($p->getSuiviSortiesChais($millesime)); echo " hl";}else{echo " - ";} ?></td>
+                            <?php if (!$p->hasCapaciteCommercialisation()): ?>
+                            <td style="text-align: center;"><abbr title="Ne s'applique pas pour les réserves de ce produit">x</abbr></td>
+                            <td style="text-align: center;"><abbr title="Ne s'applique pas pour les réserves de ce produit">x</abbr></td>
+                            <?php else: ?>
+                            <td style="text-align: <?php if ($p->getCapaciteCommercialisation($millesime)) echo "right"; else echo "center"; ?>">
+                                <?php if ($p->getCapaciteCommercialisation($millesime)) {echoFloat($p->getCapaciteCommercialisation($millesime)); echo " hl";}else{echo " <abbr title=\"Cette n'est pas active réserve au vu de sa période d'application\">-</abbr> ";} ?>
+                            </td>
+                            <td style="text-align: <?php if ($p->getSuiviSortiesChais($millesime) !== null) echo "right"; else echo "center"; ?>">
+                                <?php if ($p->getSuiviSortiesChais($millesime) !== null) {echoFloat($p->getSuiviSortiesChais($millesime)); echo " hl";}else{echo " <abbr title=\"Cette n'est pas active réserve au vu de sa période d'application\">-</abbr> ";} ?>
+                            </td>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>
                             <td style="background: #f1f1f1;border: none;text-align: left;">
