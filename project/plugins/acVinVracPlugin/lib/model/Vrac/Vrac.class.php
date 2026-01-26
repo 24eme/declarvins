@@ -1131,10 +1131,5 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         return '';
     }
 
-    public function tiersIsPacteCooperatif()
-    {
-        return $this->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE && $this->acheteur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_UNION;
-    }
-
 
 }
