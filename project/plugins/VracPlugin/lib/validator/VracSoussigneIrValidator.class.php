@@ -24,7 +24,7 @@ class VracSoussigneIrValidator extends VracSoussigneValidator {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
 
-        if ($this->vrac->cas_particulier == 'union') {
+        if ($this->vrac->isPacteCooperatif()) {
             $vendeur = EtablissementClient::getInstance()->find($values['vendeur_identifiant']);
             if ($vendeur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE) {
                 $errorSchema->addError(new sfValidatorError($this, 'vendeur_union'), 'vendeur_identifiant');
