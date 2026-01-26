@@ -31,9 +31,11 @@ class VracSoussigneIrValidator extends VracSoussigneValidator {
                 $hasError = true;
             }
             $acheteur = EtablissementClient::getInstance()->find($values['acheteur_identifiant']);
-            if ($acheteur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_UNION) {
-                $errorSchema->addError(new sfValidatorError($this, 'acheteur_union'), 'acheteur_identifiant');
-                $hasError = true;
+            if (!in_array($values['acheteur_identifiant'], ['C0007-01', 'C5107-02', 'C7446-02', 'C0908-01'])) {
+                if ($acheteur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_UNION) {
+                    $errorSchema->addError(new sfValidatorError($this, 'acheteur_union'), 'acheteur_identifiant');
+                    $hasError = true;
+                }
             }
         }
 
