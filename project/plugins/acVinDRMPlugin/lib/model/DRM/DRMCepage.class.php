@@ -315,7 +315,7 @@ class DRMCepage extends BaseDRMCepage {
         return $this->exist('reserve_interpro_suivi_sorties_chais') || $this->exist('reserve_interpro_suivi_sorties_chais_details');
     }
 
-    public function getSuiviSortiesChais($millesime)
+    public function getSuiviSortiesChais($millesime = null)
     {
         if (!$this->hasSuiviSortiesChais()) {
             return ;
