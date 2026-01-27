@@ -181,7 +181,7 @@ class DRMCepage extends BaseDRMCepage {
             return $this->reserve_interpro_details->getOrAdd($millesime) ?: 0;
         }
         if ($this->hasReserveInterpro()) {
-            return $this->_get('reserve_interpro');
+            return $this->getOrAdd('reserve_interpro');
         }
         return 0;
     }
@@ -228,7 +228,7 @@ class DRMCepage extends BaseDRMCepage {
             }
             return $this->_get('reserve_interpro_details');
         }
-        return ['' => $this->_get('reserve_interpro')];
+        return ['' => $this->getOrAdd('reserve_interpro')];
     }
 
     public function updateVolumeReserveInterpro()
@@ -290,7 +290,7 @@ class DRMCepage extends BaseDRMCepage {
             if (count($this->reserve_interpro_details) == 1) {
                 $this->add('reserve_interpro_capacite_commercialisation_details');
                 foreach($this->reserve_interpro_details as $millesime => $volume) {
-                    $this->reserve_interpro_capacite_commercialisation_details->add($millesime, $this->_get('reserve_interpro_capacite_commercialisation'));
+                    $this->reserve_interpro_capacite_commercialisation_details->add($millesime, $this->getOrAdd('reserve_interpro_capacite_commercialisation'));
                 }
             }
         }
@@ -298,7 +298,7 @@ class DRMCepage extends BaseDRMCepage {
         if ($this->exist('reserve_interpro_capacite_commercialisation_details') && $this->reserve_interpro_capacite_commercialisation_details->exist($millesime)) {
             return $this->reserve_interpro_capacite_commercialisation_details->get($millesime);
         }
-        return $this->_get('reserve_interpro_capacite_commercialisation');
+        return $this->getOrAdd('reserve_interpro_capacite_commercialisation');
     }
 
     public function setCapaciteCommercialisation($volume, $millesime = '')
@@ -315,7 +315,7 @@ class DRMCepage extends BaseDRMCepage {
         return $this->exist('reserve_interpro_suivi_sorties_chais') || $this->exist('reserve_interpro_suivi_sorties_chais_details');
     }
 
-    public function getSuiviSortiesChais($millesime)
+    public function getSuiviSortiesChais($millesime = null)
     {
         if (!$this->hasSuiviSortiesChais()) {
             return ;
@@ -327,14 +327,14 @@ class DRMCepage extends BaseDRMCepage {
             if (count($this->reserve_interpro_details) == 1) {
                 $this->add('reserve_interpro_suivi_sorties_chais_details');
                 foreach($this->reserve_interpro_details as $millesime => $volume) {
-                    $this->reserve_interpro_suivi_sorties_chais_details->add($millesime, $this->_get('reserve_interpro_suivi_sorties_chais'));
+                    $this->reserve_interpro_suivi_sorties_chais_details->add($millesime, $this->getOrAdd('reserve_interpro_suivi_sorties_chais'));
                 }
             }
         }
         if ($this->exist('reserve_interpro_suivi_sorties_chais_details') && $this->reserve_interpro_suivi_sorties_chais_details->exist($millesime)) {
             return $this->reserve_interpro_suivi_sorties_chais_details->get($millesime);
         }
-        return $this->_get('reserve_interpro_suivi_sorties_chais');
+        return $this->getOrAdd('reserve_interpro_suivi_sorties_chais');
     }
 
     public function setSuiviSortiesChais($volume, $millesime = '')
