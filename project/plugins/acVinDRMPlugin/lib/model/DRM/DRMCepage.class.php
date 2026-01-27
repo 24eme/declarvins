@@ -307,7 +307,7 @@ class DRMCepage extends BaseDRMCepage {
             $reserveDetails = $this->getOrAdd('reserve_interpro_capacite_commercialisation_details');
             return $this->reserve_interpro_capacite_commercialisation_details->add($millesime, round($volume, 5));
         }
-        $this->_set('reserve_interpro_capacite_commercialisation', $volume);
+        $this->add('reserve_interpro_capacite_commercialisation', $volume);
     }
 
     public function hasSuiviSortiesChais()
@@ -343,7 +343,7 @@ class DRMCepage extends BaseDRMCepage {
             $reserveDetails = $this->getOrAdd('reserve_interpro_suivi_sorties_chais_details');
             return $this->reserve_interpro_suivi_sorties_chais_details->add($millesime, round($volume, 5));
         }
-        $this->_set('reserve_interpro_suivi_sorties_chais', $volume);
+        $this->add('reserve_interpro_suivi_sorties_chais', $volume);
     }
 
 
