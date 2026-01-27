@@ -313,13 +313,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $drm_suivante;
     }
 
-    public function init($params = array()) {
+    public function updateAutoReserveInterpro() {
         if ($produits = $this->getProduitsReserveInterpro()) {
             foreach ($produits as $produit) {
-                $produit->updateSuiviSortiesChais();
                 $produit->updateAutoReserveInterpro();
             }
         }
+    }
+
+    public function init($params = array()) {
+        $this->updateAutoReserveInterpro();
         parent::init($params);
         $keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
         $nextCampagne = isset($params['next_campagne']) ? $params['next_campagne'] : $this->campagne;

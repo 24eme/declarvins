@@ -277,7 +277,19 @@ DRM:
                                                                                                     fields:
                                                                                                       '*': { }
                                                                                                 reserve_interpro_capacite_commercialisation: { required: false }
+                                                                                                reserve_interpro_capacite_commercialisation_details:
+                                                                                                  required: false
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      '*': { }
                                                                                                 reserve_interpro_suivi_sorties_chais: { required: false }
+                                                                                                reserve_interpro_suivi_sorties_chais_details:
+                                                                                                  required: false
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      '*': { }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DRMDetails

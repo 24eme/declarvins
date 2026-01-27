@@ -1,0 +1,25 @@
+all:
+    configuration:
+        drm:
+            reserve_interpro:
+                default:
+                    debut_mois: 01
+                    duree_mois: 11
+                certifications/AOP/genres/TRANQ/appellations/CVS:
+                    debut_mois: 12
+                    duree_mois: 19
+                certifications/AOP/genres/TRANQ/appellations/CVG:
+                    debut_mois: 12
+                    duree_mois: 19
+                certifications/AOP/genres/TRANQ/appellations/CVX:
+                    debut_mois: 01
+                    duree_mois: 11
+                certifications/AOP/genres/TRANQ/appellations/CDR:
+                    debut_mois: 12
+                    duree_mois: 12
+                certifications/AOP/genres/TRANQ/appellations/RTA:
+                    debut_mois: 12
+                    duree_mois: 19
+                certifications/AOP/genres/TRANQ/appellations/BEA:
+                    debut_mois: 12
+                    duree_mois: 19
