@@ -398,7 +398,7 @@ class DRMCepage extends BaseDRMCepage {
             foreach($this->getReserveInterproMillesimes() as $millesime) {
                 $is_in_reserve = $this->isInReserveInterproPeriode($millesime);
                 if ($is_in_reserve) {
-                    $vol = round($this->getSuiviSortiesChais($millesime) + $this->getVolumeSortieChai($millesime), 2);
+                    $vol = round($this->getSuiviSortiesChais($millesime) + $this->getVolumeSortieChai(), 2);
                     $this->setSuiviSortiesChais($vol, $millesime);
                 } elseif ($is_in_reserve !== null ) {
                     $vol = round($this->getSuiviSortiesChais() + $this->getVolumeSortieChai(), 2);
