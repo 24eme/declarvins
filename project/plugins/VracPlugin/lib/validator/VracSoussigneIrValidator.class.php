@@ -24,16 +24,18 @@ class VracSoussigneIrValidator extends VracSoussigneValidator {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
 
-        if ($this->vrac->cas_particulier == 'union') {
+        if ($this->vrac->isPacteCooperatif()) {
             $vendeur = EtablissementClient::getInstance()->find($values['vendeur_identifiant']);
             if ($vendeur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE) {
                 $errorSchema->addError(new sfValidatorError($this, 'vendeur_union'), 'vendeur_identifiant');
                 $hasError = true;
             }
             $acheteur = EtablissementClient::getInstance()->find($values['acheteur_identifiant']);
-            if ($acheteur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_UNION) {
-                $errorSchema->addError(new sfValidatorError($this, 'acheteur_union'), 'acheteur_identifiant');
-                $hasError = true;
+            if (!in_array($values['acheteur_identifiant'], ['C0007-01', 'C5107-02', 'C7446-02', 'C0908-01'])) {
+                if ($acheteur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_UNION) {
+                    $errorSchema->addError(new sfValidatorError($this, 'acheteur_union'), 'acheteur_identifiant');
+                    $hasError = true;
+                }
             }
         }
 

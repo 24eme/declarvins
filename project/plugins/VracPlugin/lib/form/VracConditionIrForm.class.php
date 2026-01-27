@@ -11,8 +11,7 @@ class VracConditionIrForm extends VracConditionForm
         $this->getWidget('ramasseur_raisin')->setLabel('Le raisin sera:');
         $this->setValidator('ramasseur_raisin', new sfValidatorChoice(array('required' => true, 'choices' => array('vendeur','acheteur'))));
 
-        if ($this->getObject()->tiersIsPacteCooperatif()) {
-            $this->getWidget('cas_particulier')->setAttribute('readonly', 'readonly');
+        if ($this->getObject()->isPacteCooperatif()) {
             $this->getWidget('type_transaction')->setAttribute('readonly', 'readonly');
         }
         $this->validatorSchema->setPostValidator(new VracConditionIrValidator($this->getObject()));
@@ -38,9 +37,11 @@ class VracConditionIrForm extends VracConditionForm
 
     public function getCasParticulier() {
     	$options = parent::getCasParticulier();
-        if (!$this->getObject()->tiersIsPacteCooperatif()) {
+        if (!$this->getObject()->isPacteCooperatif()) {
             unset($options['union']);
+            return $options;
+        } else {
+            return ['union' => $options['union']];
         }
-        return $options;
     }
 }
