@@ -95,7 +95,7 @@ EOF;
                 $produit = $drm->get($hash);
                 $produit->setReserveInterpro($volume, $millesime);
                 if ($capaciteCom) {
-                    $produit->add('reserve_interpro_capacite_commercialisation', $capaciteCom);
+                    $produit->setCapaciteCommercialisation($capaciteCom, $millesime);
                 }
                 if (!$checkingMode) $drm->save();
                 echo $drm->_id." add reserve $millesime : $volume hl for $hash\n";
