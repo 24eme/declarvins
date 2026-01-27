@@ -24,7 +24,7 @@ class VracTransactionValidator extends sfValidatorBase {
 		    				$total += $cuve['volume'];
 		    			}
 		    			if ($hasDateLimiteRetiraison && $cuve['date']) {
-		    				$d = new DateTime($cuve['date']);
+		    				$d = (strpos($cuve['date'], '/') !== false)? DateTime::createFromFormat('d/m/Y', $cuve['date']) : new DateTime($cuve['date']);
 	    					if ($d->format('Ymd') > $date_limite_retiraison->format('Ymd')) {
 	    						$isDateSup = true;
 	    					}

@@ -16,7 +16,7 @@ class VracLotValidator extends sfValidatorBase {
     				$pourcentage += $millesime['pourcentage'];
     			}
     		}
-	        if ($pourcentage != 100) {
+	        if (round($pourcentage,2) != 100) {
 	        	//throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_millesime')));
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_millesime'));
     					$hasError = true;
