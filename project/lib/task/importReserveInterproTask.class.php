@@ -97,6 +97,7 @@ EOF;
                 if ($capaciteCom) {
                     $produit->setCapaciteCommercialisation($capaciteCom, $millesime);
                 }
+                $drm->updateAutoReserveInterpro();
                 if (!$checkingMode) $drm->save();
                 echo $drm->_id." add reserve $millesime : $volume hl for $hash\n";
             } else {
