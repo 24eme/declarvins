@@ -33,8 +33,8 @@ foreach ($produits as $p)  {
                 foreach ($p->getReserveInterproDetails() as $millesime => $volume):  ?>
                         <tr>
                             <td style="text-align: right">
-                                <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo $millesime."-".($millesime + 1); ?></strong><br/>
-                                <span style="opacity:80%; font-size:95%;"><?php echo implode(' - ', $p->getReserveInterproPeriode($millesime, '%b %Y')->getRawValue()); ?></span>
+                                <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo ($millesime)? $millesime."-".($millesime + 1) : ''; ?></strong><br/>
+                                <span style="opacity:80%; font-size:95%;"><?php echo implode(' - ', $p->getReserveInterproPeriode($millesime, 'M Y')->getRawValue()); ?></span>
                             </td>
                             <td style="text-align: right"><?php echoFloat($volume); ?>&nbsp;hl</td>
                         <?php if ($has_reserve_plus): ?>
@@ -43,10 +43,10 @@ foreach ($produits as $p)  {
                             <td style="text-align: center;"><abbr title="Ne s'applique pas pour les réserves de ce produit">x</abbr></td>
                             <?php else: ?>
                             <td style="text-align: <?php if ($p->getCapaciteCommercialisation($millesime)) echo "right"; else echo "center"; ?>">
-                                <?php if ($p->getCapaciteCommercialisation($millesime)) {echoFloat($p->getCapaciteCommercialisation($millesime)); echo " hl";}else{echo " <abbr title=\"Cette n'est pas active réserve au vu de sa période d'application\">-</abbr> ";} ?>
+                                <?php if ($p->getCapaciteCommercialisation($millesime)) {echoFloat($p->getCapaciteCommercialisation($millesime)); echo " hl";}else{echo " <abbr title=\"Ne s'applique pas pour les réserves de ce produit\">-</abbr> ";} ?>
                             </td>
                             <td style="text-align: <?php if ($p->getSuiviSortiesChais($millesime) !== null) echo "right"; else echo "center"; ?>">
-                                <?php if ($p->getSuiviSortiesChais($millesime) !== null) {echoFloat($p->getSuiviSortiesChais($millesime)); echo " hl";}else{echo " <abbr title=\"Cette n'est pas active réserve au vu de sa période d'application\">-</abbr> ";} ?>
+                                <?php if ($p->getSuiviSortiesChais($millesime) !== null) {echoFloat($p->getSuiviSortiesChais($millesime)); echo " hl";}else{echo " <abbr title=\"Ne s'applique pas pour les réserves de ce produit\">-</abbr> ";} ?>
                             </td>
                             <?php endif; ?>
                         <?php endif; ?>
