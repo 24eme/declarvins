@@ -404,9 +404,6 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateAutoReserveInterpro()
     {
-        if ($this->getAppellation()->getKey() == 'RTA') {
-            return;
-        }
         foreach($this->getReserveInterproMillesimes() as $millesime) {
             if ($this->reserveInterproExpiree($millesime)) {
                 $this->setReserveInterpro(0, $millesime);
