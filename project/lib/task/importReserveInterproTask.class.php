@@ -88,7 +88,7 @@ EOF;
         }
         $drms = [$lastDRM];
         if (!$lastDRM->isValidee()) {
-            $drms[] = $historique->getPreviousDRM($lastDRM->getPeriode());
+            $drms = [$historique->getPreviousDRM($lastDRM->getPeriode()), $lastDRM];
         }
         foreach ($drms as $drm) {
             if ($drm->exist($hash)) {
