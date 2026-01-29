@@ -178,7 +178,7 @@ class DRMCepage extends BaseDRMCepage {
     public function getReserveInterpro($millesime = null)
     {
         if ($millesime && $this->exist('reserve_interpro_details')) {
-            return ($this->reserve_interpro_details->exist($millesime))? $this->reserve_interpro_details->get($millesime) : 0;
+            return ($this->_get('reserve_interpro_details')->exist($millesime))? $this->_get('reserve_interpro_details')->get($millesime) : 0;
         }
         return ($this->hasReserveInterpro())? $this->_get('reserve_interpro') : 0;
     }
