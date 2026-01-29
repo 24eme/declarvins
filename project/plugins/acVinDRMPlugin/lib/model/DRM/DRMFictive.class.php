@@ -112,7 +112,13 @@ class DRMFictive extends DRM
     {
     	$this->drm->addObservationProduit($hash, $observation);
     }
-    
+
+    public function updateAutoReserveInterpro()
+    {
+        parent::updateAutoReserveInterpro();
+        $this->drm->updateAutoReserveInterpro();
+    }
+
     public function isFictive()
     {
     	return true;
