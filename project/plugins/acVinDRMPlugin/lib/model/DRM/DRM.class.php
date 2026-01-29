@@ -322,7 +322,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function init($params = array()) {
-        $this->updateAutoReserveInterpro();
         parent::init($params);
         $keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
         $nextCampagne = isset($params['next_campagne']) ? $params['next_campagne'] : $this->campagne;
