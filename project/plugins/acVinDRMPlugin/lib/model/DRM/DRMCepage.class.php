@@ -241,8 +241,12 @@ class DRMCepage extends BaseDRMCepage {
         }
     }
 
+    protected function update($params = array()) {
+        parent::update($params);
+        $this->cleanReserveInterproDetails();
+    }
+
     public function getReserveInterproDetails() {
-        //$this->cleanReserveInterproDetails();
         if ($this->exist('reserve_interpro_details')) {
             return $this->_get('reserve_interpro_details');
         }
@@ -277,7 +281,7 @@ class DRMCepage extends BaseDRMCepage {
                 if (!$this->exist('reserve_interpro_capacite_commercialisation_details')) {
                     $this->add('reserve_interpro_capacite_commercialisation_details');
                 }
-                if (!$this->reserve_interpro_capacite_commercialisation_details->exist($millesime)) {
+                if (!$this->reserve_interpro_capacite_commercialisation_details->exist($millesime) && $this->exist('reserve_interpro_capacite_commercialisation')) {
                     $this->reserve_interpro_capacite_commercialisation_details->add($millesime, $this->get('reserve_interpro_capacite_commercialisation'));
                 }
             }
@@ -285,7 +289,7 @@ class DRMCepage extends BaseDRMCepage {
                 if (!$this->exist('reserve_interpro_suivi_sorties_chais_details')) {
                     $this->add('reserve_interpro_suivi_sorties_chais_details');
                 }
-                if (!$this->reserve_interpro_suivi_sorties_chais_details->exist($millesime)) {
+                if (!$this->reserve_interpro_suivi_sorties_chais_details->exist($millesime) && $this->exist('reserve_interpro_suivi_sorties_chais')) {
                     $this->reserve_interpro_suivi_sorties_chais_details->add($millesime, $this->get('reserve_interpro_suivi_sorties_chais'));
                 }
             }
@@ -385,7 +389,7 @@ class DRMCepage extends BaseDRMCepage {
                 $periodeDrm = $this->getDocument()->getPeriode().'-01';
                 $volumeSortieChai = $this->getVolumeSortieChai();
                 if ($periodeReserve && $periodeDrm > $periodeReserve[0] && $periodeDrm <= $periodeReserve[1]) {
-                    $drmPrecedente = $this->getDocument()->getPrecedente();
+                    $drmPrecedente = $this->getDocument()->getPrecedente(true);
                     if ($drmPrecedente && !$drmPrecedente->isNew() && $drmPrecedente->exist($this->getHash())) {
                         $volumeSortieChai += $drmPrecedente->get($this->getHash())->getSuiviSortiesChais($millesime);
                     }
