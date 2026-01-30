@@ -281,7 +281,7 @@ class DRMCepage extends BaseDRMCepage {
                 if (!$this->exist('reserve_interpro_capacite_commercialisation_details')) {
                     $this->add('reserve_interpro_capacite_commercialisation_details');
                 }
-                if (!$this->reserve_interpro_capacite_commercialisation_details->exist($millesime)) {
+                if (!$this->reserve_interpro_capacite_commercialisation_details->exist($millesime) && $this->exist('reserve_interpro_capacite_commercialisation')) {
                     $this->reserve_interpro_capacite_commercialisation_details->add($millesime, $this->get('reserve_interpro_capacite_commercialisation'));
                 }
             }
@@ -289,7 +289,7 @@ class DRMCepage extends BaseDRMCepage {
                 if (!$this->exist('reserve_interpro_suivi_sorties_chais_details')) {
                     $this->add('reserve_interpro_suivi_sorties_chais_details');
                 }
-                if (!$this->reserve_interpro_suivi_sorties_chais_details->exist($millesime)) {
+                if (!$this->reserve_interpro_suivi_sorties_chais_details->exist($millesime) && $this->exist('reserve_interpro_suivi_sorties_chais')) {
                     $this->reserve_interpro_suivi_sorties_chais_details->add($millesime, $this->get('reserve_interpro_suivi_sorties_chais'));
                 }
             }
