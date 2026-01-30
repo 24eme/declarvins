@@ -241,8 +241,12 @@ class DRMCepage extends BaseDRMCepage {
         }
     }
 
+    protected function update($params = array()) {
+        parent::update($params);
+        $this->cleanReserveInterproDetails();
+    }
+
     public function getReserveInterproDetails() {
-        //$this->cleanReserveInterproDetails();
         if ($this->exist('reserve_interpro_details')) {
             return $this->_get('reserve_interpro_details');
         }
