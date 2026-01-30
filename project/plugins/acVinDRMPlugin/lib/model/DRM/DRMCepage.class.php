@@ -389,7 +389,7 @@ class DRMCepage extends BaseDRMCepage {
                 $periodeDrm = $this->getDocument()->getPeriode().'-01';
                 $volumeSortieChai = $this->getVolumeSortieChai();
                 if ($periodeReserve && $periodeDrm > $periodeReserve[0] && $periodeDrm <= $periodeReserve[1]) {
-                    $drmPrecedente = $this->getDocument()->getPrecedente();
+                    $drmPrecedente = $this->getDocument()->getPrecedente(true);
                     if ($drmPrecedente && !$drmPrecedente->isNew() && $drmPrecedente->exist($this->getHash())) {
                         $volumeSortieChai += $drmPrecedente->get($this->getHash())->getSuiviSortiesChais($millesime);
                     }
