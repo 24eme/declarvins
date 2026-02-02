@@ -23,7 +23,7 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         set_time_limit(0);
 
-        $vracs = VracHistoryView::getInstance()->findByStatut(VracClient::STATUS_CONTRAT_NONSOLDE)->rows;
+        $vracs = array_merge(VracHistoryView::getInstance()->findByStatut(VracClient::STATUS_CONTRAT_NONSOLDE)->rows, VracHistoryView::getInstance()->findByStatut(VracClient::STATUS_CONTRAT_NONSOLDE,1)->rows);
         $cm = new CampagneManager('08-01');
         $campagneRaisinMout = substr($cm->getCampagneByDate(date('Y-m-d', strtotime('-1 year'))), 0, 4);
         $campagneVrac = substr($cm->getCampagneByDate(date('Y-m-d', strtotime('-3 year'))), 0, 4);
