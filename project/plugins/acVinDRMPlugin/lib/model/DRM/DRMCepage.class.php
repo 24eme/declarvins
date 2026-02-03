@@ -239,6 +239,15 @@ class DRMCepage extends BaseDRMCepage {
                 $this->remove('reserve_interpro_suivi_sorties_chais');
             }
         }
+        if ($this->exist('reserve_interpro') && !$this->_get('reserve_interpro')) {
+            $this->remove('reserve_interpro');
+        }
+        if ($this->exist('reserve_interpro_suivi_sorties_chais') && !$this->_get('reserve_interpro_suivi_sorties_chais')) {
+            $this->remove('reserve_interpro_suivi_sorties_chais');
+        }
+        if ($this->exist('reserve_interpro_capacite_commercialisation') && !$this->_get('reserve_interpro_capacite_commercialisation')) {
+            $this->remove('reserve_interpro_capacite_commercialisation');
+        }
     }
 
     protected function update($params = array()) {
@@ -343,15 +352,33 @@ class DRMCepage extends BaseDRMCepage {
         $this->add('reserve_interpro_suivi_sorties_chais', round($volume, 5));
     }
 
-    public function getReserveInterproPeriode($millesime, $format = 'Y-m-d') {
+    public function getReserveInterproPeriodeTimeRecolte($millesime) {
+        setlocale(LC_ALL, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
+        return strtotime($millesime.'-09-01');
+    }
+
+    public function getReserveInterproPeriodeTimeDebut($millesime) {
+        $date = $this->getReserveInterproPeriodeTimeRecolte($millesime);
+        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois') + 12 - 9)%12).' months', $date);
+    }
+
+    public function getReserveInterproPeriodeDebutDate($millesime, $format = '%Y-%m-%d') {
+        $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
+        return strftime($format, $date);
+    }
+
+    public function getReserveInterproPeriodeFinDate($millesime, $format = '%Y-%m-%d') {
+        $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
+        return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois').' months', $date));
+    }
+
+    public function getReserveInterproPeriode($millesime, $format = '%Y-%m-%d') {
         if (!$millesime) {
             return [];
         }
-        $mois = DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois');
-        $duree = DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois');
-        $debut = new DateTimeImmutable(sprintf('%d-%02d-%02d', $millesime, $mois, 1));
-        $fin = $debut->modify(sprintf('%+d months', $duree))->modify('last day of this month');
-        return [$debut->format($format), $fin->format($format)];
+        $debut = $this->getReserveInterproPeriodeDebutDate($millesime, $format);
+        $fin =   $this->getReserveInterproPeriodeFinDate($millesime, $format);
+        return [$debut, $fin];
     }
 
     public function reserveInterproExpiree($millesime) {
@@ -425,8 +452,6 @@ class DRMCepage extends BaseDRMCepage {
                     }
                     $this->setReserveInterpro($reserve, $millesime);
                 }
-            } else {
-                $this->setSuiviSortiesChais(0, $millesime);
             }
         }
     }
