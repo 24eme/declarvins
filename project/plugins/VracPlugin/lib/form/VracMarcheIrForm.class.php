@@ -65,12 +65,15 @@ class VracMarcheIrForm extends VracMarcheForm
          $this->getObject()->prix_unitaire = null;
      }
 
-
     }
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject();
       $this->setDefault('has_cotisation_cvo', 1);
-
+      if ($this->getObject()->type_prix == 'definitif') {
+          $this->setDefault('type_prix_1', 'determine');
+      } elseif ($this->getObject()->type_prix == 'objectif'||$this->getObject()->type_prix == 'acompte') {
+          $this->setDefault('type_prix_1', 'determinable');
+      }
     }
 
     public function isConditionneDelaiPaiement()
