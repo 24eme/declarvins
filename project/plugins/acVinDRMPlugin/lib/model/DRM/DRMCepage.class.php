@@ -452,8 +452,6 @@ class DRMCepage extends BaseDRMCepage {
                     }
                     $this->setReserveInterpro($reserve, $millesime);
                 }
-            } else {
-                $this->setSuiviSortiesChais(0, $millesime);
             }
         }
     }
