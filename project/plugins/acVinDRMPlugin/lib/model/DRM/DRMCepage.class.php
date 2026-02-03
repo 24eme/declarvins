@@ -239,6 +239,15 @@ class DRMCepage extends BaseDRMCepage {
                 $this->remove('reserve_interpro_suivi_sorties_chais');
             }
         }
+        if ($this->exist('reserve_interpro') && !$this->_get('reserve_interpro')) {
+            $this->remove('reserve_interpro');
+        }
+        if ($this->exist('reserve_interpro_suivi_sorties_chais') && !$this->_get('reserve_interpro_suivi_sorties_chais')) {
+            $this->remove('reserve_interpro_suivi_sorties_chais');
+        }
+        if ($this->exist('reserve_interpro_capacite_commercialisation') && !$this->_get('reserve_interpro_capacite_commercialisation')) {
+            $this->remove('reserve_interpro_capacite_commercialisation');
+        }
     }
 
     protected function update($params = array()) {
