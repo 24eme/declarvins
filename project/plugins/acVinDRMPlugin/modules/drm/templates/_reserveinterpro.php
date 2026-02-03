@@ -34,7 +34,7 @@ foreach ($produits as $p)  {
                         <tr>
                             <td style="text-align: right">
                                 <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo ($millesime)? $millesime."-".($millesime + 1) : ''; ?></strong><br/>
-                                <span style="opacity:80%; font-size:95%;"><?php echo implode(' - ', $p->getReserveInterproPeriode($millesime, 'M Y')->getRawValue()); ?></span>
+                                <span style="opacity:80%; font-size:95%;"><?php echo implode(' - ', $p->getReserveInterproPeriode($millesime, '%b %Y')->getRawValue()); ?></span>
                             </td>
                             <td style="text-align: right"><?php echoFloat($volume); ?>&nbsp;hl</td>
                         <?php if ($has_reserve_plus): ?>
