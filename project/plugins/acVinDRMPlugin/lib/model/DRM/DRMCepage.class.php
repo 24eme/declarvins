@@ -193,7 +193,6 @@ class DRMCepage extends BaseDRMCepage {
         $millesime = $millesime ?: $this->getMillesimeCourant();
         $reserveDetails = $this->getOrAdd('reserve_interpro_details');
         $reserveDetails->add($millesime, round($volume, 5));
-        $this->updateVolumeReserveInterpro();
     }
 
     public function getReserveInterproMillesimes() {
@@ -253,6 +252,7 @@ class DRMCepage extends BaseDRMCepage {
     protected function update($params = array()) {
         parent::update($params);
         $this->cleanReserveInterproDetails();
+        $this->updateVolumeReserveInterpro();
     }
 
     public function getReserveInterproDetails() {
