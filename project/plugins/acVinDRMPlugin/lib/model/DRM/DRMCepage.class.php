@@ -353,7 +353,7 @@ class DRMCepage extends BaseDRMCepage {
     }
 
     public function getReserveInterproPeriodeTimeRecolte($millesime) {
-        setlocale(LC_ALL, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
+        setlocale(LC_TIME, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
         return strtotime($millesime.'-09-01');
     }
 
