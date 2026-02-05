@@ -266,7 +266,9 @@ class DRMCepage extends BaseDRMCepage {
     {
         $volumeTotalEnReserve = 0;
         foreach ($this->getReserveInterproDetails() as $millesime => $volume) {
-            $volumeTotalEnReserve += $volume;
+            if (!$this->reserveInterproFutur($millesime)) {
+                $volumeTotalEnReserve += $volume;
+            }
         }
         if ($volumeTotalEnReserve > 0) {
             $this->getOrAdd('reserve_interpro');
@@ -388,6 +390,18 @@ class DRMCepage extends BaseDRMCepage {
         $drm_date = $this->getDocument()->getPeriode().'-01';
         $periode = $this->getReserveInterproPeriode($millesime);
         if ($drm_date > $periode[1]) {
+            return true;
+        }
+        return false;
+    }
+
+    public function reserveInterproFutur($millesime) {
+        if (!$millesime) {
+            return false;
+        }
+        $drm_date = $this->getDocument()->getPeriode().'-01';
+        $periode = $this->getReserveInterproPeriode($millesime);
+        if ($drm_date < $periode[0]) {
             return true;
         }
         return false;
