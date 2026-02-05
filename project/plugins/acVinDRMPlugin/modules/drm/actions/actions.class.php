@@ -541,7 +541,7 @@ class drmActions extends sfActions {
 	        		$messageErreurs .= "<li>$erreur</li>";
 	        	}
 	        	$messageErreurs .= "</ol>";
-	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
+                $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmission XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
 	        	$this->getMailer()->send($message);
 	        }
 	        }
