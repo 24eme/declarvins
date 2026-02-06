@@ -384,18 +384,6 @@ class DRMCepage extends BaseDRMCepage {
         return [$debut, $fin];
     }
 
-    public function reserveInterproExpiree($millesime) {
-        if (!$millesime) {
-            return false;
-        }
-        $drm_date = $this->getDocument()->getPeriode().'-01';
-        $periode = $this->getReserveInterproPeriode($millesime);
-        if ($drm_date > $periode[1]) {
-            return true;
-        }
-        return false;
-    }
-
     public function reserveInterproFutur($millesime) {
         if (!$millesime) {
             return false;
@@ -451,9 +439,7 @@ class DRMCepage extends BaseDRMCepage {
     public function updateAutoReserveInterpro()
     {
         foreach($this->getReserveInterproMillesimes() as $millesime) {
-            if ($this->reserveInterproExpiree($millesime)) {
-                $this->setReserveInterpro(0, $millesime);
-            } elseif ($this->isInReserveInterproPeriode($millesime)) {
+            if ($this->isInReserveInterproPeriode($millesime)) {
                 $this->updateSuiviSortiesChais($millesime);
                 $capacite = $this->getCapaciteCommercialisation($millesime);
                 $cumul = $this->getSuiviSortiesChais($millesime);
