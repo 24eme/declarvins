@@ -395,6 +395,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->remove('droits');
         $this->add('droits');
         foreach ($this->getDetails() as $detail) {
+            $detail->update();
             $droitCvo = $detail->getDroit(DRMDroits::DROIT_CVO);
             $droitDouane = $detail->getDroit(DRMDroits::DROIT_DOUANE);
             $mergeSorties = array();
