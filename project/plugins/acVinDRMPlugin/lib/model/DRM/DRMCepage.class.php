@@ -271,8 +271,7 @@ class DRMCepage extends BaseDRMCepage {
                 $volumeTotalEnReserve += $volume;
             }
         }
-        if ($volumeTotalEnReserve > 0) {
-            $this->getOrAdd('reserve_interpro');
+        if ($this->hasReserveInterpro()) {
             $this->_set('reserve_interpro', round($volumeTotalEnReserve, 5));
         }
     }
