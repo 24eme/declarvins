@@ -1,6 +1,17 @@
 <?php
 class vracSoldeAutomatiqueTask extends sfBaseTask {
 
+    protected static $exclusions = [
+        '20230509010',
+        '20221221024',
+        '20220519039',
+        '20150928022',
+        '20150928023',
+        '20170515023',
+        '20180427017',
+        '20200514017'
+    ];
+
     protected function configure() {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
@@ -29,6 +40,15 @@ EOF;
         $campagneVrac = substr($cm->getCampagneByDate(date('Y-m-d', strtotime('-3 year'))), 0, 4);
         foreach ($vracs as $vrac) {
     	    $values = $vrac->value;
+            $visa = str_replace('VRAC-', '', $values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
+            $pos = strpos($visa, '-');
+            if ($pos !== false) {
+                $visa = substr($visa, 0, $pos);
+            }
+            if (in_array($visa, self::$exclusions)) {
+                echo $visa."\n";
+                continue;
+            }
             $dateValidation = $values[VracHistoryView::VRAC_VIEW_DATESAISIE];
             if (!empty($values[VracHistoryView::VRAC_VIEW_ACHETEURVAL]) && $values[VracHistoryView::VRAC_VIEW_ACHETEURVAL] > $dateValidation) {
                 $dateValidation = $values[VracHistoryView::VRAC_VIEW_ACHETEURVAL];
