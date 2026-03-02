@@ -27,6 +27,9 @@ class acVinCompteLdapUpdateTask extends sfBaseTask
 {
   protected function configure()
   {
+      $this->addArguments(array(
+          new sfCommandArgument('id', sfCommandArgument::OPTIONAL, 'Compte id'),
+      ));
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'civa'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
@@ -50,7 +53,11 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    $ids = acCouchdbManager::getClient('_Compte')->getAll(acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
+    if (isset($arguments['id']) && !empty($arguments['id'])) {
+        $ids = [$arguments['id']];
+    } else {
+        $ids = acCouchdbManager::getClient('_Compte')->getAll(acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
+    }
 
     $nb = 0;
     foreach($ids as $id) {
