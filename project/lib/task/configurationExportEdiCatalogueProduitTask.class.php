@@ -68,8 +68,7 @@ class configurationExportEdiCatalogueProduitTask extends sfBaseTask
     		if($cepageKey == "DEFAUT")
     			$cepageKey = "";    		
     		$cepage = $this->formatLibelle($produit->getCepage()->getLibelle());
-    		
-    		$libelleProduit = $this->formatLibelle($produit->getLibelleFormat());
+    		$libelleProduit = $this->formatLibelle(ConfigurationProduitClient::getInstance()->format($produit->getLibelles(), array(), "%g% %a% %l% %co% %ce%"));
     		$douaneId = $produit->getCodeDouane();
     		
     		echo (self::EXPORT_WITH_KEY)?
