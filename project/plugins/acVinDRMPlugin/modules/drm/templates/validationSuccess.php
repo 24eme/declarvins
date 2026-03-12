@@ -146,7 +146,7 @@
 
                 <div style="background: #f1f1f1; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 10px;">
-                        <?php include_partial('drm/reserveinterpro', array('drm' => $drm)) ?>
+                        <?php include_partial('drm/reserveinterpro', array('drm' => $drm, 'hideFormReserve' => true)) ?>
                     </div>
                 </div>
 
