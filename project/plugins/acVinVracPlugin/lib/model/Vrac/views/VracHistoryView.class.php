@@ -126,6 +126,10 @@ class VracHistoryView extends acCouchdbView
                 return false;
             }
 
+            if (!$v->value[self::VRAC_REFERENTE]) {
+                return false;
+            }
+
             return true;
         }));
     }

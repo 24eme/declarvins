@@ -680,7 +680,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 			$manageAttachments = (($this->isNew() && $this->version)||($this->isNew() && $this->isAdossePluriannuel()));
     	parent::save();
 			if ($manageAttachments) {
-				if ($previous = $this->findDocumentByVersion($this->getPreviousVersion())) {
+                $previous = $this->findDocumentByVersion($this->getPreviousVersion());
+                if (!$previous) {
+                    $previous =  $this->getContratPluriannelReferent();
+                }
+				if ($previous) {
 					if ($previous->exist('_attachments')) {
 						$files = [];
 						foreach ($previous->_attachments as $filename => $fileinfos) {
@@ -935,9 +939,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function findDocumentByVersion($version) {
-        if ($doc = $this->getContratPluriannelReferent()) {
-            return $doc;
-        }
         return VracClient::getInstance()->find(VracClient::getInstance()->buildId($this->numero_contrat, $version));
     }
 
