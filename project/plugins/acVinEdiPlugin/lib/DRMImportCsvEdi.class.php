@@ -195,10 +195,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             }
 
             $produit = $this->drm->getProduitByIdDouane($hash, ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $label, $complement_libelle);
-
             if (!$produit) {
                 $droits = $this->matchDroits(trim($datas[self::CSV_CAVE_TYPE_DROITS]));
-                $produits = $this->drm->getProduitsByIdDouaneAndStockDebut(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), $complement_libelle, $label, $this->floatize($datas[self::CSV_CAVE_VOLUME]), ($droits == self::TYPE_DROITS_ACQUITTES)? true : false);
+                $produits = $this->drm->getProduitsByIdDouaneAndStockDebut(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane(), ($complement_libelle) ?: $libelleConfig, $label, $this->floatize($datas[self::CSV_CAVE_VOLUME]), ($droits == self::TYPE_DROITS_ACQUITTES)? true : false);
 
                 if (count($produits) > 1) {
                     if ($this->drm->canSetStockDebutMois()) {
