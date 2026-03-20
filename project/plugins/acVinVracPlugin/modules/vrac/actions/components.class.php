@@ -18,8 +18,7 @@ class vracComponents extends sfComponents
 
     public function executeOngletsPluriannuel()
     {
-        $this->contrats = VracHistoryView::getInstance()->findCadreEtApplications($this->vrac->acheteur_identifiant, $this->vrac->_id);
-
+        $this->contrats = VracHistoryView::getInstance()->findCadreEtApplications($this->vrac->vendeur_identifiant, $this->vrac->_id);
         if ($this->contrats === null) {
             return sfView::NONE;
         }
