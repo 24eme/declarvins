@@ -23,9 +23,9 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
         <section id="principal">
             <div class="ligne_form_btn" style="margin:0 0 30px 0;text-align:left;">
                 <?php if ($etablissement): ?>
-                    <a style="float:none;" href="<?php echo url_for("vrac_etablissement", array('identifiant' => $etablissement->identifiant)) ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
+                    <a style="float:none;" href="<?php echo url_for("vrac_etablissement", array('identifiant' => $etablissement->identifiant)) ?><?php if(($vrac->isPluriannuel()&&!$vrac->isAdossePluriannuel()) && $configurationVrac->isContratPluriannuelActif()): ?>?pluriannuel=1<?php endif; ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
                 <?php else: ?>
-                    <a style="float:none;" href="<?php echo url_for("vrac_admin") ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
+                    <a style="float:none;" href="<?php echo url_for("vrac_admin") ?><?php if(($vrac->isPluriannuel()&&!$vrac->isAdossePluriannuel()) && $configurationVrac->isContratPluriannuelActif()): ?>?pluriannuel=1<?php endif; ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
                 <?php endif; ?>
             </div>
             <?php include_component('vrac', 'ongletsPluriannuel', ['vrac' => $vrac, 'etablissement' => $etablissement]) ?>
