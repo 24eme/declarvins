@@ -7,12 +7,12 @@ class ExportVracPdf extends ExportVrac
 							  'pdf' => 'PrintablePDF');
 
 		if(!array_key_exists($format, $format_class)) {
-			
+
 			throw new sfException(sprintf("Le format %s n'est pas géré", $format));
 		}
 
 		$class = $format_class[$format];
-		$filename = (!$this->vrac->isValide())? 'BROUILLON-'.md5($this->vrac->get('_id')) : $this->vrac->get('_id');	
+		$filename = (!$this->vrac->isValide())? 'BROUILLON-'.md5($this->vrac->get('numero_contrat')) : $this->vrac->get('numero_contrat');
 		if ($this->getisTransaction()) {
 			$filename .= '-TRANSACTION';
 		}
@@ -35,7 +35,7 @@ class ExportVracPdf extends ExportVrac
 	public function generate($debug = false)
 	{
 		$targetClass = ($debug)? 'PrintableHTML' : 'PrintablePDF';
-		$filename = (!$this->vrac->isValide())? 'BROUILLON-'.md5($this->vrac->get('_id')) : $this->vrac->get('_id');
+		$filename = (!$this->vrac->isValide())? 'BROUILLON-'.md5($this->vrac->get('numero_contrat')) : $this->vrac->get('numero_contrat');
 		if ($this->getisTransaction()) {
 			$filename .= '-TRANSACTION';
 		}
