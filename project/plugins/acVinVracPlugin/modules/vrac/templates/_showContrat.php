@@ -166,7 +166,7 @@
 				<span><?php echo $vrac->volume_propose ?><?php if($vrac->type_transaction == 'raisin'): ?> Kg<?php else: ?> HL<?php endif; ?></span>
 			</li>
             <?php endif; ?>
-            <?php if (!($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond)) : ?>
+            <?php if (!($vrac->pluriannuel_prix_plancher && $vrac->pluriannuel_prix_plafond && $vrac->isPluriannuel())) : ?>
                 <?php if ($vrac->prix_unitaire): ?>
     			<li>
     				<span>Prix unitaire net :</span>
