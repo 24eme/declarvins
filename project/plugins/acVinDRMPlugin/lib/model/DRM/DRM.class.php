@@ -248,6 +248,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getProduitsByIdDouaneAndStockDebut($idDouane, $libelle, $label, $stockDebut, $acq = false) {
         $inaoLibelleProduits = [];
         $libelleProduits = [];
+        $inaoProduits = [];
         $configLibelle = str_replace($label, '', $libelle);
         $stockDebutNode = ($acq)? 'acq_total_debut_mois' : 'total_debut_mois';
         foreach ($this->getDetails() as $detail) {
@@ -263,13 +264,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             if ($libelle && (trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
                 $libelleProduits[] = $detail;
             }
+            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
+                $inaoProduits[] = $detail;
+            }
         }
         if ($inaoLibelleProduits) {
             return $inaoLibelleProduits;
         } elseif ($libelleProduits) {
             return $libelleProduits;
         }
-        return [];
+        return $inaoProduits;
     }
 
     public function getDetailsVracSansContrat() {
