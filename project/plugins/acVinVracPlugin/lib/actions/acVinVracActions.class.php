@@ -278,7 +278,7 @@ class acVinVracActions extends sfActions
                     		}
                     		$this->getUser()->setAttribute('vrac_modification', null);
                     	} elseif ($sendEmail && !$this->vrac->isRectificative()) {
-                    		$this->contratValide($this->vrac, $sendEmail);
+                    		$this->contratValide($this->vrac);
                     	} elseif ($sendEmail) {
                     		$this->saisieTerminee($this->vrac, $this->vrac->getProduitInterpro());
                     	}
