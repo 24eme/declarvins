@@ -78,6 +78,17 @@ class vracActions extends acVinVracActions
     public function sendOioc($vrac, $transactionCC = [])
     {
 		if ($vrac->exist('oioc') && $vrac->oioc->identifiant && $vrac->has_transaction) {
+            if (!$transactionCC) {
+                foreach (VracClient::getInstance()->getActeurs() as $acteur) {
+        			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+        			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
+        			if ($compte && $compte->email) {
+        				if ($compte->statut != _Compte::STATUT_ARCHIVE) {
+        					$transactionCC[$compte->email] = $etablissement->raison_sociale;
+        				}
+        			}
+        		}
+            }
 			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 			$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
