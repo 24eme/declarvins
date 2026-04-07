@@ -149,14 +149,10 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
-		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
-			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
-				if ($vrac->type_transaction == 'vrac' && ($vrac->type_retiraison == 'vrac' || !$vrac->type_retiraison)) {
-					$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
-					$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
-					Email::getInstance()->vracTransactionAnnulation($vrac, $etab, $oioc, $oioc->email_transaction);
-				}
-			}
+		if ($vrac->exist('oioc') && $vrac->oioc->identifiant && $vrac->has_transaction) {
+			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
+			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
+			Email::getInstance()->vracTransactionAnnulation($vrac, $etablissement, $oioc, $oioc->email_transaction);
 		}
 	}
 
