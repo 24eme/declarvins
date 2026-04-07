@@ -662,7 +662,9 @@ class acVinVracActions extends sfActions
 	{
 		$vrac = $this->getRoute()->getVrac();
         $etablissement = $this->getRoute()->getEtablissement();
-		$this->sendOioc($vrac);
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+		    $this->sendOioc($vrac);
+        }
 		$this->redirect('vrac_visualisation', array('sf_subject' => $vrac, 'etablissement' => $etablissement));
 	}
 
