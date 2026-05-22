@@ -15,10 +15,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     protected static $mvtsSurveilles = array(
         'Récolte / revendication' => 'entrees/recolte',
         'Entrée replacement en suspension CRD' => 'entrees/crd',
-        'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
         'Sortie autres' => 'sorties/pertes',
+        'Sortie mvt. temporaire : Transfert de chai' => 'sorties/mouvement',
         'Mvt. temporaire : Embouteillage' => 'sorties/embouteillage',
-        'Mvt. temporaire : Travail à façon' => 'sorties/travail'
+        'Mvt. temporaire : Travail à façon' => 'sorties/travail',
+        'Mvt. temporaire : Distillation à façon' => 'sorties/distillation',
+        'Excédent inventaire / Autres entrées' => 'entrees/excedent',
+        'Mvt. temporaire : Retour transfert de chai ' => 'entrees/mouvement',
+        'Mvt. temporaire : Retour embouteillage' => 'entrees/embouteillage',
+        'Mvt. temporaire : Retour de travail à façon' => 'entrees/travail',
+        'Mvt. temporaire : Retour de distillation à façon' => 'entrees/distillation'
     );
     protected static $mvtsSurveillesHashConstraint = array(
         'entrees/recolte' => ["appellations/CVG/mentions/DEFAUT/lieux/LAU"]
