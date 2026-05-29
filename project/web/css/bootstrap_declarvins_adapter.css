@@ -20,7 +20,7 @@ p {
 	font-size: 14px;
 }
 input.ui-autocomplete-input {
-	width: 93%;	
+	width: 93%;
 }
 
 .select2-container {
@@ -101,4 +101,8 @@ tr.filters {
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     border-color: #7f0048;
     border-bottom-color: transparent;
+}
+
+.panel-heading a, .panel-heading a:link, .panel-heading a:visited, .panel-heading .link {
+	color: #fff;
 }
