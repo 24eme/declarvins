@@ -38,10 +38,10 @@ class VracConditionIrForm extends VracConditionForm
     public function getCasParticulier() {
     	$options = parent::getCasParticulier();
         if (!$this->getObject()->isPacteCooperatif()) {
-            unset($options['union']);
+            unset($options['union'], $options['union_cession_interne']);
             return $options;
         } else {
-            return ['union' => $options['union']];
+            return ['union' => $options['union'], 'union_cession_interne' => $options['union_cession_interne']];
         }
     }
 }
