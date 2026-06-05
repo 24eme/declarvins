@@ -4,16 +4,18 @@ all:
       is_active: false
     configuration-interpro-civp:
       is_active: true
-      mention_autorisation: "En signant ce formulaire de mandat, vous autorisez (A) Inter Rhône à envoyer des instructions à votre banque pour débiter votre compte, et (B) votre banque à débiter votre compte conformément aux instructions du CIVP."
+      mention_autorisation: "En signant ce formulaire de mandat, vous autorisez (A) Le Conseil Interprofessionnel des Vins de Provence (CIVP) à envoyer des instructions à votre banque pour débiter votre compte, et (B) votre banque à débiter votre compte conformément aux instructions du CIVP."
       delai_echeance_prelevement: '+60 days'
+      edit_back: 'facture_societe'
+      pdf_title: 'Mandat de prélèvement SEPA'
       creancier:
         identifiant_ics: ''
         nom: 'CIVP'
         adresse: 'RN 7'
         code_postal: ' 83460'
-        commune: 'Les arcs sur argens'
+        commune: 'Les Arcs-sur-Argens'
     configuration-interpro-ir:
-      is_active: true
+      is_active: false
       mention_autorisation: "En signant ce formulaire de mandat, vous autorisez (A) Inter Rhône à envoyer des instructions à votre banque pour débiter votre compte, et (B) votre banque à débiter votre compte conformément aux instructions d'Inter Rhône."
       delai_echeance_prelevement: '+30 days'
       creancier:
