@@ -30,6 +30,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         'entrees/recolte' => ["appellations/CVG/mentions/DEFAUT/lieux/LAU"]
     );
     protected static $appellationsPopupAdelphe = ['CDR', 'CVS', 'CVG', 'BEA', 'CDP', 'CGR', 'COD', 'COR', 'CRO', 'CRH', 'GIG', 'HER', 'LIR', 'RTA', 'SJO', 'SPT', 'TAV', 'VAC', 'VBR', 'CAR', 'GRI', 'LAU', 'SPE', 'SPB'];
+    protected static $appellationsDs = ['CP', 'CVP', 'CAP', 'BAN'];
 
     public function __construct() {
         parent::__construct();
@@ -1885,7 +1886,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     $droit = ConfigurationClient::getCurrent()->isApplicationOuverte('INTERPRO-CIVP', 'ds') && $this->getEtablissement()->hasZone(ConfigurationZoneClient::ZONE_PROVENCE) && $this->getEtablissement()->hasDroit(EtablissementDroit::DROIT_DS) && preg_match('/^([0-9]{4})-07$/', $this->periode);
     $produits = false;
     foreach ($this->getDetails('INTERPRO-CIVP') as $detail) {
-      if ($detail->getCouleur()->getKey() == 'rose' && $detail->cvo->taux) {
+      if ($detail->getCouleur()->getKey() == 'rose' &&  in_array($detail->getAppellation()->getKey(), self::$appellationsDs)) {
         $produits = true;
         break;
       }
