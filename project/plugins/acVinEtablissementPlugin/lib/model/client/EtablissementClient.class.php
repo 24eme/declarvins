@@ -4,6 +4,9 @@ class EtablissementClient extends acCouchdbClient {
     const REGION_HORS_CVO = 'REGION_HORS_CVO';
     const REGION_CVO = 'REGION_CVO';
 
+    const STATUT_ACTIF = 'ACTIF';
+    const STATUT_SUSPENDU = 'ARCHIVE';
+
     /**
      *
      * @return EtablissementClient
