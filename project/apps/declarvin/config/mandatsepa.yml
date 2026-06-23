@@ -15,7 +15,7 @@ all:
         code_postal: ' 83460'
         commune: 'Les Arcs-sur-Argens'
     configuration-interpro-ir:
-      is_active: false
+      is_active: true
       mention_autorisation: "En signant ce formulaire de mandat, vous autorisez (A) Inter Rhône à envoyer des instructions à votre banque pour débiter votre compte, et (B) votre banque à débiter votre compte conformément aux instructions d'Inter Rhône."
       delai_echeance_prelevement: '+30 days'
       creancier:
