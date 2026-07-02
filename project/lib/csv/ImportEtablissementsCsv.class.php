@@ -173,13 +173,14 @@ class ImportEtablissementsCsv {
     			throw new sfException('has errors');
     		}
     	}
-        if ($line[EtablissementCsv::COL_SIRET] && strpos($line[EtablissementCsv::COL_SIRET], 'E+') !== false) {
+        $siret = trim($line[EtablissementCsv::COL_SIRET]);
+        if ($siret && (strlen($siret) !== 14 || !ctype_digit($siret))) {
             $this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_SIRET + 1).')  le format du numero siret est incorrect');
             throw new sfException('has errors');
         }
     	$etab->identifiant = trim($line[EtablissementCsv::COL_ID]);
         $etab->num_interne = trim($line[EtablissementCsv::COL_NUM_INTERNE]);
-        $etab->siret = trim($line[EtablissementCsv::COL_SIRET]);
+        $etab->siret = $siret;
         $etab->cni = trim($line[EtablissementCsv::COL_CNI]);
         $etab->cvi = trim($line[EtablissementCsv::COL_CVI]);
         $etab->no_accises = trim($line[EtablissementCsv::COL_NO_ASSICES]);
