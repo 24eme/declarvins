@@ -18,5 +18,5 @@ awk -F";" -v OFS=';' 'function esc(v) { gsub(/"/, "", v); gsub(/;/, ",", v); sub
 php symfony export:facture $SYMFONYTASKOPTIONS --interpro="INTERPRO-CIVP" > $TMPE/factures.csv
 
 echo "Date;Code Journal;Numéro de Compte;Libellé de compte;Libellé de ligne;Taux de TVA du compte;Code pays du compte;Libellé de pièce;Numéro de pièce;Débit et/ou Crédit;Crédit;Famille de catégories;Catégorie;Identifiant de ligne;Identifiant de lettrage" > $TMPE/ecritures_facturesPennylane.csv
-awk -F ";" -v OFS=';' 'NR>1 {print $2, $1, $6, $16, $15,"20%","FR", $5, $4, $11,"" , $19, $20, $25,""
+awk -F ";" -v OFS=';' 'function esc(v) { gsub(/-/, "", v); return v; } function generateCompte(v) { sub(/^CIVP/, "4110", v); sub(/^C/, "4110", v); return v; } NR>1 {print $2, $1, generateCompte($7), $16, $15,"20%","FR", $5, $4, ($10 == "DEBIT") ? esc($11) : "", ($10 == "CREDIT") ? esc($11) : "","" , $19, $20, $25,""
 }' $TMPE/factures.csv >> $TMPE/ecritures_facturesPennylane.csv
