@@ -20,7 +20,9 @@ awk -F";" -v OFS=';' 'NR>1 && $20 {print $1,$2,$17,$18,$19,$20,$21,$22}' $TMPE/p
 php symfony export:facture $SYMFONYTASKOPTIONS --interpro="INTERPRO-CIVP" > $TMPE/factures.csv
 
 echo "Date;Code Journal;Numéro de Compte;Libellé de compte;Libellé de ligne;Taux de TVA du compte;Code pays du compte;Libellé de pièce;Numéro de pièce;Débit et/ou Crédit;Crédit;Famille de catégories;Catégorie;Identifiant de ligne;Identifiant de lettrage" > $TMPE/pennylane.factures.csv
-awk -F ";" -v OFS=';' 'function esc(v) { gsub(/-/, "", v); return v; } function generateCompte(v) { sub(/^/, "411", v); return v; } NR>1 {print $2, $1, ($15 == "ECHEANCE") ? generateCompte($7) : $6, $16, $15,"20%","FR", $5, $4, ($10 == "DEBIT") ? esc($11) : "", ($10 == "CREDIT") ? esc($11) : "","" , $19,"",""
+awk -F ";" -v OFS=';' 'function esc(v) { gsub(/-/, "", v); return v; } function generateCompte(v) { sub(/^/, "411", v); return v; } NR>1 {
+    compte = ($15 == "ECHEANCE") ? generateCompte($7) : ($15 == "TVA") ? "44571001" : $6
+print $2, $1, compte, $16, $15, "20%", "FR", $5, $4, ($10 == "DEBIT") ? esc($11) : "",($10 == "CREDIT") ? esc($11) : "", "", $19, "", ""
 }' $TMPE/factures.csv >> $TMPE/pennylane.factures.csv
 
 cat $TMPE/factures.csv | awk -F ';' '{print $14}' | sort | uniq | grep 2[0-9][0-9][0-9] | while read FACTUREID; do
