@@ -43,11 +43,11 @@ done
 
 zip -rjq $TMPE/pennylane.factures.zip $TMPE/pdf
 
-echo "$TMPE/pennylane.societes.csv|pennylane.societes.csv|Export Pennylane des sociétés"
-echo "$TMPE/pennylane.mandatssepa.csv|pennylane.mandatssepa.csv|Export Pennylane des mandats sepa"
-echo "$TMPE/pennylane.factures.csv|pennylane.factures.csv|Export Pennylane des factures"
+echo "$TMPE/pennylane.societes.csv|pennylane.societes.csv|Export des sociétés pour Pennylane"
+echo "$TMPE/pennylane.mandatssepa.csv|pennylane.mandatssepa.csv.xlsx|Export des mandats sepa pour Pennylane"
+echo "$TMPE/pennylane.factures.csv|pennylane.factures.csv|Export des factures pour Pennylane"
 if [ -f "$TMPE/pennylane.factures.zip" ]; then
-echo "$TMPE/pennylane.factures.zip|pennylane.factures.zip|PDF des factures"
+echo "$TMPE/pennylane.factures.zip|pennylane.factures.zip|PDF des factures pour Pennylane"
 fi
 echo "$TMPE/societes.csv|societes.csv|Export CSV des sociétés"
 echo "$TMPE/factures.csv|factures.csv|Export CSV des factures"

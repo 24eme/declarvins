@@ -10,9 +10,6 @@ while($line = trim(fgets(STDIN))) {
     }
     $data = str_getcsv($line, ";");
     $codeCompte = $data[5];
-    if($data[14] == "TVA") {
-        $codeCompte = "44571001";
-    }
     if($data[14] == "ECHEANCE") {
         $codeCompte = "411".$data[6];
     }
