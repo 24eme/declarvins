@@ -3,7 +3,7 @@ all:
     facture:
       prefix_sage: "VEN"
       prefix_sage_divers: null
-      compte_tva: "44571500"
+      compte_tva: "44571001"
       compte_defaut: "70800000"
       compte_general: "4110000"
       compte_banque: "51211000"
