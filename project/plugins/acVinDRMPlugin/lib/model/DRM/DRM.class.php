@@ -639,6 +639,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             }
         }
         $this->annuleUpdateVrac();
+        $this->updateAutoReserveInterpro(true);
     }
 
     public function cleanCiel() {
@@ -731,7 +732,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->getSuivante()->save();
         }
         $this->storeReferente();
-
+        $this->updateAutoReserveInterpro();
     }
 
     public function isTeledeclare()
