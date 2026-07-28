@@ -72,15 +72,33 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
+		$this->sendOioc($vrac, $transactionCC);
+	}
+
+    public function sendOioc($vrac, $transactionCC = [])
+    {
 		if ($vrac->exist('oioc') && $vrac->oioc->identifiant && $vrac->has_transaction) {
+            if (!$transactionCC) {
+                foreach (VracClient::getInstance()->getActeurs() as $acteur) {
+        			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+        			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
+        			if ($compte && $compte->email) {
+        				if ($compte->statut != _Compte::STATUT_ARCHIVE) {
+        					$transactionCC[$compte->email] = $etablissement->raison_sociale;
+        				}
+        			}
+        		}
+            }
 			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 			$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
 			$transaction = new ExportVracPdfTransaction($vrac, $configurationVrac, true);
 			$transaction->generate();
 			Email::getInstance()->vracTransaction($vrac, $etablissement, $oioc, $transactionCC);
+            $vrac->oioc->add('envoi_mail', 1);
+            $vrac->save(false);
 		}
-	}
+    }
 
 	protected function contratModifie($vrac) {
 		$acteurs = VracClient::getInstance()->getActeurs();
@@ -142,14 +160,10 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
-		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
-			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
-				if ($vrac->type_transaction == 'vrac' && ($vrac->type_retiraison == 'vrac' || !$vrac->type_retiraison)) {
-					$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
-					$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
-					Email::getInstance()->vracTransactionAnnulation($vrac, $etab, $oioc, $oioc->email_transaction);
-				}
-			}
+		if ($vrac->exist('oioc') && $vrac->oioc->identifiant && $vrac->has_transaction) {
+			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
+			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
+			Email::getInstance()->vracTransactionAnnulation($vrac, $etablissement, $oioc, $oioc->email_transaction);
 		}
 	}
 

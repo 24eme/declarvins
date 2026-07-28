@@ -4,3 +4,4 @@ all:
       actif: false
       raisinetmout: false
       no_viti: true
+      inclure_producteurs: true

@@ -3,7 +3,7 @@ all:
     facture:
       prefix_sage: "VEN"
       prefix_sage_divers: null
-      compte_tva: "44571500"
+      compte_tva: "44571001"
       compte_defaut: "70800000"
       compte_general: "4110000"
       compte_banque: "51211000"
@@ -32,8 +32,8 @@ all:
       teledeclaration: false
       seuil_minimum: 100
       code_journal: 'BQ1'
-      delai_relance1: '+45 days'
-      delai_relance2: '+65 days'
+      delai_relance1: '+52 days'
+      delai_relance2: '+67 days'
       multi_interpro_facturables: true
       paiements_actif: true
     facture-interpro-ivse:

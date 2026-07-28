@@ -455,7 +455,6 @@ class drmActions extends sfActions {
   		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
-        $this->drm->updateAutoReserveInterpro();
         $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
         if ($isAdmin) {
         	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
@@ -475,7 +474,7 @@ class drmActions extends sfActions {
 
 
         if (!$request->isMethod(sfWebRequest::POST)) {
-
+            $this->drm->updateAutoReserveInterpro();
             return sfView::SUCCESS;
         }
 
@@ -559,7 +558,7 @@ class drmActions extends sfActions {
             throw $e;
         }
 
-        if ($this->drmCiel->isTransfere()) {
+        if ($this->drmCiel->isTransfere() && !$this->drmCiel->isValide()) {
         	Email::getInstance()->cielSended($this->drm);
         }
 

@@ -422,30 +422,30 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     }
 
 	public function getCodeComptable() {
-        if (!$this->exist('code_comptable') || !$this->_get('code_comptable')) {
+        if (!$this->exist('code_compte') || !$this->_get('code_compte')) {
 
             return $this->getParentNode()->getCodeComptable();
         }
 
-        return $this->_get('code_comptable');
+        return $this->_get('code_compte');
     }
 
     protected function setDonneesCsvCallback($datas)
     {
     	$this->getParentNode()->setDonneesCsv($datas);
     }
-	
-    protected function getDepartementsCsv($departements) 
+
+    protected function getDepartementsCsv($departements)
     {
     	return ($departements)? explode(ConfigurationProduitCsvFile::CSV_DELIMITER_DEPARTEMENTS, $departements) : array();
     }
-	
-    protected function getPrestationsCsv($prestations) 
+
+    protected function getPrestationsCsv($prestations)
     {
     	return ($prestations)? explode(ConfigurationProduitCsvFile::CSV_DELIMITER_PRESTATIONS, $prestations) : array();
     }
-	
-    protected function getLabelsCsv($labels) 
+
+    protected function getLabelsCsv($labels)
     {
     	$result = array();
     	if ($labels) {

@@ -345,6 +345,7 @@ Vrac:
             date_traitement: {  }
             identifiant: {  }
             statut: { }
+            envoi_mail: {  required: false; }
       nature_document: {  }
       date_signature_vendeur: {  }
       date_signature_acheteur: {  }

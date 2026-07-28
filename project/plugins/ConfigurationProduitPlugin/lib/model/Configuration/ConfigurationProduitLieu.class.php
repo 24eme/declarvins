@@ -43,39 +43,48 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
         }
         return false;
     }
-    
-    public function getTotalLieux() 
+
+    public function getTotalLieux()
     {
         return array($this->getHash() => $this);
     }
-    
+
+    public function getCodeComptable() {
+      if (!$this->_get('code_compte')) {
+
+          return $this->getParentNode()->getCodeComptable();
+      }
+
+      return $this->_get("code_compte");
+    }
+
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */
-    
+
   	public function hasLabels() { return false; }
-    
+
   	public function hasDepartements() { return false; }
-  	
+
 	public function hasPrestations() { return false; }
-  	
+
   	public function hasCvo() { return true; }
-  	
+
   	public function hasDouane() { return false; }
-  	
+
   	public function hasDRMVrac() { return false; }
-  	
+
   	public function hasCiel() { return false; }
-  	  	
+
   	public function hasOIOC() { return false; }
-  	
+
   	public function hasDefinitionDrm() { return true; }
-  	
+
   	public function getTypeNoeud() { return self::TYPE_NOEUD; }
-  	
+
   	public function getCodeApplicatif() { return self::CODE_APPLICATIF_NOEUD; }
-  	
+
   	public function getCsvLibelle() { return ConfigurationProduitCsvFile::CSV_PRODUIT_LIEU_LIBELLE; }
-  	
+
   	public function getCsvCode() { return ConfigurationProduitCsvFile::CSV_PRODUIT_LIEU_CODE; }
 }

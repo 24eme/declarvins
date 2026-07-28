@@ -298,13 +298,6 @@ class Configuration extends BaseConfiguration {
         foreach ($zones as $zoneId => $zone) {
             foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
                 $p = $configurationProduits->getProduits($hash, $onlyForDrmVrac, $cvoNeg, $date);
-                if ($configurationProduits->interpro == InterproClient::INTERPRO_COMMUNE && $famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
-                    foreach ($p as $k => $v) {
-                        if (strpos($k, '/AOP/') !== false) {
-                            unset($p[$k]);
-                        }
-                    }
-                }
                 $produits = array_merge($produits, $p);
             }
         }

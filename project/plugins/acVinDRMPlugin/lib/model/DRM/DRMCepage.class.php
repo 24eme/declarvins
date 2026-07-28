@@ -435,7 +435,7 @@ class DRMCepage extends BaseDRMCepage {
         }
     }
 
-    public function updateAutoReserveInterpro()
+    public function updateAutoReserveInterpro($reverse = false)
     {
         foreach($this->getReserveInterproMillesimes() as $millesime) {
             if ($this->isInReserveInterproPeriode($millesime)) {
@@ -446,7 +446,17 @@ class DRMCepage extends BaseDRMCepage {
                     $volumeSortieChai = $this->getVolumeSortieChai();
                     $diff = $cumul - $capacite;
                     $deduction = ($diff < $volumeSortieChai)? $diff : $volumeSortieChai;
-                    $reserve = $this->getReserveInterpro($millesime) - $deduction;
+                    $reserve = $this->getReserveInterpro($millesime);
+                    if ($reverse) {
+                        $drmPrecedente = $this->getDocument()->getPrecedente(true);
+                        if ($drmPrecedente && !$drmPrecedente->isNew() && $drmPrecedente->exist($this->getHash()) && $drmPrecedente->get($this->getHash())->getReserveInterpro($millesime) > 0) {
+                            $reserve = $drmPrecedente->get($this->getHash())->getReserveInterpro($millesime);
+                        } else {
+                            throw new sfException("reverse impossible a déterminé");
+                        }
+                    } else {
+                        $reserve -= $deduction;
+                    }
                     if ($reserve < 0) {
                         $reserve = 0;
                     }

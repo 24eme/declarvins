@@ -278,7 +278,7 @@ class acVinVracActions extends sfActions
                     		}
                     		$this->getUser()->setAttribute('vrac_modification', null);
                     	} elseif ($sendEmail && !$this->vrac->isRectificative()) {
-                    		$this->contratValide($this->vrac, $sendEmail);
+                    		$this->contratValide($this->vrac);
                     	} elseif ($sendEmail) {
                     		$this->saisieTerminee($this->vrac, $this->vrac->getProduitInterpro());
                     	}
@@ -658,6 +658,15 @@ class acVinVracActions extends sfActions
         return $this->renderText($data_json);
 
     }
+	public function executeEnvoiOioc(sfWebRequest $request)
+	{
+		$vrac = $this->getRoute()->getVrac();
+        $etablissement = $this->getRoute()->getEtablissement();
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+		    $this->sendOioc($vrac);
+        }
+		$this->redirect('vrac_visualisation', array('sf_subject' => $vrac, 'etablissement' => $etablissement));
+	}
 
 	protected function saisieTerminee($vrac, $interpro) {
 		return;
@@ -684,6 +693,10 @@ class acVinVracActions extends sfActions
 	}
 
 	protected function contratRefusAnnulation($vrac, $interpro, $etablissement = null) {
+		return;
+	}
+
+	public function sendOioc($vrac, $transactionCC = []) {
 		return;
 	}
 

@@ -9,6 +9,8 @@ class CielCftTask extends sfBaseTask
 	CONST RAPPORT_PASS_KEY = 'PASS';
 	CONST RAPPORT_ERROR_KEY = 'ERROR';
 
+	CONST RAPPORT_NONSAISIE_LOGFILE = '/seed.log';
+
   protected function configure()
   {
 
@@ -41,6 +43,18 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $contextInstance = sfContext::createInstance($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
+
+	$logFile = sfConfig::get('sf_data_dir').self::RAPPORT_NONSAISIE_LOGFILE;
+	$logLines = [];
+	$maxLines = 5000;
+	if (file_exists($logFile)) {
+	    $logLines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	    if (count($logLines) > $maxLines) {
+	        $logLines = array_slice($lines, -$maxLines);
+	    }
+	} else {
+		touch($logFile);
+	}
 
     $checkingMode = $options['checking'];
     $weeklyMode = $options['weekly'];
@@ -125,8 +139,12 @@ EOF;
     			    if ($generate) {
     			        $rapport[self::RAPPORT_GENERATE_KEY][] = 'La DRM '.$drmGeneree->_id.' a été générée avec succès';
     			    } else {
-    				    $rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$this->getPeriode($xmlIn).' de l\'établissement '.$this->getEA($xmlIn).' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$this->getEA($xmlIn).'" target="_blank">Information SEED</a>';
-    				    $files[] = $item;
+						if (!in_array($this->getPeriode($xmlIn).'-'.$this->getEA($xmlIn), $logLines)) {
+							$logLines[] = $this->getPeriode($xmlIn).'-'.$this->getEA($xmlIn);
+							file_put_contents($logFile, implode(PHP_EOL, $logLines).PHP_EOL);
+							$rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$this->getPeriode($xmlIn).' de l\'établissement '.$this->getEA($xmlIn).' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$this->getEA($xmlIn).'" target="_blank">Information SEED</a>';
+	    				    $files[] = $item;
+						}
     			    }
     			}
     		} else {

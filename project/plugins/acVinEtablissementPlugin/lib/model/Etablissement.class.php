@@ -140,6 +140,7 @@ class Etablissement extends BaseEtablissement {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
     		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
     	}
+        $this->siret = $this->getSiret();
     	parent::save();
     }
 
@@ -286,6 +287,14 @@ class Etablissement extends BaseEtablissement {
     public function getSociete() {
         $identifiant = ($this->_get('societe'))? $this->_get('societe') : $this->identifiant;
         return SocieteClient::getInstance()->find($identifiant);
+    }
+
+    public function getSiret() {
+        $siret = $this->_get('siret');
+        if ($siret && (strlen($siret) !== 14 || !ctype_digit($siret))) {
+            $siret = null;
+        }
+        return $siret;
     }
 
     public function hasSociete() {

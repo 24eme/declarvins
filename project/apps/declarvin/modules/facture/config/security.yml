@@ -1,6 +1,6 @@
 all:
   is_secure: true
-  credentials: []
+  credentials: [operateur]
 
 monEspace:
   credentials: []

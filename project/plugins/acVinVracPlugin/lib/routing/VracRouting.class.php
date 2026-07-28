@@ -114,6 +114,10 @@ class VracRouting {
                                                           array('module' => 'vrac', 'action' => 'pdfTransaction', 'format' => 'pdf'),
                                                           array('sf_method' => array('get'), 'format' => '(html|pdf)'),
                                                           array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/', '.'))));
+      $r->prependRoute('vrac_envoioioc', new VracRoute('/vrac/:identifiant/:contrat/envoioioc',
+                                                      array('module' => 'vrac','action' => 'envoiOioc'),
+                                                      array('sf_method' => array('get','post')),
+                                                      array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/'))));
         /*
          * BAZAR A MATHURIN ->
          */

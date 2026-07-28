@@ -119,7 +119,7 @@ class Email {
   					->setSubject($subject)
   					->setBody($body)
   					->setContentType('text/html')
-  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('numero_contrat').'.pdf'));
 
         return $this->getMailer()->send($message);
     }
@@ -139,7 +139,7 @@ class Email {
   					->setSubject($subject)
   					->setBody($body)
   					->setContentType('text/html')
-  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'-TRANSACTION.pdf'));
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('numero_contrat').'-TRANSACTION.pdf'));
 
         return $this->getMailer()->send($message);
     }
@@ -157,7 +157,7 @@ class Email {
   					->setSubject($subject)
   					->setBody($body)
   					->setContentType('text/html')
-  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('numero_contrat').'.pdf'));
 
         return $this->getMailer()->send($message);
     }
@@ -175,7 +175,7 @@ class Email {
   					->setSubject($subject)
   					->setBody($body)
   					->setContentType('text/html')
-  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('numero_contrat').'.pdf'));
 
         return $this->getMailer()->send($message);
     }

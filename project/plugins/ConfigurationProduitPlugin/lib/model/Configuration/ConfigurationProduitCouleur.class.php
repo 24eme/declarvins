@@ -89,6 +89,15 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
         return ($defautCep)? $defautCep->getIdentifiantDouane() : null;
     }
 
+    public function getCodeComptable() {
+      if (!$this->_get('code_compte')) {
+
+          return $this->getParentNode()->getCodeComptable();
+      }
+
+      return $this->_get("code_compte");
+    }
+
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

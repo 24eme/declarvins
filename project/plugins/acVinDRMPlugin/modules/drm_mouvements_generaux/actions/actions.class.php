@@ -26,6 +26,7 @@ class drm_mouvements_generauxActions extends sfActions
 		$configuration = ConfigurationClient::getCurrent($this->drm->getDateDebutPeriode());
 		$certifications = $configuration->getCertifications();
 		foreach ($certifications as $c => $certification) {
+            if (!$c) continue;
 	            if (!isset($this->certifs[$c])) {
 					$this->certifs[$c] = $certification;
 					$this->certificationLibelle[$c] = $certification;

@@ -5725,25 +5725,25 @@ button.list-group-item-danger.active:focus {
   border-bottom: 1px solid #dddddd;
 }
 .panel-default {
-  border-color: #dbdbdb;
+  border-color: #7f0048;
 }
 .panel-default > .panel-heading {
-  color: #4e4e4e;
-  background-color: #dbdbdb;
-  border-color: #dbdbdb;
+  color: #fff;
+  background-color: #7f0048;
+  border-color: #7f0048;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #dbdbdb;
+  border-top-color: #7f0048;
 }
 .panel-default > .panel-heading .badge {
-  color: #dbdbdb;
+  color: #7f0048;
   background-color: #4e4e4e;
 }
 .panel-default > .panel-body {
   background-color: transparent;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #dbdbdb;
+  border-bottom-color: #7f0048;
 }
 .panel-primary {
   border-color: #7f0048;
