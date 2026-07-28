@@ -10,7 +10,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 	public function setup()
 	{
 		$this->enablePlugins('acCouchdbPlugin');
-		$this->enablePlugins('acPhpCasPlugin');
+		$this->enablePlugins('acCASPlugin');
 		$this->enablePlugins('acLdapPlugin');
 		$this->enablePlugins('acDompdfPlugin');
 		$this->enablePlugins('acVinConfigurationPlugin');
