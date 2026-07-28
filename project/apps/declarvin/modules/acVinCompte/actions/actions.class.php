@@ -11,7 +11,7 @@ require_once sfConfig::get('sf_plugins_dir').'/acVinComptePlugin/modules/acVinCo
 class acVinCompteActions extends BaseacVinCompteActions {
 
     /**
-     * 
+     *
      *
      * @param sfRequest $request A request object
      */
@@ -46,16 +46,16 @@ class acVinCompteActions extends BaseacVinCompteActions {
         }
     }
     public function executeValide(sfWebRequest $request) {
-    	
+
     }
     public function executeCompteInexistant(sfWebRequest $request) {
     	$this->compte = $request->getParameter('login', null);
     }
     public function executeComptePartenaire(sfWebRequest $request) {
-    	
+
     }
     public function executeAccesInterdit(sfWebRequest $request) {
-    	
+
     }
     public function executeRedefinitionPassword(sfWebRequest $request) {
     	$this->forward404Unless($this->login = $request->getParameter('login'));
@@ -103,31 +103,24 @@ class acVinCompteActions extends BaseacVinCompteActions {
 
     public function executeLogin(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
-	  		return $this->redirectAfterLogin();
+            return $this->redirectAfterLogin();
         } elseif ($ticket = $request->getParameter('ticket')) {
-			/** CAS * */
-			acPhpCas::client();
-			acPhpCas::setNoCasServerValidation();
-			$this->getContext()->getLogger()->debug('{sfCASRequiredFilter} about to force auth');
-			acPhpCas::forceAuthentication();
-			$this->getContext()->getLogger()->debug('{sfCASRequiredFilter} auth is good');
-			/** ***** */
-			try {
-				$this->getUser()->signIn(phpCAS::getUser());
-			} catch (sfException $e) {
-				$this->redirect('compte_inexistant', array('login' => phpCAS::getUser()));
-			}
-			if ($this->getUser()->getCompte()->type == ComptePartenaire::COMPTE_TYPE_PARTENAIRE) {
-				$this->getUser()->signOut();
-				$this->redirect('@compte_partenaire');
-			}
+            /** CAS * */
+            acCas::processAuth();
+            $this->getContext()->getLogger()->debug('{sfCASRequiredFilter} about to force auth');
+            /** ***** */
+            $this->getUser()->signIn(acCas::getUser());
+            if ($this->getUser()->getCompte()->type == ComptePartenaire::COMPTE_TYPE_PARTENAIRE) {
+                $this->getUser()->signOut();
+                $this->redirect('@compte_partenaire');
+            }
             return $this->redirect($this->request->getUri());
         } else {
             if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
-        	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
-               $url = null;
-           } else {
-               $url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . urlencode($request->getUri());
+                $this->getUser()->signIn(sfConfig::get('app_autologin'));
+                $url = null;
+            } else {
+                $url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . urlencode($request->getUri());
             }
             return $this->redirectAfterLogin($url);
         }
@@ -159,8 +152,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
         }
 
         $url = 'https://'.$request->getHost();
-        acPhpCas::client();
-        phpCAS::logoutWithRedirectService($url);
+        acCas::processLogout($url);
 
         return $this->redirect($url);
     }

@@ -1,6 +1,0 @@
-all:
-  ac_php_cas:
-    domain: "**********.***"
-    port: 443
-    path: "****"
-    url : "https://**********.***"
