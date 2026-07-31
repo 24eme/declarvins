@@ -10,8 +10,12 @@ while($line = trim(fgets(STDIN))) {
     }
     $data = str_getcsv($line, ";");
     $codeCompte = $data[5];
+    $tva = null;
     if($data[14] == "ECHEANCE") {
         $codeCompte = "411".$data[6];
+    }
+    if($data[14] == "LIGNE") {
+        $tva = "20%";
     }
     $ecriture = [
         $data[1],
@@ -19,12 +23,13 @@ while($line = trim(fgets(STDIN))) {
         $codeCompte,
         $data[15],
         $data[14],
-        "20%",
+        $tva,
         "FR",
-        $data[3]." - ".preg_replace("/^([0-9]+)-([0-9]+)-([0-9]+)$/", "$3/$2/$1", $data[1])." - ".$data[15],
+        $data[3]." - ".$data[15],
         $data[3],
         "%DEBIT%",
         "%CREDIT%",
+        $data[8],
         "",
         $data[18],
         "",
@@ -45,7 +50,7 @@ while($line = trim(fgets(STDIN))) {
         $ecritures[$keyEcriture]["%CREDIT%"] += floatval($data[10]);
     }
 }
-echo "Date;Code Journal;Numéro de Compte;Libellé de compte;Libellé de ligne;Taux de TVA du compte;Code pays du compte;Libellé de pièce;Numéro de pièce;Débit et/ou Crédit;Crédit;Famille de catégories;Catégorie;Identifiant de ligne;Identifiant de lettrage\n";
+echo "Date;Code Journal;Numéro de Compte;Libellé de compte;Libellé de ligne;Taux de TVA du compte;Code pays du compte;Libellé de pièce;Numéro de pièce;Débit et/ou Crédit;Crédit;Date échéance;Famille de catégories;Catégorie;Identifiant de ligne;Identifiant de lettrage\n";
 foreach($ecritures as $ligne => $values) {
     echo str_replace(array_keys($values), array_values($values), $ligne);
 }

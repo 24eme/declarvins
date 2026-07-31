@@ -71,6 +71,7 @@ all:
       email_interpro_teledeclaration: 'declarvins@inter-rhone.com'
       facturation_metas_actif: true
     facture-interpro-civp:
+      compte_tva: "44571009"
       type_cvo:
         identifiant_prefix: "FADRM"
       type_libre:
