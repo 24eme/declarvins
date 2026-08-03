@@ -38,6 +38,7 @@ class DRMVracContratCollectionForm extends acCouchdbObjectForm implements FormBi
                         }
                         $this->embedForm($key, new DRMVracContratForm($this->getObject()->add(), $this->_contrat_choices));
                 }
+                parent::bind($taintedValues, $taintedFiles);
         }
 
         public function unEmbedForm($key)
