@@ -26,6 +26,7 @@ class VracLotCuveCollectionForm extends acCouchdbObjectForm implements FormBinda
 			};
 			$this->embedForm ($key, new VracLotCuveForm($this->getObject()->add()));
 		}
+        parent::bind($taintedValues, $taintedFiles);
 	}
     
     public function unEmbedForm($key) 

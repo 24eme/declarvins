@@ -38,6 +38,7 @@ class DRMDeclaratifRnaCollectionForm extends BaseForm implements FormBindableInt
                         }
                         $this->embedForm($key, new DRMDeclaratifRnaForm($this->_rna->add()));
                 }
+                parent::bind($taintedValues, $taintedFiles);
         }
 
         public function unEmbedForm($key)

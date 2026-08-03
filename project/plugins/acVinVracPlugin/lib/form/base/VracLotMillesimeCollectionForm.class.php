@@ -27,6 +27,7 @@ class VracLotMillesimeCollectionForm extends acCouchdbObjectForm implements Form
 
 			$this->embedForm ($key, new VracLotMillesimeForm($this->getObject()->add()));
 		}
+        parent::bind($taintedValues, $taintedFiles);
 	}
     
     public function unEmbedForm($key) 
