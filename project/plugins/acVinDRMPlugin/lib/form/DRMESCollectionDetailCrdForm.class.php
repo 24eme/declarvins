@@ -37,6 +37,7 @@ class DRMESCollectionDetailCrdForm extends BaseForm implements FormBindableInter
                         }
                         $this->embedForm($key, new DRMESDetailCrdForm($this->details->add()));
                 }
+                parent::bind($taintedValues, $taintedFiles);
         }
 
         public function unEmbedForm($key)
