@@ -136,4 +136,11 @@ class CompteTiers extends BaseCompteTiers {
       }
       return null;
     }
+
+    public function getSociete() {
+        if ($id = $this->getIdSociete()) {
+            return SocieteClient::getInstance()->find($id);
+        }
+        return null;
+    }
 }
