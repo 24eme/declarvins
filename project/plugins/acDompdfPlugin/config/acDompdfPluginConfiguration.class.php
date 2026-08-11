@@ -25,6 +25,7 @@ class acDompdfPluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
+	  require_once("Masterminds/HTML5/autoload.php");
 	  require_once dirname(__FILE__).'/../lib/vendor/dompdf/lib/html5lib/Parser.php';
 	  require_once dirname(__FILE__).'/../lib/vendor/dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
 	  require_once dirname(__FILE__).'/../lib/vendor/dompdf/lib/php-svg-lib/src/autoload.php';
