@@ -38,10 +38,12 @@ class adminActions extends sfActions
     	}
 
       if ($this->form->isValid()) {
-          if ($this->form->getEtablissement()->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER)) {
-        	return $this->redirect("drm_mon_espace", $this->form->getEtablissement());
+          $etablissement = $this->form->getEtablissement();
+          $_SESSION['etablissement_id'] = $etablissement->identifiant;
+          if ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER)) {
+            return $this->redirect("drm_mon_espace", $etablissement);
         } else {
-            return $this->redirect("profil", $this->form->getEtablissement());
+            return $this->redirect("profil", $etablissement);
         }
       }
     }
