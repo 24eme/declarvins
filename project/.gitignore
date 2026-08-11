@@ -9,3 +9,5 @@ data/upload
 *.log
 web/exports
 lib/vendor/symfony/.*
+.gitattributes
+.github
