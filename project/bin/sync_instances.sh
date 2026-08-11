@@ -16,6 +16,10 @@ fi
 
 rsync -zaO $WORKINGDIR"/web/generation/" $COUCHDISTANTHOST":"$WORKINGDIR"/web/generation"
 rsync -zaO $WORKINGDIR"/"$EXPORTDIR"/" $COUCHDISTANTHOST":"$WORKINGDIR"/"$EXPORTDIR
-if test "$EXTRA_SYNC" && test -d "$EXTRA_SYNC" ; then
-    rsync -zaO $EXTRA_SYNC"/" $COUCHDISTANTHOST":"$EXTRA_SYNC
+if test "$EXTRA_SYNC" ; then
+    echo $EXTRA_SYNC | sed 's/ /\n/g' | while read extra ; do
+        if test "$extra" && test -d "$extra" ; then
+            rsync -zaO $extra"/" $COUCHDISTANTHOST":"$extra
+        fi
+    done
 fi
