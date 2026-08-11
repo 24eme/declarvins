@@ -104,7 +104,16 @@
 			<?php if ($mention == 'marque'): echo "<p>Le vendeur autorise expressément l'Acheteur à utiliser sa marque.</p>"; endif; ?>
 		<?php endforeach ?>
 	<?php endif; ?>
-	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) : '-'; ?></p>
+	<p>Certification(s)/Label(s) :
+    <?php
+        if ($vrac->labels) {
+            echo $configurationVrac->formatLabelsLibelle(array($vrac->labels)) ;
+        } elseif ($vrac->labels_arr) {
+            echo $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels());
+        }  else {
+            echo '-';
+        }
+    ?></p>
 	<h2>Type de contrat</h2>
 	<p><?php if ($vrac->isAdossePluriannuel()): ?>Contrat adossé au contrat pluriannuel cadre n°<?php echo $vrac->reference_contrat_pluriannuel ?><?php elseif($vrac->contrat_pluriannuel): ?>Contrat pluriannuel<?php else: ?>Contrat ponctuel<?php endif; ?></p>
     <?php if ($vrac->pluriannuel_campagne_debut && $vrac->pluriannuel_campagne_fin): ?><p>Campagnes d'application de <?php echo $vrac->pluriannuel_campagne_debut ?> à <?php echo $vrac->pluriannuel_campagne_fin ?></p><?php endif; ?>
