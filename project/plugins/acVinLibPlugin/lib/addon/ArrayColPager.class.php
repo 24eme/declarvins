@@ -33,14 +33,13 @@ class ArrayColPager extends ArrayPager
 	    }
 	    $final = array();
 	    for ($i=0; $i<$this->max_per_col; $i++) {
-		    foreach ($result as $ind => $subArray) {
-		    	list($k, $v) = each($subArray);
-		    	$final[$k] = $v;
-		    	unset($result[$ind][$k]);
-		    }
+	        foreach ($result as $ind => $subArray) {
+	            foreach($subArray as $k => $v) {
+	                $final[$k] = $v;
+	                 unset($result[$ind][$k]);
+	            }
+	        }
 	    }
 	    $this->results = $final;
 	}
 }
-
-

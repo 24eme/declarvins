@@ -787,17 +787,19 @@ class Style {
 
     $font = null;
     while ( current($families) ) {
-      list(,$family) = each($families);
-      //remove leading and trailing string delimiters, e.g. on font names with spaces;
-      //remove leading and trailing whitespace
-      $family=trim($family," \t\n\r\x0B\"'");
-      if ($DEBUGCSS) print '('.$family.')';
-      $font = Font_Metrics::get_font($family, $subtype);
-
-      if ( $font ) {
-        if ($DEBUGCSS)  print '('.$font.")get_font_family]\n</pre>";
-        return $font;
-      }
+        foreach($families as $k => $family) {
+            //remove leading and trailing string delimiters, e.g. on font names with spaces;
+            //remove leading and trailing whitespace
+            $family=trim($family," \t\n\r\x0B\"'");
+            if ($DEBUGCSS) {
+                print('('.$family.')');
+            }
+            $font = Font_Metrics::get_font($family, $subtype);
+            if ( $font ) {
+                if ($DEBUGCSS)  print '('.$font.")get_font_family]\n</pre>";
+                return $font;
+            }
+        }
     }
 
     $family = null;

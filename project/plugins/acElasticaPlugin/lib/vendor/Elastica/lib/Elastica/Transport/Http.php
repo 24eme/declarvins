@@ -70,7 +70,7 @@ class Elastica_Transport_Http extends Elastica_Transport_Abstract
         $headersConfig = $request->getConfig('headers');
         if (!empty($headersConfig)) {
             $headers = array();
-            while (list($header, $headerValue) = each($headersConfig)) {
+            foreach ($headersConfig as $header => $headerValue) {
                 array_push($headers, $header . ': ' . $headerValue);
             }
 
