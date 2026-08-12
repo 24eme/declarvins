@@ -28,7 +28,7 @@ class DRMVracContratCollectionForm extends acCouchdbObjectForm implements FormBi
         public function bind(array $taintedValues = null, array $taintedFiles = null)
         {
                 foreach ($this->embeddedForms as $key => $form) {
-                        if(!array_key_exists($key, $taintedValues)) {
+                        if(!$taintedValues || !array_key_exists($key, $taintedValues)) {
                                 $this->unEmbedForm($key);
                         }
                 }
