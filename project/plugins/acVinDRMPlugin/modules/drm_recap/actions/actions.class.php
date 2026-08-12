@@ -205,7 +205,11 @@ class drm_recapActions extends sfActions
             }
         }
         $nbCertifs = count($certifications);
-        $this->percent += round(((20 / $nbCertifs) * $current), 0, PHP_ROUND_HALF_UP);
+        if ($nbCertifs) {
+            $this->percent += round(((20 / $nbCertifs) * $current), 0, PHP_ROUND_HALF_UP);
+        } else {
+            $this->percent += 20;
+        }
     	$this->redirectIfNoMouvementCheck();
     }
 
