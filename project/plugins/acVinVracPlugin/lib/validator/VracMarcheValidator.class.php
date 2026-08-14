@@ -112,6 +112,12 @@ class VracMarcheValidator extends sfValidatorBase {
                     $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
                     $hasError = true;
                 }
+                foreach (array_keys($values['paiements']) as $key) {
+                    if (strpos($values['paiements'][$key]['date'],'/') > 0) {
+                        $date = DateTime::createFromFormat('d/m/Y', $values['paiements'][$key]['date']);
+                        $values['paiements'][$key]['date'] = $date->format('Y-m-d');
+                    }
+                }
                 foreach ($values['paiements'] as $key => $paiement) {
                     if (!$paiement['date']) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
