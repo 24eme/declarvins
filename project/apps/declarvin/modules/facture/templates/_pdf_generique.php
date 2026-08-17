@@ -82,15 +82,12 @@ foreach ($facture->lignes as $type => $typeLignes) {
                                   ~ & ~ & ~ & ~ &\\
             <?php
             $nb_pages++;
-            $line_nb = FactureLatex::NB_LIGNES_ENTETE;
+            $line_nb = 0;
         } // fin de nouvelle page
     }
 }
 
 $nb_blank = FactureLatex::MAX_LIGNES_PERPAGE - $line_nb - $total_lines_footer;
-if ($nb_pages > 0) {
-    $nb_blank += FactureLatex::NB_LIGNES_ENTETE - 1;
-}
 if ($nbEcheances = count($facture->echeances)) {
   $nb_blank -= ($nbEcheances-2);
 }

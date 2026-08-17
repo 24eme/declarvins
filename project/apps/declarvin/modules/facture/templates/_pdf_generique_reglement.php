@@ -10,11 +10,7 @@ use_helper('Float');
 \begin{flushleft}
 \begin{minipage}[b]{0.70\textwidth}
 \begin{tiny}
-<?php if ($facture->isAvoir()): ?>
-   <?php echo $factureConfiguration->getReglementAvoir(); ?>
-<?php else: ?>
-   <?php echo $factureConfiguration->getReglement(); ?>
-<?php endif; ?>
+<?php echo $facture->getMessageReglement(); ?>
 \end{tiny}
 \end{minipage}
 \end{flushleft}
