@@ -11,3 +11,4 @@ web/exports
 lib/vendor/symfony/.*
 .gitattributes
 .github
+data/latex/*
