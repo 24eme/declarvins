@@ -115,10 +115,8 @@ class drmComponents extends sfComponents {
         $this->drms = array();
         $this->formImport = new UploadCSVForm();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
-        $new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE) ? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
-        if ($new_drm) {
-            $this->drms["DRM-".$new_drm->getIdentifiant().'-'.$new_drm->getPeriode()] = ['drm' => $new_drm ];
-        }
+        $this->new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE) ? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
+
         //$this->limit = 1;
 
         if ((!isset($this->campagne) || !$this->campagne) && $this->new_drm) {
@@ -129,6 +127,11 @@ class drmComponents extends sfComponents {
                 $this->campagne = $campagnes[0];
             }
         }
+
+        if ($this->new_drm && $this->campagne == $this->new_drm->campagne) {
+            $this->drms["DRM-".$this->new_drm->getIdentifiant().'-'.$this->new_drm->getPeriode()] = ['drm' => $this->new_drm ];
+        }
+
         foreach ($historique->getDRMsByCampagne($this->campagne) as $key => $infos) {
             if ($drm = DRMClient::getInstance()->find($key)) {
                 if ($drm->isMaster()) {
