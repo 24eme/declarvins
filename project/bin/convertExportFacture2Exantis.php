@@ -1,5 +1,9 @@
 <?php
-require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlParser.php');
+
+require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYaml.class.php');
+require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlDumper.class.php');
+require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlParser.class.php');
+require_once(dirname(__FILE__).'/../lib/vendor/symfony/lib/yaml/sfYamlInline.class.php');
 
 if (!isset($argv[1])) {
   echo "ERREUR : l'identifiant de la configuration produit a utiliser n'est pas spécifié\n";
