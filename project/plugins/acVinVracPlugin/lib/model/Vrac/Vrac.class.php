@@ -1044,11 +1044,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function isPrimeur() {
-        return in_array('prim', $this->mentions);
+        return in_array('prim', $this->mentions->toArray());
     }
 
     public function isBio() {
-        return in_array('biol', $this->labels_arr);
+        return in_array('biol', $this->labels_arr->toArray());
     }
 
     public function updateVersementFa(){

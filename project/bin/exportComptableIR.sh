@@ -37,7 +37,7 @@ done
 zip -rj $TMPE/factures.zip $TMPE/pdf
 
 php symfony export:mvts-enattentes $SYMFONYTASKOPTIONS --interpro="INTERPRO-IR" > $TMPE/reliquats-drm.csv
-cat $TMPE/reliquats-drm.csv | php bin/convertExportFacture2Exantis.php > $TMPE/reliquats-drm.json
+cat $TMPE/reliquats-drm.csv | php bin/convertExportFacture2Exantis.php CONFIGURATION-PRODUITS-IR-20240101 > $TMPE/reliquats-drm.json
 
 echo "$TMPE/factures.json|factures.json|Export JSON des factures"
 echo "$TMPE/factures.csv|factures.csv|Export CSV des factures"
