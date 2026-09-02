@@ -241,29 +241,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
         }
-        if($this->drm->canSetStockDebutMois()) {
-            if ($this->drmPrecedente) {
-                if ($produitsReserve = $this->drmPrecedente->getProduitsReserveInterpro()) {
-                    foreach ($produitsReserve as $produitReserve) {
-                        if ($this->drm->exist($produitReserve->getHash())) {
-                            $produitAddReserve = $this->drm->get($produitReserve->getHash());
-                            $produitAddReserve->remove('reserve_interpro_details');
-                            $produitAddReserve->add('reserve_interpro_details');
-                            $produitAddReserve->reserve_interpro_details = $produitReserve->reserve_interpro_details;
-                            $produitAddReserve->updateVolumeReserveInterpro();
-
-                            if ($produitReserve->hasCapaciteCommercialisation()) {
-                                $produitAddReserve->add('reserve_interpro_capacite_commercialisation', $produitReserve->getCapaciteCommercialisation());
-                            }
-                            if ($produitReserve->hasSuiviSortiesChais()) {
-                                $vol = (substr($this->drm->periode, -2) == 12)? 0 : round($produitReserve->getSuiviSortiesChais() + $produitReserve->getVolumeSortieChai(), 2);
-                                $produitAddReserve->add('reserve_interpro_suivi_sorties_chais', $vol);
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public function getProduitFromCache($datas) {
