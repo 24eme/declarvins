@@ -241,6 +241,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
         }
+        $this->drm->initReserveFromPrecedente();
     }
 
     public function getProduitFromCache($datas) {
