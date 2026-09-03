@@ -291,4 +291,59 @@ abstract class CompteGenerique extends acCouchdbDocument {
         self::pullContact($this, $compteFrom);
     }
 
+    public function getIntitule() {
+        $nom = $this->raison_sociale;
+
+        if($this->exist('nom')) {
+            $nom = $this->nom;
+        }
+
+        $extract = $this->extractIntitule($nom);
+
+        return $extract[0];
+    }
+
+    public function getPaysISO() {
+        return strtoupper(substr($this->getPays(), 0, 2));
+    }
+
+    public function getRaisonSocialeWithoutIntitule() {
+        $extract = $this->extractIntitule($this->raison_sociale);
+
+        return $extract[1];
+    }
+
+    public static function extractIntitule($raisonSociale) {
+        $intitules = "SA VINS|EARL|EI|ETS|EURL|GAEC|GFA|HOIRIE|IND|M|MR|MM|Mme|MME|MR|MADAME|MONSIEUR|SA|SARL|SAS|SASU|SC|SCA|SCE|SCEA|SCEV|SCIEV|SCI|SCV|SFF|SICA|SNC|SPH|STE|STEF|S\.A\.S\.|DOMAINE|S\.A\.|DOM\.|SASL DOMAINE|VEUVE|SUCCESSION|SDF|HERITIERS|G\.F\.A\.|E\.I\.|S\.D\.F\.|S\.C\.A\.";
+        $intitulesExclude = "DOMAINE D";
+        $intitule = null;
+
+        if(preg_match("/^(".$intitules.")[ \-]/", $raisonSociale, $matches) && !preg_match("/^(".$intitulesExclude.")/", $raisonSociale)) {
+            $intitule = $matches[1];
+            if (preg_match('/'.$intitule.'  *DE/', $raisonSociale)) {
+                $raisonSociale = preg_replace("/^".$intitule." /", "", $raisonSociale);
+            }
+        }
+
+        if(preg_match("/ \((".$intitules.")\)$/", $raisonSociale, $matches) && !preg_match("/ \((".$intitulesExclude.")\)$/", $raisonSociale)) {
+            $intitule = $matches[1];
+            $raisonSociale = preg_replace("/ \((".$intitule.")\)$/", "", $raisonSociale);
+        }
+
+        $intitule = preg_replace('/ *$/', '', $intitule);
+        $intitule = preg_replace('/^ */', '', $intitule);
+        $raisonSociale = preg_replace('/ *$/', '', $raisonSociale);
+        $raisonSociale = preg_replace('/^ */', '', $raisonSociale);
+
+        return array($intitule, $raisonSociale);
+    }
+
+    public function getRaisonSocialeAbregee($nbcar = 5) {
+        $extract = $this->extractIntitule($this->raison_sociale);
+        $preextract = preg_replace('/^ *'.$extract[0].'  */', '', $extract[1]);
+        $preextract = preg_replace('/^ *(CHATEAU|DOMAINE|MAS|CAVEAU)  */', '', $preextract);
+        $preextract = preg_replace('/^ *(DE *|DU *|LA * |LE * |DES *|DEI *|LES *|[LD]\')*/', '', $preextract);
+        return preg_replace('/ *$/', '', strtoupper(substr($preextract, 0, $nbcar)));
+    }
+
 }
