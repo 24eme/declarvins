@@ -517,9 +517,9 @@ class acVinVracActions extends sfActions
         	$conflict->delete();
         }
         if ($this->etablissement) {
-        	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
+        	$vrac_modificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
         } else {
-        	$vrac_rectificative->vous_etes = null;
+        	$vrac_modificative->vous_etes = null;
         }
         $vrac_modificative->save(false);
 
