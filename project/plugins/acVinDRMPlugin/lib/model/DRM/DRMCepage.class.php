@@ -470,22 +470,28 @@ class DRMCepage extends BaseDRMCepage {
     {
         $drm_produit_precedente = $drm_precedente->get($this->getHash());
         if ($drm_produit_precedente->exist('reserve_interpro')) {
-            $this->add('reserve_interpro', $drm_produit_precedente->get('reserve_interpro'));
+            $this->_add('reserve_interpro');
+            $this->_set('reserve_interpro', $drm_produit_precedente->_get('reserve_interpro'));
         }
         if ($drm_produit_precedente->exist('reserve_interpro_capacite_commercialisation')) {
-            $this->add('reserve_interpro_capacite_commercialisation', $drm_produit_precedente->get('reserve_interpro_capacite_commercialisation'));
+            $this->_add('reserve_interpro_capacite_commercialisation');
+            $this->_set('reserve_interpro_capacite_commercialisation', $drm_produit_precedente->_get('reserve_interpro_capacite_commercialisation'));
         }
         if ($drm_produit_precedente->exist('reserve_interpro_suivi_sorties_chais')) {
-            $this->add('reserve_interpro_suivi_sorties_chais', $drm_produit_precedente->get('reserve_interpro_suivi_sorties_chais'));
+            $this->_add('reserve_interpro_suivi_sorties_chais');
+            $this->_set('reserve_interpro_suivi_sorties_chais', $drm_produit_precedente->_get('reserve_interpro_suivi_sorties_chais'));
         }
         if ($drm_produit_precedente->exist('reserve_interpro_capacite_commercialisation_details')) {
-            $this->add('reserve_interpro_capacite_commercialisation_details', $drm_produit_precedente->get('reserve_interpro_capacite_commercialisation_details'));
+            $this->_add('reserve_interpro_capacite_commercialisation_details');
+            $this->_set('reserve_interpro_capacite_commercialisation_details', $drm_produit_precedente->_get('reserve_interpro_capacite_commercialisation_details'));
         }
         if ($drm_produit_precedente->exist('reserve_interpro_suivi_sorties_chais_details')) {
-            $this->add('reserve_interpro_suivi_sorties_chais_details', $drm_produit_precedente->get('reserve_interpro_suivi_sorties_chais_details'));
+            $this->_add('reserve_interpro_suivi_sorties_chais_details');
+            $this->_set('reserve_interpro_suivi_sorties_chais_details', $drm_produit_precedente->_get('reserve_interpro_suivi_sorties_chais_details'));
         }
         if ($drm_produit_precedente->exist('reserve_interpro_details')) {
-            $this->add('reserve_interpro_details', $drm_produit_precedente->get('reserve_interpro_details'));
+            $this->_add('reserve_interpro_details');
+            $this->_set('reserve_interpro_details', $drm_produit_precedente->_get('reserve_interpro_details'));
         }
     }
 
