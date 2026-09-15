@@ -21,8 +21,8 @@ class CsvFile
     if (!file_exists($file) && !preg_match('/^http/', $file))
       throw new Exception("Cannont access $file");
 
-    $charset = $this->getCharset($file);
-    if ($charset != 'utf-8'){
+    if (!$this->isUtf8($file)) {
+        $charset = $this->getCharset($file);
         exec('iconv -f '.$charset.' -t utf-8 '.$file.' > '.$file.'.tmp');
         if (filesize($file.".tmp")) {
             exec('mv '.$file.".tmp ".$file);
@@ -72,5 +72,11 @@ class CsvFile
     $ret = exec('file -i '.$file);
     $charset = substr($ret, strpos($ret,'charset='));
     return str_replace('charset=','',$charset);
+  }
+
+  private function isUtf8($file)
+  {
+    exec('iconv -f UTF-8 -t UTF-8 ' . escapeshellarg($file) . ' > /dev/null 2>&1', $output, $code);
+    return $code === 0;
   }
 }
