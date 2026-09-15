@@ -14,6 +14,8 @@ class CsvFile
   }
 
   public function __construct($file = null, $ignore_first_if_comment = 1) {
+    ini_set('memory_limit', '-1');
+    ini_set('max_execution_time', '0'); // for infinite time of execution
     $this->ignore = $ignore_first_if_comment;
     $this->separator = ';';
     if (!$file)
