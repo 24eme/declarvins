@@ -99,9 +99,17 @@ EOF;
 				    			$errors++;
 				    		}
 
+				    		$drm->update();
+
 				    		if (DRMClient::getInstance()->find($drm->_id)) {
 				    			$master = $drm->findMaster();
-			  					if ($master->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
+                                $hasModif = !(
+                                    $master->declaration->total_debut_mois == $drm->declaration->total_debut_mois &&
+                                    $master->declaration->total_entrees == $drm->declaration->total_entrees &&
+                                    $master->declaration->total_sorties == $drm->declaration->total_sorties &&
+                                    $master->declaration->total == $drm->declaration->total
+                                );
+			  					if ($master->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI||$hasModif) {
 			  						$master = $master->generateRectificative();
 			  						$drm->version = $master->version;
 			  						$drm->precedente = $master->_id;
@@ -112,7 +120,6 @@ EOF;
 			  					}
 				    		}
 				    		if (!$errors) {
-				    			$drm->update();
 				    			$validation = new DRMValidation($drm);
 
 				    			if (!$validation->isValide()) {
