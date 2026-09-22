@@ -281,6 +281,11 @@ class DRMCepage extends BaseDRMCepage {
         return ($this->exist('reserve_interpro_details') && count($this->_get('reserve_interpro_details')) > 1);
     }
 
+    public function hasReserveInterproMillesime($millesime)
+    {
+        return ($this->exist('reserve_interpro_details') && $this->get('reserve_interpro_details')->exist($millesime));
+    }
+
     public function hasCapaciteCommercialisation()
     {
         return (($this->exist('reserve_interpro_capacite_commercialisation') && $this->reserve_interpro_capacite_commercialisation > 0)||($this->exist('reserve_interpro_capacite_commercialisation_details') && count($this->reserve_interpro_capacite_commercialisation_details) > 0));
