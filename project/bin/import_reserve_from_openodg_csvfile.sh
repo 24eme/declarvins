@@ -30,6 +30,6 @@ print $3, $2, hash, substr($1, 1, 4), $27
 
 millesime=$(cat /tmp/declarvins_prod/CIVP/reserves.csv|cut -d';' -f4|sort|uniq|tail -n1)
 
-php symfony import:reserve-interpro $SYMFONYTASKOPTIONS --interpro="$interpro" --forceImport="0" --checking="1" --filtreMillesime="$millesime" "$TMPI/reserves.csv"
+php symfony import:reserve-interpro $SYMFONYTASKOPTIONS --interpro="$interpro" --forceImport="0" --filtreMillesime="$millesime" "$TMPI/reserves.csv"
 
 rm "$TMPI/reserves.csv"
