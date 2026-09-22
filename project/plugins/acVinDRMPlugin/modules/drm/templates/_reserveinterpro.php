@@ -30,7 +30,9 @@ foreach ($produits as $p)  {
     </thead>
     <tbody>
     <?php foreach ($produits as $p) :
-                foreach ($p->getReserveInterproDetails() as $millesime => $volume):  ?>
+                foreach ($p->getReserveInterproDetails() as $millesime => $volume):
+                    if ($p->reserveInterproFutur($millesime)) continue;
+    ?>
                         <tr>
                             <td style="text-align: right">
                                 <strong><?php echo $p->getFormattedLibelle(ESC_RAW); ?> <?php echo ($millesime)? $millesime."-".($millesime + 1) : ''; ?></strong><br/>
