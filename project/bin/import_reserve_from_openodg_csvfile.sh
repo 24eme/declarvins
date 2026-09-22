@@ -25,7 +25,7 @@ mkdir -p $TMPI
 awk -F';' -v OFS=';' 'NR > 1 {
 sub("CDP", "CP", $15)
 hash = "declaration/certifications/" $11 "/genres/" $13 "/appellations/" $15 "/mentions/DEFAUT/lieux/" $17 "/couleurs/" $19 "/cepages/" $21
-print $3, $2, hash, substr($1, 1, 4), $27
+print $3, $2, hash, substr($1, 1, 4), $27, $28
 }' "$csvfile" > "$TMPI/reserves.csv"
 
 millesime=$(cat /tmp/declarvins_prod/CIVP/reserves.csv|cut -d';' -f4|sort|uniq|tail -n1)
