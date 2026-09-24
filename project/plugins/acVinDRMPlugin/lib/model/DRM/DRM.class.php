@@ -2048,9 +2048,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
   public function getVolumesRevendiquesByProduitFromOdg()
   {
     $file = '..';
-    $handle = fopen($file, 'r');
     $result = [];
-    echo 'yop';
+    if (!file_exists($file)) {
+        return $result;
+    }
+    $handle = fopen($file, 'r');
     while (($line = fgetcsv($handle, null, ';')) !== false) {
         if ($line[0] == $this->campagne && $line[2] == $this->declarant->cvi) {
             $appellation = str_replace('CDP', 'CP', $line[14]);
