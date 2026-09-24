@@ -2028,4 +2028,20 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       }
       return false;
   }
+
+  public function getMvtsumByProduitInCampagne($mvtIn = 'entrees/recolte')
+  {
+      $mouvements = DRMMouvementsConsultationView::getInstance()->findByEtablissementAndCampagne($this->identifiant, $this->campagne)->rows;
+      $result = [];
+      foreach ($mouvements as $mouvement) {
+          if ($mouvement->key[MouvementsConsultationView::KEY_TYPE_HASH] == $mvtIn) {
+              $hash = preg_replace('#^/(.*)/details/.*$#', '$1', $mouvement->key[MouvementsConsultationView::KEY_PRODUIT_HASH]);
+              if (!isset($hash)) {
+                  $result[$hash] = 0;
+              }
+              $result[$hash] += $mouvement->value[MouvementsConsultationView::VALUE_VOLUME];
+          }
+      }
+      return array_map(fn($value) => round($value, 5), $result);
+  }
 }
