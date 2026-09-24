@@ -2044,4 +2044,21 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       }
       return array_map(fn($value) => round($value, 5), $result);
   }
+
+  public function getVolumesRevendiquesByProduitFromOdg()
+  {
+    $file = '..';
+    $handle = fopen($file, 'r');
+    $result = [];
+    echo 'yop';
+    while (($line = fgetcsv($handle, null, ';')) !== false) {
+        if ($line[0] == $this->campagne && $line[2] == $this->declarant->cvi) {
+            $appellation = str_replace('CDP', 'CP', $line[14]);
+            $hash = "declaration/certifications/$line[10]/genres/$line[12]/appellations/$appellation/mentions/$line[16]/lieux/$line[18]/couleurs/$line[20]/cepages/$line[22]";
+            $result[$hash] = round((float) str_replace(',', '.', $line[32]), 5);
+        }
+    }
+    fclose($handle);
+    return $result;
+  }
 }
