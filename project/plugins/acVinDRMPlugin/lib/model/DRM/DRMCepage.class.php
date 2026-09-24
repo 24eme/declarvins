@@ -448,6 +448,11 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateAutoReserveInterpro($reverse = false)
     {
+        foreach($this->getChildrenNode() as $key => $item) {
+        	if ($item->interpro != 'INTERPRO-IR') {
+        		return;
+        	}
+        }
         foreach($this->getReserveInterproMillesimes() as $millesime) {
             if ($this->isInReserveInterproPeriode($millesime)) {
                 $this->updateSuiviSortiesChais($millesime);
