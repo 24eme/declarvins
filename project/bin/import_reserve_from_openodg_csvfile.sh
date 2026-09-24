@@ -28,8 +28,8 @@ hash = "declaration/certifications/" $11 "/genres/" $13 "/appellations/" $15 "/m
 print $3, $2, hash, substr($1, 1, 4), $27, $28
 }' "$csvfile" > "$TMPI/reserves.csv"
 
-millesime=$(cat /tmp/declarvins_prod/CIVP/reserves.csv|cut -d';' -f4|sort|uniq|tail -n1)
+millesime=$(cat "$TMPI/reserves.csv"|cut -d';' -f4|sort|uniq|tail -n1)
 
-php symfony import:reserve-interpro $SYMFONYTASKOPTIONS --interpro="$interpro" --forceImport="1" --filtreMillesime="$millesime" "$TMPI/reserves.csv"
+php symfony import:reserve-interpro $SYMFONYTASKOPTIONS --interpro="$interpro" --forceImport="0" --filtreMillesime="$millesime" "$TMPI/reserves.csv"
 
 rm "$TMPI/reserves.csv"
