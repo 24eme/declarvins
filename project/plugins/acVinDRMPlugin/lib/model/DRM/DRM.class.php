@@ -2063,4 +2063,27 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     fclose($handle);
     return $result;
   }
+
+  public function hasVolumeRevendiqueADeclarer()
+  {
+    return count($this->getVolumeRevendiqueADeclarer()) > 0;
+  }
+
+  public function getVolumeRevendiqueADeclarer()
+  {
+    $volumesRevendiques = $this->getVolumesRevendiquesByProduitFromOdg();
+    $volumesDeclares = $this->getMvtsumByProduitInCampagne();
+    $result = [];
+    foreach ($volumesRevendiques as $hash => $volume) {
+        if (!$this->exist($hash)) continue;
+        if (count($this->get($hash)->details) > 1) continue;
+        if(!isset($volumesDeclares[$hash])) {
+            $result[$hash] = $volume;
+        }
+        if(isset($volumesDeclares[$hash]) && $volumesDeclares[$hash] < $volume) {
+            $result[$hash] = round($volume - $volumesDeclares[$hash], 5);
+        }
+    }
+    return $result;
+  }
 }
