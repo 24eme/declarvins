@@ -2036,7 +2036,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       foreach ($mouvements as $mouvement) {
           if ($mouvement->key[MouvementsConsultationView::KEY_TYPE_HASH] == $mvtIn) {
               $hash = preg_replace('#^/(.*)/details/.*$#', '$1', $mouvement->key[MouvementsConsultationView::KEY_PRODUIT_HASH]);
-              if (!isset($hash)) {
+              if (!isset($result[$hash])) {
                   $result[$hash] = 0;
               }
               $result[$hash] += $mouvement->value[MouvementsConsultationView::VALUE_VOLUME];
@@ -2053,7 +2053,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $result;
     }
     $handle = fopen($file, 'r');
-    while (($line = fgetcsv($handle, null, ';')) !== false) {
+    while (($line = fgetcsv($handle)) !== false) {
         if ($line[0] == $this->campagne && $line[2] == $this->declarant->cvi) {
             $appellation = str_replace('CDP', 'CP', $line[14]);
             $hash = "declaration/certifications/$line[10]/genres/$line[12]/appellations/$appellation/mentions/$line[16]/lieux/$line[18]/couleurs/$line[20]/cepages/$line[22]";
