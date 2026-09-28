@@ -2077,6 +2077,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     foreach ($volumesRevendiques as $hash => $volume) {
         if (!$this->exist($hash)) continue;
         if (count($this->get($hash)->details) > 1) continue;
+        $hasMvt = false;
+        foreach ($this->get($hash)->getProduits() as $produit) {
+            if ($produit->entrees->recolte > 0) {
+                $hasMvt = true;
+            }
+        }
+        if ($hasMvt) continue;
         if(!isset($volumesDeclares[$hash])) {
             $result[$hash] = $volume;
         }
