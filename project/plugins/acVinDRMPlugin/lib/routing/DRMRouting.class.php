@@ -533,6 +533,17 @@ class DRMRouting {
                               'type' => 'object',
                               'must_be_valid' => false,
                               'must_be_not_valid' => false)));
+
+        $r->prependRoute('drm_integre_volumesrevendiques', new DRMRoute('/drm/:identifiant/edition/:periode_version/integre-volumesrevendiques',
+                        array('module' => 'drm',
+                            'action' => 'integreVolumesRevendiques'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DRM',
+                              'type' => 'object',
+                              'no_archive' => true,
+                              'add_noeud' => false,
+                              'must_be_valid' => false,
+                              'must_be_not_valid' => true)));
     }
 
 }
