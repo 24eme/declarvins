@@ -12,8 +12,26 @@
 		<br />
 		<img src="/images/visuels/stocks.png" alt="" />
 		<p style="text-align: center;"><i>Ecran de saisie des mouvements de la DRM</i></p>
+        <div class="ligne_form_btn" style="text-align: right;">
+            <a href="#" onClick="location.reload(true); return false;" class="btn_valider" type="reset">Ok</a>
+        </div>
 	</div>
-	<?php endif; ?>
+    <?php elseif ($volumes = $drm->getVolumeRevendiqueADeclarer()->getRawValue()): ?>
+    <div id="popup_setdatasfromtiers" class="popup_contenu popup_form" style="display:none;">
+        <p style="padding-bottom: 10px;">Nous pouvons intégrer automatiquement les volumes, revendiqués auprès de votre syndicat, ci dessous :</p>
+        <table width="100%">
+        <?php foreach ($volumes as $hash => $volume): ?>
+            <tr>
+                <td><?php echo $drm->get($hash)->getLibelle() ?></td>
+                <td width="20%" align="right"><strong><?php echo $volume ?></strong> hl</td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+        <div class="ligne_form_btn" style="text-align: right;">
+            <a class="btn_valider" href="<?php echo url_for('drm_integre_volumesrevendiques', $drm) ?>">Je souhaite intégrer ces volumes dans ma DRM</a>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'informations', 'pourcentage' => '5')); ?>
