@@ -2047,7 +2047,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
   public function getVolumesRevendiquesByProduitFromOdg()
   {
-    $file = '..';
+    $etablissement = $this->getEtablissement();
+    $file = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . sfConfig::get('app_odg_drev_file_webdir_' . strtolower($etablissement->interpro));
     $result = [];
     if (!file_exists($file)) {
         return $result;
