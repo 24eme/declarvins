@@ -62,9 +62,12 @@
                     if($elt[VracHistoryView::VRAC_REF_PLURIANNUEL]) {
                         $isAdossePluriannuel = true;
                     }
-										if (empty($statusColor) && !$isProprietaire && !$isAdmin) {
-											continue;
-										}
+					if (empty($statusColor) && !$isProprietaire && !$isAdmin) {
+						continue;
+					}
+                    if (!$validated && $elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ANNULE) {
+                        $validated = true;
+                    }
 		?>
         <?php $vendeur = $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?: $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE] ?>
         <?php $vendeur = str_replace(['&quot;', '"'], '', $vendeur); ?>
@@ -109,7 +112,7 @@
 			    		<?php if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION): ?>
 			    			<a class="highlight_link" href="<?php echo url_for('vrac_annulation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo $vraclibelle ?></a>
 			    		<?php else: ?>
-							<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE)): ?>
+							<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
 				    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
 							<?php elseif ($isAdmin): ?>
 							<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder</a>
