@@ -14,6 +14,8 @@ class importReserveInterproTask extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('checking', null, sfCommandOption::PARAMETER_REQUIRED, 'Cheking mode', 0),
       new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'interpro'),
+      new sfCommandOption('filtreMillesime', null, sfCommandOption::PARAMETER_REQUIRED, 'millesime', null),
+      new sfCommandOption('forceImport', null, sfCommandOption::PARAMETER_REQUIRED, 'force import', 0),
     ));
 
     $this->namespace        = 'import';
@@ -34,6 +36,8 @@ EOF;
 
     $csvFile = $arguments['csvFile'];
     $checkingMode = $options['checking'];
+    $filtreMillesime = $options['filtreMillesime'];
+    $forceImport = $options['forceImport'];
     $interpro = 'INTERPRO-'.str_replace('INTERPRO-', '', strtoupper($options['interpro']));
 
     if (!$interpro) {
@@ -57,6 +61,11 @@ EOF;
 
         if (!$volume) {
             $volume = 0;
+        }
+
+        if ($filtreMillesime && $filtreMillesime != $millesime) {
+            echo "$millesime hors scope $filtreMillesime défini\n";
+            continue;
         }
 
         $etablissement = ($cvi)? $conf->identifyEtablissement($cvi) : null;
@@ -93,6 +102,10 @@ EOF;
         foreach ($drms as $drm) {
             if ($drm->exist($hash)) {
                 $produit = $drm->get($hash);
+                if (!$forceImport && $produit->hasReserveInterproMillesime($millesime)) {
+                    echo $drm->_id." reverve $millesime exist ($volume hl) for $hash\n";
+                    continue;
+                }
                 $produit->setReserveInterpro($volume, $millesime);
                 if ($capaciteCom) {
                     $produit->setCapaciteCommercialisation($capaciteCom, $millesime);

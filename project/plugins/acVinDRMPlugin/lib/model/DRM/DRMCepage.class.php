@@ -271,7 +271,8 @@ class DRMCepage extends BaseDRMCepage {
                 $volumeTotalEnReserve += $volume;
             }
         }
-        if ($this->hasReserveInterpro()) {
+        if ($volumeTotalEnReserve > 0||$this->hasReserveInterpro()) {
+            $this->getOrAdd('reserve_interpro');
             $this->_set('reserve_interpro', round($volumeTotalEnReserve, 5));
         }
     }
@@ -279,6 +280,16 @@ class DRMCepage extends BaseDRMCepage {
     public function hasReserveInterproMultiMillesime()
     {
         return ($this->exist('reserve_interpro_details') && count($this->_get('reserve_interpro_details')) > 1);
+    }
+
+    public function hasReserveInterproMillesime($millesime)
+    {
+        return ($this->exist('reserve_interpro_details') && $this->get('reserve_interpro_details')->exist($millesime));
+    }
+
+    public function hasCapaciteCommercialisationMillesime($millesime)
+    {
+        return ($this->exist('reserve_interpro_capacite_commercialisation_details') && $this->get('reserve_interpro_capacite_commercialisation_details')->exist($millesime));
     }
 
     public function hasCapaciteCommercialisation()
@@ -412,7 +423,7 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateSuiviSortiesChais($millesime)
     {
-        if ($this->hasCapaciteCommercialisation()) {
+        if ($this->hasCapaciteCommercialisationMillesime($millesime)) {
             if ($this->isInReserveInterproPeriode($millesime)) {
                 $periodeReserve = $this->getReserveInterproPeriode($millesime);
                 $periodeDrm = $this->getDocument()->getPeriode().'-01';
@@ -425,7 +436,7 @@ class DRMCepage extends BaseDRMCepage {
                 }
                 $this->setSuiviSortiesChais(round($volumeSortieChai, 2), $millesime);
             }
-        } else {
+        } elseif (!$this->hasCapaciteCommercialisation()) {
             if ($this->exist('reserve_interpro_suivi_sorties_chais')) {
                 $this->remove('reserve_interpro_suivi_sorties_chais');
             }
@@ -437,6 +448,11 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateAutoReserveInterpro($reverse = false)
     {
+        foreach($this->getChildrenNode() as $key => $item) {
+        	if ($item->interpro != 'INTERPRO-IR') {
+        		return;
+        	}
+        }
         foreach($this->getReserveInterproMillesimes() as $millesime) {
             if ($this->isInReserveInterproPeriode($millesime)) {
                 $this->updateSuiviSortiesChais($millesime);

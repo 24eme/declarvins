@@ -183,6 +183,21 @@
 					}
 			);
 		}
+		if($('#popup_setdatasfromtiers').exists())
+		{
+			$.openPopup("#popup_setdatasfromtiers",
+					null,
+					"Volumes revendiqués",
+					null,
+					null,
+					function() {
+						btnPopup.addClass('btn_chargement');
+					},
+					function() {
+						btnPopup.removeClass('btn_chargement');
+					}
+			);
+		}
   		if($('#popup_ds').exists())
   		{
   			$.openPopup("#popup_ds",

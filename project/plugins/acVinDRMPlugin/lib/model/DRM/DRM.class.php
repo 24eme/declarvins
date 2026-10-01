@@ -2029,4 +2029,80 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
       }
       return false;
   }
+
+  public function getMvtsumByProduitInCampagne($mvtIn = 'entrees/recolte')
+  {
+      $mouvements = DRMMouvementsConsultationView::getInstance()->findByEtablissementAndCampagne($this->identifiant, $this->campagne)->rows;
+      $result = [];
+      foreach ($mouvements as $mouvement) {
+          if ($mouvement->key[MouvementsConsultationView::KEY_TYPE_HASH] == $mvtIn) {
+              $hash = preg_replace('#^/(.*)/details/.*$#', '$1', $mouvement->key[MouvementsConsultationView::KEY_PRODUIT_HASH]);
+              if (!isset($result[$hash])) {
+                  $result[$hash] = 0;
+              }
+              $result[$hash] += $mouvement->value[MouvementsConsultationView::VALUE_VOLUME];
+          }
+      }
+      return array_map(fn($value) => round($value, 5), $result);
+  }
+
+  public function getVolumesRevendiquesByProduitFromOdg()
+  {
+    $etablissement = $this->getEtablissement();
+    $file = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . sfConfig::get('app_odg_drev_file_webdir_' . strtolower($etablissement->interpro));
+    $result = [];
+    if (!file_exists($file)) {
+        return $result;
+    }
+    $handle = fopen($file, 'r');
+    while (($line = fgetcsv($handle)) !== false) {
+        if ($line[0] == $this->campagne && $line[2] == $this->declarant->cvi) {
+            $appellation = str_replace('CDP', 'CP', $line[14]);
+            $hash = "declaration/certifications/$line[10]/genres/$line[12]/appellations/$appellation/mentions/$line[16]/lieux/$line[18]/couleurs/$line[20]/cepages/$line[22]";
+            $result[$hash] = round((float) str_replace(',', '.', $line[32]), 5);
+        }
+    }
+    fclose($handle);
+    return $result;
+  }
+
+  public function hasVolumeRevendiqueADeclarer()
+  {
+    return count($this->getVolumeRevendiqueADeclarer()) > 0;
+  }
+
+  public function getVolumeRevendiqueADeclarer()
+  {
+    $volumesRevendiques = $this->getVolumesRevendiquesByProduitFromOdg();
+    $volumesDeclares = $this->getMvtsumByProduitInCampagne();
+    $result = [];
+    foreach ($volumesRevendiques as $hash => $volume) {
+        if (!$this->exist($hash)) continue;
+        if (count($this->get($hash)->details) > 1) continue;
+        $hasMvt = false;
+        foreach ($this->get($hash)->getProduits() as $produit) {
+            if ($produit->entrees->recolte > 0) {
+                $hasMvt = true;
+            }
+        }
+        if ($hasMvt) continue;
+        if(!isset($volumesDeclares[$hash])) {
+            $result[$hash] = $volume;
+        }
+        if(isset($volumesDeclares[$hash]) && $volumesDeclares[$hash] < $volume) {
+            $result[$hash] = round($volume - $volumesDeclares[$hash], 5);
+        }
+    }
+    return $result;
+  }
+
+  public function integreVolumeRevendique()
+  {
+      $volumes = $this->getVolumeRevendiqueADeclarer();
+      foreach ($volumes as $hash => $volume) {
+          foreach ($this->get($hash)->getProduits() as $produit) {
+              $produit->entrees->recolte = $volume;
+          }
+      }
+  }
 }

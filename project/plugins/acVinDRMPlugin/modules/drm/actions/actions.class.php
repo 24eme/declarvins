@@ -30,6 +30,16 @@ class drmActions extends sfActions {
      *
      * @param sfWebRequest $request
      */
+    public function executeIntegreVolumesRevendiques(sfWebRequest $request) {
+        $drm = $this->getRoute()->getDRM();
+        $drm->integreVolumeRevendique();
+        $drm->save();
+        $this->redirect('drm_informations', $drm);
+    }
+    /**
+     *
+     * @param sfWebRequest $request
+     */
     public function executeNouvelle(sfWebRequest $request) {
         $drm = $this->getRoute()->getDRM();
         $etablissement = $this->getRoute()->getEtablissement();
