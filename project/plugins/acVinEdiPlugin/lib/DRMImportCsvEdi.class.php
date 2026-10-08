@@ -209,7 +209,17 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     if ($this->drm->canSetStockDebutMois()) {
                         $produits = [];
                     } else {
-                        throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.(($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane()));
+                        $produitsProblematiques = [];
+                        foreach ($produits as $pp) {
+                            $produitsProblematiques[] = "{$pp->libelle} ({$pp->total_debut_mois} hl)";
+                        }
+                        throw new sfException(
+                            sprintf(
+                                'Ambiguité identification produit (trop de volume identiques) pour %s [%s]',
+                                implode(', ', $produitsProblematiques),
+                                ($idDouane)? $idDouane : $configurationProduit->getIdentifiantDouane()
+                            )
+                        );
                     }
                 }
                 if (count($produits) == 1) {
