@@ -265,13 +265,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             if (!$label && count($detail->labels) > 0) {
                 continue;
             }
-            if ((trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
+
+            if (round($stockDebut, 5) !== round($detail->get($stockDebutNode), 5)) {
+                continue;
+            }
+
+            $isSameIdDouane = trim($detail->getIdentifiantDouane()) === trim($idDouane);
+            $isSameLibelle = (trim($libelle) === trim($detail->libelle) || trim($configLibelle) === trim($detail->libelle));
+
+            if ($isSameLibelle && $isSameIdDouane) {
                 $inaoLibelleProduits[] = $detail;
             }
-            if ($libelle && (trim($libelle) == trim($detail->libelle)||trim($configLibelle) == trim($detail->libelle)) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
+
+            if ($libelle && $isSameLibelle) {
                 $libelleProduits[] = $detail;
             }
-            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && round($stockDebut,5) == round($detail->get($stockDebutNode), 5)) {
+
+            if ($isSameIdDouane) {
                 $inaoProduits[] = $detail;
             }
         }
