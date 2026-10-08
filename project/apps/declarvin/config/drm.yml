@@ -3,7 +3,7 @@ all:
         drm:
             reserve_interpro:
                 default:
-                    debut_mois: 01
+                    debut_mois: 1
                     duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CVS:
                     debut_mois: 12
@@ -12,7 +12,7 @@ all:
                     debut_mois: 12
                     duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVX:
-                    debut_mois: 01
+                    debut_mois: 1
                     duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CDR:
                     debut_mois: 12
