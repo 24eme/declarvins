@@ -280,10 +280,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             if ($libelle && $isSameLibelle) {
                 $libelleProduits[] = $detail;
             }
-
-            if ($isSameIdDouane) {
-                $inaoProduits[] = $detail;
-            }
         }
         if ($inaoLibelleProduits) {
             return $inaoLibelleProduits;
