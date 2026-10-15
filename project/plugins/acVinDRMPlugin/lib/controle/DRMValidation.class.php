@@ -13,6 +13,7 @@ class DRMValidation
 	const VINSSANSIG_KEY = 'VINSSANSIG';
 	const AOP_KEY = 'AOP';
 	const IGP_KEY = 'IGP';
+	const LIE_KEY = 'LIE';
 	const NO_LINK = '#';
 	const ECART_VRAC = 0.2;
 
@@ -51,6 +52,7 @@ class DRMValidation
 
 	private function controleDRM()
 	{
+        $declassements = [];
 		$totalEntreeDeclassement = 0;
 		$totalSortiDeclassement = 0;
 		$certificationVinssansig = null;
@@ -62,6 +64,9 @@ class DRMValidation
 			if (!$certificationFirst) {
 				$certificationFirst = $certification;
 			}
+            if (!isset($declassements[$certification->getKey()])) {
+                $declassements[$certification->getKey()] = ['sumEntrees' => 0, 'sumSorties' => 0];
+            }
 			$totalEntreeRepli = 0;
 			$totalSortiRepli = 0;
 			$details = $certification->getProduits();
@@ -73,6 +78,8 @@ class DRMValidation
 					$totalEntreeRepli += $detail->entrees->repli;
 					$totalSortiRepli += $detail->sorties->repli;
 				}
+                $declassements[$certification->getKey()]['sumEntrees'] += $detail->entrees->declassement;
+                $declassements[$certification->getKey()]['sumSorties'] += $detail->sorties->declassement;
 				$totalSortiDeclassement += $detail->sorties->declassement;
 				if (!$this->drm->isNegoce() && $certification->getKey() == self::AOP_KEY && $detail->sorties->repli) {
 					$this->engagements['odg'] = new DRMControleEngagement('odg');
@@ -88,6 +95,18 @@ class DRMValidation
 				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification), $certification->getLibelleEtape().': %message% (entrée: '.$totalEntreeRepli.' / sortie: '.$totalSortiRepli.')');
 			}
 		}
+        if (isset($declassements[self::AOP_KEY]) && $declassements[self::AOP_KEY]['sumEntrees'] > 0) {
+            $this->errors['declassement_impossible_'.self::AOP_KEY] = new DRMControleError('declassement_impossible_entrees', $this->generateUrl('drm_recap', $this->drm->declaration->certifications->get(self::AOP_KEY)));
+        }
+        if (isset($declassements[self::IGP_KEY]) && $declassements[self::IGP_KEY]['sumEntrees'] > 0) {
+            $this->errors['declassement_impossible_'.self::IGP_KEY] = new DRMControleError('declassement_impossible_entrees', $this->generateUrl('drm_recap', $this->drm->declaration->certifications->get(self::IGP_KEY)));
+        }
+        if (isset($declassements[self::VINSSANSIG_KEY]) && $declassements[self::VINSSANSIG_KEY]['sumSorties'] > 0) {
+            $this->errors['declassement_impossible_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement_impossible_sorties', $this->generateUrl('drm_recap', $this->drm->declaration->certifications->get(self::VINSSANSIG_KEY)));
+        }
+        if (isset($declassements[self::LIE_KEY]) && $declassements[self::LIE_KEY]['sumSorties'] > 0) {
+            $this->errors['declassement_impossible_'.self::LIE_KEY] = new DRMControleError('declassement_impossible_sorties', $this->generateUrl('drm_recap', $this->drm->declaration->certifications->get(self::LIE_KEY)));
+        }
 		if (round($totalEntreeDeclassement,5) > round($totalSortiDeclassement,5) && !$this->isAdmin) {
 			$this->errors['declassement_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
