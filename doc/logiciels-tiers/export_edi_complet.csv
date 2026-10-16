@@ -8,7 +8,7 @@ CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rho
 CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rhone Regional Rouge,SUSPENDUS,stocks,total,2158,,,
 CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rhone Regional Rouge,ACQUITTES,stocks,total,100,,,
 CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rhone Regional Rouge,SUSPENDUS,complement,tav,10,,,
-CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rhone Regional Rouge,SUSPENDUS,complement,observations,Commentaire CDR rouge,,,
+CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rhone Regional Rouge,SUSPENDUS,complement,observation,Commentaire CDR rouge,,,
 CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CDR,,,rouge,,,Tranquilles Cotes du Rhone Regional Rouge,SUSPENDUS,complement,vrac,20,,20160610001,
 CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CRH,,,rouge,,AB,Tranquilles Crozes Hermitage Rouge AB,SUSPENDUS,stocks,total_debut_mois,2185,,,
 CAVE,201608,T0001,FR01234567891,AOP,TRANQ,CRH,,,rouge,,AB,Tranquilles Crozes Hermitage Rouge AB,SUSPENDUS,stocks,total,2185,,,
