@@ -6,47 +6,65 @@ all:
                     debut_mois: 1
                     duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CVS:
-                    "1900-01-01":
-                        debut_mois: 12
-                        duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVG:
-                    "1900-01-01":
-                        debut_mois: 12
-                        duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVX:
-                    "1900-01-01":
-                        debut_mois: 1
-                        duree_mois: 11
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CDR:
-                    "1900-01-01":
-                        debut_mois: 12
-                        duree_mois: 12
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 12
                 certifications/AOP/genres/TRANQ/appellations/RTA:
-                    "1900-01-01":
-                        debut_mois: 12
-                        duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/BEA:
-                    "1900-01-01":
-                        debut_mois: 12
-                        duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CP:
-                    "1900-01-01":
-                        debut_mois: 1
-                        duree_mois: 18
-                    "2026-01-01":
-                        debut_mois: 1
-                        duree_mois: 11
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 18
+                        "2026-01-01":
+                            debut_mois: 1
+                            duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CVP:
-                    "1900-01-01":
-                        debut_mois: 1
-                        duree_mois: 18
-                    "2026-01-01":
-                        debut_mois: 1
-                        duree_mois: 11
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 18
+                        "2026-01-01":
+                            debut_mois: 1
+                            duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CAP:
-                    "1900-01-01":
-                        debut_mois: 1
-                        duree_mois: 18
-                    "2026-01-01":
-                        debut_mois: 1
-                        duree_mois: 11
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 18
+                        "2026-01-01":
+                            debut_mois: 1
+                            duree_mois: 11

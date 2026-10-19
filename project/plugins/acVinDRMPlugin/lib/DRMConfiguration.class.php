@@ -34,8 +34,11 @@ class DRMConfiguration {
         $dateReference = "$millesime-01-01";
         foreach ($this->configuration['reserve_interpro'] as $ri_hash => $items) {
             if (strpos($hash, $ri_hash)) {
+                if (isset($items[$param_key])) {
+                    return $items[$param_key];
+                }
                 $params = [];
-                foreach ($items as $date => $item) {
+                foreach ($items['periodes'] as $date => $item) {
                     if ($dateReference >= $date) {
                         $params = $item;
                     }

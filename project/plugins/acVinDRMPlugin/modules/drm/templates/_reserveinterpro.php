@@ -7,10 +7,13 @@ if (count($produits) && DRMClient::hasActiveReserveInterpro()): ?>
 <p style="padding: 10px;">L'assemblée générale de votre interprofession a voté la mise en place d'une réserve interprofessionnelle. Le tableau suivant récapitule les volumes de votre réserve :</p>
 <?php
 $has_reserve_plus = false;
+$has_suivi_sorties_chai = false;
 foreach ($produits as $p)  {
     if ($p->hasCapaciteCommercialisation()) {
         $has_reserve_plus = true;
-        break;
+    }
+    if ($p->hasSuiviSortiesChais()) {
+        $has_suivi_sorties_chai = true;
     }
 }
 ?>
@@ -21,7 +24,9 @@ foreach ($produits as $p)  {
             <th style="font-weight: bold;">Volumes<br/>en réserve</th>
 <?php if ($has_reserve_plus): ?>
             <th style="font-weight: bold;">Volume<br />Commercialisable<br/>de Référence</th>
+<?php if ($has_suivi_sorties_chai): ?>
             <th style="font-weight: bold;">Sorties de<br/>chai en cours</th>
+<?php endif; ?>
 <?php endif; ?>
 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <td style="font-weight: bold; border: none; width: 33px;">&nbsp;</td>
@@ -42,14 +47,18 @@ foreach ($produits as $p)  {
                         <?php if ($has_reserve_plus): ?>
                             <?php if (!$p->hasCapaciteCommercialisation()): ?>
                             <td style="text-align: center;"><abbr title="Ne s'applique pas pour les réserves de ce produit">x</abbr></td>
+                            <?php if ($has_suivi_sorties_chai): ?>
                             <td style="text-align: center;"><abbr title="Ne s'applique pas pour les réserves de ce produit">x</abbr></td>
+                            <?php endif; ?>
                             <?php else: ?>
                             <td style="text-align: <?php if ($p->getCapaciteCommercialisation($millesime)) echo "right"; else echo "center"; ?>">
                                 <?php if ($p->getCapaciteCommercialisation($millesime)) {echoFloat($p->getCapaciteCommercialisation($millesime)); echo " hl";}else{echo " <abbr title=\"Ne s'applique pas pour les réserves de ce produit\">-</abbr> ";} ?>
                             </td>
+                            <?php if ($has_suivi_sorties_chai): ?>
                             <td style="text-align: <?php if ($p->getSuiviSortiesChais($millesime) !== null) echo "right"; else echo "center"; ?>">
                                 <?php if ($p->getSuiviSortiesChais($millesime) !== null) {echoFloat($p->getSuiviSortiesChais($millesime)); echo " hl";}else{echo " <abbr title=\"Ne s'applique pas pour les réserves de ce produit\">-</abbr> ";} ?>
                             </td>
+                            <?php endif; ?>
                             <?php endif; ?>
                         <?php endif; ?>
                         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !isset($hideFormReserve)): ?>

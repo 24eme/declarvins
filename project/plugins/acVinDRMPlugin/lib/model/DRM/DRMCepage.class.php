@@ -424,7 +424,7 @@ class DRMCepage extends BaseDRMCepage {
     public function updateSuiviSortiesChais($millesime)
     {
         if ($this->hasCapaciteCommercialisationMillesime($millesime)) {
-            if ($this->isInReserveInterproPeriode($millesime)) {
+            if ($this->isInReserveInterproPeriode($millesime) && DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'suivi_sorties_chais')) {
                 $periodeReserve = $this->getReserveInterproPeriode($millesime);
                 $periodeDrm = $this->getDocument()->getPeriode().'-01';
                 $volumeSortieChai = $this->getVolumeSortieChai();
