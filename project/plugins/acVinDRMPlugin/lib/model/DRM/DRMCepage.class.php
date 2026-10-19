@@ -372,7 +372,7 @@ class DRMCepage extends BaseDRMCepage {
 
     public function getReserveInterproPeriodeTimeDebut($millesime) {
         $date = $this->getReserveInterproPeriodeTimeRecolte($millesime);
-        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois') + 12 - 9)%12).' months', $date);
+        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois', $millesime) + 12 - 9)%12).' months', $date);
     }
 
     public function getReserveInterproPeriodeDebutDate($millesime, $format = '%Y-%m-%d') {
@@ -382,7 +382,7 @@ class DRMCepage extends BaseDRMCepage {
 
     public function getReserveInterproPeriodeFinDate($millesime, $format = '%Y-%m-%d') {
         $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
-        return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois').' months', $date));
+        return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois', $millesime).' months', $date));
     }
 
     public function getReserveInterproPeriode($millesime, $format = '%Y-%m-%d') {

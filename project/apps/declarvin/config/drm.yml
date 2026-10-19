@@ -6,20 +6,47 @@ all:
                     debut_mois: 1
                     duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CVS:
-                    debut_mois: 12
-                    duree_mois: 19
+                    "1900-01-01":
+                        debut_mois: 12
+                        duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVG:
-                    debut_mois: 12
-                    duree_mois: 19
+                    "1900-01-01":
+                        debut_mois: 12
+                        duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVX:
-                    debut_mois: 1
-                    duree_mois: 11
+                    "1900-01-01":
+                        debut_mois: 1
+                        duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CDR:
-                    debut_mois: 12
-                    duree_mois: 12
+                    "1900-01-01":
+                        debut_mois: 12
+                        duree_mois: 12
                 certifications/AOP/genres/TRANQ/appellations/RTA:
-                    debut_mois: 12
-                    duree_mois: 19
+                    "1900-01-01":
+                        debut_mois: 12
+                        duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/BEA:
-                    debut_mois: 12
-                    duree_mois: 19
+                    "1900-01-01":
+                        debut_mois: 12
+                        duree_mois: 19
+                certifications/AOP/genres/TRANQ/appellations/CP:
+                    "1900-01-01":
+                        debut_mois: 1
+                        duree_mois: 18
+                    "2026-01-01":
+                        debut_mois: 1
+                        duree_mois: 11
+                certifications/AOP/genres/TRANQ/appellations/CVP:
+                    "1900-01-01":
+                        debut_mois: 1
+                        duree_mois: 18
+                    "2026-01-01":
+                        debut_mois: 1
+                        duree_mois: 11
+                certifications/AOP/genres/TRANQ/appellations/CAP:
+                    "1900-01-01":
+                        debut_mois: 1
+                        duree_mois: 18
+                    "2026-01-01":
+                        debut_mois: 1
+                        duree_mois: 11
