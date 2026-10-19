@@ -20,7 +20,7 @@ foreach ($produits as $p)  {
             <td style="font-weight: bold; border: 0px"> &nbsp; </td>
             <th style="font-weight: bold;">Volumes<br/>en réserve</th>
 <?php if ($has_reserve_plus): ?>
-            <th style="font-weight: bold;">Sorties de<br/>chai moyenne</th>
+            <th style="font-weight: bold;">Volume<br />Commercialisable<br/>de Référence</th>
             <th style="font-weight: bold;">Sorties de<br/>chai en cours</th>
 <?php endif; ?>
 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
