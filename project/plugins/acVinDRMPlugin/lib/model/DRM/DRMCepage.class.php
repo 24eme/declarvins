@@ -287,9 +287,9 @@ class DRMCepage extends BaseDRMCepage {
     {
         $volumeTotalEnReserve = 0;
         foreach ($this->getReserveInterproDetails() as $millesime => $volume) {
-            if (!$this->reserveInterproFutur($millesime)) {
-                $volumeTotalEnReserve += $volume;
-            }
+            if ($volume < 0) continue;
+            if ($this->reserveInterproFutur($millesime)) continue;
+            $volumeTotalEnReserve += $volume;
         }
         if ($volumeTotalEnReserve > 0||$this->hasReserveInterpro()) {
             $this->getOrAdd('reserve_interpro');

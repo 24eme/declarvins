@@ -36,7 +36,7 @@ foreach ($produits as $p)  {
     <tbody>
     <?php foreach ($produits as $p) :
                 foreach ($p->getReserveInterproDetails() as $millesime => $volume):
-                    if ($p->reserveInterproFutur($millesime)) continue;
+                    if ($p->reserveInterproFutur($millesime)||$volume < 0) continue;
     ?>
                         <tr>
                             <td style="text-align: right">
