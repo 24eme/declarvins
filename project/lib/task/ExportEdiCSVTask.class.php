@@ -2,6 +2,9 @@
 
 class ExportEdiCSVTask extends sfBaseTask
 {
+    public static $EXCEPTION_PRESENCE_PRODUITS_EDIDRM = [
+        'declaration/certifications/AOP/genres/TRANQ/appellations/BAN'
+    ];
     protected function configure()
     {
         $this->addArguments(array(
@@ -82,7 +85,16 @@ class ExportEdiCSVTask extends sfBaseTask
     				}
     			}
       			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
-      				continue;
+                    $isExceptionProduit = false;
+                    foreach (self::$EXCEPTION_PRESENCE_PRODUITS_EDIDRM as $hash) {
+                        if (strpos($item->key[DRMDateView::KEY_DETAIL_HASH], $hash) !== false) {
+                            $isExceptionProduit = true;
+                            break;
+                        }
+                    }
+                    if (!$isExceptionProduit) {
+                        continue;
+                    }
       			}
       			if ($interpro == 'INTERPRO-CIVP' && !$famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != 'producteur') {
       				continue;
@@ -93,6 +105,9 @@ class ExportEdiCSVTask extends sfBaseTask
       			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && $famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != $famille) {
       			    continue;
       			}
+                if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && !$item->value[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS] && !$item->value[DRMDateView::VALUE_DETAIL_ENTREES] && !$item->value[DRMDateView::VALUE_DETAIL_SORTIES]) {
+                    continue;
+                }
                 echo str_replace(array(chr(10), chr(13)), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)))."\n";
       		}
         }
