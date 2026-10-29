@@ -14,11 +14,11 @@ class drm_recapActions extends sfActions
   			$access = ($configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement))? true : false;
   			$this->forward404Unless($access);
   		}
-  		
+
   	}
     public function executeIndex(sfWebRequest $request) {
         $this->init();
-		
+		$this->drm->updateAutoReserveInterpro();
         $this->setTemplate('index');
     }
 

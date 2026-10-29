@@ -11,7 +11,6 @@ class DRMValidation
 	private $isCiel;
 	private $etablissement;
 	const VINSSANSIG_KEY = 'VINSSANSIG';
-	const VCI_KEY = 'VCI';
 	const AOP_KEY = 'AOP';
 	const IGP_KEY = 'IGP';
 	const LIE_KEY = 'LIE';
@@ -56,12 +55,7 @@ class DRMValidation
         $declassements = [];
 		$totalEntreeDeclassement = 0;
 		$totalSortiDeclassement = 0;
-		$totalEntreeVci = 0;
-		$totalSortiVci = 0;
-		$totalVciEntree = 0;
-		$totalVciSorti = 0;
 		$certificationVinssansig = null;
-		$certificationVci = null;
 		$certificationFirst = null;
 		foreach ($this->drm->declaration->certifications as $certification) {
 			if ($certification->getKey() == self::VINSSANSIG_KEY) {
@@ -96,15 +90,6 @@ class DRMValidation
 				if ($certification->getKey() == self::VINSSANSIG_KEY) {
 					$totalEntreeDeclassement += $detail->entrees->declassement;
 				}
-				if ($detail->isVci()) {
-					$certificationVci = $certification;
-					$totalVciEntree += $detail->entrees->recolte;
-					$totalVciSorti += $detail->sorties->repli;
-				} else {
-					$certificationVci = $certification;
-					$totalEntreeVci += $detail->entrees->vci;
-					$totalSortiVci += $detail->sorties->vci;
-				}
 			}
 			if (round(abs($totalEntreeRepli - $totalSortiRepli),5) > 0.0001 && !$this->isAdmin) {
 				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification), $certification->getLibelleEtape().': %message% (entrée: '.$totalEntreeRepli.' / sortie: '.$totalSortiRepli.')');
@@ -124,13 +109,6 @@ class DRMValidation
         }
 		if (round($totalEntreeDeclassement,5) > round($totalSortiDeclassement,5) && !$this->isAdmin) {
 			$this->errors['declassement_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
-		}
-		if (round($totalVciEntree,5) != round($totalSortiVci,5) || round($totalVciSorti,5) != round($totalEntreeVci,5)) {
-			if ($certificationVci) {
-				//$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationVci));
-			} else {
-				//$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationFirst));
-			}
 		}
 		$drmCiel = $this->drm->getOrAdd('ciel');
 		if ($this->drm->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->isValide() && $drmCiel->diff) {
