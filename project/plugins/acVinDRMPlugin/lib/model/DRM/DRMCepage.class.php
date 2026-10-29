@@ -387,12 +387,12 @@ class DRMCepage extends BaseDRMCepage {
 
     public function getReserveInterproPeriodeTimeRecolte($millesime) {
         setlocale(LC_TIME, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
-        return strtotime($millesime.'-09-01');
+        return strtotime($millesime.'-08-01');
     }
 
     public function getReserveInterproPeriodeTimeDebut($millesime) {
         $date = $this->getReserveInterproPeriodeTimeRecolte($millesime);
-        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois', $millesime) + 12 - 9)%12).' months', $date);
+        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois', $millesime) + 12 - 8)%12).' months', $date);
     }
 
     public function getReserveInterproPeriodeDebutDate($millesime, $format = '%Y-%m-%d') {
