@@ -74,6 +74,18 @@ done
 
 if [[ $INTERPRO -eq "IR" ]] ; then
   php symfony export:edi IR drm > $TMPI/export_bi_edi_drm.csv
+
+  doublons=$(cat $TMPI/export_bi_edi_drm.csv | cut -d ';' -f 64,69 | grep ";1" | grep "DRM-" | sort | uniq | sed 's/.\{6\}$//' | sort | uniq -c | sort)
+  resultat=$(echo "$doublons" | awk '$1 > 1')
+  if [ -n "$resultat" ]; then
+      {
+          echo "Des doublons ont été détectés dans le fichier export_bi_edi_drm.csv pour IR."
+          echo ""
+          echo "Liste des doublons :"
+          echo ""
+          echo "$resultat"
+      } | bash -c "$MAIL_DOUBLONS_IR"
+  fi
 fi
 
 cd $TMPI
