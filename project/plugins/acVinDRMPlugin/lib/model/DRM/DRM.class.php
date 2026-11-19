@@ -791,7 +791,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if (!$this->exist('referente')) {
             return 1;
         }
-        return $this->exist('referente');
+        return $this->_get('referente');
     }
 
     public function storeDroits($options) {
@@ -1327,9 +1327,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getModificative() {
-    	if ($this->exist('ciel') && $this->ciel->transfere) {
-    		return false;
-    	}
         return $this->version_document->getModificative();
     }
 
