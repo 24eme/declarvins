@@ -770,21 +770,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function storeReferente() {
-        $drm_ref = null;
-        if ($this->getPreviousVersion()) {
-            $drm_ref = $this->getMother();
-        } else {
-            $id_drm_ref = DRMClient::getInstance()->buildId($this->identifiant, $this->periode);
-            if ($id_drm_ref != $this->_id) {
-                $drm_ref = DRMClient::getInstance()->find($id_drm_ref);
-            }
+        if ($previous = $this->getMother()) {
+            $previous->referente = 0;
+            $previous->save();
         }
         $this->add('referente', 1);
-        if (!$drm_ref) {
-            return;
-        }
-        $drm_ref->add('referente', 0);
-        $drm_ref->save();
     }
 
     public function getReferente() {
