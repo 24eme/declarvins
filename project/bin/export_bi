@@ -72,6 +72,10 @@ curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/sv12/_view/all?reduce=fa
 	php symfony export:sv12 $SYMFONYTASKOPTIONS --sv12id="$facture" --entete=0 --env=prod --interpro="INTERPRO-$INTERPRO" --onlylastversion=1 >> $TMPI/export_bi_sv12.csv
 done
 
+if [[ $INTERPRO -eq "IR" ]] ; then
+  php symfony export:edi IR drm > $TMPI/export_bi_edi_drm.csv
+fi
+
 cd $TMPI
 
 recode UTF8..ISO88591-1 export_bi_mouvements.csv
@@ -86,6 +90,7 @@ recode UTF8..ISO88591-1 export_bi_sv12.csv
 recode UTF8..ISO88591-1 export_bi_daes.csv
 recode UTF8..ISO88591-1 export_rapport_depots_dae.csv
 recode UTF8..ISO88591-1 export_bi_reserves_interpro_drm.csv
+recode UTF8..ISO88591-1 export_bi_edi_drm.csv
 
 #Fichier DV
 #export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm.csv export_bi_daes.csv
@@ -109,6 +114,7 @@ cp $TMPI/export_bi_sv12.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_rapport_depots_dae.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_reserves_interpro_drm.csv $EXPORTDIR_INTERPRO/
+cp $TMPI/export_bi_edi_drm.csv $EXPORTDIR_INTERPRO/
 
 if [ -f $TMPI/export_suivi_liberation_reserve.csv ]; then
   cp $TMPI/export_suivi_liberation_reserve.csv $EXPORTDIR_INTERPRO/
