@@ -770,28 +770,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function storeReferente() {
-        $drm_ref = null;
-        if ($this->getPreviousVersion()) {
-            $drm_ref = $this->getMother();
-        } else {
-            $id_drm_ref = DRMClient::getInstance()->buildId($this->identifiant, $this->periode);
-            if ($id_drm_ref != $this->_id) {
-                $drm_ref = DRMClient::getInstance()->find($id_drm_ref);
-            }
+        if ($previous = $this->getMother()) {
+            $previous->referente = 0;
+            $previous->save();
         }
         $this->add('referente', 1);
-        if (!$drm_ref) {
-            return;
-        }
-        $drm_ref->add('referente', 0);
-        $drm_ref->save();
     }
 
     public function getReferente() {
         if (!$this->exist('referente')) {
             return 1;
         }
-        return $this->exist('referente');
+        return $this->_get('referente');
     }
 
     public function storeDroits($options) {
@@ -1327,9 +1317,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getModificative() {
-    	if ($this->exist('ciel') && $this->ciel->transfere) {
-    		return false;
-    	}
         return $this->version_document->getModificative();
     }
 
@@ -2085,6 +2072,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     foreach ($volumesRevendiques as $hash => $volume) {
         if (!$this->exist($hash)) continue;
         if (count($this->get($hash)->details) > 1) continue;
+        if (isset($volumesDeclares[$hash]) && $volumesDeclares[$hash] > 0) continue;
         $hasMvt = false;
         foreach ($this->get($hash)->getProduits() as $produit) {
             if ($produit->entrees->recolte > 0) {
@@ -2092,12 +2080,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             }
         }
         if ($hasMvt) continue;
-        if(!isset($volumesDeclares[$hash])) {
-            $result[$hash] = $volume;
-        }
-        if(isset($volumesDeclares[$hash]) && $volumesDeclares[$hash] < $volume) {
-            $result[$hash] = round($volume - $volumesDeclares[$hash], 5);
-        }
+        $result[$hash] = $volume;
     }
     return $result;
   }

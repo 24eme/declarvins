@@ -6,20 +6,65 @@ all:
                     debut_mois: 1
                     duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CVS:
-                    debut_mois: 12
-                    duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVG:
-                    debut_mois: 12
-                    duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/CVX:
-                    debut_mois: 1
-                    duree_mois: 11
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 11
                 certifications/AOP/genres/TRANQ/appellations/CDR:
-                    debut_mois: 12
-                    duree_mois: 12
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 12
                 certifications/AOP/genres/TRANQ/appellations/RTA:
-                    debut_mois: 12
-                    duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
                 certifications/AOP/genres/TRANQ/appellations/BEA:
-                    debut_mois: 12
-                    duree_mois: 19
+                    suivi_sorties_chais: true
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 12
+                            duree_mois: 19
+                certifications/AOP/genres/TRANQ/appellations/CP:
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 18
+                        "2026-01-01":
+                            debut_mois: 8
+                            duree_mois: 16
+                certifications/AOP/genres/TRANQ/appellations/CVP:
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 18
+                        "2026-01-01":
+                            debut_mois: 8
+                            duree_mois: 16
+                certifications/AOP/genres/TRANQ/appellations/CAP:
+                    suivi_sorties_chais: false
+                    periodes:
+                        "1900-01-01":
+                            debut_mois: 1
+                            duree_mois: 18
+                        "2026-01-01":
+                            debut_mois: 8
+                            duree_mois: 16

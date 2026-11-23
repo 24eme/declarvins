@@ -30,9 +30,19 @@ class DRMConfiguration {
         return $this->configuration['reserve_interpro']['default'][$param_key];
     }
 
-    public function getReserveInterproParamValue($hash, $param_key) {
-        foreach ($this->configuration['reserve_interpro'] as $ri_hash => $params) {
+    public function getReserveInterproParamValue($hash, $param_key, $millesime = "1900") {
+        $dateReference = "$millesime-01-01";
+        foreach ($this->configuration['reserve_interpro'] as $ri_hash => $items) {
             if (strpos($hash, $ri_hash)) {
+                if (isset($items[$param_key])) {
+                    return $items[$param_key];
+                }
+                $params = [];
+                foreach ($items['periodes'] as $date => $item) {
+                    if ($dateReference >= $date) {
+                        $params = $item;
+                    }
+                }
                 if (!isset($params[$param_key])) {
                     return $this->getReserveInterproParamDefault($param_key);
                 }

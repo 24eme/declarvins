@@ -103,7 +103,7 @@ EOF;
             if ($drm->exist($hash)) {
                 $produit = $drm->get($hash);
                 if (!$forceImport && $produit->hasReserveInterproMillesime($millesime)) {
-                    echo $drm->_id." reverve $millesime exist ($volume hl) for $hash\n";
+                    echo $drm->_id." reserve $millesime exist ($volume hl) for $hash\n";
                     continue;
                 }
                 $produit->setReserveInterpro($volume, $millesime);

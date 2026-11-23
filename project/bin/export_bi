@@ -63,15 +63,30 @@ fi
 
 php symfony export:facture $SYMFONYTASKOPTIONS --factureid=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_factures.csv
 php symfony export:facture-paiements $SYMFONYTASKOPTIONS --factureid=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_factures_paiements.csv
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/facture/_view/etablissement?reduce=false | grep "INTERPRO-$INTERPRO"|grep "\[\"FACTURE\"\," | awk -F '"' '{print $4}' | while read facture ; do
-	php symfony export:facture $SYMFONYTASKOPTIONS --factureid="$facture" --entete=0 --env=prod >> $TMPI/export_bi_factures.csv
-  php symfony export:facture-paiements $SYMFONYTASKOPTIONS --factureid="$facture" --entete=0 --env=prod >> $TMPI/export_bi_factures_paiements.csv
-done
+
+php symfony export:facture $SYMFONYTASKOPTIONS --interpro="INTERPRO-$INTERPRO" --all=1 --entete=0 --env=prod >> $TMPI/export_bi_factures.csv
+php symfony export:facture-paiements $SYMFONYTASKOPTIONS --interpro="INTERPRO-$INTERPRO" --all=1 --entete=0 --env=prod >> $TMPI/export_bi_factures_paiements.csv
 
 php symfony export:sv12 $SYMFONYTASKOPTIONS --sv12id=FACTURE-XXXXX-YYYY --env=prod > $TMPI/export_bi_sv12.csv
 curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/sv12/_view/all?reduce=false |grep "\"SV12-" | awk -F '"' '{print $4}' | while read facture ; do
 	php symfony export:sv12 $SYMFONYTASKOPTIONS --sv12id="$facture" --entete=0 --env=prod --interpro="INTERPRO-$INTERPRO" --onlylastversion=1 >> $TMPI/export_bi_sv12.csv
 done
+
+if [[ $INTERPRO -eq "IR" ]] ; then
+  php symfony export:edi IR drm > $TMPI/export_bi_edi_drm.csv
+
+  doublons=$(cat $TMPI/export_bi_edi_drm.csv | cut -d ';' -f 64,69 | grep ";1" | grep "DRM-" | sort | uniq | sed 's/.\{6\}$//' | sort | uniq -c | sort)
+  resultat=$(echo "$doublons" | awk '$1 > 1')
+  if [ -n "$resultat" ]; then
+      {
+          echo "Des doublons ont été détectés dans le fichier export_bi_edi_drm.csv pour IR."
+          echo ""
+          echo "Liste des doublons :"
+          echo ""
+          echo "$resultat"
+      } | bash -c "$MAIL_DOUBLONS_IR"
+  fi
+fi
 
 cd $TMPI
 
@@ -87,6 +102,7 @@ recode UTF8..ISO88591-1 export_bi_sv12.csv
 recode UTF8..ISO88591-1 export_bi_daes.csv
 recode UTF8..ISO88591-1 export_rapport_depots_dae.csv
 recode UTF8..ISO88591-1 export_bi_reserves_interpro_drm.csv
+recode UTF8..ISO88591-1 export_bi_edi_drm.csv
 
 #Fichier DV
 #export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm.csv export_bi_daes.csv
@@ -110,6 +126,7 @@ cp $TMPI/export_bi_sv12.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_daes.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_rapport_depots_dae.csv $EXPORTDIR_INTERPRO/
 cp $TMPI/export_bi_reserves_interpro_drm.csv $EXPORTDIR_INTERPRO/
+cp $TMPI/export_bi_edi_drm.csv $EXPORTDIR_INTERPRO/
 
 if [ -f $TMPI/export_suivi_liberation_reserve.csv ]; then
   cp $TMPI/export_suivi_liberation_reserve.csv $EXPORTDIR_INTERPRO/
