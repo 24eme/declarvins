@@ -183,6 +183,15 @@ class DRMCepage extends BaseDRMCepage {
         return ($this->hasReserveInterpro())? $this->_get('reserve_interpro') : 0;
     }
 
+    public function getVolumeEntreesReplis()
+    {
+        $volume = 0;
+        foreach ($this->getProduits() as $produit) {
+            $volume += $produit->entrees->repli;
+        }
+        return $volume;
+    }
+
     public function getVolumeCommercialisable()
     {
         return $this->total - $this->getReserveInterpro();
@@ -263,13 +272,24 @@ class DRMCepage extends BaseDRMCepage {
         return ['' => ($this->exist('reserve_interpro')) ? $this->_get('reserve_interpro') : 0];
     }
 
+    public function updateVolumeReserveEtReplis($reverse = false)
+    {
+        $volumeRepli = $this->getVolumeEntreesReplis();
+        if (!$volumeRepli) return;
+        if ($this->exist('reserve_interpro_details') && ($millesime = $this->getMillesimeReserveActive(false))) {
+            $volume = $this->_get('reserve_interpro_details')->get($millesime);
+            $this->_get('reserve_interpro_details')->_set($millesime, round(($reverse)? ($volume - $volumeRepli) : ($volume + $volumeRepli), 5));
+        }
+        $this->updateVolumeReserveInterpro();
+    }
+
     public function updateVolumeReserveInterpro()
     {
         $volumeTotalEnReserve = 0;
         foreach ($this->getReserveInterproDetails() as $millesime => $volume) {
-            if (!$this->reserveInterproFutur($millesime)) {
-                $volumeTotalEnReserve += $volume;
-            }
+            if ($volume < 0) continue;
+            if ($this->reserveInterproFutur($millesime)) continue;
+            $volumeTotalEnReserve += $volume;
         }
         if ($volumeTotalEnReserve > 0||$this->hasReserveInterpro()) {
             $this->getOrAdd('reserve_interpro');
@@ -367,12 +387,12 @@ class DRMCepage extends BaseDRMCepage {
 
     public function getReserveInterproPeriodeTimeRecolte($millesime) {
         setlocale(LC_TIME, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
-        return strtotime($millesime.'-09-01');
+        return strtotime($millesime.'-08-01');
     }
 
     public function getReserveInterproPeriodeTimeDebut($millesime) {
         $date = $this->getReserveInterproPeriodeTimeRecolte($millesime);
-        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois') + 12 - 9)%12).' months', $date);
+        return strtotime('+'.(intval(DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'debut_mois', $millesime) + 12 - 8)%12).' months', $date);
     }
 
     public function getReserveInterproPeriodeDebutDate($millesime, $format = '%Y-%m-%d') {
@@ -382,7 +402,7 @@ class DRMCepage extends BaseDRMCepage {
 
     public function getReserveInterproPeriodeFinDate($millesime, $format = '%Y-%m-%d') {
         $date = $this->getReserveInterproPeriodeTimeDebut($millesime);
-        return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois').' months', $date));
+        return strftime($format, strtotime('last day of +'.DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'duree_mois', $millesime).' months', $date));
     }
 
     public function getReserveInterproPeriode($millesime, $format = '%Y-%m-%d') {
@@ -392,6 +412,24 @@ class DRMCepage extends BaseDRMCepage {
         $debut = $this->getReserveInterproPeriodeDebutDate($millesime, $format);
         $fin =   $this->getReserveInterproPeriodeFinDate($millesime, $format);
         return [$debut, $fin];
+    }
+
+    public function getMillesimeReserveActive($ascending = true)
+    {
+        if ($this->exist('reserve_interpro_details')) {
+            $details = $this->_get('reserve_interpro_details')->toArray(true,false);
+            if ($ascending) {
+                ksort($details);
+            } else {
+                krsort($details);
+            }
+            foreach ($details as $millesime => $value) {
+                if (!$this->reserveInterproFutur($millesime)) {
+                    return $millesime;
+                }
+            }
+        }
+        return null;
     }
 
     public function reserveInterproFutur($millesime) {
@@ -424,7 +462,7 @@ class DRMCepage extends BaseDRMCepage {
     public function updateSuiviSortiesChais($millesime)
     {
         if ($this->hasCapaciteCommercialisationMillesime($millesime)) {
-            if ($this->isInReserveInterproPeriode($millesime)) {
+            if ($this->isInReserveInterproPeriode($millesime) && DRMConfiguration::getInstance()->getReserveInterproParamValue($this->getHash(), 'suivi_sorties_chais')) {
                 $periodeReserve = $this->getReserveInterproPeriode($millesime);
                 $periodeDrm = $this->getDocument()->getPeriode().'-01';
                 $volumeSortieChai = $this->getVolumeSortieChai();
@@ -448,6 +486,7 @@ class DRMCepage extends BaseDRMCepage {
 
     public function updateAutoReserveInterpro($reverse = false)
     {
+        $this->updateVolumeReserveEtReplis($reverse);
         foreach($this->getChildrenNode() as $key => $item) {
         	if ($item->interpro != 'INTERPRO-IR') {
         		return;
