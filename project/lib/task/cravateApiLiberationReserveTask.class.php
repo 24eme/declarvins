@@ -44,6 +44,9 @@ class cravateApiLiberationReserveTask extends sfBaseTask
         }
         $result = [];
         foreach ($submissions as $submission) {
+            if (strpos('-todelete', $submission) !== false) {
+                continue;
+            }
             if (in_array($submission, ['.', '..'])) {
                 continue;
             }
