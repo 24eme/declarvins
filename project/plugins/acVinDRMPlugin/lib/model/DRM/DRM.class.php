@@ -771,7 +771,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function storeReferente() {
-        if ($previous = $this->getMother()) {
+        $master = $this->getMaster();
+        if ($master && $master->referente && $master->_id != $this->_id && !$this->isNew()) {
+            return;
+        }
+        $previous = $this->getMother();
+        if ($previous && $previous->referente) {
             $previous->referente = 0;
             $previous->save();
         }
