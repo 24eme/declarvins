@@ -449,6 +449,12 @@ class drmActions extends sfActions {
         }
         $this->etablissement = $this->getRoute()->getEtablissement();
 
+        $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
+        $this->forward404Unless(!$this->historique->hasDRMInProcess());
+
+        $masterVersion = $this->drm->getMaster();
+        $this->forward404Unless($masterVersion->_id == $this->drm->_id);
+
         $this->drm->cleanCiel();
         $this->drm->devalide();
         $this->drm->save();
@@ -717,8 +723,10 @@ class drmActions extends sfActions {
     public function executeRectificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        $masterVersion = $drm->getMaster();
 
         $this->forward404Unless($drm->isRectifiable());
+        $this->forward404Unless($masterVersion->_id == $drm->_id);
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
@@ -739,8 +747,10 @@ class drmActions extends sfActions {
     public function executeModificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        $masterVersion = $drm->getMaster();
 
         $this->forward404Unless($drm->isModifiable());
+        $this->forward404Unless($masterVersion->_id == $drm->_id);
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
