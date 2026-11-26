@@ -650,10 +650,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->valide->identifiant = null;
         $this->valide->date_saisie = null;
         $this->valide->date_signee = null;
-    	  if ($this->hasVersion()) {
+    	if ($this->hasVersion() && $this->referente) {
+            $this->referente = 0;
         	if ($previous = $this->getMother()) {
-            	$previous->referente = 1;
-              $previous->save();
+                $previous->referente = 1;
+                $previous->save();
             }
         }
         $this->annuleUpdateVrac();
