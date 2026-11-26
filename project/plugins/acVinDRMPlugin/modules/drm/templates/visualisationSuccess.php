@@ -18,7 +18,7 @@
 <?php endif; ?>
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-        <?php if (!$hide_rectificative && !$drm->getHistorique()->hasDRMInProcess() && $drm->isRectifiable()): ?>
+        <?php if (!$hide_rectificative && !$historique->hasDRMInProcess() && $drm->isRectifiable() && $masterVersion->_id == $drm->_id): ?>
             <form method="get" action="<?php echo url_for('drm_rectificative', $drm) ?>">
                 <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
             </form>
@@ -34,7 +34,7 @@
             $interpro = ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? $sf_user->getCompte()->getGerantInterpro()->_id : null;
             $isFacture = $drm->isFactures($interpro);
         ?>
-            <?php if(!$isFacture && !$drm->isRectificative() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if(!$isFacture && !$drm->isRectificative() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$historique->hasDRMInProcess() && $masterVersion->_id == $drm->_id): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
             <?php endif; ?>
             <?php if($isFacture): ?>
@@ -177,7 +177,7 @@
         </div>
 
     </section>
-    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
+    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$historique->hasDRMInProcess() && $drm->isModifiable() && $masterVersion->_id == $drm->_id): ?>
         <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">
             <button style="float:left;" class="btn_passer_etape modificative" type="submit">Faire une DRM Modificative</button>
         </form>

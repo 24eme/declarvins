@@ -650,10 +650,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->valide->identifiant = null;
         $this->valide->date_saisie = null;
         $this->valide->date_signee = null;
-    	  if ($this->hasVersion()) {
+    	if ($this->hasVersion() && $this->referente) {
+            $this->referente = 0;
         	if ($previous = $this->getMother()) {
-            	$previous->referente = 1;
-              $previous->save();
+                $previous->referente = 1;
+                $previous->save();
             }
         }
         $this->annuleUpdateVrac();
@@ -770,7 +771,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function storeReferente() {
-        if ($previous = $this->getMother()) {
+        $master = $this->getMaster();
+        if ($master && $master->referente && $master->_id != $this->_id && !$this->isNew()) {
+            return;
+        }
+        $previous = $this->getMother();
+        if ($previous && $previous->referente) {
             $previous->referente = 0;
             $previous->save();
         }
