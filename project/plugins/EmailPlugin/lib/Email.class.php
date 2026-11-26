@@ -20,10 +20,10 @@ class Email {
     public function getTypeContrat($vrac) {
         $typeContrat = '';
         if ($vrac->isPluriannuel() && !$vrac->isAdossePluriannuel()) {
-            $typeContrat = ' cadre';
+            $typeContrat = ' CADRE';
         }
         if ($vrac->isPluriannuel() && $vrac->isAdossePluriannuel()) {
-            $typeContrat = ' d\'application';
+            $typeContrat = ' d\'Application';
         }
         return $typeContrat;
     }
