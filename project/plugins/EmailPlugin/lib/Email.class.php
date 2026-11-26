@@ -17,12 +17,24 @@ class Email {
 		return self::$_instance;
     }
 
+    public function getTypeContrat($vrac) {
+        $typeContrat = '';
+        if ($vrac->isPluriannuel() && !$vrac->isAdossePluriannuel()) {
+            $typeContrat = ' cadre';
+        }
+        if ($vrac->isPluriannuel() && $vrac->isAdossePluriannuel()) {
+            $typeContrat = ' d\'application';
+        }
+        return $typeContrat;
+    }
+
     public function vracSaisieTerminee($vrac, $etablissement, $destinataire)
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Confirmation de votre saisie d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+
+        $subject = 'Confirmation de votre saisie d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         if ($vrac->isRectificative()) {
         	$subject .= ' RECTIFIE';
         }
@@ -111,7 +123,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Validation du contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Validation du contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_contrat_valide', array('vrac' => $vrac, 'etablissement' => $etablissement));
 		$message = Swift_Message::newInstance()
   					->setFrom($from)
@@ -149,7 +161,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Modification d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Modification d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_contrat_modifie', array('vrac' => $vrac, 'etablissement' => $etablissement));
 		$message = Swift_Message::newInstance()
   					->setFrom($from)
@@ -167,7 +179,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Validation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Validation d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_contrat_valide_interpro', array('vrac' => $vrac));
 		$message = Swift_Message::newInstance()
   					->setFrom($from)
@@ -197,7 +209,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Annulation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Annulation d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_contrat_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -223,7 +235,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Demande d\'annulation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Demande d\'annulation d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         if ($vrac->isRectificative()) {
         	$subject .= ' RECTIFIE';
         }
@@ -255,7 +267,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Demande d\'annulation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Demande d\'annulation d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         if ($vrac->isRectificative()) {
         	$subject .= ' RECTIFIE';
         }
@@ -270,7 +282,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Relance : Demande de validation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Relance : Demande de validation d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_contrat_relance', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -282,7 +294,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Suppression d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true).' suite au dépassement du délai';
+        $subject = 'Suppression d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true).' suite au dépassement du délai';
         $body = $this->getBodyFromPartial('vrac_contrat_expiration', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -294,7 +306,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Suppression de l\'annulation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true).' suite au dépassement du délai';
+        $subject = 'Suppression de l\'annulation d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true).' suite au dépassement du délai';
         $body = $this->getBodyFromPartial('vrac_contrat_expiration_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -306,7 +318,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Relance : Demande du prix définitif d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $subject = 'Relance : Demande du prix définitif d\'un contrat interprofessionnel'.$this->getTypeContrat($vrac).' '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_determination_prix', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = Swift_Message::newInstance()
         ->setFrom($from)
