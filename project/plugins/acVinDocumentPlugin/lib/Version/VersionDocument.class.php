@@ -203,11 +203,10 @@ class VersionDocument
     }
 
     public function needNextVersion() {
+        if (!$this->document->getSuivante()) {
 
-    	if ($this->document->getSuivante()) {
-
-    		return true;
-    	}
+            return false;
+        }
 
         if($this->document->isModificative()) {
 
