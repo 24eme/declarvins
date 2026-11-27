@@ -64,7 +64,11 @@ EOF;
         }
 
         if ($filtreMillesime && $filtreMillesime != $millesime) {
-            echo "$millesime hors scope $filtreMillesime défini\n";
+            //echo "$millesime hors scope $filtreMillesime défini\n";
+            continue;
+        }
+
+        if (!$volume) {
             continue;
         }
 
