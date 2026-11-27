@@ -192,6 +192,15 @@ class DRMCepage extends BaseDRMCepage {
         return $volume;
     }
 
+    public function getVolumeSortiesDeclassement()
+    {
+        $volume = 0;
+        foreach ($this->getProduits() as $produit) {
+            $volume += $produit->sorties->declassement;
+        }
+        return $volume;
+    }
+
     public function getVolumeCommercialisable()
     {
         return $this->total - $this->getReserveInterpro();
@@ -279,6 +288,34 @@ class DRMCepage extends BaseDRMCepage {
         if ($this->exist('reserve_interpro_details') && ($millesime = $this->getMillesimeReserveActive(false))) {
             $volume = $this->_get('reserve_interpro_details')->get($millesime);
             $this->_get('reserve_interpro_details')->_set($millesime, round(($reverse)? ($volume - $volumeRepli) : ($volume + $volumeRepli), 5));
+        }
+        $this->updateVolumeReserveInterpro();
+    }
+
+    public function updateVolumeReserveEtDeclassement($reverse = false)
+    {
+        $volumeDeclassement = $this->getVolumeSortiesDeclassement();
+        if (!$volumeDeclassement) return;
+        if ($this->exist('reserve_interpro_details')) {
+            if ($reverse && ($millesime = $this->getMillesimeReserveActive(false))) {
+                $volume = $this->_get('reserve_interpro_details')->get($millesime);
+                $this->_get('reserve_interpro_details')->_set($millesime, round($volume + $volumeDeclassement, 5));
+                return;
+            }
+            $details = $this->_get('reserve_interpro_details')->toArray(true,false);
+            ksort($details);
+            foreach ($details as $millesime => $volume) {
+                if ($volumeDeclassement > 0 && !$this->reserveInterproFutur($millesime)) {
+                    $nouvelleReserve = round($volume - $volumeDeclassement, 5);
+                    if ($nouvelleReserve >= 0) {
+                        $this->_get('reserve_interpro_details')->_set($millesime, $nouvelleReserve);
+                        $volumeDeclassement = 0;
+                    } else {
+                        $this->_get('reserve_interpro_details')->_set($millesime, 0);
+                        $volumeDeclassement = $nouvelleReserve * -1;
+                    }
+                }
+            }
         }
         $this->updateVolumeReserveInterpro();
     }
@@ -487,11 +524,10 @@ class DRMCepage extends BaseDRMCepage {
     public function updateAutoReserveInterpro($reverse = false)
     {
         $this->updateVolumeReserveEtReplis($reverse);
-        foreach($this->getChildrenNode() as $key => $item) {
-        	if ($item->interpro != 'INTERPRO-IR') {
-        		return;
-        	}
+        if ($this->getInterpro() != 'INTERPRO-IR') {
+        	return;
         }
+        $this->updateVolumeReserveEtDeclassement($reverse);
         foreach($this->getReserveInterproMillesimes() as $millesime) {
             if ($this->isInReserveInterproPeriode($millesime)) {
                 $this->updateSuiviSortiesChais($millesime);
@@ -506,8 +542,6 @@ class DRMCepage extends BaseDRMCepage {
                         $drmPrecedente = $this->getDocument()->getPrecedente(true);
                         if ($drmPrecedente && !$drmPrecedente->isNew() && $drmPrecedente->exist($this->getHash()) && $drmPrecedente->get($this->getHash())->getReserveInterpro($millesime) > 0) {
                             $reserve = $drmPrecedente->get($this->getHash())->getReserveInterpro($millesime);
-                        } else {
-                            throw new sfException("reverse impossible a déterminé");
                         }
                     } else {
                         $reserve -= $deduction;
